@@ -1,9 +1,6 @@
-package entity;
+package com.quicksolve.proyecto.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -16,10 +13,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class WebPage {
+public class InvoiceLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String key;
+
+    private String name;
+    private double price;
+    private int tax;
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
 }

@@ -1,4 +1,4 @@
-package entity;
+package com.quicksolve.proyecto.entity;
 
 
 import jakarta.persistence.*;

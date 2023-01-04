@@ -1,4 +1,4 @@
-package entity;
+package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,11 +13,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Language {
+public class WebPageLanguage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique = true)
-    private String name;
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
+
+    @ManyToOne
+    @JoinColumn(name = "webpage_id")
+    private WebPage webPage;
+
 }

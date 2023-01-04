@@ -1,5 +1,4 @@
-package entity;
-
+package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,7 +15,7 @@ import org.hibernate.envers.Audited;
 @ToString
 @Entity
 @Audited
-public class DepartmentLanguage {
+public class SpaceLanguage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +27,7 @@ public class DepartmentLanguage {
     private Language language;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @JoinColumn(name = "space_id")
+    private Space space;
 
 }

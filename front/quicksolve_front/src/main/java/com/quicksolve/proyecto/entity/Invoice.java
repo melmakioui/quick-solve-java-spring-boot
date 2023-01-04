@@ -1,9 +1,14 @@
-package entity;
+package com.quicksolve.proyecto.entity;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.envers.Audited;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,20 +16,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
 @Audited
-public class UserData {
+@Entity
+public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private LocalDateTime dateHour;
     private String name;
     private String firstSurname;
     private String secondSurname;
-    private LocalDateTime created;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }

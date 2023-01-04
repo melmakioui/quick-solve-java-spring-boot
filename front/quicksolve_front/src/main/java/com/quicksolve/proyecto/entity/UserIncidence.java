@@ -1,4 +1,4 @@
-package entity;
+package com.quicksolve.proyecto.entity;
 
 
 import jakarta.persistence.*;
@@ -22,10 +22,10 @@ public class UserIncidence {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "tech_id")
     private User tech;
 
     @ManyToOne
-    @JoinColumn(name = "incidence_message_id")
-    private IncidenceMessage incidenceMessage;
+    @JoinColumn(name = "incidence_id")
+    private Incidence incidence;
 }

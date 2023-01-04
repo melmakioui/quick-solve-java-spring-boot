@@ -1,4 +1,4 @@
-package entity;
+package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,15 +17,15 @@ public class IncidenceMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String body;
-    private int order;
+    private int orderr;
     private LocalDateTime dateHour;
     private boolean isAction;
 
     @ManyToOne
-    @JoinColumn(name = "user_incidence_id")
+    @JoinColumn(name = "incidence_id")
     private UserIncidence incidence;
 
     @ManyToOne
-    @JoinColumn(name = "user_incidence_id")
+    @JoinColumn(name = "user_id")
     private UserIncidence user;
 }

@@ -1,6 +1,6 @@
-package entity;
+package com.quicksolve.proyecto.entity;
 
-import entity.type.UserType;
+import com.quicksolve.proyecto.entity.type.UserType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
