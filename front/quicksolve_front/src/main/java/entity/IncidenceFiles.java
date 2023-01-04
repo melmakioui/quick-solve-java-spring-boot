@@ -1,13 +1,12 @@
 package entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.envers.Audited;
 
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.envers.Audited;
 
 @Getter
 @Setter
@@ -15,12 +14,15 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Audited
-public class Department {
+public class IncidenceFiles {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "department")
-    private List<User> users;
+    private String filePath;
 
+    @ManyToOne
+    @JoinColumn(name = "incidence_id")
+    private Incidence incidence;
 }
