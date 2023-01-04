@@ -2,8 +2,9 @@ package entity;
 
 import entity.type.UserType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.envers.Audited;
@@ -11,7 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -38,6 +40,7 @@ public class User {
     private Service service;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<Invoice> invoices;
 
     @ManyToOne

@@ -3,28 +3,29 @@ package entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.envers.Audited;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Entity
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Entity
-@Audited
-public class UserData {
+
+public class UserIncidence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private String firstSurname;
-    private String secondSurname;
-    private LocalDateTime created;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User tech;
+
+    @ManyToOne
+    @JoinColumn(name = "incidence_message_id")
+    private IncidenceMessage incidenceMessage;
 }

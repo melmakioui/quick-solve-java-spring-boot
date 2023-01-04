@@ -16,18 +16,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Service {
+public class IncidenceState {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private double price;
-    private int tax;
-
-    public Service(String name, double price, int tax) {
-        this.name = name;
-        this.price = price;
-        this.tax = tax;
-    }
 }

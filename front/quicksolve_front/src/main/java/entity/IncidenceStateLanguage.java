@@ -1,6 +1,5 @@
 package entity;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,19 +15,18 @@ import org.hibernate.envers.Audited;
 @ToString
 @Entity
 @Audited
-public class DepartmentLanguage {
+public class IncidenceStateLanguage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
+    private String statusName;
 
     @ManyToOne
     @JoinColumn(name = "language_id")
     private Language language;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
-
+    @JoinColumn(name = "incidence_state_id")
+    private IncidenceState status;
 }
