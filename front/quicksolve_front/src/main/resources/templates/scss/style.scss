@@ -1,5 +1,26 @@
-$color: green;
 
-body{
-  color: $color;
-}
+// Funciones
+@import "node_modules/bootstrap/scss/functions";
+
+// Include any default variable overrides here
+
+// Variables
+@import "node_modules/bootstrap/scss/variables";
+
+// Include any default map overrides here
+
+// Mixins
+@import "node_modules/bootstrap/scss/maps";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/root";
+
+// Componentes
+@import "node_modules/bootstrap/scss/utilities";
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/containers";
+@import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/helpers";
+
+// Personalizado
