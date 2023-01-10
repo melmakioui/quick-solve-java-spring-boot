@@ -1,19 +1,17 @@
 package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 
-import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
+@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Audited
 public class Department {
     @Id
@@ -21,6 +19,6 @@ public class Department {
     private long id;
 
     @OneToMany(mappedBy = "department")
-    private List<User> users;
+    private Set<User> users;
 
 }

@@ -6,12 +6,11 @@ import lombok.*;
 import org.hibernate.envers.Audited;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Entity
+@Data
+@EqualsAndHashCode(exclude = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Entity
 @Audited
 public class UserData {
 

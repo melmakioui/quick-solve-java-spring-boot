@@ -2,19 +2,19 @@ package com.quicksolve.proyecto.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
+@Entity
+@Data
+@EqualsAndHashCode(exclude = {"incidenceState", "department"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Audited
 public class Incidence {
 
@@ -38,5 +38,5 @@ public class Incidence {
     private Department department;
 
     @OneToMany(mappedBy = "incidence")
-    private List<IncidenceFiles> incidenceFiles;
+    private Set<IncidenceFiles> incidenceFiles;
 }

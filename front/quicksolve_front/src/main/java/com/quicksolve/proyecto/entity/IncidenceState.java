@@ -4,20 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.envers.Audited;
 
-@Getter
-@Setter
+@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Audited
-@Entity
 public class IncidenceState {
 
     @Id

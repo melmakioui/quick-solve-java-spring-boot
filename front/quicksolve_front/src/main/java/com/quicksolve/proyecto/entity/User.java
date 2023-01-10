@@ -2,22 +2,17 @@ package com.quicksolve.proyecto.entity;
 
 import com.quicksolve.proyecto.entity.type.UserType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.envers.Audited;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
+@Entity
+@Data
+@EqualsAndHashCode(exclude = {"service", "department"})
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Entity
 @Audited
 public class User {
 
@@ -41,7 +36,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
-    private List<Invoice> invoices;
+    private Set<Invoice> invoices;
 
     @ManyToOne
     @JoinColumn(name = "department_id")

@@ -1,18 +1,13 @@
 package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@Setter
+@Entity
+@Data
+@EqualsAndHashCode(exclude = "invoice")
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Entity
 public class InvoiceLine {
 
     @Id

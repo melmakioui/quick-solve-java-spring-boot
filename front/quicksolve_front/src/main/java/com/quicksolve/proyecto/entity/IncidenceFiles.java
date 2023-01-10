@@ -2,17 +2,14 @@ package com.quicksolve.proyecto.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.envers.Audited;
 
-@Getter
-@Setter
+@Entity
+@Data
+@EqualsAndHashCode(exclude = "incidence")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Audited
 public class IncidenceFiles {
 

@@ -4,10 +4,9 @@ package com.quicksolve.proyecto.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
 @Entity
-@ToString
+@Data
+@EqualsAndHashCode(exclude = {"user", "tech", "incidence"})
 @AllArgsConstructor
 @NoArgsConstructor
 

@@ -2,19 +2,17 @@ package com.quicksolve.proyecto.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.envers.Audited;
 
-@Getter
-@Setter
+@Entity
+@Data
+@EqualsAndHashCode(exclude = {"language", "department"})
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Entity
 @Audited
 public class DepartmentLanguage {
 

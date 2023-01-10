@@ -5,10 +5,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @Entity
-@ToString
+@Data
+@EqualsAndHashCode(exclude = {"incidence", "user"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class IncidenceMessage {

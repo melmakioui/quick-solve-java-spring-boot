@@ -1,19 +1,14 @@
 package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.envers.Audited;
 
-@Getter
-@Setter
+@Entity
+@Data
+@EqualsAndHashCode(exclude = {"status", "language"})
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Entity
 @Audited
 public class IncidenceStateLanguage {
 
