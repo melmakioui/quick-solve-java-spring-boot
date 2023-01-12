@@ -1,12 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
     <title>Inicio</title>
 </head>
 <body>
-
+    <header th:insert="view/fragments/nav.html"></header>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-center align-items-center flex-column text-center vh-100">
+            <h2 class="display-2 mx-lg-5">Algun lema interesante cuando se me ocurra uno :)</h2>
+            <p class="lead">Un texto aditivo al lema de arriba para rimar.</p>
+            <a href="#" class="btn btn-secondary btn-lg rounded-pill m-lg-5 m-3 p-lg-4 p-2">Abrir una incidencia</a>
+            <p>
+                Quieres obtener las ventajas de abrir una cuenta?
+                <a href="#">Inicia sesión</a> o
+                <a href="#">registrate</a> ya.
+            </p>
+        </div>
+        <section id="scroll">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="" alt="" /></div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5">
+                            <h2 class="display-4">Lorem ipsummmmm texto interesante</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="" alt="" /></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">Mas texto interesante</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
 </html>
