@@ -21,4 +21,7 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private Set<User> users;
 
+    @OneToMany(mappedBy = "department")
+    private Set<DepartmentLanguage> departmentLanguage;
+
 }

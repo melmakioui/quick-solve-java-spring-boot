@@ -41,5 +41,4 @@ src/main/resources/application.properties
 
 ## Others ##
 /.mvn
-
-src/main/resources/templates/dist
+src/main/resources/static/dist
