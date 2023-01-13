@@ -1,0 +1,22 @@
+@import "variables";
+
+.current-page {
+  background-color: $secondary;
+  color: $dark;
+}
+
+a.nav-link:hover {
+  transition: all 0.3s;
+  background-color: $secondary;
+  color: $dark;
+}
+
+#user-icon {
+  background: $background-icon;
+  border-radius: 50%;
+}
+
+a.nav-link:hover #user-icon {
+  transition: all 0.3s;
+  background: lighten($background-icon, 50%);
+}

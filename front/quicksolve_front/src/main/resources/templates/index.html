@@ -6,43 +6,42 @@
     <link rel="stylesheet" th:href="@{css/style.css}">
     <title>Inicio</title>
 </head>
-<body>
-    <header th:insert="view/fragments/nav.html"></header>
-    <div class="container-fluid">
-        <div class="d-flex justify-content-center align-items-center flex-column text-center vh-100">
-            <h2 class="display-2 mx-lg-5">Algun lema interesante cuando se me ocurra uno :)</h2>
+<body class="custom-bg-1">
+    <th:block th:include="view/fragments/nav"></th:block>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center flex-column text-center vh-100 mx-2" style="max-width: 900px;">
+            <h2 class="display-2">Algun lema interesante cuando se me ocurra uno :)</h2>
             <p class="lead">Un texto aditivo al lema de arriba para rimar.</p>
-            <a href="#" class="btn btn-secondary btn-lg rounded-pill m-lg-5 m-3 p-lg-4 p-2">Abrir una incidencia</a>
+            <a href="#" class="btn btn-secondary btn-lg rounded-pill m-lg-5 m-3 p-lg-4 p-3">Abrir una incidencia</a>
             <p>
                 Quieres obtener las ventajas de abrir una cuenta?
-                <a href="#">Inicia sesión</a> o
                 <a href="#">registrate</a> ya.
             </p>
         </div>
-        <section id="scroll">
-            <div class="container px-5">
+        <section class="bg-white w-100">
+            <div class="container px-5 my-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 order-lg-2">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src="" alt="" /></div>
+                        <div class="p-2"><img class="img-fluid" th:src="@{img/advice-1-homepage.svg}" alt="chica mirando pantalla con aviso" /></div>
                     </div>
-                    <div class="col-lg-6 order-lg-1">
+                    <div class="col-lg-6 order-lg-1 border border-secondary rounded-4">
                         <div class="p-5">
-                            <h2 class="display-4">Lorem ipsummmmm texto interesante</h2>
+                            <h2 class="display-5 pb-2">Lorem ipsummmmm texto interesante</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section>
-            <div class="container px-5">
+        <section class="bg-white w-100">
+            <div class="container px-5 mb-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src="" alt="" /></div>
+                        <div class="p-2"><img class="img-fluid" th:src="@{img/advice-2-homepage.svg}" alt="chico enseñando un chat surrealista con iconos decorativos" /></div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 border border-secondary rounded-4">
                         <div class="p-5">
-                            <h2 class="display-4">Mas texto interesante</h2>
+                            <h2 class="display-5 pb-2">Mas texto interesante</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
                         </div>
                     </div>
@@ -50,5 +49,8 @@
             </div>
         </section>
     </div>
+    <th:block th:include="view/fragments/footer.html"></th:block>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 </body>
 </html>
