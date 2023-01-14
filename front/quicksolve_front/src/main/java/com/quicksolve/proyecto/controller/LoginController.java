@@ -12,4 +12,14 @@ public class LoginController {
     public String renderIndex(){
         return "index";
     }
+
+    @GetMapping("/login")
+    public String renderLogin(){
+        return "view/login";
+    }
+
+    @GetMapping("/registro")
+    public String renderRegistro(){
+        return "view/registro";
+    }
 }
