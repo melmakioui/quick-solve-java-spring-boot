@@ -8,6 +8,7 @@ public class IncidenceDTO {
     private String title;
     private String description;
     private String email;
+    private Long departmentId;
     private String department;
     private String status;
 }

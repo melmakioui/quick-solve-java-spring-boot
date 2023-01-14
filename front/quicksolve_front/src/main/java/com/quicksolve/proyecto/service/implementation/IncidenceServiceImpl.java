@@ -35,8 +35,9 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
-    public IncidenceDTO get(Long id) {
-        return convertToDTO(incidenceRepository.findById(id).get());
+    public Incidence findById(Long id) {
+        return incidenceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + id));
     }
 
     @Override
@@ -48,13 +49,13 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
-    public boolean delete(Incidence incidence) {
-        return false;
+    public void delete(Incidence incidence) {
+
     }
 
     @Override
-    public boolean update(Incidence incidence) {
-        return false;
+    public void update(Incidence incidence) {
+        incidenceRepository.save(incidence);
     }
 
     private IncidenceDTO convertToDTO(Incidence incidence) {

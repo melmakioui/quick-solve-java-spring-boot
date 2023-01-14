@@ -1,9 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.IncidenceDTO;
-import com.quicksolve.proyecto.entity.Department;
 import com.quicksolve.proyecto.entity.Incidence;
-import com.quicksolve.proyecto.service.DepartmentLanguageService;
 import com.quicksolve.proyecto.service.DepartmentService;
 import com.quicksolve.proyecto.service.IncidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +32,9 @@ public class IncidenceController {
 
     @GetMapping("/incidencia/modificar/{id}")
     public String showUpdateForm(@PathVariable long id, @ModelAttribute Incidence incidence, Model model) {
-        model.addAttribute("incidenceUpdate", incidenceService.get(id));
-        model.addAttribute("isUpdate", true);
-        return "incidenceForm";
+        model.addAttribute("departments", departmentService.list());
+        model.addAttribute("incidence", incidenceService.findById(id));
+        return "incidenceFormUpdate";
     }
 
     @GetMapping("/incidencias")
@@ -49,10 +47,10 @@ public class IncidenceController {
     @GetMapping("/incidencia/{id}")
     public String getIncidence(@PathVariable long id, Model model) {
 
-        IncidenceDTO incidenceDTO = incidenceService.get(id);
+        Incidence incidence = incidenceService.findById(id);
 
-        if (incidenceDTO != null) {
-            model.addAttribute("incidence", incidenceDTO);
+        if (incidence != null) {
+            model.addAttribute("incidence", incidence);
             return "incidence";
         }
         return "redirect:/incidencias";
@@ -64,9 +62,8 @@ public class IncidenceController {
         return "redirect:/incidencias";
     }
 
-    @PutMapping("/modificar/incidencia")
-    public String updateIncidence(@ModelAttribute Incidence incidence, Model model) {
-        model.addAttribute("incidence", incidence);
+    @PostMapping("/modificar/incidencia/{id}")
+    public String updateIncidence(@PathVariable("id") long id,@ModelAttribute Incidence incidence) {
         incidenceService.update(incidence);
         return "test";
     }

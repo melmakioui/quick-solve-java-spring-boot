@@ -9,8 +9,8 @@ import java.util.List;
 public interface IncidenceService {
 
     List<IncidenceDTO> list();
-    IncidenceDTO get(Long id);
+    Incidence findById(Long id);
     void save(Incidence incidence);
-    boolean delete(Incidence incidence);
-    boolean update(Incidence incidence);
+    void delete(Incidence incidence);
+    void update(Incidence incidence);
 }

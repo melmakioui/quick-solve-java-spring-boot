@@ -18,6 +18,7 @@ public interface IncidenceMapper {
     @Mapping(source = "incidence.title", target = "title")
     @Mapping(source = "incidence.description", target = "description")
     @Mapping(source = "incidence.email", target = "email")
+    @Mapping(source = "department.id", target = "departmentId")
     @Mapping(source = "department.name", target = "department")
     @Mapping(source = "incidenceStateLanguage.statusName", target = "status")
 
