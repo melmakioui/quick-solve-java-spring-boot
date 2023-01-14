@@ -34,7 +34,7 @@ public class Incidence {
     private IncidenceState incidenceState;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", nullable = true)
     private Department department;
 
     @OneToMany(mappedBy = "incidence")

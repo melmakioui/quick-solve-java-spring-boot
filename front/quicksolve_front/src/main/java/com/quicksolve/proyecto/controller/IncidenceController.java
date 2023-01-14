@@ -46,13 +46,14 @@ public class IncidenceController {
 
     @GetMapping("/incidencia/{id}")
     public String getIncidence(@PathVariable long id, Model model) {
-
         Incidence incidence = incidenceService.findById(id);
+        model.addAttribute("incidence", incidence);
+        return "incidence";
+    }
 
-        if (incidence != null) {
-            model.addAttribute("incidence", incidence);
-            return "incidence";
-        }
+    @GetMapping("/incidencia/eliminar/{id}")
+    public String deleteIncidence(@PathVariable long id) {
+        incidenceService.delete(incidenceService.findById(id));
         return "redirect:/incidencias";
     }
 
@@ -67,6 +68,4 @@ public class IncidenceController {
         incidenceService.update(incidence);
         return "test";
     }
-
-
 }

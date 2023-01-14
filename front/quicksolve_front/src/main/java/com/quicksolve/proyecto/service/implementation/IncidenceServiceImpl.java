@@ -42,6 +42,9 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public void save(Incidence incidence) {
+
+        if (incidence.getDepartment().getId() == 0) incidence.setDepartment(null);
+
         incidence.setDateStart(LocalDateTime.now());
         IncidenceState incidenceState = incidenceStateRepository.getReferenceById(1L); //Siempre tendra Waiting por default al insertar una incidencia
         incidence.setIncidenceState(incidenceState);
@@ -50,21 +53,26 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public void delete(Incidence incidence) {
-
+        incidenceRepository.findById(incidence.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + incidence.getId()));
+        incidenceRepository.delete(incidence);
     }
 
     @Override
     public void update(Incidence incidence) {
+
+        System.out.println(incidence.getId());
+        incidenceRepository.findById(incidence.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + incidence.getId()));
+
         incidenceRepository.save(incidence);
     }
 
     private IncidenceDTO convertToDTO(Incidence incidence) {
 
-        return IncidenceMapper.INSTANCE.incidenceDTO(incidence,
-                incidence.getDepartment().getDepartmentLanguage()
-                        .stream()
-                        .findFirst()
-                        .get(),
+        return IncidenceMapper.INSTANCE.incidenceDTO(incidence, //Mostrar tambien si el departamento es null
+                incidence.getDepartment() != null ? incidence.getDepartment()
+                        .getDepartmentLanguage().stream().findFirst().get() : null,
                 incidence.getIncidenceState().
                         getIncidenceStateLanguage()
                         .stream().findFirst().get());
