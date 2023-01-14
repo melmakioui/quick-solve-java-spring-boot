@@ -46,7 +46,7 @@ public class IncidenceServiceImpl implements IncidenceService {
         if (incidence.getDepartment().getId() == 0) incidence.setDepartment(null);
 
         incidence.setDateStart(LocalDateTime.now());
-        IncidenceState incidenceState = incidenceStateRepository.getReferenceById(1L); //Siempre tendra Waiting por default al insertar una incidencia
+        IncidenceState incidenceState = incidenceStateRepository.getReferenceById(1L); //Siempre tendra Waiting/En espera por default al insertar una incidencia
         incidence.setIncidenceState(incidenceState);
         incidenceRepository.save(incidence);
     }
