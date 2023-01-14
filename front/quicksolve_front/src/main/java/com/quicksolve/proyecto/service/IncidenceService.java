@@ -1,16 +1,16 @@
 package com.quicksolve.proyecto.service;
 
 import com.quicksolve.proyecto.dto.IncidenceDTO;
+import com.quicksolve.proyecto.entity.Incidence;
 
 import java.util.List;
-import java.util.Set;
 
 
 public interface IncidenceService {
 
     List<IncidenceDTO> list();
     IncidenceDTO get(Long id);
-    boolean save(IncidenceDTO incidenceDTO);
-    boolean delete(IncidenceDTO incidenceDTO);
-    boolean update(IncidenceDTO incidenceDTO);
+    void save(Incidence incidence);
+    boolean delete(Incidence incidence);
+    boolean update(Incidence incidence);
 }

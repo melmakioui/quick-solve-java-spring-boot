@@ -1,5 +1,6 @@
 package com.quicksolve.proyecto.mapper;
 
+import com.quicksolve.proyecto.dto.DepartmentDTO;
 import com.quicksolve.proyecto.dto.IncidenceDTO;
 import com.quicksolve.proyecto.entity.DepartmentLanguage;
 import com.quicksolve.proyecto.entity.Incidence;
@@ -24,4 +25,7 @@ public interface IncidenceMapper {
                                DepartmentLanguage department,
                                IncidenceStateLanguage incidenceStateLanguage);
 
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "name" ,target = "name")
+    DepartmentDTO departmentDTO (DepartmentLanguage departmentLanguage);
 }
