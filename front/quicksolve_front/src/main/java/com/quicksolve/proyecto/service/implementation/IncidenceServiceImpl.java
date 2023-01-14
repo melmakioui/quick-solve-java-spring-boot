@@ -35,7 +35,12 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
-    public Incidence findById(Long id) {
+    public IncidenceDTO findByIdDTO(long id) {
+        return convertToDTO(incidenceRepository.findById(id).get());
+    }
+
+    @Override
+    public Incidence findById(long id) {
         return incidenceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + id));
     }
@@ -52,20 +57,40 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
-    public void delete(Incidence incidence) {
-        incidenceRepository.findById(incidence.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + incidence.getId()));
-        incidenceRepository.delete(incidence);
+    public void delete(long id) {
+
+        long idDelete = incidenceRepository.findById(id)
+                .orElseThrow( () -> new IllegalArgumentException("Incidence does not exist" + id)).getIncidenceState().getId();
+
+        if (idDelete > 1L)  //Para que no eliminen alguna en estado solucionando, solucionado o cancelado
+            throw new IllegalArgumentException("Status of the incidence does not allow deletion");
+
+        if (incidenceRepository.existsById(id)) {
+            incidenceRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Incidence does not exist");
+        }
     }
 
     @Override
-    public void update(Incidence incidence) {
+    public void update(Incidence incidence, long id) {
 
-        System.out.println(incidence.getId());
+        long idDelete = incidenceRepository.findById(incidence.getId())
+                .orElseThrow( () -> new IllegalArgumentException("Incidence does not exist")).getIncidenceState().getId();
+
+        if (idDelete > 1L)  //Para que no modifiquen alguna en estado solucionando, solucionado o cancelado
+            throw new IllegalArgumentException("Incidence does not exist");
+
         incidenceRepository.findById(incidence.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + incidence.getId()));
 
-        incidenceRepository.save(incidence);
+        Incidence updateIncidence = incidenceRepository.findById(id).get();
+
+        updateIncidence.setTitle(incidence.getTitle());
+        updateIncidence.setDescription(incidence.getDescription());
+        updateIncidence.setDepartment(incidence.getDepartment());
+
+        incidenceRepository.save(updateIncidence);
     }
 
     private IncidenceDTO convertToDTO(Incidence incidence) {

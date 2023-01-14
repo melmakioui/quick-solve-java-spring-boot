@@ -46,16 +46,15 @@ public class IncidenceController {
         return "incidences";
     }
 
-    @GetMapping("/incidencia/{id}")
+/*    @GetMapping("/incidencia/{id}")
     public String showIncidence(@PathVariable long id, Model model) {
-        Incidence incidence = incidenceService.findById(id);
-        model.addAttribute("incidence", incidence);
+        model.addAttribute("incidence", incidenceService.findByIdDTO(id));
         return "incidence";
-    }
+    }*/
 
     @GetMapping("/incidencia/eliminar/{id}")
     public String deleteIncidence(@PathVariable long id) {
-        incidenceService.delete(incidenceService.findById(id));
+        incidenceService.delete(id);
         return "redirect:/incidencias";
     }
 
@@ -73,8 +72,8 @@ public class IncidenceController {
         return "redirect:/incidencias";
     }
 
-    @PostMapping("/modificar/incidencia")
-    public String updateIncidence(@Valid Incidence incidence, BindingResult bindingResult, Model model) {
+    @PostMapping("/modificar/incidencia/{id}")
+    public String updateIncidence(@PathVariable("id") long id, @Valid Incidence incidence, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
@@ -82,7 +81,7 @@ public class IncidenceController {
             return "incidenceFormUpdate";
         }
 
-        incidenceService.update(incidence);
+        incidenceService.update(incidence,id);
         return "redirect:/incidencias";
     }
 }
