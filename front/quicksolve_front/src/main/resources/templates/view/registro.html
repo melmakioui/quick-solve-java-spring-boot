@@ -14,31 +14,33 @@
         <div class="col-lg-6 offset-lg-3 mt-5">
             <h2 class="text-center text-dark my-5">Registro</h2>
             <div class="card rounded-4">
-                <form class="card-body bg-primary p-lg-5 pt-5 rounded-4">
+                <form class="card-body bg-primary p-lg-5 pt-5 rounded-4" th:action="@{/registro}" method="POST" th:object="${user}">
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="username" placeholder="Nombre de usuario">
+                        <input type="text" class="form-control" id="username" placeholder="Nombre de usuario" th:field="*{username}">
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="Nombre">
+                        <input type="text" class="form-control" id="name" placeholder="Nombre" name="name">
                     </div>
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <input type="text" class="form-control" id="firstsurname" placeholder="Primer apellido">
+                            <input type="text" class="form-control" id="firstsurname" placeholder="Primer apellido" name="firstSurname">
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <input type="text" class="form-control" id="secondsurname" placeholder="Segundo apellido (opcional)">
+                            <input type="text" class="form-control" id="secondsurname" placeholder="Segundo apellido (opcional)" name="secondSurname">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="Correo Electrónico">
+                        <input type="text" class="form-control" id="email" placeholder="Correo Electrónico" th:field="*{email}">
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control" id="password" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña" th:field="*{password}">
                     </div>
                     <div class="mb-3">
                         <input type="password" class="form-control" id="confirmpassword" placeholder="Vuelva a escribir la contraseña">
                     </div>
-                    <div class="text-center"><button type="submit" class="btn btn-secondary px-5 mb-5 w-100">Crear cuenta</button></div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-secondary px-5 mb-5 w-100">Crear cuenta</button>
+                    </div>
                     <div class="form-text text-center mb-5 text-texto-contraste">
                         Ya estas registrado?
                         <a th:href="@{/login}" class="text-texto-contraste fw-bold text-decoration-none"> Inicia sesión</a>

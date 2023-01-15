@@ -26,4 +26,11 @@ public class UserData {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public UserData(String name, String firstSurname, String secondSurname, LocalDateTime created, User user) {
+        this.name = name;
+        this.firstSurname = firstSurname;
+        this.secondSurname = secondSurname;
+        this.created = created;
+        this.user = user;
+    }
 }

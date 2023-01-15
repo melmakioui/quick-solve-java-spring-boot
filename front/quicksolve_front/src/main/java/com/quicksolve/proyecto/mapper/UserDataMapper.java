@@ -13,6 +13,7 @@ public interface UserDataMapper {
 
     @Mapping(source = "user.id", target = "id")
     @Mapping(source = "user.username", target = "username")
+    @Mapping(source = "user.email", target = "email")
     @Mapping(source = "user.type", target = "type")
     @Mapping(source = "user.active", target = "active")
     @Mapping(source = "user.service", target = "service")

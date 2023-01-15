@@ -17,8 +17,9 @@ public class UserService {
     @Autowired
     private UserDataRepository userDataRepo;
 
-    public void createUser(User usr){
+    public void createUser(User usr, UserData userData){
         userRepo.save(usr);
+        userDataRepo.save(userData);
     }
 
     public User getUser(Long id){

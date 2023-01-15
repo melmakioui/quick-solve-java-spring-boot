@@ -1,12 +1,17 @@
 package com.quicksolve.proyecto.controller;
 
+import com.quicksolve.proyecto.entity.User;
+import com.quicksolve.proyecto.entity.UserData;
+import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 
 @Controller
 @RequestMapping("/")
@@ -26,20 +31,30 @@ public class LoginController {
     }
 
     @GetMapping("/registro")
-    public String renderRegistro(){
+    public String renderRegister(Model model){
+        User user = new User();
+        model.addAttribute("user", user);
         return "view/registro";
     }
 
-    @GetMapping("/user/{id}")
-    public void viewUser(@PathVariable Long id){
-        System.out.println(userService.getFullUser(id));
+    @PostMapping("/registro")
+    public String registerUser(
+            @ModelAttribute User user,
+            @RequestParam("name") String name,
+            @RequestParam("firstSurname") String firstSurname,
+            @RequestParam("secondSurname") String secondSurname
+    ){
+        user.setActive(true);
+        user.setType(UserType.USER);
+        UserData data = new UserData(
+                name,
+                firstSurname,
+                secondSurname,
+                LocalDateTime.now(),
+                user
+        );
+
+        userService.createUser(user, data);
+        return "index"; //TODO devolver a "mis incidencias con el usuario ya iniciado sesión, para mejor UX."
     }
-
-    /*
-
-INSERT INTO `user` (`id`, `is_active`, `password`, `type`, `username`, `department_id`, `service_id`) VALUES ('1', b'1', 'qwewqeeqw', '1', 'pepexx222', NULL, NULL);
-    INSERT INTO `user_data` (`id`, `created`, `first_surname`, `name`, `second_surname`, `user_id`) VALUES ('1', '2023-01-15 12:26:08.000000', 'juan', 'pepe', 'morales', '1');
-
-
-    */
 }

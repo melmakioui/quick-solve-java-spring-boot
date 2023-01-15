@@ -13,6 +13,7 @@ import java.util.Set;
 public class FullUserDTO {
     private long id;
     private String username;
+    private String email;
     private UserType type;
     private boolean active;
     private Service service;
