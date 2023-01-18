@@ -28,7 +28,4 @@ public interface IncidenceMapper {
                                DepartmentLanguage department,
                                IncidenceStateLanguage incidenceStateLanguage);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name" ,target = "name")
-    DepartmentDTO departmentDTO (DepartmentLanguage departmentLanguage);
 }

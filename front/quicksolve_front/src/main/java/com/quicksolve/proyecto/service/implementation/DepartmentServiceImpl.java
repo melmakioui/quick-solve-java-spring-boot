@@ -2,6 +2,7 @@ package com.quicksolve.proyecto.service.implementation;
 
 import com.quicksolve.proyecto.dto.DepartmentDTO;
 import com.quicksolve.proyecto.entity.Department;
+import com.quicksolve.proyecto.mapper.DepartmentMapper;
 import com.quicksolve.proyecto.mapper.IncidenceMapper;
 import com.quicksolve.proyecto.repository.DepartmentRepository;
 import com.quicksolve.proyecto.service.DepartmentService;
@@ -25,7 +26,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     public DepartmentDTO convertToDTO(Department department) {
-        return IncidenceMapper.INSTANCE.departmentDTO(department.getDepartmentLanguage()
+        return DepartmentMapper.INSTANCE.departmentDTO(department.getDepartmentLanguage()
                 .stream().filter(x->x.getLanguage().getId() == 1)//Donde idioma x sea igual a el idioma del usuario
                 .findFirst()
                 .get());

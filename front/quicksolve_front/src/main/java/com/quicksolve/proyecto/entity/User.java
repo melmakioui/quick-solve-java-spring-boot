@@ -2,6 +2,8 @@ package com.quicksolve.proyecto.entity;
 
 import com.quicksolve.proyecto.entity.type.UserType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.envers.Audited;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +24,11 @@ public class User {
 
     @Column(unique = true)
     private String username;
+
+    @Email
     private String email;
+
+    @NotBlank
     private String password;
 
     @Enumerated(EnumType.ORDINAL)
