@@ -1,9 +1,11 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.IncidenceDTO;
+import com.quicksolve.proyecto.dto.IncidenceDepartmentDTO;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.service.DepartmentService;
 import com.quicksolve.proyecto.service.IncidenceService;
+import com.quicksolve.proyecto.service.SpaceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,17 +20,20 @@ public class IncidenceController {
 
     private final IncidenceService incidenceService;
     private final DepartmentService departmentService;
+    private final SpaceService spaceService;
 
     @Autowired
-    public IncidenceController(IncidenceService incidenceService, DepartmentService departmentService) {
+    public IncidenceController(IncidenceService incidenceService, DepartmentService departmentService, SpaceService spaceService) {
         this.incidenceService = incidenceService;
         this.departmentService = departmentService;
+        this.spaceService = spaceService;
     }
 
     @GetMapping("/incidencia/nueva")
     public String showForm(Model model) {
+        //model.addAttribute("spaces", spaceRepository.list());
         model.addAttribute("departments", departmentService.list());
-        model.addAttribute("incidence", new Incidence());
+        model.addAttribute("incidence", new IncidenceDepartmentDTO());
         return "view/incidenceForm";
     }
 
@@ -41,6 +46,8 @@ public class IncidenceController {
 
     @GetMapping("/incidencias")
     public String showIncidences(Model model) {
+
+        System.out.println(spaceService.getAllSpaces());
         List<IncidenceDTO> incidenceDTOS = incidenceService.list();
         model.addAttribute("incidences", incidenceDTOS);
         return "view/incidences";
