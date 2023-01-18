@@ -4,8 +4,8 @@ import com.quicksolve.proyecto.entity.type.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.envers.Audited;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Set;
@@ -15,7 +15,6 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"service", "department"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class User {
 
     @Id
@@ -25,16 +24,17 @@ public class User {
     @Column(unique = true)
     private String username;
 
-    @Email
+    @Email(message = "El email debe ser valido")
+    @Size(message = "El email debe tener entre 3 y 50 caracteres", min = 3, max = 50)
     private String email;
 
     @NotBlank
     private String password;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private UserType type;
 
-    @Value("true")
+    @Column(columnDefinition = "boolean default false")
     private boolean isActive;
 
     @ManyToOne

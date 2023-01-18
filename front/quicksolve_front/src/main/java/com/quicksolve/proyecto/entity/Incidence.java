@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.envers.Audited;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -18,7 +17,6 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"incidenceState", "department"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class Incidence {
 
     @Id
@@ -49,4 +47,8 @@ public class Incidence {
 
     @OneToMany(mappedBy = "incidence")
     private Set<IncidenceFiles> incidenceFiles;
+
+    @OneToOne
+    @JoinColumn(name = "space_id")
+    private Space space;
 }

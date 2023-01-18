@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
 import java.util.Set;
 
 @Entity
@@ -13,7 +12,6 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

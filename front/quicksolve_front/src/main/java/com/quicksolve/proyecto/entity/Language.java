@@ -2,13 +2,11 @@ package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.envers.Audited;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class Language {
 
     @Id
