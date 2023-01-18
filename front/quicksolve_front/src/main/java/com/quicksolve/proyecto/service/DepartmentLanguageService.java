@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface DepartmentLanguageService {
 
-    List<DepartmentLanguage> list(Long idLang);
+    List<DepartmentLanguage> list(Long idDepartment, Long idLanguage);
 }
 
