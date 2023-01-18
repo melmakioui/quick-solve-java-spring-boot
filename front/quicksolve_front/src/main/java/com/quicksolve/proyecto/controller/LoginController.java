@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 
@@ -53,7 +52,6 @@ public class LoginController {
             model.addAttribute("user", user);
             return "view/registro";
         }
-        //user.setActive(true);
         user.setType(UserType.USER);
         UserData data = new UserData(
                 name,

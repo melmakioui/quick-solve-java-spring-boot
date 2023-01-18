@@ -22,13 +22,15 @@ public class User {
     private long id;
 
     @Column(unique = true)
+    @NotBlank(message = "El nombre de usuario es obligatorio")
     private String username;
 
     @Email(message = "El email debe ser valido")
     @Size(message = "El email debe tener entre 3 y 50 caracteres", min = 3, max = 50)
+    @NotBlank(message = "El email es obligatorio")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "La contraseña es obligatoria")
     private String password;
 
     @Enumerated(EnumType.STRING)

@@ -27,8 +27,6 @@ public class Incidence {
     @NotBlank(message = "El campo no puede estar vacio")
     private String title;
     @Column(columnDefinition = "TEXT")
-
-
     @Size(min = 10, message = "El campo debe tener al menos 10 caracteres")
     @NotBlank(message = "El campo no puede estar vacio")
     private String description;
