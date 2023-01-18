@@ -11,6 +11,7 @@ public interface SpaceLanguageRepository extends JpaRepository<SpaceLanguage, Lo
 
     List<SpaceLanguage> findAllBySpaceId(Long languageId);
     List<SpaceLanguage> findAllByLanguageId(Long languageId);
+    SpaceLanguage findBySpaceIdAndLanguageId(Long spaceId, Long languageId);
     List<SpaceLanguage> findAllBySpaceIdAndLanguageId(Long spaceId, Long languageId);
 
 }

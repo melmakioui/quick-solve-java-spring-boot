@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class SpaceDTO {
     private long id;
+    private String name;
 }

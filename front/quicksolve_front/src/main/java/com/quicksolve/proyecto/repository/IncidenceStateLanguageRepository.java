@@ -11,4 +11,5 @@ public interface IncidenceStateLanguageRepository extends JpaRepository<Incidenc
 
     List<IncidenceStateLanguage> findAllByLanguageId(Long languageId);
     List<IncidenceStateLanguage> findAllByStatusIdAndLanguageId(Long languageId, Long statusId);
+    IncidenceStateLanguage findByStatusIdAndLanguageId(Long languageId, Long statusId);
 }

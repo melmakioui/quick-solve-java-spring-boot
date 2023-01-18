@@ -2,34 +2,58 @@ package com.quicksolve.proyecto.service.implementation;
 
 import com.quicksolve.proyecto.dto.DepartmentDTO;
 import com.quicksolve.proyecto.entity.Department;
+import com.quicksolve.proyecto.entity.DepartmentLanguage;
 import com.quicksolve.proyecto.mapper.DepartmentMapper;
-import com.quicksolve.proyecto.mapper.IncidenceMapper;
+import com.quicksolve.proyecto.repository.DepartmentLanguageRepository;
 import com.quicksolve.proyecto.repository.DepartmentRepository;
+import com.quicksolve.proyecto.repository.IncidenceStateLanguageRepository;
 import com.quicksolve.proyecto.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    @Autowired
+    private final Long ESPANOL_LANGUAGE_ID = 1L;
+    private final Long ENGLISH_LANGUAGE_ID = 2L;
+
+
     private DepartmentRepository departmentRepository;
+    private DepartmentLanguageRepository departmentLanguageRepository;
+
+    @Autowired
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository, DepartmentLanguageRepository departmentLanguageRepository) {
+        this.departmentRepository = departmentRepository;
+        this.departmentLanguageRepository = departmentLanguageRepository;
+    }
 
     @Override
     public List<DepartmentDTO> list() {
+
+        List<Department> departments = departmentRepository.findAll();
+
+        if (departments.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         return departmentRepository.findAll()
                 .stream().map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
     public DepartmentDTO convertToDTO(Department department) {
-        return DepartmentMapper.INSTANCE.departmentDTO(department.getDepartmentLanguage()
-                .stream().filter(x->x.getLanguage().getId() == 1)//Donde idioma x sea igual a el idioma del usuario
-                .findFirst()
-                .get());
+        DepartmentLanguage departmentLanguage = departmentLanguageRepository.findByDepartmentIdAndLanguageId(
+                department.getId(),
+                ESPANOL_LANGUAGE_ID
+        );
+
+        //Handle Null
+        return DepartmentMapper.INSTANCE.departmentDTO(departmentLanguage);
     }
 
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SpaceService {
 
-    List<SpaceDTO> getAllSpaces();
+    List<SpaceDTO> list();
 }
