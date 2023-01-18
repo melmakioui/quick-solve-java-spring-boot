@@ -2,7 +2,6 @@ package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.envers.Audited;
 
 import java.util.Set;
 
@@ -10,7 +9,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class IncidenceState {
 
     @Id

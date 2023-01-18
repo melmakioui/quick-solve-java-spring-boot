@@ -1,0 +1,67 @@
+<div th:fragment="sidebar" id="sidebar" class=" d-flex flex-column p-2 bg-dark"
+     style="min-width: 280px; max-width: 280px; position: sticky; top: 96px;  z-index: 777; height: calc(100vh - 96px);">
+
+    <ul class="nav nav-pills flex-column mb-3">
+        <li class="nav-item">
+            <a href="#" class="nav-link link-texto-contraste p-3 mb-1" aria-current="page">
+                Incidencias (solo tech)
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link link-texto-contraste p-3 mb-1" aria-current="page">
+                Nueva Incidencia
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-texto-contraste p-3 mb-1 active">
+                Mis Incidencias
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-texto-contraste p-3 mb-1">
+                Configuracion de cuenta
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-texto-contraste p-3 mb-1">
+                Cancelar un plan
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-texto-contraste p-3">
+                Ejemplo de link
+            </a>
+        </li>
+    </ul>
+
+
+    <div id="card" class="card text-center text-light mb-auto mx-auto mt-2"
+         style="background-color: rgb(35, 102, 153); width: 90%;">
+        <div class="card-body">
+            <h5 class="card-title">Respuestas rapidas?</h5>
+            <p class="card-text">Adquiere un plan premium para respuestas rapidas.</p>
+            <div class="d-flex flex-column align-items-center">
+                <a id="plans-btn" href="#" style="background-color: rgb(255, 153, 0) !important;"
+                   class="btn text-light">VER PLANES</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="useractions" class="dropdown p-2">
+        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong class="text-light">mdo</strong>
+        </a>
+        <ul class="dropdown-menu text-small shadow">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+    </div>
+</div>

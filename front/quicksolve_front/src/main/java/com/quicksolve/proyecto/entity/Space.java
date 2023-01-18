@@ -1,21 +1,20 @@
 package com.quicksolve.proyecto.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.envers.Audited;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = {"incidence"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class Space {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @OneToOne
+    @JoinColumn(name = "incidence_id")
+    private Incidence incidence;
 }

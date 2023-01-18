@@ -2,14 +2,12 @@ package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.envers.Audited;
 
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"language", "space"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class SpaceLanguage {
 
     @Id

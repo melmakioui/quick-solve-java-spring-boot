@@ -2,14 +2,12 @@ package com.quicksolve.proyecto.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.envers.Audited;
 
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"status", "language"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class IncidenceStateLanguage {
 
     @Id

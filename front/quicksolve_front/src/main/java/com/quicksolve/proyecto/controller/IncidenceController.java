@@ -29,27 +29,27 @@ public class IncidenceController {
     public String showForm(Model model) {
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("incidence", new Incidence());
-        return "incidenceForm";
+        return "view/incidenceForm";
     }
 
     @GetMapping("/incidencia/modificar/{id}")
     public String showUpdateForm(@PathVariable long id, @ModelAttribute Incidence incidence, Model model) {
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("incidence", incidenceService.findById(id));
-        return "incidenceFormUpdate";
+        return "view/incidenceFormUpdate";
     }
 
     @GetMapping("/incidencias")
     public String showIncidences(Model model) {
         List<IncidenceDTO> incidenceDTOS = incidenceService.list();
         model.addAttribute("incidences", incidenceDTOS);
-        return "incidences";
+        return "view/incidences";
     }
 
 /*    @GetMapping("/incidencia/{id}")
     public String showIncidence(@PathVariable long id, Model model) {
         model.addAttribute("incidence", incidenceService.findByIdDTO(id));
-        return "incidence";
+        return "view/incidence";
     }*/
 
     @GetMapping("/incidencia/eliminar/{id}")
@@ -64,7 +64,7 @@ public class IncidenceController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", incidence);
-            return "incidenceForm";
+            return "view/incidenceForm";
         }
 
         incidenceService.save(incidence);
@@ -78,7 +78,7 @@ public class IncidenceController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", incidence);
-            return "incidenceFormUpdate";
+            return "view/incidenceFormUpdate";
         }
 
         incidenceService.update(incidence,id);

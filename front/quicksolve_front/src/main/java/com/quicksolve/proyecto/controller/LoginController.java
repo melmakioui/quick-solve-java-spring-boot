@@ -4,9 +4,11 @@ import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -39,12 +41,19 @@ public class LoginController {
 
     @PostMapping("/registro")
     public String registerUser(
-            @ModelAttribute User user,
+            @Valid User user,
+            BindingResult bindingResult,
             @RequestParam("name") String name,
             @RequestParam("firstSurname") String firstSurname,
-            @RequestParam("secondSurname") String secondSurname
+            @RequestParam("secondSurname") String secondSurname,
+            Model model
     ){
-        user.setActive(true);
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("user", user);
+            return "view/registro";
+        }
+        //user.setActive(true);
         user.setType(UserType.USER);
         UserData data = new UserData(
                 name,

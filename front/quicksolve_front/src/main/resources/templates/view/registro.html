@@ -30,7 +30,8 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="Correo Electrónico" th:field="*{email}">
+                        <input type="text" class="form-control" id="email" placeholder="Correo Electrónico" th:field="*{email}" name="email">
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                     </div>
                     <div class="mb-3">
                         <input type="password" class="form-control" id="password" placeholder="Contraseña" th:field="*{password}">

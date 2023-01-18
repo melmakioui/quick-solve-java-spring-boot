@@ -7,76 +7,35 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Simple Sidebar - Start Bootstrap Template</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
+<style>
+    li a:hover {
+        background-color: rgb(255, 153, 0) !important;
+        color: rgb(46, 46, 46) !important;
+    }
+
+    /*personalizado*/
+    .sidebar-hide {
+        margin-left: -280px;
+    }
+</style>
+
 
 <body>
 
-<!--SCSS Provisional-->
-<style>
-    #wrapper {
-        overflow-x: hidden;
-    }
+<th:block th:include="view/fragments/nav"></th:block>
 
-    #sidebar-wrapper {
-        min-height: 100vh;
-        margin-left: -15rem;
-        transition: margin 0.25s ease-out;
-    }
 
-    #sidebar-wrapper .sidebar-heading {
-        padding: 0.875rem 1.25rem;
-        font-size: 1.2rem;
-    }
+<main class="d-flex flex-nowrap" style="transition: 0.5s;">
 
-    #sidebar-wrapper .list-group {
-        width: 15rem;
-    }
+    <th:block th:include="view/fragments/sidebar"></th:block>
 
-    #page-content-wrapper {
-        min-width: 100vw;
-    }
+    <div id="page-content-wrapper" class="m-4  mx-4 mt-4 mb-0">
 
-    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
-        margin-left: 0;
-    }
-
-    @media (min-width: 768px) {
-        #sidebar-wrapper {
-            margin-left: 0;
-        }
-
-        #page-content-wrapper {
-            min-width: 0;
-            width: 100%;
-        }
-
-        body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
-            margin-left: -15rem;
-        }
-    }
-</style>
-</header>
-<div class="d-flex" id="wrapper">
-    <!-- Sidebar-->
-    <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom bg-light">Quick Solve</div>
-        <div class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Ejemplo</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Ejemplo</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Ejemplo</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Ejemplo</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Ejemplo</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Ejemplo</a>
-        </div>
-    </div>
-
-    <!-- Page content wrapper-->
-    <div id="page-content-wrapper">
-
-        <div class="container-fluid ">
-            <button class="btn btn-primary" id="sidebarToggle"> <i class="bi bi-list"></i></button>
+        <div class="container-fluid">
+            <button id="sidebarToggle">Toggle Sidebar</button>
 
             <h1 class="mt-4">Mis Incidencias</h1>
 
@@ -177,6 +136,7 @@
                                 </div>
                             </div>
 
+                            <h1>No disponibles :D</h1>
                         </div>
                     </div>
                 </div>
@@ -201,6 +161,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <h1>No disponibles :D</h1>
                         </div>
                     </div>
                 </div>
@@ -208,28 +170,36 @@
 
         </div>
     </div>
-</div>
+    </div>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</main>
+
+
+    <!-- Page content wrapper-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
+        integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 
 <script>
 
-    //Pasar a Jquery mas adelante
-    window.addEventListener('DOMContentLoaded', event => {
+    var sidbarToggleBtn = $('#sidebarToggle');
+    var main = $('main');
+    var smallWith = 768;
 
-        const sidebarToggle = document.body.querySelector('#sidebarToggle');
-        if (sidebarToggle) {
-
-            sidebarToggle.addEventListener('click', event => {
-                event.preventDefault();
-                document.body.classList.toggle('sb-sidenav-toggled');
-            });
-        }
-
+    sidbarToggleBtn.on('click', function () {
+       main.toggleClass('sidebar-hide');
     });
+
+    $(window).on('resize', function () {
+        if ($(window).width() < smallWith ) main.addClass('sidebar-hide');
+        else main.removeClass('sidebar-hide');
+    });
+
 </script>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- JS para toogle-->
-<script src="js/scripts.js"></script>
 </body>
 
 </html>
