@@ -35,72 +35,30 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
-    public IncidenceDTO findByIdDTO(long id) {
-        //convertToDTO(incidenceRepository.findById(id).get());
-        return null;
+    public FullIncidenceDTO findById(long id) {
+        Incidence incidence =  incidenceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
+        return convertToDTO(incidence);
     }
 
     @Override
-    public Incidence findById(long id) {
-        return incidenceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + id));
-    }
-
-    @Override
-    public void save(Incidence incidence) {
-
-        if (incidence.getDepartment().getId() == 0) incidence.setDepartment(null);
-
-        incidence.setDateStart(LocalDateTime.now());
-        IncidenceState incidenceState = incidenceStateRepository.getReferenceById(1L); //Siempre tendra Waiting/En espera por default al insertar una incidencia
-        incidence.setIncidenceState(incidenceState);
-        incidenceRepository.save(incidence);
-    }
-
-    @Override
-    public void saveTest(FullIncidenceDTO incidenceDepartmentDTO) {
-        Incidence incidence = IncidenceMapper.INSTANCE.DTOtoIncidence(incidenceDepartmentDTO);
+    public void save(FullIncidenceDTO fullIncidenceDTO) {
+        Incidence incidence = IncidenceMapper.INSTANCE.DTOtoIncidence(fullIncidenceDTO);
         incidence.setDateStart(LocalDateTime.now());
         IncidenceState waitingState = incidenceStateRepository.getReferenceById(INCIDENCE_WAITING_STATE);
         incidence.setIncidenceState(waitingState);
         incidenceRepository.save(incidence);
     }
 
+
     @Override
     public void delete(long id) {
-
-        long idDelete = incidenceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + id)).getIncidenceState().getId();
-
-        if (idDelete > 1L)  //Para que no eliminen alguna en estado solucionando, solucionado o cancelado
-            throw new IllegalArgumentException("Status of the incidence does not allow deletion");
-
-        if (incidenceRepository.existsById(id)) {
-            incidenceRepository.deleteById(id);
-        } else {
-            throw new IllegalArgumentException("Incidence does not exist");
-        }
+        //
     }
 
     @Override
-    public void update(Incidence incidence, long id) {
-
-        long idDelete = incidenceRepository.findById(incidence.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist")).getIncidenceState().getId();
-
-        if (idDelete > 1L)  //Para que no modifiquen alguna en estado solucionando, solucionado o cancelado
-            throw new IllegalArgumentException("Incidence does not exist");
-
-        incidenceRepository.findById(incidence.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + incidence.getId()));
-
-        Incidence updateIncidence = incidenceRepository.findById(id).get();
-
-        updateIncidence.setTitle(incidence.getTitle());
-        updateIncidence.setDescription(incidence.getDescription());
-        updateIncidence.setDepartment(incidence.getDepartment());
-
-        incidenceRepository.save(updateIncidence);
+    public void update(FullIncidenceDTO fullIncidenceDTO, long id) {
+        //
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {

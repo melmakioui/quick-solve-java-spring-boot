@@ -10,10 +10,8 @@ import java.util.List;
 public interface IncidenceService {
 
     List<FullIncidenceDTO> list();
-    IncidenceDTO findByIdDTO(long id);
-    Incidence findById(long id);
-    void saveTest(FullIncidenceDTO incidenceDepartmentDTO);
-    void save(Incidence incidence);
+    FullIncidenceDTO findById(long id);
+    void save(FullIncidenceDTO incidenceDepartmentDTO);
     void delete(long id);
-    void update(Incidence incidence,long id);
+    void update(FullIncidenceDTO incidenceDepartmentDTO,long id);
 }

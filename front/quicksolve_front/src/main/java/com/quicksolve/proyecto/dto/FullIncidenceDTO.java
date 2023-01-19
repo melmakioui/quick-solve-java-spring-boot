@@ -1,8 +1,5 @@
 package com.quicksolve.proyecto.dto;
 
-import com.quicksolve.proyecto.entity.Department;
-import com.quicksolve.proyecto.entity.IncidenceState;
-import com.quicksolve.proyecto.entity.Space;
 import lombok.Data;
 
 import java.util.List;
@@ -18,7 +15,7 @@ public class FullIncidenceDTO {
 
     private String email;
 
-    private IncidenceState incidenceState;
-    private Department department;
-    private Space space;
+    private long incidenceStateId;
+    private long departmentId;
+    private long spaceId;
 }
