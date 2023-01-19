@@ -2,8 +2,6 @@ package com.quicksolve.proyecto.mapper;
 
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.entity.Incidence;
-import com.quicksolve.proyecto.entity.IncidenceState;
-import com.quicksolve.proyecto.service.IncidenceService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,8 +14,11 @@ public interface IncidenceMapper {
     @Mapping(source = "incidenceState.id", target = "incidenceStateId")
     @Mapping(source = "department.id", target = "departmentId")
     @Mapping(source = "space.id", target = "spaceId")
-    FullIncidenceDTO incidenceDTO (Incidence incidence);
+    FullIncidenceDTO incidenceToDTO(Incidence incidence);
 
 
-    Incidence DTOtoIncidence(FullIncidenceDTO incidenceDepartmentDTO);
+    @Mapping(source = "incidenceStateId", target = "incidenceState.id")
+    @Mapping(source = "departmentId", target = "department.id")
+    @Mapping(source = "spaceId", target = "space.id")
+    Incidence dtoToIncidence(FullIncidenceDTO incidenceDepartmentDTO);
 }
