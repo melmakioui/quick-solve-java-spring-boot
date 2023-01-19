@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @Service
 public class SpaceServiceImpl  implements SpaceService {
 
+    private final Long ESPANOL_LANGUAGE_ID = 1L;
+
     @Autowired
     private SpaceRepository spaceRepository;
     @Autowired
@@ -38,8 +40,22 @@ public class SpaceServiceImpl  implements SpaceService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public SpaceDTO findById(Long id) {
+        Space space = spaceRepository.findById(id)
+                .orElse(null);
+
+        if (space == null) {
+            return null;
+        }
+
+        return convertDataIntoDTO(space);
+    }
+
     private SpaceDTO convertDataIntoDTO(Space space) {
-       SpaceLanguage spaceLanguage = spaceLanguageRepository.findBySpaceIdAndLanguageId(space.getId(), 1L);
+       SpaceLanguage spaceLanguage = spaceLanguageRepository.findBySpaceIdAndLanguageId(
+               space.getId(),
+               ESPANOL_LANGUAGE_ID);
        return SpaceMapper.INSTANCE.spaceDTO(spaceLanguage);
     }
 }

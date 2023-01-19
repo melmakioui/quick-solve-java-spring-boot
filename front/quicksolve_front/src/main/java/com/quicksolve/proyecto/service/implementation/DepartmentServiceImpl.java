@@ -46,6 +46,19 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .collect(Collectors.toList());
     }
 
+
+    @Override
+    public DepartmentDTO findById(Long id) {
+        Department department = departmentRepository.findById(id)
+                .orElse(null);
+
+        if (department == null) {
+            return null;
+        }
+
+        return convertToDTO(department);
+    }
+
     public DepartmentDTO convertToDTO(Department department) {
         DepartmentLanguage departmentLanguage = departmentLanguageRepository.findByDepartmentIdAndLanguageId(
                 department.getId(),

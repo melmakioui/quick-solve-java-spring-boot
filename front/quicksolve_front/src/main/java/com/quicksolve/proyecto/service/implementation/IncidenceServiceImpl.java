@@ -1,6 +1,5 @@
 package com.quicksolve.proyecto.service.implementation;
 
-import com.quicksolve.proyecto.dto.IncidenceDTO;
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.entity.IncidenceState;
@@ -43,13 +42,13 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public void save(FullIncidenceDTO fullIncidenceDTO) {
-        Incidence incidence = IncidenceMapper.INSTANCE.DTOtoIncidence(fullIncidenceDTO);
+        Incidence incidence = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
         incidence.setDateStart(LocalDateTime.now());
         IncidenceState waitingState = incidenceStateRepository.getReferenceById(INCIDENCE_WAITING_STATE);
         incidence.setIncidenceState(waitingState);
+
         incidenceRepository.save(incidence);
     }
-
 
     @Override
     public void delete(long id) {
@@ -62,6 +61,6 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {
-        return IncidenceMapper.INSTANCE.incidenceDTO(incidence);
+        return IncidenceMapper.INSTANCE.incidenceToDTO(incidence);
     }
 }

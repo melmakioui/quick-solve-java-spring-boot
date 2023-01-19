@@ -8,4 +8,6 @@ import java.util.List;
 public interface DepartmentService {
 
     List<DepartmentDTO> list();
+    DepartmentDTO findById(Long id);
+
 }
