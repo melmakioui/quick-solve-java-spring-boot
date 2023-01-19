@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"incidenceState", "department"})
+@EqualsAndHashCode(exclude = {"incidenceState", "department", "space"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Incidence {
@@ -48,7 +48,7 @@ public class Incidence {
     @OneToMany(mappedBy = "incidence")
     private Set<IncidenceFiles> incidenceFiles;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "space_id")
     private Space space;
 }

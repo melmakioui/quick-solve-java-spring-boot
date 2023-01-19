@@ -47,5 +47,6 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "department_id")
+    @ToString.Exclude
     private Department department;
 }

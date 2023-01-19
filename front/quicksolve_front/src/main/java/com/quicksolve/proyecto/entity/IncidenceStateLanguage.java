@@ -8,6 +8,7 @@ import lombok.*;
 @EqualsAndHashCode(exclude = {"status", "language"})
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class IncidenceStateLanguage {
 
     @Id

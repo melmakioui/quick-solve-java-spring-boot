@@ -9,6 +9,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = {"incidenceStateLanguage"})
 public class IncidenceState {
 
     @Id

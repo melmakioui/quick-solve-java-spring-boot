@@ -1,11 +1,11 @@
 package com.quicksolve.proyecto.service.implementation;
 
 import com.quicksolve.proyecto.dto.IncidenceDTO;
+import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.entity.IncidenceState;
 import com.quicksolve.proyecto.mapper.IncidenceMapper;
-import com.quicksolve.proyecto.repository.IncidenceRepository;
-import com.quicksolve.proyecto.repository.IncidenceStateRepository;
+import com.quicksolve.proyecto.repository.*;
 import com.quicksolve.proyecto.service.IncidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +17,18 @@ import java.util.stream.Collectors;
 @Service
 public class IncidenceServiceImpl implements IncidenceService {
 
+    private final Long INCIDENCE_WAITING_STATE = 1L;
     private final IncidenceRepository incidenceRepository;
     private final IncidenceStateRepository incidenceStateRepository;
 
     @Autowired
-    public IncidenceServiceImpl(IncidenceRepository incidenceRepository
-            , IncidenceStateRepository incidenceStateRepository) {
+    public IncidenceServiceImpl(IncidenceRepository incidenceRepository, IncidenceStateRepository incidenceStateRepository) {
         this.incidenceRepository = incidenceRepository;
         this.incidenceStateRepository = incidenceStateRepository;
     }
 
     @Override
-    public List<IncidenceDTO> list() {
+    public List<FullIncidenceDTO> list() {
         return incidenceRepository.findAll()
                 .stream().map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -36,7 +36,8 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public IncidenceDTO findByIdDTO(long id) {
-        return convertToDTO(incidenceRepository.findById(id).get());
+        //convertToDTO(incidenceRepository.findById(id).get());
+        return null;
     }
 
     @Override
@@ -57,10 +58,19 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
+    public void saveTest(FullIncidenceDTO incidenceDepartmentDTO) {
+        Incidence incidence = IncidenceMapper.INSTANCE.DTOtoIncidence(incidenceDepartmentDTO);
+        incidence.setDateStart(LocalDateTime.now());
+        IncidenceState waitingState = incidenceStateRepository.getReferenceById(INCIDENCE_WAITING_STATE);
+        incidence.setIncidenceState(waitingState);
+        incidenceRepository.save(incidence);
+    }
+
+    @Override
     public void delete(long id) {
 
         long idDelete = incidenceRepository.findById(id)
-                .orElseThrow( () -> new IllegalArgumentException("Incidence does not exist" + id)).getIncidenceState().getId();
+                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist" + id)).getIncidenceState().getId();
 
         if (idDelete > 1L)  //Para que no eliminen alguna en estado solucionando, solucionado o cancelado
             throw new IllegalArgumentException("Status of the incidence does not allow deletion");
@@ -76,7 +86,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     public void update(Incidence incidence, long id) {
 
         long idDelete = incidenceRepository.findById(incidence.getId())
-                .orElseThrow( () -> new IllegalArgumentException("Incidence does not exist")).getIncidenceState().getId();
+                .orElseThrow(() -> new IllegalArgumentException("Incidence does not exist")).getIncidenceState().getId();
 
         if (idDelete > 1L)  //Para que no modifiquen alguna en estado solucionando, solucionado o cancelado
             throw new IllegalArgumentException("Incidence does not exist");
@@ -93,13 +103,7 @@ public class IncidenceServiceImpl implements IncidenceService {
         incidenceRepository.save(updateIncidence);
     }
 
-    private IncidenceDTO convertToDTO(Incidence incidence) {
-
-        return IncidenceMapper.INSTANCE.incidenceDTO(incidence, //Mostrar tambien si el departamento es null
-                incidence.getDepartment() != null ? incidence.getDepartment()
-                        .getDepartmentLanguage().stream().findFirst().get() : null,
-                incidence.getIncidenceState().
-                        getIncidenceStateLanguage()
-                        .stream().findFirst().get());
+    private FullIncidenceDTO convertToDTO(Incidence incidence) {
+        return IncidenceMapper.INSTANCE.incidenceDTO(incidence);
     }
 }
