@@ -13,5 +13,5 @@ public interface IncidenceService {
     FullIncidenceDTO findById(long id);
     void save(FullIncidenceDTO incidenceDepartmentDTO);
     void delete(long id);
-    void update(FullIncidenceDTO incidenceDepartmentDTO,long id);
+    void update(FullIncidenceDTO incidenceDepartmentDTO);
 }

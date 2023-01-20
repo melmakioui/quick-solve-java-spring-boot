@@ -16,9 +16,5 @@ public interface IncidenceMapper {
     @Mapping(source = "space.id", target = "spaceId")
     FullIncidenceDTO incidenceToDTO(Incidence incidence);
 
-
-    @Mapping(source = "incidenceStateId", target = "incidenceState.id")
-    @Mapping(source = "departmentId", target = "department.id")
-    @Mapping(source = "spaceId", target = "space.id")
     Incidence dtoToIncidence(FullIncidenceDTO incidenceDepartmentDTO);
 }
