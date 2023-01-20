@@ -2,42 +2,50 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
 </head>
 <body>
 
 <form action="#" th:action="@{/modificar/incidencia/{id}(id=${incidence.id})}" th:object="${incidence}" method="POST">
+    <div class="form-group">
+        <label for="titulo">Titulo</label>
+        <input type="text" class="form-control" th:field="*{title}" id="titulo" placeholder="Titulo.." name="title">
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </div>
+    <div class="form-group">
+        <label for="descricpion">Description</label>
+        <textarea class="form-control" th:field="*{description}" id="descricpion" placeholder="Una breve descripcion..."
+                  name="description"></textarea>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+    </div>
 
-  <div class="form-group">
-    <label for="titulo">Titulo</label>
-    <input type="text" class="form-control" th:field="*{title}" id="titulo" placeholder="Titulo.." name="title">
-    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-  </div>
-  <div class="form-group">
-    <label for="descricpion">Description</label>
-    <textarea class="form-control"  th:field="*{description}" id="descricpion" placeholder="Una breve descripcion..."
-              name="description"></textarea>
-    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
-  </div>
 
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="yourtest@domain.com"
+               name="email">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    </div>
 
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control"  th:field="*{email}" id="email" placeholder="yourtest@domain.com"
-           name="email">
-    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-  </div>
+    <div class="form-group">
+        <label for="departamento">A quien va dirigido</label>
+        <select class="form-control" th:field="*{department.id}" id="departamento" name="department">
+            <option th:value="-1">Sin espacio</option>
+            <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
+        </select>
+    </div>
 
-  <div class="form-group">
-    <label for="departamento">A quien va dirigido</label>
-    <select class="form-control" th:field="*{department}" id="departamento" name="department">
-      <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
-    </select>
-  </div>
+    <div class="form-group">
+        <label for="space">A quien va dirigido</label>
+        <select class="form-control" th:field="*{space.id}" id="space" name="department">
+            <option th:value="-1">Sin espacio</option>
+            <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
+        </select>
+    </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </body>
 </html>
