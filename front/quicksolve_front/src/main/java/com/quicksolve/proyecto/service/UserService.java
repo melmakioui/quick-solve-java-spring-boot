@@ -33,8 +33,11 @@ public class UserService {
         userDataRepo.save(userData);
     }
 
-    public User getUser(Long id){
+    public User getUserBy(Long id){
         return userRepo.getReferenceById(id);
+    }
+    public User getUserBy(String email){
+        return userRepo.findByEmail(email);
     }
 
     public FullUserDTO getFullUser(Long id){

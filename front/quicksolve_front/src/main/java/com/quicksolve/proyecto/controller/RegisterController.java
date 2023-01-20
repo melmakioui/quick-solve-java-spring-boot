@@ -11,10 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDateTime;
 
 @Controller
+@SessionAttributes({"userlogin"})
 public class RegisterController {
 
     @Autowired
@@ -51,6 +53,6 @@ public class RegisterController {
         );
 
         userService.createUser(user, data);
-        return "index"; //TODO devolver a "mis incidencias con el usuario ya iniciado sesión."
+        return "redirect:/"; //TODO devolver a "mis incidencias con el usuario ya iniciado sesión."
     }
 }
