@@ -26,11 +26,13 @@ public class LoginController {
     public String tryLogin(Model model, @RequestParam("email") String email, @RequestParam("pwd") String password){
         User usr = userService.getUserBy(email);
         if (usr != null && passwordEncoder.encoder().matches(password, usr.getPassword())){
-            System.out.println(usr);
             model.addAttribute("userlogin", usr);
+        } else {
+            model.addAttribute("loginError", "No se han introducido los datos correctos para el email y/o contraseña.");
+            return "view/login";
         }
 
-        return "redirect:/";
+        return "redirect:/incidencias";
     }
 
     @GetMapping("/logout")

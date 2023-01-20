@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"user"})
+@SessionAttributes({"userlogin"})
 public class IncidenceController {
 
     private final IncidenceService incidenceService;

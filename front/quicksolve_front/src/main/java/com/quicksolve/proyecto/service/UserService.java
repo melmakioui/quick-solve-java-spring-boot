@@ -23,7 +23,7 @@ public class UserService {
     @Autowired
     private PasswordEncoderConf passwordEncoder;
 
-    public void createUser(User usr, UserData userData){
+    public User createUserAndReturn(User usr, UserData userData){
         usr.setActive(true);
         usr.setType(UserType.USER);
         userData.setCreated(LocalDateTime.now());
@@ -31,6 +31,8 @@ public class UserService {
 
         userRepo.save(usr);
         userDataRepo.save(userData);
+
+        return usr;
     }
 
     public User getUserBy(Long id){
@@ -38,6 +40,14 @@ public class UserService {
     }
     public User getUserBy(String email){
         return userRepo.findByEmail(email);
+    }
+
+    public boolean existsWithUsername(String username){
+        return userRepo.existsByUsername(username);
+    }
+
+    public boolean existsWithEmail(String email){
+        return userRepo.existsByEmail(email);
     }
 
     public FullUserDTO getFullUser(Long id){

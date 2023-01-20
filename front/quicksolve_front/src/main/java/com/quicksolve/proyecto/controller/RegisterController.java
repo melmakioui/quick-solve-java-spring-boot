@@ -52,7 +52,8 @@ public class RegisterController {
                 user
         );
 
-        userService.createUser(user, data);
-        return "redirect:/"; //TODO devolver a "mis incidencias con el usuario ya iniciado sesión."
+        User totalUser = userService.createUserAndReturn(user, data);
+        model.addAttribute("userlogin", totalUser);
+        return "redirect:/incidencias";
     }
 }

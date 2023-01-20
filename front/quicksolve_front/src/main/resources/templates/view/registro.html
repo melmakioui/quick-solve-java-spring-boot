@@ -10,7 +10,7 @@
 <th:block th:include="view/fragments/nav"></th:block>
 
 <div class="container-fluid mb-5">
-    <div class="row">
+    <div class="row align-items-center" style="height: calc(100vh - 96px)">
         <div class="col-lg-6 offset-lg-3 mt-5">
             <h2 class="text-center text-texto-contraste mb-4">Registro</h2>
             <div class="card rounded-4 bg-primary">
@@ -38,9 +38,10 @@
                     </div>
                     <div class="p-lg-2">
                         <h3 class="h3 text-texto-contraste p-2 mt-2">Datos de cuenta</h3>
-                        <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="nombre de usuario">
+                        <div class="mb-3 form-floating" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}">
+                            <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="username" th:field="*{username}" placeholder="nombre de usuario">
                             <label for="username">Nombre de usuario</label>
+                            <span class="invalid-feedback text-texto-contraste" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                         </div>
                         <div class="mb-3 form-floating" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}">
                             <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" placeholder="nombre@ejemplo.com">

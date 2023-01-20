@@ -10,7 +10,7 @@
 <th:block th:include="view/fragments/nav"></th:block>
 
 <div class="container-fluid mb-5">
-    <div class="row">
+    <div class="row align-items-center" style="height: calc(100vh - 96px)">
         <div class="col-lg-6 offset-lg-3 mt-5">
             <h2 class="text-center text-texto-contraste mb-4">Inicio de sesión</h2>
             <div class="card rounded-4 bg-primary">
@@ -21,6 +21,7 @@
                         </div>
                         <div class="w-75 mx-auto mt-3">
                             <div class="mb-3 form-floating">
+                                <span class="invalid-feedback text-texto-contraste" th:if="${loginError}" th:text="${loginError}"></span>
                                 <input type="text" class="form-control" id="email" placeholder="Correo Electrónico" name="email">
                                 <label for="email">Email</label>
                             </div>
