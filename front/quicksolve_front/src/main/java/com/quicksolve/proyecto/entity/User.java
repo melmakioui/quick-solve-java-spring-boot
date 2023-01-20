@@ -23,7 +23,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true)
     @NotBlank(message = "El nombre de usuario es obligatorio")
     @UniqueUsername(message = "El nombre de usuario ya existe")
     private String username;
@@ -41,7 +40,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType type;
 
-    @Column(columnDefinition = "boolean default false")
     private boolean isActive;
 
     @ManyToOne
