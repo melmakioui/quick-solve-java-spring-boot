@@ -2,7 +2,6 @@ package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
-import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class RegisterController {
             model.addAttribute("user", user);
             return "view/registro";
         }
-        user.setType(UserType.USER);
+
         UserData data = new UserData(
                 name,
                 firstSurname,
@@ -52,6 +51,6 @@ public class RegisterController {
         );
 
         userService.createUser(user, data);
-        return "index"; //TODO devolver a "mis incidencias con el usuario ya iniciado sesión, para mejor UX."
+        return "index"; //TODO devolver a "mis incidencias con el usuario ya iniciado sesión."
     }
 }

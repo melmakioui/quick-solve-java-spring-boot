@@ -1,5 +1,6 @@
 package com.quicksolve.proyecto.service;
 
+import com.quicksolve.proyecto.configuration.PasswordEncoderConf;
 import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.dto.FullUserDTO;
@@ -19,11 +20,14 @@ public class UserService {
     private UserRepository userRepo;
     @Autowired
     private UserDataRepository userDataRepo;
+    @Autowired
+    private PasswordEncoderConf passwordEncoder;
 
     public void createUser(User usr, UserData userData){
         usr.setActive(true);
         usr.setType(UserType.USER);
         userData.setCreated(LocalDateTime.now());
+        usr.setPassword(passwordEncoder.encoder().encode(usr.getPassword()));
 
         userRepo.save(usr);
         userDataRepo.save(userData);

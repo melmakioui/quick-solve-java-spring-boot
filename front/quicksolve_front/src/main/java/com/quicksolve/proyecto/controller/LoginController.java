@@ -20,9 +20,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(){
+    public String tryLogin(){
         
-        return "view/login";
+        return "index";
     }
 
 }
