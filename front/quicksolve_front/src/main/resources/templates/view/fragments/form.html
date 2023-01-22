@@ -1,0 +1,69 @@
+<form th:fragment="form" th:action="@{/nueva/incidencia}"  th:object="${incidence}" method="POST" class=" needs-validation container" novalidate>
+  <div class="row justify-content-center">
+
+    <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
+      <label for="title" class="form-label">Titulo <span class="text-delete">*</span> </label>
+      <input type="text" class="form-control" th:field="*{title}" name="title" id="title" minlength="3" maxlength="50" required>
+      <div class="invalid-feedback">
+        Escribe un titulo valido.
+      </div>
+      <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" ></span>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-3">
+    <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
+      <label for="email">Email <span class="text-delete">*</span></label>
+      <input type="email" class="form-control" th:field="*{email}" name="email" id="email" required>
+      <div class="invalid-feedback">
+        No es un email valido.
+      </div>
+      <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
+      <label for="department">Departamento </label>
+      <select class="form-select" th:field="*{department.id}" name="department" id="department">
+        <option th:value="-1">Sin departamento</option>
+        <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
+      </select>
+    </div>
+
+    <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
+      <label for="space">Espacio </label>
+      <select class="form-select"  th:field="*{space.id}" name="space" id="space">
+        <option th:value="-1">Sin espacio</option>
+        <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-3">
+    <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
+      <label for="description">Descripción <span class="text-delete">*</span></label>
+      <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3" minlength="10" maxlength="512" required></textarea>
+      <div class="invalid-feedback">
+        La descripción debe tener entre 10 y 512 caracteres.
+      </div>
+      <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+    </div>
+  </div>
+
+  <!--Validar extensiones en el lado del cliente-->
+  <div class="row justify-content-center mb-3">
+    <div class="col-12 col-xl-6 col-lg-8 col-md-10">
+      <label for="formFileMultiple" class="form-label">Adjuntar fotos </label>
+      <input class="form-control" type="file" id="formFileMultiple" multiple name="files">
+    </div>
+  </div>
+
+  <p class="fst-italic text-center"> ⓘ Una vez envie la incidencia sera asignada a un <strong>técnico</strong> y contactará con usted.</p>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-6 col-lg-8 col-md-10">
+      <button type="submit" class="btn btn-secondary w-100">Enviar</button>
+    </div>
+  </div>
+</form>

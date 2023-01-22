@@ -8,93 +8,17 @@
     <title>Nueva Incidencia</title>
 </head>
 
-<style>
-
-
-    .sidebar-hide {
-        margin-left: -280px;
-    }
-</style>
-
 <body>
 <th:block th:include="view/fragments/nav"></th:block>
-
 
 <main class="d-flex flex-nowrap" style="transition: 0.5s; height: 100vh">
     <th:block th:include="view/fragments/sidebar"></th:block>
 
     <div class="mx-4 mt-4 mb-0 w-100" style="height: 100%;">
-        <button id="sidebarToggle">Toggle Sidebar</button>
+        <button id="sidebarToggle">Sidebar</button>
 
         <h1 class="text-center">NUEVA INCIDENCIA</h1>
-
-        <form th:action="@{/nueva/incidencia}"  th:object="${incidence}" method="POST" class=" needs-validation container" novalidate>
-            <div class="row justify-content-center">
-
-                <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
-                    <label for="title" class="form-label">Titulo <span class="text-danger">*</span> </label>
-                    <input type="text" class="form-control" th:field="*{title}" name="title" id="title" required>
-                    <div class="invalid-feedback">
-                        Escribe un titulo valido.
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center mb-3">
-                <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
-                    <label for="email">Email <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" th:field="*{email}" name="email" id="email" required>
-                    <div class="invalid-feedback">
-                        No es un email valido.
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-                    <label for="department">Departamento </label>
-                    <select class="form-select" th:field="*{department.id}" name="department" id="department">
-                        <option th:value="-1">Sin departamento</option>
-                        <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-                    <label for="space">Espacio </label>
-                    <select class="form-select"  th:field="*{space.id}" name="space" id="space">
-                        <option th:value="-1">Sin espacio</option>
-                        <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row justify-content-center mb-3">
-                <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
-                    <label for="description">Descripción <span class="text-danger">*</span></label>
-                    <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3" minlength="10" maxlength="512" required></textarea>
-                    <div class="invalid-feedback">
-                        La descripción debe tener entre 10 y 512 caracteres.
-                    </div>
-                </div>
-            </div>
-
-            <!--Validar extensiones en el lado del cliente-->
-            <div class="row justify-content-center mb-3">
-                <div class="col-12 col-xl-6 col-lg-8 col-md-10">
-                    <label for="formFileMultiple" class="form-label">Adjuntar fotos </label>
-                    <input class="form-control" type="file" id="formFileMultiple" multiple name="files">
-                </div>
-            </div>
-
-            <p class="fst-italic text-center"> ⓘ Una vez envie la incidencia sera asignada a un <strong>técnico</strong> y contactará con usted.</p>
-
-            <div class="row justify-content-center">
-                <div class="col-12 col-xl-6 col-lg-8 col-md-10">
-                    <button type="submit" class="btn btn-secondary w-100">Enviar</button>
-                </div>
-            </div>
-        </form>
-
+        <th:block th:include="view/fragments/form"></th:block>
     </div>
 </main>
 
@@ -103,36 +27,8 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
         integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+<script th:src="@{/js/sidebar.js}"></script>
+<script th:src="@{/js/validationForm.js}"></script>
 
-<script>
-
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-    var sidbarToggleBtn = $('#sidebarToggle');
-    var main = $('main');
-
-    sidbarToggleBtn.on('click', function () {
-        main.toggleClass('sidebar-hide');
-        console.log('click');
-    });
-
-    $(window).on('resize', function () {
-        if ($(window).width() < 768) main.addClass('sidebar-hide');
-        else main.removeClass('sidebar-hide');
-    });
-</script>
 </body>
 </html>

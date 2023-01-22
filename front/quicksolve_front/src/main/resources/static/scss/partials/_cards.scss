@@ -1,0 +1,19 @@
+.material-symbols-outlined {
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.material-symbols-outlined:hover {
+  font-size: 1.6rem;
+  transform: scale(1.2);
+}
+
+.card {
+  transition: 0.2s;
+}
+
+.card:hover { /*Deshabilitar hover al estar en menos de 900px*/
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
