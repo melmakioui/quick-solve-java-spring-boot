@@ -4,16 +4,19 @@ import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
 @Controller
 @SessionAttributes({"userlogin"})
+@Validated
 public class RegisterController {
 
     @Autowired
@@ -38,6 +41,9 @@ public class RegisterController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("user", user);
+            model.addAttribute("name", name);
+            model.addAttribute("firstSurname", firstSurname);
+            model.addAttribute("secondSurname", secondSurname);
             return "view/registro";
         }
 
