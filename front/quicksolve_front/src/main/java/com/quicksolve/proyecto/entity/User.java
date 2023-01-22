@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Set;
 
@@ -24,13 +23,13 @@ public class User {
     private long id;
 
     @NotBlank(message = "El nombre de usuario es obligatorio")
-    @UniqueUsername(message = "El nombre de usuario ya existe")
+    //@UniqueUsername(message = "El nombre de usuario ya existe")
     private String username;
 
     @Email(message = "El email debe ser valido")
     @Size(message = "El email debe tener entre 3 y 50 caracteres", min = 3, max = 50)
     @NotBlank(message = "El email es obligatorio")
-    @UniqueEmail(message = "El email ya existe")
+    //@UniqueEmail(message = "El email ya existe")
     private String email;
 
     @NotBlank(message = "La contraseña es obligatoria")
