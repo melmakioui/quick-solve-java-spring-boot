@@ -13,11 +13,11 @@ public class FullIncidenceDTO {
     private long id;
 
     @NotBlank
-    @Size(min = 5, max = 16)
+    @Size(min = 3, max = 50, message = "El titulo debe tener entre 3 y 50 caracteres")
     private String title;
 
     @NotBlank
-    @Size(min = 5, max = 16)
+    @Size(min = 10, message = "El campo debe tener al menos 10 caracteres")
     private String description;
 
     private List<String> path;

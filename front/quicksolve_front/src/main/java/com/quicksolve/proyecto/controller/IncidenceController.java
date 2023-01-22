@@ -26,6 +26,7 @@ public class IncidenceController {
     private final DepartmentService departmentService;
     private final SpaceService spaceService;
     private final IncidenceStateService incidenceStateService;
+    private static boolean isNewIncidence = false;
 
     @Autowired
     public IncidenceController(IncidenceService incidenceService, DepartmentService departmentService, SpaceService spaceService, IncidenceStateService incidenceStateService) {
@@ -71,6 +72,10 @@ public class IncidenceController {
         });
 
         model.addAttribute("incidences", incidenceDTOS);
+        if (isNewIncidence) {
+            model.addAttribute("isNewIncidence", isNewIncidence);
+            isNewIncidence = false;
+        }
         return "view/incidences";
     }
 
@@ -89,30 +94,29 @@ public class IncidenceController {
     @PostMapping("/nueva/incidencia")
     public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model) {
 
-/*
         if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
             model.addAttribute("spaces", spaceService.list());
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", incidenceDepartmentDTO);
             return "view/incidenceForm";
         }
-*/
-        System.out.println(incidenceDepartmentDTO);
+
         incidenceService.save(incidenceDepartmentDTO);
+        isNewIncidence = true;
         return "redirect:/incidencias";
     }
 
     @PostMapping("/modificar/incidencia/{id}")
     public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model) {
-/*
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", spaceService.list());
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", fullIncidenceDTO);
             return "view/incidenceFormUpdate";
         }
-*/
-        System.out.println(fullIncidenceDTO);
+
         incidenceService.update(fullIncidenceDTO);
         return "redirect:/incidencias";
     }
