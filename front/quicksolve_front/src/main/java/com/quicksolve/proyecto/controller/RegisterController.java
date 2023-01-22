@@ -35,15 +35,12 @@ public class RegisterController {
             BindingResult bindingResult,
             @RequestParam("name") String name,
             @RequestParam("firstSurname") String firstSurname,
-            @RequestParam("secondSurname") String secondSurname,
+            @RequestParam(value = "secondSurname", required = false) String secondSurname,
             Model model
     ){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("user", user);
-            model.addAttribute("name", name);
-            model.addAttribute("firstSurname", firstSurname);
-            model.addAttribute("secondSurname", secondSurname);
             return "view/registro";
         }
 
