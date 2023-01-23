@@ -1,5 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
+import com.quicksolve.proyecto.dto.FullUserDTO;
+import com.quicksolve.proyecto.dto.UserDataDTO;
 import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.service.UserService;
@@ -30,7 +32,7 @@ public class RegisterController {
 
     @PostMapping("/registro")
     public String registerUser(
-            @Valid User user,
+            @Valid FullUserDTO user,
             BindingResult bindingResult,
             @RequestParam("name") String name,
             @RequestParam("firstSurname") String firstSurname,
@@ -43,15 +45,14 @@ public class RegisterController {
             return "view/registro";
         }
 
-        UserData data = new UserData(
+        user.setData(new UserDataDTO(
                 name,
                 firstSurname,
                 secondSurname,
-                LocalDateTime.now(),
-                user
-        );
+                LocalDateTime.now()
+        ));
 
-        User totalUser = userService.createUserAndReturn(user, data);
+        FullUserDTO totalUser = userService.createUser(user);
         model.addAttribute("userlogin", totalUser);
         return "redirect:/incidencias";
     }

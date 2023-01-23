@@ -1,19 +1,15 @@
 package com.quicksolve.proyecto.service;
 
-import com.quicksolve.proyecto.entity.User;
-import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.dto.FullUserDTO;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public interface UserService {
 
-    User createUserAndReturn(User usr, UserData userData);
+    FullUserDTO createUser(FullUserDTO usr);
 
-    User getUserBy(Long id);
-    User getUserBy(String email);
+    FullUserDTO getUserBy(Long id);
+    FullUserDTO getUserBy(String email);
 
     boolean existsWithUsername(String username);
 

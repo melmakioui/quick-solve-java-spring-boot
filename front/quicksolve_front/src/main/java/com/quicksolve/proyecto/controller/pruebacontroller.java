@@ -13,6 +13,6 @@ public class pruebacontroller {
     private UserService userService;
     @GetMapping("/yolo")
     public FullUserDTO xd(){
-        return userService.getFullUser(Long.valueOf(1));
+        return userService.getFullUser(1L);
     }
 }

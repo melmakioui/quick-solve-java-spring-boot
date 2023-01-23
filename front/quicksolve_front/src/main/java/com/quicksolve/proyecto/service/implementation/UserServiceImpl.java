@@ -2,17 +2,17 @@ package com.quicksolve.proyecto.service.implementation;
 
 import com.quicksolve.proyecto.configuration.PasswordEncoderConf;
 import com.quicksolve.proyecto.dto.FullUserDTO;
+import com.quicksolve.proyecto.dto.UserDataDTO;
 import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.entity.type.UserType;
+import com.quicksolve.proyecto.mapper.UserMapper;
 import com.quicksolve.proyecto.mapper.UserDataMapper;
 import com.quicksolve.proyecto.repository.UserDataRepository;
 import com.quicksolve.proyecto.repository.UserRepository;
 import com.quicksolve.proyecto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,23 +23,26 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoderConf passwordEncoder;
 
-    public User createUserAndReturn(User usr, UserData userData){
+    public FullUserDTO createUser(FullUserDTO usr){
         usr.setActive(true);
         usr.setType(UserType.USER);
-        userData.setCreated(LocalDateTime.now());
         usr.setPassword(passwordEncoder.encoder().encode(usr.getPassword()));
-        System.out.println(usr);
-        userRepo.save(usr);
-        userDataRepo.save(userData);
+
+        User userToSave = UserMapper.INSTANCE.DTOtoUser(usr);
+        UserData dataToSave = UserDataMapper.INSTANCE.DTOtoUserData(usr.getData());
+        dataToSave.setUser(userToSave);
+
+        userRepo.save(userToSave);
+        userDataRepo.save(dataToSave);
 
         return usr;
     }
 
-    public User getUserBy(Long id){
-        return userRepo.getReferenceById(id);
+    public FullUserDTO getUserBy(Long id){
+        return UserMapper.INSTANCE.userToDTO(userRepo.getReferenceById(id));
     }
-    public User getUserBy(String email){
-        return userRepo.findByEmail(email);
+    public FullUserDTO getUserBy(String email){
+        return UserMapper.INSTANCE.userToDTO(userRepo.findByEmail(email));
     }
 
     public boolean existsWithUsername(String username){
@@ -52,6 +55,11 @@ public class UserServiceImpl implements UserService {
 
     public FullUserDTO getFullUser(Long id){
         UserData userData = userDataRepo.getReferenceById(id);
-        return UserDataMapper.INSTANCE.userDTO(userData.getUser(), userData);
+
+        UserDataDTO data = UserDataMapper.INSTANCE.dataToDTO(userData);
+        FullUserDTO usr = UserMapper.INSTANCE.userToDTO(userData.getUser());
+
+        usr.setData(data);
+        return usr;
     }
 }

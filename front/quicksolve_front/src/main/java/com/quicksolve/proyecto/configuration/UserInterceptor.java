@@ -1,5 +1,6 @@
 package com.quicksolve.proyecto.configuration;
 
+import com.quicksolve.proyecto.dto.FullUserDTO;
 import com.quicksolve.proyecto.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ public class UserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
 
-        if (!(session.getAttribute("userlogin") instanceof User)){
+        if (!(session.getAttribute("userlogin") instanceof FullUserDTO)){
             response.sendRedirect("/login");
             return false;
         }

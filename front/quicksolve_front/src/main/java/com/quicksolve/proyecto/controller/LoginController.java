@@ -1,6 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.configuration.PasswordEncoderConf;
+import com.quicksolve.proyecto.dto.FullUserDTO;
 import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String tryLogin(Model model, @RequestParam("email") String email, @RequestParam("pwd") String password){
-        User usr = userService.getUserBy(email);
+        FullUserDTO usr = userService.getUserBy(email);
         if (usr != null && passwordEncoder.encoder().matches(password, usr.getPassword())){
             model.addAttribute("userlogin", usr);
         } else {
