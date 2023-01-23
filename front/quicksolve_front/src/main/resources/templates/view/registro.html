@@ -83,6 +83,7 @@
 <script th:src="@{js/jquery-3.6.3-min.js}"></script>
 <script>
     $(document).ready(function () {
+        const regex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
 
         $("#confirmpassword").on('keyup', function(){
             const password = $("#password").val();
@@ -101,8 +102,8 @@
 
         $("#name").on('keyup', function(){
             const name = $("#name").val();
-
-            if (name === ""){
+            console.log(regex.test(name))
+            if (name === "" && !regex.test(name)){
                 $("#nameBlankError").html("El nombre es obligatorio.");
                 $("#name").addClass("is-invalid");
             } else {
@@ -115,7 +116,7 @@
         $("#firstsurname").on('keyup', function(){
             const firstsurname = $("#firstsurname").val();
 
-            if(firstsurname === ""){
+            if(firstsurname === "" && !regex.test(firstsurname)){
                 $("#firstSurnameBlankError").html("El primer apellido es obligatorio.");
                 $("#firstsurname").addClass("is-invalid");
             } else {
@@ -131,10 +132,7 @@
         const firstSurname = $("#firstsurname").val();
         const password = $("#password").val();
         const confirmpassword = $("#confirmpassword").val();
-        console.log(name !== "" &&
-            firstSurname !== "" &&
-            password !== "" &&
-            password === confirmpassword)
+
         if (name !== "" &&
             firstSurname !== "" &&
             password !== "" &&

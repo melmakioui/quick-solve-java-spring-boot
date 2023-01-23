@@ -4,7 +4,6 @@ import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.service.UserService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
