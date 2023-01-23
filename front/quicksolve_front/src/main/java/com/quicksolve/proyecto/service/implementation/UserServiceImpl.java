@@ -52,6 +52,6 @@ public class UserServiceImpl implements UserService {
 
     public FullUserDTO getFullUser(Long id){
         UserData userData = userDataRepo.getReferenceById(id);
-        return UserDataMapper.INSTANCE.userDTO(userData, userData.getUser());
+        return UserDataMapper.INSTANCE.userDTO(userData.getUser(), userData);
     }
 }

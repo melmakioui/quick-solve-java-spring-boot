@@ -5,6 +5,7 @@ import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 
 public interface UserService {
+
     User createUserAndReturn(User usr, UserData userData);
 
     User getUserBy(Long id);
