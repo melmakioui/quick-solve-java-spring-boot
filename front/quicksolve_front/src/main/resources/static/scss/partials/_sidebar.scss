@@ -9,9 +9,9 @@
   height: calc(100vh - 96px);
 }
 
-li a:hover {
-  background-color: rgb(255, 153, 0);
-  color: rgb(46, 46, 46);
+li .hoverEffect:hover {
+  background-color: $secondary;
+  color: $darker;
 }
 
 .sidebar-hide {
