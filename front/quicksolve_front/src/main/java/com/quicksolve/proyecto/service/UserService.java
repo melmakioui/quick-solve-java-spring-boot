@@ -3,31 +3,21 @@ package com.quicksolve.proyecto.service;
 import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.dto.FullUserDTO;
-import com.quicksolve.proyecto.mapper.UserDataMapper;
-import com.quicksolve.proyecto.repository.UserDataRepository;
-import com.quicksolve.proyecto.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
-public class UserService {
+public interface UserService {
 
-    @Autowired
-    private UserRepository userRepo;
-    @Autowired
-    private UserDataRepository userDataRepo;
+    User createUserAndReturn(User usr, UserData userData);
 
-    public void createUser(User usr, UserData userData){
-        userRepo.save(usr);
-        userDataRepo.save(userData);
-    }
+    User getUserBy(Long id);
+    User getUserBy(String email);
 
-    public User getUser(Long id){
-        return userRepo.getReferenceById(id);
-    }
+    boolean existsWithUsername(String username);
 
-    public FullUserDTO getFullUser(Long id){
-        UserData userData = userDataRepo.getReferenceById(id);
-        return UserDataMapper.INSTANCE.userDTO(userData, userData.getUser());
-    }
+    boolean existsWithEmail(String email);
+
+    FullUserDTO getFullUser(Long id);
 }

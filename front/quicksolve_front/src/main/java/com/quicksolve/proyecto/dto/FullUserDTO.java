@@ -1,8 +1,5 @@
 package com.quicksolve.proyecto.dto;
 
-import com.quicksolve.proyecto.entity.Department;
-import com.quicksolve.proyecto.entity.Invoice;
-import com.quicksolve.proyecto.entity.Service;
 import com.quicksolve.proyecto.entity.type.UserType;
 import lombok.Data;
 
@@ -16,9 +13,9 @@ public class FullUserDTO {
     private String email;
     private UserType type;
     private boolean active;
-    private Service service;
-    private Set<Invoice> invoices;
-    private Department department;
+    private ServiceDTO service;
+    private Set<InvoiceDTO> invoices;
+    private DepartmentDTO department;
     private String name;
     private String firstSurname;
     private String secondSurname;

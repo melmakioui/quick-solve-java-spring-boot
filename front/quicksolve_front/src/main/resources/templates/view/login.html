@@ -9,26 +9,34 @@
 <body class="custom-bg-1">
 <th:block th:include="view/fragments/nav"></th:block>
 
-<div class="container-fluid vh-100">
-    <div class="row">
+<div class="container-fluid mb-5">
+    <div class="row align-items-center" style="height: calc(100vh - 96px)">
         <div class="col-lg-6 offset-lg-3 mt-5">
-            <h2 class="text-center text-dark my-5">Inicio de sesión</h2>
-            <div class="card rounded-4">
-                <form class="card-body bg-primary p-lg-5 rounded-4">
+            <h2 class="text-center text-texto-contraste mb-4">Inicio de sesión</h2>
+            <div class="card rounded-4 bg-primary">
+                <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{/login}" method="POST">
+                    <div class="p-lg-2">
+                        <div class="text-center">
+                            <img th:src="@{img/user.png}" class="img-fluid img-thumbnail rounded-circle my-3" width="200px" alt="img-principal" style="object-fit: cover;">
+                        </div>
+                        <div class="w-75 mx-auto mt-3">
+                            <div class="mb-3 form-floating">
+                                <span class="invalid-feedback text-texto-contraste" th:if="${loginError}" th:text="${loginError}"></span>
+                                <input type="text" class="form-control" id="email" placeholder="Correo Electrónico" name="email">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="mb-3 form-floating">
+                                <input type="password" class="form-control" id="password" placeholder="Contraseña" name="pwd">
+                                <label for="password">Contraseña</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center">
-                        <img th:src="@{img/user.png}" class="img-fluid img-thumbnail rounded-circle my-3" width="200px" alt="img-principal" style="object-fit: cover;">
+                        <button type="submit" class="btn btn-secondary px-5 mb-3 w-50">Entrar</button>
                     </div>
-
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="Correo Electrónico">
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" id="password" placeholder="Contraseña">
-                    </div>
-                    <div class="text-center"><button type="submit" class="btn btn-secondary px-5 mb-5 w-100">Entrar</button></div>
-                    <div class="form-text text-center mb-5 text-texto-contraste">
+                    <div class="form-text text-center mb-4 text-texto-contraste">
                         No estas registrado?
-                        <a th:href="@{/registro}" class="text-texto-contraste fw-bold text-decoration-none"> Create una cuenta</a>
+                        <a th:href="@{/registro}" class="text-texto-contraste fw-bold text-decoration-none">Create una cuenta</a>
                     </div>
                 </form>
             </div>

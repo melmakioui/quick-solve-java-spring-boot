@@ -35,12 +35,9 @@
 @import "../../../../../node_modules/bootstrap/scss/accordion";
 @import "../../../../../node_modules/bootstrap/scss/modal";
 @import "../../../../../node_modules/bootstrap/scss/close";
-@import "../../../../../node_modules/bootstrap/scss/alert";
-@import "../../../../../node_modules/bootstrap/scss/utilities/api";
 
+@import "../../../../../node_modules/bootstrap/scss/utilities/api";
 
 // Personalizado
 @import "partials/background";
 @import "partials/nav-styling";
-@import "partials/sidebar";
-@import "partials/cards";

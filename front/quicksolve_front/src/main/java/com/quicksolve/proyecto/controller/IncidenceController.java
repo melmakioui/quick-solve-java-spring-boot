@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@SessionAttributes({"userlogin"})
 public class IncidenceController {
 
     private final IncidenceService incidenceService;
