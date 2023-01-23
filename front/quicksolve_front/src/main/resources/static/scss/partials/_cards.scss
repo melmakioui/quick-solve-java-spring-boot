@@ -9,11 +9,11 @@
   transform: scale(1.2);
 }
 
-.card {
-  transition: 0.2s;
+.card-animation {
+ transition: 0.5s;
 }
 
-.card:hover { /*Deshabilitar hover al estar en menos de 900px*/
+.card-animation:hover {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   transform: scale(1.02);
 }
