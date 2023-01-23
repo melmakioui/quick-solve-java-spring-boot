@@ -2,7 +2,7 @@
     <nav th:fragment="nav" class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark"  data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img th:src="@{/img/logo-tr.png}" alt="Bootstrap" width="70" height="70">
+                <img th:src="@{/img/logo-tr.png}" alt="logo" width="70" height="70">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -13,22 +13,45 @@
                         <a class="nav-link current-page p-3 rounded-pill" aria-current="page" th:href="@{/}">Inicio</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" th:href="@{/login}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
+                        <!-- el link de abajo tendrá que llevar al apartado de cuenta del usuario -->
+                        <a class="nav-link p-3 rounded-pill"th:href="@{/login}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
+                        <a class="nav-link p-3 rounded-pill" th:href="@{/login}" th:unless="${userlogin}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" th:href="@{/registro}">Registrarse</a>
+                        <a class="nav-link p-3 rounded-pill" style="cursor: pointer;" th:if="${userlogin}" data-bs-toggle="modal" data-bs-target="#exampleModal">Logout</a>
+                        <a class="nav-link p-3 rounded-pill" th:href="@{/registro}" th:unless="${userlogin}">Registrarse</a>
                     </li>
-                    <li class="nav-item px-2">
+                    <li class="nav-item px-2" th:if="${userlogin}">
                         <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/incidencias}">Mis incidencias</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" th:ref="@{/incidencia/nueva}">Abrir incidencia</a>
+                        <a class="nav-link p-3 rounded-pill" th:if="${userlogin}" th:href="@{/incidencias}">Abrir incidencia</a>
+                        <!-- tendrá que llevar a una incidencia para usuarios NO REGISTRADOS -->
+                        <a class="nav-link p-3 rounded-pill" th:unless="${userlogin}" th:href="@{/incidencias}">Abrir incidencia</a>
                     </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" aria-current="page" href="#">Ver planes</a>
+                    <li class="nav-item px-2" th:if="${userlogin}">
+                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/planes}">Ver planes</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-primary text-texto-contraste">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Cerrar sesión</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Estas seguro que quieres cerrar la sesión?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal">Cancelar</button>
+                <a th:href="@{/logout}"><button type="button" class="btn btn-secondary">Cerrar sesión</button></a>
+            </div>
+        </div>
+    </div>
+</div>
