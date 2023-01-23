@@ -19,14 +19,14 @@
                         <h3 class="h3 text-texto-contraste p-2 mt-2">Datos personales</h3>
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" id="name" name="name" placeholder="nombre">
-                            <label for="name">Nombre</label>
+                            <label for="name">Nombre *</label>
                             <span class="invalid-feedback text-texto-contraste" id="nameBlankError"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="firstsurname" name="firstSurname" placeholder="apellido1">
-                                    <label for="firstsurname">Primer apellido</label>
+                                    <label for="firstsurname">Primer apellido *</label>
                                     <span class="invalid-feedback text-texto-contraste" id="firstSurnameBlankError"></span>
                                 </div>
                             </div>
@@ -42,25 +42,25 @@
                         <h3 class="h3 text-texto-contraste p-2 mt-2">Datos de cuenta</h3>
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="username" th:field="*{username}" placeholder="nombre de usuario">
-                            <label for="username">Nombre de usuario</label>
+                            <label for="username">Nombre de usuario *</label>
                             <span class="invalid-feedback text-texto-contraste" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                         </div>
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" placeholder="nombre@ejemplo.com">
-                            <label for="email">Email</label>
+                            <label for="email">Email *</label>
                             <span class="invalid-feedback text-texto-contraste" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="contraseña">
-                                    <label for="password">Contraseña</label>
+                                    <label for="password">Contraseña *</label>
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Repetir contraseña">
-                                    <label for="confirmpassword">Repetir contraseña</label>
+                                    <label for="confirmpassword">Repetir contraseña *</label>
                                     <span id="passwordMatchError" class="invalid-feedback text-texto-contraste"></span>
                                 </div>
                             </div>

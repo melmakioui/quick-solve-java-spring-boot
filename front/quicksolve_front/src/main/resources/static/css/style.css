@@ -8423,3 +8423,41 @@ a.nav-link:hover #user-icon {
   transition: all 0.3s;
   background: white;
 }
+
+.material-symbols-outlined {
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.material-symbols-outlined:hover {
+  font-size: 1.6rem;
+  transform: scale(1.2);
+}
+
+.card-animation {
+  transition: 0.5s;
+}
+
+.card-animation:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.sidebar-dashboard {
+  min-width: 280px;
+  max-width: 280px;
+  position: sticky;
+  top: 96px;
+  z-index: 777;
+  height: calc(100vh - 96px);
+}
+
+li a:hover {
+  background-color: rgb(255, 153, 0);
+  color: rgb(46, 46, 46);
+}
+
+.sidebar-hide {
+  margin-left: -280px;
+}
