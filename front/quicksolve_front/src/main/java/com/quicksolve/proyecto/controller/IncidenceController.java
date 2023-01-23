@@ -1,9 +1,6 @@
 package com.quicksolve.proyecto.controller;
 
-import com.quicksolve.proyecto.dto.DepartmentDTO;
-import com.quicksolve.proyecto.dto.FullIncidenceDTO;
-import com.quicksolve.proyecto.dto.IncidenceStateDTO;
-import com.quicksolve.proyecto.dto.SpaceDTO;
+import com.quicksolve.proyecto.dto.*;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.service.DepartmentService;
 import com.quicksolve.proyecto.service.IncidenceService;
@@ -64,7 +61,7 @@ public class IncidenceController {
 
     @GetMapping("/incidencias")
     public String showIncidences(Model model) {
-        List<FullIncidenceDTO> incidenceDTOS = incidenceService.list();
+        List<FullIncidenceDTO> incidenceDTOS = incidenceService.list((FullUserDTO) model.getAttribute("userlogin"));
 
         incidenceDTOS.forEach(incidence -> {
             incidence.setDepartment(departmentService.findById(incidence.getDepartmentId()));
@@ -103,8 +100,12 @@ public class IncidenceController {
             return "view/incidenceForm";
         }
 
-        incidenceService.save(incidenceDepartmentDTO);
-        isNewIncidence = true;
+        if (!(model.getAttribute("userlogin") instanceof FullUserDTO)){
+            incidenceService.save(incidenceDepartmentDTO);
+        } else {
+            incidenceService.save(incidenceDepartmentDTO, (FullUserDTO) model.getAttribute("userlogin"));
+        }
+        // isNewIncidence = true;
         return "redirect:/incidencias";
     }
 

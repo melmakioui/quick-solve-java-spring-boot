@@ -35,7 +35,9 @@ public class UserServiceImpl implements UserService {
         userRepo.save(userToSave);
         userDataRepo.save(dataToSave);
 
-        return usr;
+        FullUserDTO userInserted = getUserBy(usr.getEmail());
+        userInserted.setData(UserDataMapper.INSTANCE.dataToDTO(userDataRepo.findByUserId(userInserted.getId())));
+        return userInserted;
     }
 
     public FullUserDTO getUserBy(Long id){

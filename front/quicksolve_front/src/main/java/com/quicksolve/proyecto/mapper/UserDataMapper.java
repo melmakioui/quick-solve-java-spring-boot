@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface UserDataMapper {
     UserDataMapper INSTANCE = Mappers.getMapper(UserDataMapper.class);
 
+    @Mapping(source = "userData.id", target = "id")
     @Mapping(source = "userData.user.id", target = "idUser")
     UserDataDTO dataToDTO (UserData userData);
     UserData DTOtoUserData(UserDataDTO userDataDTO);
