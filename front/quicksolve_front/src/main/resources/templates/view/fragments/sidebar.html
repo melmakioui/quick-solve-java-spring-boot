@@ -10,29 +10,16 @@
         </li>
 
         <li class="nav-item">
-            <a th:href="@{/incidencia/nueva}" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" aria-current="page">
-                Nueva Incidencia
-            </a>
+            <a th:href="@{/incidencia/nueva}" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" aria-current="page" th:text="#{sidebar.newincidencia}"></a>
         </li>
         <li>
-            <a th:href="@{/incidencias}" class="nav-link link-texto-contraste hoverEffect p-3 mb-1 active">
-                Mis Incidencias
-            </a>
+            <a th:href="@{/incidencias}" class="nav-link link-texto-contraste hoverEffect p-3 mb-1 active" th:text="#{sidebar.misincidencias}"></a>
         </li>
         <li>
-            <a href="#" class="nav-link link-texto-contraste hoverEffect p-3 mb-1">
-                Configuracion de cuenta
-            </a>
+            <a href="#" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" th:text="#{sidebar.confcuenta}"></a>
         </li>
         <li>
-            <a href="#" class="nav-link link-texto-contraste hoverEffect p-3 mb-1">
-                Cancelar un plan
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link link-texto-contraste  hoverEffect p-3">
-                Ejemplo de link
-            </a>
+            <a href="#" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" th:text="#{sidebar.cancplan}"></a>
         </li>
     </ul>
 
@@ -40,15 +27,15 @@
     <div id="card" class="card text-center text-texto-contraste mb-auto mx-auto mt-2"
          style="background-color: rgb(35, 102, 153); width: 90%;">
         <div class="card-body">
-            <h5 class="card-title">Respuestas rapidas?</h5>
-            <p class="card-text">Adquiere un plan premium para respuestas rapidas.</p>
+            <h5 class="card-title" th:text="#{sidebar.planes.titulo}"></h5>
+            <p class="card-text" th:text="#{sidebar.planes.body}"></p>
             <div class="d-flex flex-column align-items-center">
                 <a id="plans-btn" href="#" style="background-color: rgb(255, 153, 0) !important;"
-                   class="btn">VER PLANES</a>
+                   class="btn" th:text="#{sidebar.planes.button}"></a>
             </div>
         </div>
     </div>
-
+    <!-- Cosas de cuenta todo -->
     <div id="useractions" class="dropdown p-2">
         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
            data-bs-toggle="dropdown" aria-expanded="false">

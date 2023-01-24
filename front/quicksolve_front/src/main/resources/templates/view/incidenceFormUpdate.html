@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>Nueva Incidencia</title>
+    <title th:text="#{updateincidencia.titulo1}"></title>
 </head>
 
 <body>
@@ -15,9 +15,9 @@
     <th:block th:include="view/fragments/sidebar"></th:block>
 
     <div class="mx-4 mt-4 mb-0 w-100" style="height: 100%;">
-        <button id="sidebarToggle">Sidebar</button>
+        <button id="sidebarToggle" th:text="#{incidencias.sidebarbutton}"></button>
 
-        <h1 class="text-center">MODIFICAR INCIDENCIA</h1>
+        <h1 class="text-center" th:text="#{updateincidencia.titulo2}"></h1>
         <th:block th:include="view/fragments/formUpdate"></th:block>
     </div>
 </main>

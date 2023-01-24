@@ -2,37 +2,33 @@
   <div class="row justify-content-center">
 
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
-      <label for="title" class="form-label">Titulo <span class="text-delete">*</span> </label>
+      <label for="title" class="form-label" th:text="#{formupt.campo1}"><span class="text-delete">*</span> </label>
       <input type="text" class="form-control" th:field="*{title}" name="title" id="title" required>
-      <div class="invalid-feedback">
-        Escribe un titulo valido.
-      </div>
+      <div class="invalid-feedback" th:text="#{formupt.campo1.error}"></div>
     </div>
   </div>
 
   <div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
-      <label for="email">Email <span class="text-delete">*</span></label>
+      <label for="email" th:text="#{formupt.campo2}"><span class="text-delete">*</span></label>
       <input type="email" class="form-control" th:field="*{email}" name="email" id="email" required>
-      <div class="invalid-feedback">
-        No es un email valido.
-      </div>
+      <div class="invalid-feedback" th:text="#{formupt.campo2.error}"></div>
     </div>
   </div>
 
   <div class="row justify-content-center">
     <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-      <label for="department">Departamento </label>
+      <label for="department" th:text="#{formupt.campo3}"></label>
       <select class="form-select" th:field="*{department.id}" name="department" id="department">
-        <option th:value="-1">Sin departamento</option>
+        <option th:value="-1" th:text="#{formupt.campo3.value0}"></option>
         <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
       </select>
     </div>
 
     <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-      <label for="space">Espacio </label>
+      <label for="space" th:text="#{formupt.campo4}"></label>
       <select class="form-select"  th:field="*{space.id}" name="space" id="space">
-        <option th:value="-1">Sin espacio</option>
+        <option th:value="-1" th:text="#{formupt.campo4.error}"></option>
         <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
       </select>
     </div>
@@ -40,28 +36,26 @@
 
   <div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
-      <label for="description">Descripción <span class="text-delete">*</span></label>
+      <label for="description" th:text="#{formupt.campo5}"><span class="text-delete">*</span></label>
       <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3" minlength="10" maxlength="512" required></textarea>
-      <div class="invalid-feedback">
-        La descripción debe tener entre 10 y 512 caracteres.
-      </div>
+      <div class="invalid-feedback" th:text="#{formupt.campo5.error}"></div>
     </div>
   </div>
 
   <!--Validar extensiones en el lado del cliente-->
   <div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10">
-      <label for="formFileMultiple" class="form-label">Adjuntar fotos </label>
+      <label for="formFileMultiple" class="form-label" th:text="#{formupt.campo6}"></label>
       <input class="form-control" type="file" id="formFileMultiple" multiple name="files">
     </div>
   </div>
 
-  <p class="fst-italic text-center"> ⓘ Recuerde que cuando la incidencia no este
-    <strong>"En Espera"</strong> no podra editar, ni eliminar su incidencia.</p>
+  <p class="fst-italic text-center" th:text="#{formupt.advise1}">
+    <strong th:text="#{formupt.advise2}"></strong> <span th:text="#{formupt.advise3}"></span></p>
 
   <div class="row justify-content-center">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10">
-      <button type="submit" class="btn btn-secondary w-100">Enviar</button>
+      <button type="submit" class="btn btn-secondary w-100" th:text="#{formupt.enviar}"></button>
     </div>
   </div>
 </form>

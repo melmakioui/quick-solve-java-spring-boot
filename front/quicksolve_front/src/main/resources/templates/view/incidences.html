@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title th:text="#{incidencias.titulo1}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
@@ -23,31 +23,20 @@
     <div id="page-content-wrapper" class="m-4  mx-4 mt-4 mb-0">
 
         <div class="container-fluid">
-            <button id="sidebarToggle">Toggle Sidebar</button>
+            <button id="sidebarToggle" th:text="#{incidencias.sidebarbutton}"></button>
 
-            <h1 class="mt-4">Mis Incidencias</h1>
+            <h1 class="mt-4" th:text="#{incidencias.titulo1}"></h1>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis ratione ea et. Repudiandae facere
-                praesentium labore. Autem veniam soluta fugit consequuntur mollitia totam non, quis deserunt incidunt
-                magni,
-                provident similique.</p>
+            <p th:text="#{incidencias.texto1}"></p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum doloremque quia eaque ut nam labore
-                necessitatibus aliquam corporis ipsa nulla, est voluptatem quasi enim ipsam deleniti in saepe accusamus
-                natus?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel consequuntur ab laborum commodi cum
-                recusandae
-                aliquid et doloribus? Exercitationem, eveniet non facilis expedita similique dolorem quia ipsum quo hic
-                sit!
-            </p>
+            <p th:text="#{incidencias.texto2}"></p>
 
             <div class="d-flex justify-content-end">
 
-                <p class="fs-5">Filtrar por: </p>
+                <p class="fs-5" th:text="#{incidencias.filtrotitulo}"></p>
                 <div class="dropdown mx-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Departamento
-                    </button>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{incidencias.filtro1}"></button>
+                    <!-- Esto se traduce por parte del servidor, en bdd -->
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/incidencias/limpieza">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
@@ -56,9 +45,8 @@
                 </div>
 
                 <div class="dropdown mx-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Espacio
-                    </button>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{incidencias.filtro2}"></button>
+                    <!-- Esto se traduce por parte del servidor, en bdd -->
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>

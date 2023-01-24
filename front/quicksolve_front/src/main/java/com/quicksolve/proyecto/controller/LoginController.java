@@ -2,7 +2,6 @@ package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.configuration.PasswordEncoderConf;
 import com.quicksolve.proyecto.dto.FullUserDTO;
-import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
