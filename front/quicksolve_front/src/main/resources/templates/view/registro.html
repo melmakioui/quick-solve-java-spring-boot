@@ -81,70 +81,7 @@
 
 <th:block th:include="view/fragments/footer"></th:block>
 <script th:src="@{js/jquery-3.6.3-min.js}"></script>
-<script>
-    $(document).ready(function () {
-        const regex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
-
-        $("#confirmpassword").on('keyup', function(){
-            const password = $("#password").val();
-            const confirmPassword = $("#confirmpassword").val();
-            if (password !== confirmPassword) {
-                $("#passwordMatchError").html("Las contraseñas no coinciden.");
-                $("#password").addClass("is-invalid");
-                $("#confirmpassword").addClass("is-invalid");
-            } else {
-                $("#passwordMatchError").html("");
-                $("#password").removeClass("is-invalid");
-                $("#confirmpassword").removeClass("is-invalid");
-            }
-            activateButtonForm();
-        });
-
-        $("#name").on('keyup', function(){
-            const name = $("#name").val();
-            console.log(regex.test(name))
-            if (name === "" && !regex.test(name)){
-                $("#nameBlankError").html("El nombre es obligatorio.");
-                $("#name").addClass("is-invalid");
-            } else {
-                $("#nameBlankError").html("");
-                $("#name").removeClass("is-invalid");
-            }
-            activateButtonForm();
-        });
-
-        $("#firstsurname").on('keyup', function(){
-            const firstsurname = $("#firstsurname").val();
-
-            if(firstsurname === "" && !regex.test(firstsurname)){
-                $("#firstSurnameBlankError").html("El primer apellido es obligatorio.");
-                $("#firstsurname").addClass("is-invalid");
-            } else {
-                $("#firstSurnameBlankError").html("");
-                $("#firstsurname").removeClass("is-invalid");
-            }
-            activateButtonForm();
-        });
-    });
-
-    function activateButtonForm(){
-        const name = $("#name").val();
-        const firstSurname = $("#firstsurname").val();
-        const password = $("#password").val();
-        const confirmpassword = $("#confirmpassword").val();
-
-        if (name !== "" &&
-            firstSurname !== "" &&
-            password !== "" &&
-            password === confirmpassword){
-            $("#submit").removeClass("disabled");
-        } else {
-            $("#submit").addClass("disabled");
-        }
-    }
-
-
-</script>
+<script th:src="@{js/validationRegister.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 </body>
