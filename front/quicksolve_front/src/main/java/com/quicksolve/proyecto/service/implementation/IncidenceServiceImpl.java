@@ -20,23 +20,12 @@ import java.util.stream.Collectors;
 public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
-    private final IncidenceRepository incidenceRepository;
-    private final UserIncidenceRepository userIncidenceRepo;
-    private final IncidenceStateRepository incidenceStateRepository;
-    private final DepartmentRepository departmentRepository;
-    private final SpaceRepository spaceRepository;
-
     @Autowired
-    public IncidenceServiceImpl(IncidenceRepository incidenceRepository, IncidenceStateRepository incidenceStateRepository,
-                                DepartmentRepository departmentRepository,
-                                SpaceRepository spaceRepository,
-                                UserIncidenceRepository userIncidenceRepo) {
-        this.incidenceRepository = incidenceRepository;
-        this.incidenceStateRepository = incidenceStateRepository;
-        this.departmentRepository = departmentRepository;
-        this.spaceRepository = spaceRepository;
-        this.userIncidenceRepo = userIncidenceRepo;
-    }
+    private  IncidenceRepository incidenceRepository;
+    @Autowired
+    private  UserIncidenceRepository userIncidenceRepo;
+    @Autowired
+    private  IncidenceStateRepository incidenceStateRepository;
 
     @Override
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
@@ -50,7 +39,7 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public FullIncidenceDTO findById(long id) {
-        Incidence incidence =  incidenceRepository.findById(id)
+        Incidence incidence = incidenceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
         return convertToDTO(incidence);
     }
@@ -58,16 +47,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     @Override
     public void save(FullIncidenceDTO fullIncidenceDTO) {
 
-        long departmentId = fullIncidenceDTO.getDepartment().getId();
-        long spaceId = fullIncidenceDTO.getSpace().getId();
-
-        if (departmentId == -1) {
-            fullIncidenceDTO.setDepartment(null);
-        }
-
-        if (spaceId == -1) {
-            fullIncidenceDTO.setSpace(null);
-        }
+        checkDepartmentAndSpace(fullIncidenceDTO);
 
         Incidence incidence = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
         incidence.setDateStart(LocalDateTime.now());
@@ -79,16 +59,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     @Override
     public void save(FullIncidenceDTO fullIncidenceDTO, FullUserDTO userDTO) {
 
-        long departmentId = fullIncidenceDTO.getDepartment().getId();
-        long spaceId = fullIncidenceDTO.getSpace().getId();
-
-        if (departmentId == -1) {
-            fullIncidenceDTO.setDepartment(null);
-        }
-
-        if (spaceId == -1) {
-            fullIncidenceDTO.setSpace(null);
-        }
+        checkDepartmentAndSpace(fullIncidenceDTO);
 
         Incidence incidence = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
         incidence.setDateStart(LocalDateTime.now());
@@ -117,16 +88,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     @Override
     public void update(FullIncidenceDTO fullIncidenceDTO) {
 
-        long departmentId = fullIncidenceDTO.getDepartment().getId();
-        long spaceId = fullIncidenceDTO.getSpace().getId();
-
-        if (departmentId == -1) {
-            fullIncidenceDTO.setDepartment(null);
-        }
-
-        if (spaceId == -1) {
-            fullIncidenceDTO.setSpace(null);
-        }
+        checkDepartmentAndSpace(fullIncidenceDTO);
 
         Incidence incidence = incidenceRepository.findById(fullIncidenceDTO.getId())
                 .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
@@ -138,6 +100,20 @@ public class IncidenceServiceImpl implements IncidenceService {
         Incidence incidenceToUpdate = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
         incidenceToUpdate.setIncidenceState(incidence.getIncidenceState());
         incidenceRepository.save(incidenceToUpdate);
+    }
+
+
+    private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {
+        long departmentId = fullIncidenceDTO.getDepartment().getId();
+        long spaceId = fullIncidenceDTO.getSpace().getId();
+
+        if (departmentId == -1) {
+            fullIncidenceDTO.setDepartment(null);
+        }
+
+        if (spaceId == -1) {
+            fullIncidenceDTO.setSpace(null);
+        }
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {
