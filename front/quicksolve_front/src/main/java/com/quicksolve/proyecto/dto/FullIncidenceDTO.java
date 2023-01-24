@@ -23,6 +23,7 @@ public class FullIncidenceDTO {
     private List<String> path;
 
     @Email(message = "El email debe ser válido")
+    @NotBlank
     private String email;
 
     private long incidenceStateId;
