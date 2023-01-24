@@ -28,11 +28,13 @@
   --bs-dark: rgb(15, 31, 63);
   --bs-texto-contraste: rgb(240, 240, 240);
   --bs-delete: rgb(255, 0, 0);
+  --bs-darker: rgb(46, 46, 46);
   --bs-primary-rgb: 35, 102, 153;
   --bs-secondary-rgb: 255, 153, 0;
   --bs-dark-rgb: 15, 31, 63;
   --bs-texto-contraste-rgb: 240, 240, 240;
   --bs-delete-rgb: 255, 0, 0;
+  --bs-darker-rgb: 46, 46, 46;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
@@ -1749,6 +1751,11 @@ progress {
   background-color: RGBA(255, 0, 0, var(--bs-bg-opacity, 1)) !important;
 }
 
+.text-bg-darker {
+  color: #fff !important;
+  background-color: RGBA(46, 46, 46, var(--bs-bg-opacity, 1)) !important;
+}
+
 .link-primary {
   color: rgb(35, 102, 153) !important;
 }
@@ -1782,6 +1789,13 @@ progress {
 }
 .link-delete:hover, .link-delete:focus {
   color: #ff3333 !important;
+}
+
+.link-darker {
+  color: rgb(46, 46, 46) !important;
+}
+.link-darker:hover, .link-darker:focus {
+  color: #252525 !important;
 }
 
 .ratio {
@@ -2118,6 +2132,23 @@ progress {
   --bs-btn-disabled-border-color: rgb(255, 0, 0);
 }
 
+.btn-darker {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: rgb(46, 46, 46);
+  --bs-btn-border-color: rgb(46, 46, 46);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #272727;
+  --bs-btn-hover-border-color: #252525;
+  --bs-btn-focus-shadow-rgb: 77, 77, 77;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #252525;
+  --bs-btn-active-border-color: #232323;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: rgb(46, 46, 46);
+  --bs-btn-disabled-border-color: rgb(46, 46, 46);
+}
+
 .btn-outline-primary {
   --bs-btn-color: rgb(35, 102, 153);
   --bs-btn-border-color: rgb(35, 102, 153);
@@ -2200,6 +2231,23 @@ progress {
   --bs-btn-disabled-color: rgb(255, 0, 0);
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: rgb(255, 0, 0);
+  --bs-gradient: none;
+}
+
+.btn-outline-darker {
+  --bs-btn-color: rgb(46, 46, 46);
+  --bs-btn-border-color: rgb(46, 46, 46);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: rgb(46, 46, 46);
+  --bs-btn-hover-border-color: rgb(46, 46, 46);
+  --bs-btn-focus-shadow-rgb: 46, 46, 46;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: rgb(46, 46, 46);
+  --bs-btn-active-border-color: rgb(46, 46, 46);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: rgb(46, 46, 46);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: rgb(46, 46, 46);
   --bs-gradient: none;
 }
 
@@ -4821,6 +4869,11 @@ textarea.form-control-lg {
   border-color: rgba(var(--bs-delete-rgb), var(--bs-border-opacity)) !important;
 }
 
+.border-darker {
+  --bs-border-opacity: 1;
+  border-color: rgba(var(--bs-darker-rgb), var(--bs-border-opacity)) !important;
+}
+
 .border-white {
   --bs-border-opacity: 1;
   border-color: rgba(var(--bs-white-rgb), var(--bs-border-opacity)) !important;
@@ -5668,6 +5721,11 @@ textarea.form-control-lg {
   color: rgba(var(--bs-delete-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-darker {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-darker-rgb), var(--bs-text-opacity)) !important;
+}
+
 .text-black {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
@@ -5742,6 +5800,11 @@ textarea.form-control-lg {
 .bg-delete {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-delete-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-darker {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-darker-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-black {
@@ -8408,7 +8471,17 @@ textarea.form-control-lg {
   color: rgb(15, 31, 63);
 }
 
-a.nav-link:hover {
+.nav-link:hover {
+  transition: all 0.3s;
+  background-color: rgb(255, 153, 0);
+  color: rgb(15, 31, 63);
+}
+
+.nav-item-personalized {
+  color: rgb(240, 240, 240);
+}
+
+.nav-item-personalized:hover {
   transition: all 0.3s;
   background-color: rgb(255, 153, 0);
   color: rgb(15, 31, 63);
@@ -8453,7 +8526,7 @@ a.nav-link:hover #user-icon {
   height: calc(100vh - 96px);
 }
 
-li a:hover {
+li .hoverEffect:hover {
   background-color: rgb(255, 153, 0);
   color: rgb(46, 46, 46);
 }

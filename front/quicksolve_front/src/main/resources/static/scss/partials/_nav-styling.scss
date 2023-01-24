@@ -5,7 +5,17 @@
   color: $dark;
 }
 
-a.nav-link:hover {
+.nav-link:hover {
+  transition: all 0.3s;
+  background-color: $secondary;
+  color: $dark;
+}
+
+.nav-item-personalized{
+  color: $text-1;
+}
+
+.nav-item-personalized:hover {
   transition: all 0.3s;
   background-color: $secondary;
   color: $dark;
