@@ -20,10 +20,13 @@ import java.util.stream.Collectors;
 public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
+
     @Autowired
     private  IncidenceRepository incidenceRepository;
+
     @Autowired
     private  UserIncidenceRepository userIncidenceRepo;
+
     @Autowired
     private  IncidenceStateRepository incidenceStateRepository;
 
@@ -31,7 +34,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
         List<Incidence> incidences = userIncidenceRepo.findAllByUser(UserMapper.INSTANCE.DTOtoUser(userDTO))
                 .stream()
-                .map(i -> i.getIncidence())
+                .map(UserIncidence::getIncidence)
                 .toList();
         return incidences.stream().map(this::convertToDTO)
                 .collect(Collectors.toList());
