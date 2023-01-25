@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface UserIncidenceRepository extends JpaRepository<UserIncidence, Long> {
     List<UserIncidence> findAllByUser(User user);
+    void deleteByIncidenceId(long id);
 }

@@ -9,6 +9,7 @@ import com.quicksolve.proyecto.mapper.IncidenceMapper;
 import com.quicksolve.proyecto.mapper.UserMapper;
 import com.quicksolve.proyecto.repository.*;
 import com.quicksolve.proyecto.service.IncidenceService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +78,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
         Incidence incidence = incidenceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
@@ -85,7 +87,8 @@ public class IncidenceServiceImpl implements IncidenceService {
             throw new RuntimeException("No se puede eliminar una incidencia que no esta en estado de espera");
         }
 
-        incidenceRepository.delete(incidence);
+        //UserIncidence tiene una relacion de tipo cascade.ALL, por lo que al eliminar la incidencia
+        userIncidenceRepo.deleteByIncidenceId(incidence.getId());
     }
 
     @Override
