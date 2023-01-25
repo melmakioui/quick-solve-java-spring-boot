@@ -80,7 +80,7 @@
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                                 <div>
                                                     <a th:href="@{/incidencia/modificar/} + ${incidence.id}"
                                                        class="icons-crud mx-1 text-primary"><span class="material-symbols-outlined">edit</span></a>
@@ -142,7 +142,7 @@
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                             </div>
                                         </div>
                                     </div>
