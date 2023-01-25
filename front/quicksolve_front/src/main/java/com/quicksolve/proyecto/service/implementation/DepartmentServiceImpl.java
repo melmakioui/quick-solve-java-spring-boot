@@ -6,35 +6,30 @@ import com.quicksolve.proyecto.entity.DepartmentLanguage;
 import com.quicksolve.proyecto.mapper.DepartmentMapper;
 import com.quicksolve.proyecto.repository.DepartmentLanguageRepository;
 import com.quicksolve.proyecto.repository.DepartmentRepository;
-import com.quicksolve.proyecto.repository.IncidenceStateLanguageRepository;
+import com.quicksolve.proyecto.repository.LanguageRepository;
 import com.quicksolve.proyecto.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private final Long ESPANOL_LANGUAGE_ID = 1L;
-    private final Long ENGLISH_LANGUAGE_ID = 2L;
-
-
-    private DepartmentRepository departmentRepository;
-    private DepartmentLanguageRepository departmentLanguageRepository;
-
     @Autowired
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository, DepartmentLanguageRepository departmentLanguageRepository) {
-        this.departmentRepository = departmentRepository;
-        this.departmentLanguageRepository = departmentLanguageRepository;
-    }
+    public DepartmentRepository departmentRepository;
+    @Autowired
+    public DepartmentLanguageRepository departmentLanguageRepository;
+    @Autowired
+    public LanguageRepository languageRepository;
+
 
     @Override
     public List<DepartmentDTO> list() {
-
         List<Department> departments = departmentRepository.findAll();
 
         if (departments.isEmpty()) {
@@ -60,9 +55,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     public DepartmentDTO convertToDTO(Department department) {
+        Locale locale = LocaleContextHolder.getLocale();
+        long languageId = languageRepository.findByName(locale.getLanguage()).getId();
+
         DepartmentLanguage departmentLanguage = departmentLanguageRepository.findByDepartmentIdAndLanguageId(
                 department.getId(),
-                ESPANOL_LANGUAGE_ID
+                languageId
         );
 
         //Handle Null

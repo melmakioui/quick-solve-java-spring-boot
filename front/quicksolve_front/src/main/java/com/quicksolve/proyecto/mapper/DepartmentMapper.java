@@ -11,7 +11,7 @@ public interface DepartmentMapper {
 
     DepartmentMapper INSTANCE = Mappers.getMapper(DepartmentMapper.class);
 
-    @Mapping(source = "id", target = "id")
+    @Mapping(source = "department.id", target = "id")
     @Mapping(source = "name" ,target = "name")
     DepartmentDTO departmentDTO (DepartmentLanguage departmentLanguage);
 }

@@ -78,6 +78,7 @@ public class IncidenceController {
         });
 
         model.addAttribute("incidences", incidenceDTOS);
+        model.addAttribute("status", incidenceStateService.list());
         return "view/incidences";
     }
 

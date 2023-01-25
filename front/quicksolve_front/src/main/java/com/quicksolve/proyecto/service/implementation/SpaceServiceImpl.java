@@ -4,26 +4,28 @@ import com.quicksolve.proyecto.dto.SpaceDTO;
 import com.quicksolve.proyecto.entity.Space;
 import com.quicksolve.proyecto.entity.SpaceLanguage;
 import com.quicksolve.proyecto.mapper.SpaceMapper;
+import com.quicksolve.proyecto.repository.LanguageRepository;
 import com.quicksolve.proyecto.repository.SpaceLanguageRepository;
 import com.quicksolve.proyecto.repository.SpaceRepository;
 import com.quicksolve.proyecto.service.SpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
 public class SpaceServiceImpl  implements SpaceService {
 
-    private final Long ESPANOL_LANGUAGE_ID = 1L;
-
     @Autowired
     private SpaceRepository spaceRepository;
     @Autowired
     private SpaceLanguageRepository spaceLanguageRepository;
+    @Autowired
+    private LanguageRepository languageRepository;
 
     @Override
     public List<SpaceDTO> list() {
@@ -53,9 +55,12 @@ public class SpaceServiceImpl  implements SpaceService {
     }
 
     private SpaceDTO convertDataIntoDTO(Space space) {
+        Locale locale = LocaleContextHolder.getLocale();
+        long languageId = languageRepository.findByName(locale.getLanguage()).getId();
+
        SpaceLanguage spaceLanguage = spaceLanguageRepository.findBySpaceIdAndLanguageId(
                space.getId(),
-               ESPANOL_LANGUAGE_ID);
+              languageId);
        return SpaceMapper.INSTANCE.spaceDTO(spaceLanguage);
     }
 }
