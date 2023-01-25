@@ -32,8 +32,6 @@ public class Incidence {
     @Size(min = 10, message = "El campo debe tener al menos 10 caracteres")
     @NotBlank(message = "El campo no puede estar vacio")
     private String description;
-    @Email(message = "El email debe ser valido")
-    @NotBlank(message = "El campo no puede estar vacio")
     private String email;
     private LocalDateTime dateStart;
     private LocalDateTime dateEnd;

@@ -1,0 +1,93 @@
+<div th:fragment="formNoUser" class="container-fluid mb-5">
+  <div class="row align-items-center" style="height: calc(100vh - 96px)">
+    <div class="col-lg-6 offset-lg-3 mt-5">
+      <h2 class="text-center text-texto-contraste mb-4">NUEVA INCIDENCIA</h2>
+      <div class="card rounded-4 bg-primary">
+
+        <form th:fragment="form" th:action="@{/public/nueva/incidencia}" th:object="${incidence}" method="POST"
+              class=" needs-validation container mb-4 mt-4" novalidate>
+          <div class="row justify-content-center">
+
+            <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12 mb-3">
+              <label for="title" class="form-label texto-contraste"><span class="text-texto-contraste">Titulo</span>
+                <span class="text-delete">*</span> </label>
+              <input type="text" class="form-control" th:field="*{title}" name="title" id="title"
+                     minlength="3" maxlength="50" required>
+              <div class="invalid-feedback">
+                Escribe un titulo valido.
+              </div>
+              <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
+          </div>
+
+          <div class="row justify-content-center mb-3">
+            <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
+              <label for="email"><span class="text-texto-contraste">Email</span> <span
+                      class="text-delete">*</span></label>
+              <input type="email" class="form-control" th:field="*{email}" name="email" id="email"
+                     required>
+              <div class="invalid-feedback">
+                No es un email valido.
+              </div>
+              <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-12 col-xl-4 col-lg-5 col-md-10 col-sm-12 mb-3">
+              <label for="department"><span class="text-texto-contraste">Departamento</span></label>
+              <select class="form-select" th:field="*{department.id}" name="department"
+                      id="department">
+                <option th:value="-1">Sin departamento</option>
+                <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}">
+                </option>
+              </select>
+            </div>
+
+            <div class="col-12 col-xl-4 col-lg-5 col-md-10 col-sm-12 mb-3">
+              <label for="space"><span class="text-texto-contraste">Espacio</span></label>
+
+              <select class="form-select" th:field="*{space.id}" name="space" id="space">
+                <option th:value="-1">Sin espacio</option>
+                <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}">
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row justify-content-center mb-3">
+            <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
+              <label for="department"><span class="text-texto-contraste">Descripción</span></label>
+              <textarea class="form-control" th:field="*{description}" name="description"
+                        id="description" rows="3" minlength="10" maxlength="512" required></textarea>
+              <div class="invalid-feedback">
+                La descripción debe tener entre 10 y 512 caracteres.
+              </div>
+              <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            </div>
+          </div>
+
+          <div class="row justify-content-center mb-3">
+            <div class="col-12 col-xl-8 col-lg-10 col-md-10">
+              <label for="formFileMultiple" class="form-label"><span class="text-texto-contraste">Adjuntar Fotos</span>
+              </label>
+              <input class="form-control" type="file" id="formFileMultiple" multiple name="files">
+            </div>
+          </div>
+
+          <p class="fst-italic text-center text-texto-contraste"> ⓘ Una vez envie la incidencia será asignada
+            a un
+            <strong>técnico</strong> y contactará con usted.</p>
+          <p class="fst-italic text-center text-texto-contraste">Recuerde que puede <a th:href="@{/registro}" class="text-texto-contraste">registrarse</a> para subir y
+            consultar sus incidencias.</p>
+
+          <div class="row justify-content-center mb-4">
+            <div class="col-12 col-xl-6 col-lg-10 col-md-10">
+              <button type="submit" class="btn btn-secondary w-100">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
