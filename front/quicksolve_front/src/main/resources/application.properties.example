@@ -2,5 +2,5 @@ spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 spring.datasource.url=jdbc:mariadb://localhost:3306/esquelet?useSSL=false&serverTimeZone=UTC&allowPublicKeyRetrieval=true
 spring.datasource.username=
 spring.datasource.password=
-
+spring.servlet.multipart.max-file-size=10MB
 spring.messages.basename=lang/res
