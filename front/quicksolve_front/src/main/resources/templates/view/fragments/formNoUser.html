@@ -5,7 +5,7 @@
       <div class="card rounded-4 bg-primary">
 
         <form th:fragment="form" th:action="@{/public/nueva/incidencia}" th:object="${incidence}" method="POST"
-              class=" needs-validation container mb-4 mt-4" novalidate>
+              class=" needs-validation container mb-4 mt-4"  enctype="multipart/form-data" novalidate>
           <div class="row justify-content-center">
 
             <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12 mb-3">

@@ -43,6 +43,7 @@ public class IncidenceController {
         model.addAttribute("spaces", spaces);
         model.addAttribute("departments", departments);
         model.addAttribute("incidence", fullIncidenceDTO);
+        model.addAttribute("isNewIncidence", true);
 
         return "view/incidenceForm";
     }
@@ -52,7 +53,8 @@ public class IncidenceController {
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidence", incidenceService.findById(id));
-        return "view/incidenceFormUpdate";
+        model.addAttribute("isNewIncidence", false);
+        return "view/incidenceForm";
     }
 
     @GetMapping("/public/nueva")
