@@ -1,10 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.*;
-import com.quicksolve.proyecto.service.DepartmentService;
-import com.quicksolve.proyecto.service.IncidenceService;
-import com.quicksolve.proyecto.service.IncidenceStateService;
-import com.quicksolve.proyecto.service.SpaceService;
+import com.quicksolve.proyecto.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +10,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,6 +26,8 @@ public class IncidenceController {
     private  SpaceService spaceService;
     @Autowired
     private  IncidenceStateService incidenceStateService;
+    @Autowired
+    private IncidenceFileService incidenceFileService;
 
 
     @GetMapping("/incidencia/nueva")
@@ -89,7 +89,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/public/nueva/incidencia")
-    public String saveNoUserIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model) {
+    public String saveNoUserIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
@@ -98,8 +98,12 @@ public class IncidenceController {
             return "view/incidenceNoLoginForm";
         }
 
+        incidenceFileService.validateFiles(files);
         incidenceService.save(incidenceDepartmentDTO);
-        return "redirect:/incidencias";
+        FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
+        incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
+
+        return "redirect:/";
     }
 
     @PostMapping("/nueva/incidencia")

@@ -19,5 +19,6 @@ public class IncidenceFiles {
 
     @ManyToOne
     @JoinColumn(name = "incidence_id")
+    @ToString.Exclude
     private Incidence incidence;
 }
