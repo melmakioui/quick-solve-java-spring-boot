@@ -37,6 +37,10 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
 
     @Override
     public void validateFiles(MultipartFile[] files) {
+
+        if(files[0].getOriginalFilename().equals("")){
+            return;
+        }
         if(files.length > MAX_FILE_QUANTITY){
             throw new RuntimeException("No se pueden subir mas de 5 archivos");
         }
@@ -55,6 +59,10 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
 
     @Override
     public void saveIncidenceFiles(MultipartFile[] files, FullIncidenceDTO incidenceDTO) {
+
+        if(files[0].getOriginalFilename().equals("")){
+            return;
+        }
 
         Arrays.stream(files).toList().forEach(file -> {
             try{

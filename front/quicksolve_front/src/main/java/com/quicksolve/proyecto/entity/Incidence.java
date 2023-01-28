@@ -42,7 +42,7 @@ public class Incidence {
     @JoinColumn(name = "department_id", nullable = true)
     private Department department;
 
-    @OneToMany(mappedBy = "incidence")
+    @OneToMany(mappedBy = "incidence", cascade = CascadeType.ALL)
     private Set<IncidenceFiles> incidenceFiles;
 
     @ManyToOne

@@ -17,3 +17,7 @@ li .hoverEffect:hover {
 .sidebar-hide {
   margin-left: -280px;
 }
+
+.nav-pills .nav-link.sidebar-active{
+  background-color: $secondary;
+}

@@ -35,6 +35,9 @@ public class IncidenceServiceImpl implements IncidenceService {
     @Autowired
     private IncidenceStateRepository incidenceStateRepository;
 
+    @Autowired
+    private IncidenceFileRepository incidenceFileRepository;
+
     @Override
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
         List<Incidence> incidences = userIncidenceRepo.findAllByUser(UserMapper.INSTANCE.DTOtoUser(userDTO))
@@ -96,6 +99,8 @@ public class IncidenceServiceImpl implements IncidenceService {
 
         //UserIncidence tiene una relacion de tipo cascade.ALL, por lo que al eliminar la incidencia
         userIncidenceRepo.deleteByIncidenceId(incidence.getId());
+        //Si se elimina una incidencia la ruta de archivos asociados tambien se eliminan
+        incidenceFileRepository.deleteAllByIncidenceId(incidence.getId());
     }
 
     @Override
