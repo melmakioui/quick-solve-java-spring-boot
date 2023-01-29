@@ -8534,3 +8534,13 @@ li .hoverEffect:hover {
 .sidebar-hide {
   margin-left: -280px;
 }
+
+.normal-height {
+  height: calc(100vh - 96px);
+}
+
+@media (max-width: 968px) {
+  .normal-height {
+    height: auto;
+  }
+}

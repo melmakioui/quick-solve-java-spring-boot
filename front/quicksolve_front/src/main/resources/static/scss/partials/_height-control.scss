@@ -1,0 +1,9 @@
+.normal-height {
+  height: calc(100vh - 96px);
+}
+
+@media (max-width: 968px){
+  .normal-height {
+    height: auto;
+  }
+}
