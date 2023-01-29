@@ -24,4 +24,14 @@ $(document).ready(function () {
     });
 
 
+     //El background del link cambia segun la pagina en la que estemos
+        var as = $('.nav-link');
+        $.each(as, function (index, value) {
+            $(value).removeClass('sidebar-active');
+        });
+
+        var path = window.location.pathname;
+        var activeLink = $('.nav-link[href="'+path+'"]');
+        activeLink.addClass('sidebar-active');
+
 });

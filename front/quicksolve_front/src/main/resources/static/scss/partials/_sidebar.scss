@@ -7,6 +7,19 @@
   top: 96px;
   z-index: 777;
   height: calc(100vh - 96px);
+
+  &_responsive{
+    position: fixed;
+    top: 96px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $text-1;
+    z-index: 999;
+    display: none;
+    padding: 0 20px;
+    overflow-y: auto;
+  }
 }
 
 li .hoverEffect:hover {
