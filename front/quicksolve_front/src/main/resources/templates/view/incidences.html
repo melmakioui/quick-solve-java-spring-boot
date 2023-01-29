@@ -20,7 +20,7 @@
 
     <th:block th:include="view/fragments/sidebar"></th:block>
 
-    <div id="page-content-wrapper" class="m-4  mx-4 mt-4 mb-0">
+    <div id="page-content-wrapper" class="m-4  mx-4 mt-4 mb-0 w-100">
 
         <div class="container-fluid">
             <button id="sidebarToggle" th:text="#{incidencias.sidebarbutton}"></button>
@@ -31,28 +31,27 @@
 
             <p th:text="#{incidencias.texto2}"></p>
 
+            <p th:text="#{incidencias.texto3}"></p>
+
+            <p th:text="#{incidencias.texto4}"></p>
+
             <div class="d-flex justify-content-end">
 
                 <p class="fs-5" th:text="#{incidencias.filtrotitulo}"></p>
-                <div class="dropdown mx-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{incidencias.filtro1}"></button>
-                    <!-- Esto se traduce por parte del servidor, en bdd -->
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/incidencias/limpieza">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                <div>
+                    <select class="form-select" name="department" id="dep">
+                        <option th:text="#{formupt.campo3}" th:value="all" selected></option>
+                        <option th:each="dep : ${departments}" th:value="${dep.name}" th:text="${dep.name}"></option>
+                    </select>
                 </div>
 
-                <div class="dropdown mx-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{incidencias.filtro2}"></button>
-                    <!-- Esto se traduce por parte del servidor, en bdd -->
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                <div>
+                    <select class="form-select" name="department" id="spa">
+                        <option th:text="#{formupt.campo4}" th:value="all" selected>Espacio</option>
+                        <option th:each="spa : ${spaces}" th:value="${spa.name}" th:text="${spa.name}"></option>
+                    </select>
                 </div>
+
 
             </div>
 
@@ -61,46 +60,44 @@
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne"  th:text="${status.get(0).name}">
+                                aria-expanded="true" aria-controls="collapseOne" th:text="${status.get(0).name}">
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                          data-bs-parent="#accordion">
 
-                        <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start">
+                        <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start"
+                             id="waiting">
 
-                            <div class="d-flex justify-content-start" th:each="incidence : ${incidences}">
-                                <a   th:if="${incidence.incidenceStateId == 1}" th:href="@{/incidencia/} + ${incidence.id}"
-                                   class="card-link text-decoration-none text-dark">
-
-                                    <div class="card card-animation card mb-4 mx-2"
-                                         style="width: 18rem;">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
-                                            <p class="card-text text-truncate mb-1"
-                                               th:text="${incidence.description}"></p>
-                                            <div class="d-flex justify-content-between">
-                                                <small th:text="${incidence.daysAgo}"></small>
-                                                <div>
-                                                    <a th:href="@{/incidencia/modificar/} + ${incidence.id}"
-                                                       class="icons-crud mx-1 text-primary"><span class="material-symbols-outlined">edit</span></a>
-                                                    <a th:href="@{/incidencia/eliminar/} + ${incidence.id}"
-                                                       class="icons-crud text-danger mx-1 text-delete"><span
-                                                            class="material-symbols-outlined">delete_forever</span></a>
-                                                </div>
-                                                <span th:class="department" th:text="${incidence.department != null} ? ${incidence.department.name} : 'null'" hidden="hidden"></span>
-
+                                <div class="card card-animation card mb-4 mx-2 incidence waiting"
+                                     th:each="incidence : ${incidences}"
+                                     th:if="${incidence.incidenceStateId == 1}"
+                                     style="width: 18rem;"
+                                     th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
+                                     th:attr="data-department=${incidence.department == null ? 'no-dep' : incidence.department.name },
+                                       data-space=${incidence.space == null ? 'no-space' : incidence.space.name } ">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
+                                        <p class="card-text text-truncate mb-1"
+                                           th:text="${incidence.description}"></p>
+                                        <div class="d-flex justify-content-between">
+                                            <small th:text="${incidence.daysAgo}"></small>
+                                            <div>
+                                                <a th:href="@{/incidencia/modificar/} + ${incidence.id}"
+                                                   class="icons-crud mx-1 text-primary"><span
+                                                        class="material-symbols-outlined">edit</span></a>
+                                                <a th:href="@{/incidencia/eliminar/} + ${incidence.id}"
+                                                   class="icons-crud text-danger mx-1 text-delete"><span
+                                                        class="material-symbols-outlined">delete_forever</span></a>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
-
-                            </div>
+                                </div>
 
 
-                            <a th:href="@{/incidencia/nueva}" class="card-link text-decoration-none text-primary">
+                            <a th:href="@{/incidencia/nueva}" class="card-link text-decoration-none text-primary" id="new-btn">
 
-                                <div class="card card-animation mx-2 bg-primary" style="width: 18rem;">
+                                <div class="card card-animation mx-2 bg-primary" style="width: 18rem;"  th:onclick="'window.location.href=\'' + @{/incidencia/nueva}'\''">
                                     <div class="card-body d-flex justify-content-center">
                                         <svg width="90px" height="90px" viewBox="-1.2 -1.2 26.40 26.40" fill="none"
                                              xmlns="http://www.w3.org/2000/svg" stroke="#ff9900">
@@ -123,38 +120,38 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" th:text="${status.get(1).name}">
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                th:text="${status.get(1).name}">
                         </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                          data-bs-parent="#accordion">
-                        <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start">
-
-                            <div class="d-flex justify-content-start" th:each="incidence : ${incidences}">
-                                <a   th:if="${incidence.incidenceStateId == 2}" th:href="@{/incidencia/} + ${incidence.id}"
-                                     class="card-link text-decoration-none text-dark">
-
-                                    <div class="card card-animation mb-4 mx-2"
-                                         style="width: 18rem;">
-                                        <span th:class="department" th:text="${incidence.department != null} ? ${incidence.department.name} : 'null'" hidden="hidden"></span>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
-                                            <p class="card-text text-truncate mb-1"
-                                               th:text="${incidence.description}"></p>
-                                            <div class="d-flex justify-content-between">
-                                                <small th:text="${incidence.daysAgo}"></small>
-                                            </div>
+                        <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start"
+                             id="solving">
+                                <div class="card card-animation card mb-4 mx-2 incidence solving"
+                                     th:each="incidence : ${incidences}"
+                                     th:if="${incidence.incidenceStateId == 2}"
+                                     style="width: 18rem;"
+                                     th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
+                                     th:attr="data-department=${incidence.department == null ? 'no-dep' : incidence.department.name },
+                                       data-space=${incidence.space == null ? 'no-space' : incidence.space.name } ">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
+                                        <p class="card-text text-truncate mb-1"
+                                           th:text="${incidence.description}"></p>
+                                        <div class="d-flex justify-content-between">
+                                            <small th:text="${incidence.daysAgo}"></small>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
+                                </div>
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"  th:text="${status.get(2).name}" >
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                th:text="${status.get(2).name}">
                         </button>
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -162,8 +159,9 @@
                         <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start">
 
                             <div class="d-flex justify-content-start" th:each="incidence : ${incidences}">
-                                <a   th:if="${incidence.incidenceStateId == 3}" th:href="@{/incidencia/} + ${incidence.id}"
-                                     class="card-link text-decoration-none text-dark">
+                                <a th:if="${incidence.incidenceStateId == 3}"
+                                   th:href="@{/incidencia/} + ${incidence.id}"
+                                   class="card-link text-decoration-none text-dark">
 
                                     <div class="card card-animation mb-4 mx-2"
                                          style="width: 18rem;">
@@ -186,15 +184,17 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFour">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree" th:text="${status.get(3).name}">
+                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree"
+                                th:text="${status.get(3).name}">
                         </button>
                     </h2>
                     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                          data-bs-parent="#accordion">
                         <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start">
                             <div class="d-flex justify-content-start" th:each="incidence : ${incidences}">
-                                <a   th:if="${incidence.incidenceStateId == 4}" th:href="@{/incidencia/} + ${incidence.id}"
-                                     class="card-link text-decoration-none text-dark">
+                                <a th:if="${incidence.incidenceStateId == 4}"
+                                   th:href="@{/incidencia/} + ${incidence.id}"
+                                   class="card-link text-decoration-none text-dark">
 
                                     <div class="card card-animation  mb-4 mx-2"
                                          style="width: 18rem;">
@@ -228,6 +228,7 @@
 
 <script th:src="@{js/jquery-3.6.3-min.js}"></script>
 <script th:src="@{js/sidebar.js}"></script>
+<script th:src="@{js/filterDepSpa.js}"></script>
 
 </body>
 
