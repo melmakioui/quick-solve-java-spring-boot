@@ -26,7 +26,8 @@ public class LoginController {
     public String tryLogin(Model model, @RequestParam("email") String email, @RequestParam("pwd") String password){
         FullUserDTO usr = userService.getUserBy(email);
         if (usr != null && passwordEncoder.encoder().matches(password, usr.getPassword())){
-            model.addAttribute("userlogin", usr);
+            FullUserDTO totalUser = userService.getFullUser(usr.getId());
+            model.addAttribute("userlogin", totalUser);
         } else {
             model.addAttribute("loginError", "No se han introducido los datos correctos para el email y/o contraseña.");
             return "view/login";
