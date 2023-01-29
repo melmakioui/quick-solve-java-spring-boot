@@ -8,7 +8,7 @@ $(document).ready(function () {
     var cardsSolving = $('#solving .card') // get all cards inside solving accordion
 
     var incidences = $('.incidence') // get all incidences cards
-
+    var newIncidence = $('#newIncidence') // get new incidence button
     var selectDep = $('#dep')
     var selectSpa = $('#spa')
 
@@ -56,6 +56,7 @@ $(document).ready(function () {
 
             if ($(incidence).hasClass('waiting')) {
                 waitingAccordion.append($(incidence))
+                waitingAccordion.append($(newIncidence))
             }
             if ($(incidence).hasClass('solving')) {
                 solvingAccordion.append($(incidence))

@@ -38,14 +38,14 @@
             <div class="d-flex justify-content-end">
 
                 <p class="fs-5" th:text="#{incidencias.filtrotitulo}"></p>
-                <div>
-                    <select class="form-select" name="department" id="dep">
+                <div class=" mx-2">
+                    <select class="form-select mx-2" name="department" id="dep">
                         <option th:text="#{formupt.campo3}" th:value="all" selected></option>
                         <option th:each="dep : ${departments}" th:value="${dep.name}" th:text="${dep.name}"></option>
                     </select>
                 </div>
 
-                <div>
+                <div class=" mx-2">
                     <select class="form-select" name="department" id="spa">
                         <option th:text="#{formupt.campo4}" th:value="all" selected>Espacio</option>
                         <option th:each="spa : ${spaces}" th:value="${spa.name}" th:text="${spa.name}"></option>
@@ -95,9 +95,8 @@
                                 </div>
 
 
-                            <a th:href="@{/incidencia/nueva}" class="card-link text-decoration-none text-primary" id="new-btn">
 
-                                <div class="card card-animation mx-2 bg-primary" style="width: 18rem;"  th:onclick="'window.location.href=\'' + @{/incidencia/nueva}'\''">
+                                <div id="newIncidence" class="card card-animation mx-2 bg-primary" style="width: 18rem; height: 122px;"  th:onclick="'window.location.href=\'' + @{/incidencia/nueva}'\''">
                                     <div class="card-body d-flex justify-content-center">
                                         <svg width="90px" height="90px" viewBox="-1.2 -1.2 26.40 26.40" fill="none"
                                              xmlns="http://www.w3.org/2000/svg" stroke="#ff9900">
@@ -112,7 +111,6 @@
                                         </svg>
                                     </div>
                                 </div>
-                            </a>
 
                         </div>
                     </div>
