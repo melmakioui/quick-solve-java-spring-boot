@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
         return userInserted;
     }
 
+    public FullUserDTO updateUser(FullUserDTO usr){
+        System.out.println(usr.getId());
+        return new FullUserDTO();
+    }
+
     public FullUserDTO getUserBy(Long id){
         return UserMapper.INSTANCE.userToDTO(userRepo.getReferenceById(id));
     }

@@ -41,7 +41,7 @@
                     <div class="col-lg-6">
                       <div class="mb-3">
                         <label for="username" th:text="#{account.campo1}"></label>
-                        <input type="text" class="form-control" id="username" th:field="*{userlogin.username}" placeholder="nombre de usuario">
+                        <input type="text" class="form-control" id="username" name="username" th:field="*{userlogin.username}" placeholder="nombre de usuario">
                       </div>
                       <div class="mb-3">
                         <label for="name" th:text="#{account.campo2}"></label>
@@ -57,7 +57,7 @@
                       </div>
                       <div class="mb-3">
                         <label for="secondsurname" th:text="#{account.campo4}"></label>
-                        <input type="text" class="form-control" id="secondsurname" th:field="*{userlogin.data.secondSurname}" placeholder="Segundo apellido">
+                        <input type="text" class="form-control" id="secondsurname" name="secondSurname" th:field="*{userlogin.data.secondSurname}" placeholder="Segundo apellido">
                       </div>
                     </div>
                   </div>
