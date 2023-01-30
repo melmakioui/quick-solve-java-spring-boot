@@ -10,7 +10,7 @@
 <th:block th:include="view/fragments/nav"></th:block>
 
 <div class="container-fluid mb-5">
-    <div class="row align-items-center" style="height: calc(100vh - 96px)">
+    <div class="row align-items-center normal-height">
         <div class="col-lg-6 offset-lg-3 mt-5">
             <h2 class="text-center text-texto-contraste mb-4" th:text="#{registro.titulo1}">Registro</h2>
             <div class="card rounded-4 bg-primary">
@@ -20,20 +20,21 @@
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" id="name" name="name" placeholder="nombre">
                             <label for="name" th:text="#{registro.campo1}"></label>
-                            <span class="invalid-feedback text-texto-contraste" id="nameBlankError"></span>
+                            <span class="invalid-feedback text-texto-contraste" id="nameErrors"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="firstsurname" name="firstSurname" placeholder="apellido1">
                                     <label for="firstsurname" th:text="#{registro.campo2}"></label>
-                                    <span class="invalid-feedback text-texto-contraste" id="firstSurnameBlankError"></span>
+                                    <span class="invalid-feedback text-texto-contraste" id="firstSurnameErrors"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="secondsurname" name="secondSurname" placeholder="Segundo apellido">
                                     <label for="secondsurname" th:text="#{registro.campo3}"></label>
+                                    <span class="invalid-feedback text-texto-contraste" id="secondSurnameErrors"></span>
                                 </div>
                             </div>
                         </div>
@@ -44,11 +45,13 @@
                             <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="username" th:field="*{username}" placeholder="nombre de usuario">
                             <label for="username" th:text="#{registro.campo4}"></label>
                             <span class="invalid-feedback text-texto-contraste" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                            <span class="invalid-feedback text-texto-contraste" id="usernameErrors"></span>
                         </div>
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" placeholder="nombre@ejemplo.com">
                             <label for="email" th:text="#{registro.campo5}"></label>
-                            <span class="invalid-feedback text-texto-contraste" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:if="${emailDuplicated}" th:text="#{}"></span>
+                            <span class="invalid-feedback text-texto-contraste" id="emailErrors"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mb-3">
