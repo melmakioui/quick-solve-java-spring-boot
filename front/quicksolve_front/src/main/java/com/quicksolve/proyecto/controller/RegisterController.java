@@ -42,6 +42,12 @@ public class RegisterController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("user", user);
+            if (userService.existsWithEmail(user.getEmail())){
+                model.addAttribute("alreadyExistsEmail", "Este email ya existe.");
+            }
+            if (userService.existsWithUsername(user.getUsername())){
+                model.addAttribute("alreadyExistsUsername", "Este nombre ya existe.");
+            }
             return "view/registro";
         }
 

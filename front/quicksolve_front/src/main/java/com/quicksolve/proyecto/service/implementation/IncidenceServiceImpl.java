@@ -9,11 +9,15 @@ import com.quicksolve.proyecto.mapper.IncidenceMapper;
 import com.quicksolve.proyecto.mapper.UserMapper;
 import com.quicksolve.proyecto.repository.*;
 import com.quicksolve.proyecto.service.IncidenceService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,6 +81,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
         Incidence incidence = incidenceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
@@ -85,7 +90,8 @@ public class IncidenceServiceImpl implements IncidenceService {
             throw new RuntimeException("No se puede eliminar una incidencia que no esta en estado de espera");
         }
 
-        incidenceRepository.delete(incidence);
+        //UserIncidence tiene una relacion de tipo cascade.ALL, por lo que al eliminar la incidencia
+        userIncidenceRepo.deleteByIncidenceId(incidence.getId());
     }
 
     @Override
@@ -101,6 +107,7 @@ public class IncidenceServiceImpl implements IncidenceService {
         }
 
         Incidence incidenceToUpdate = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
+        incidenceToUpdate.setDateStart(incidence.getDateStart());
         incidenceToUpdate.setIncidenceState(incidence.getIncidenceState());
         incidenceRepository.save(incidenceToUpdate);
     }
@@ -120,6 +127,26 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {
-        return IncidenceMapper.INSTANCE.incidenceToDTO(incidence);
+        String days = getTotalDays(incidence.getDateStart());
+        FullIncidenceDTO fullIncidenceDTO = IncidenceMapper.INSTANCE.incidenceToDTO(incidence);
+        fullIncidenceDTO.setDaysAgo(days);
+        return fullIncidenceDTO;
+    }
+
+
+    private String getTotalDays(LocalDateTime dateStart){
+        Locale locale = LocaleContextHolder.getLocale();
+        Period between = Period.between(dateStart.toLocalDate(), LocalDateTime.now().toLocalDate());
+        if (between.isZero()){
+            if (locale.getLanguage().equals("es")) {
+                return  "Hoy";
+            } else {
+                return  "Today";
+            }
+        }else {
+            return (locale.getLanguage().equals("es") ? "Hace " : "" +
+                    Integer.toString(between.getDays()) + " " +
+                    (locale.getLanguage().equals("es") ? " días" : " days ago"));
+        }
     }
 }

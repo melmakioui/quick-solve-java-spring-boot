@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{css/style.css}">
+  <title th:text="#{account.titulo1}"></title>
+</head>
+<body>
+<th:block th:include="view/fragments/nav"></th:block>
+
+<main class="d-flex flex-nowrap sidebar-hide" style="transition: 0.5s;">
+
+  <th:block th:include="view/fragments/sidebar"></th:block>
+
+  <div id="page-content-wrapper" class="m-4 mx-4 mt-4 mb-0 w-100">
+    <div class="container-fluid">
+      <button id="sidebarToggle" th:text="#{incidencias.sidebarbutton}"></button>
+        <div class="row align-items-center normal-height">
+          <div class="col-xl-10 col-lg-12 mx-auto">
+            <h2 class="text-center mb-4" th:text="#{account.titulo2}"></h2>
+            <form class="p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{cuenta}" method="POST">
+              <div class="row mb-4 mt-4 col-lg-8 mx-auto">
+                <div class="text-center col-lg-3 my-auto mb-4">
+                  <img th:src="@{img/user.png}" class="img-fluid img-thumbnail rounded-circle" width="200px" alt="img-principal" style="object-fit: cover;">
+                </div>
+                <div class="text-center col-lg-9 m-auto w-75">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="emailasociado">@</span>
+                    <input type="text" class="form-control" disabled placeholder="Email" aria-label="email" aria-describedby="emailasociado" th:value="*{userlogin.email}">
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="creadaen" th:text="#{account.created}"></span>
+                    <input type="text" class="form-control" disabled aria-label="creadaen" aria-describedby="creadaen" th:value="*{#temporals.format(userlogin.data.created, 'dd/MM/yyyy HH:mm')}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="mx-auto mt-3 col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label for="username" th:text="#{account.campo1}"></label>
+                        <input type="text" class="form-control" id="username" name="username" th:field="*{userlogin.username}" placeholder="nombre de usuario">
+                      </div>
+                      <div class="mb-3">
+                        <label for="name" th:text="#{account.campo2}"></label>
+                        <input type="text" class="form-control" id="name" th:field="*{userlogin.data.name}" name="name" placeholder="nombre">
+                        <span class="invalid-feedback" id="nameBlankError"></span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label for="firstsurname" th:text="#{account.campo3}"></label>
+                        <input type="text" class="form-control" id="firstsurname" th:field="*{userlogin.data.firstSurname}" name="firstSurname" placeholder="apellido1">
+                        <span class="invalid-feedback" id="firstSurnameBlankError"></span>
+                      </div>
+                      <div class="mb-3">
+                        <label for="secondsurname" th:text="#{account.campo4}"></label>
+                        <input type="text" class="form-control" id="secondsurname" name="secondSurname" th:field="*{userlogin.data.secondSurname}" placeholder="Segundo apellido">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-secondary px-5 mb-3 w-75" th:text="#{account.boton1}"></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+</main>
+
+<th:block th:include="view/fragments/footer"></th:block>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+<script th:src="@{js/jquery-3.6.3-min.js}"></script>
+<script th:src="@{js/sidebar.js}"></script>
+</body>
+</html>

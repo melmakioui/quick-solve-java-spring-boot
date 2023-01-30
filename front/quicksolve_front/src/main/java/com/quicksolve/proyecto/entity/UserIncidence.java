@@ -24,7 +24,7 @@ public class UserIncidence {
     @JoinColumn(name = "tech_id")
     private User tech;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "incidence_id")
     private Incidence incidence;
 }

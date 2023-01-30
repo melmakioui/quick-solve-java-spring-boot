@@ -61,8 +61,7 @@
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                            En Espera
+                                aria-expanded="true" aria-controls="collapseOne"  th:text="${status.get(0).name}">
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -81,7 +80,7 @@
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                                 <div>
                                                     <a th:href="@{/incidencia/modificar/} + ${incidence.id}"
                                                        class="icons-crud mx-1 text-primary"><span class="material-symbols-outlined">edit</span></a>
@@ -89,6 +88,8 @@
                                                        class="icons-crud text-danger mx-1 text-delete"><span
                                                             class="material-symbols-outlined">delete_forever</span></a>
                                                 </div>
+                                                <span th:class="department" th:text="${incidence.department != null} ? ${incidence.department.name} : 'null'" hidden="hidden"></span>
+
                                             </div>
                                         </div>
                                     </div>
@@ -122,8 +123,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Solucionando
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" th:text="${status.get(1).name}">
                         </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -136,17 +136,17 @@
 
                                     <div class="card card-animation mb-4 mx-2"
                                          style="width: 18rem;">
+                                        <span th:class="department" th:text="${incidence.department != null} ? ${incidence.department.name} : 'null'" hidden="hidden"></span>
                                         <div class="card-body">
                                             <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
-
                             </div>
                         </div>
                     </div>
@@ -154,8 +154,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Solucionado
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"  th:text="${status.get(2).name}" >
                         </button>
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -173,7 +172,7 @@
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                             </div>
                                         </div>
                                     </div>
@@ -187,8 +186,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFour">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
-                            Cancelado
+                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree" th:text="${status.get(3).name}">
                         </button>
                     </h2>
                     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
@@ -205,7 +203,7 @@
                                             <p class="card-text text-truncate mb-1"
                                                th:text="${incidence.description}"></p>
                                             <div class="d-flex justify-content-between">
-                                                <small>Hace 4 días</small>
+                                                <small th:text="${incidence.daysAgo}"></small>
                                             </div>
                                         </div>
                                     </div>

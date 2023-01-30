@@ -6,11 +6,14 @@ import com.quicksolve.proyecto.entity.IncidenceStateLanguage;
 import com.quicksolve.proyecto.mapper.IncidenceStateMapper;
 import com.quicksolve.proyecto.repository.IncidenceStateLanguageRepository;
 import com.quicksolve.proyecto.repository.IncidenceStateRepository;
+import com.quicksolve.proyecto.repository.LanguageRepository;
 import com.quicksolve.proyecto.service.IncidenceStateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +23,9 @@ public class IncidenceStateServiceImpl implements IncidenceStateService {
     private IncidenceStateRepository incidenceStateRepository;
     @Autowired
     private IncidenceStateLanguageRepository incidenceStateLanguageRepository;
+
+    @Autowired
+    private LanguageRepository languageRepository;
 
     @Override
     public List<IncidenceStateDTO> list() {
@@ -41,7 +47,9 @@ public class IncidenceStateServiceImpl implements IncidenceStateService {
     }
 
     private IncidenceStateDTO convertToDTO(IncidenceState incidenceState) {
-        IncidenceStateLanguage incidenceStateLanguage = incidenceStateLanguageRepository.findByStatusIdAndLanguageId(incidenceState.getId(), 1L);
+        Locale locale = LocaleContextHolder.getLocale();
+        long languageId = languageRepository.findByName(locale.getLanguage()).getId();
+        IncidenceStateLanguage incidenceStateLanguage = incidenceStateLanguageRepository.findByStatusIdAndLanguageId(incidenceState.getId(), languageId);
 
         return IncidenceStateMapper.INSTANCE.toIncidenceStateDTO(incidenceStateLanguage);
     }

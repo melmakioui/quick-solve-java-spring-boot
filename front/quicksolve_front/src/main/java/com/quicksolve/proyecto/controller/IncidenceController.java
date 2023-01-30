@@ -78,6 +78,7 @@ public class IncidenceController {
         });
 
         model.addAttribute("incidences", incidenceDTOS);
+        model.addAttribute("status", incidenceStateService.list());
         return "view/incidences";
     }
 
@@ -141,7 +142,7 @@ public class IncidenceController {
     }
 
     private BindingResult excludeEmailFormValidationForUsers(BindingResult bindingResult, FullIncidenceDTO fullIncidenceDTO, Model model){
-        if (model.getAttribute("userlogin") instanceof FullUserDTO) { //Extraer a un metodo
+        if (model.getAttribute("userlogin") instanceof FullUserDTO) {
             List<FieldError> errorsToKeep = bindingResult.getFieldErrors().stream()
                     .filter(error -> !error.getField().equals("email"))
                     .toList();
