@@ -14,7 +14,7 @@
         <div class="col-lg-6 offset-lg-3 mt-5">
             <h2 class="text-center text-texto-contraste mb-4" th:text="#{registro.titulo1}">Registro</h2>
             <div class="card rounded-4 bg-primary">
-                <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{/registro}" method="POST" th:object="${user}" id="validatedForm">
+                <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{registro}" method="POST" th:object="${user}" id="validatedForm">
                     <div class="p-lg-2">
                         <h3 class="h3 text-texto-contraste p-2 mt-2" th:text="#{registro.titulo2}"></h3>
                         <div class="mb-3 form-floating">
@@ -71,7 +71,7 @@
                     </div>
                     <div class="form-text text-center mb-4 text-texto-contraste">
                         <span th:text="#{registro.cambiologin1}"></span>
-                        <a th:href="@{/login}" class="text-texto-contraste fw-bold text-decoration-none" th:text="#{registro.cambiologin2}"></a>
+                        <a th:href="@{login}" class="text-texto-contraste fw-bold text-decoration-none" th:text="#{registro.cambiologin2}"></a>
                     </div>
                 </form>
             </div>
