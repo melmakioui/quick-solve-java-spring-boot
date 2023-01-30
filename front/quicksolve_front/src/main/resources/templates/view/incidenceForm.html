@@ -11,11 +11,11 @@
 <body>
 <th:block th:include="view/fragments/nav"></th:block>
 
-<main class="d-flex flex-nowrap" style="transition: 0.5s; height: 100vh">
+<main class="d-flex flex-nowrap sidebar-hide" style="transition: 0.3s;">
     <th:block th:include="view/fragments/sidebar"></th:block>
 
-    <div class="mx-4 mt-4 mb-0 w-100">
-        <button id="sidebarToggle" th:text="#{incidencias.sidebarbutton}"></button>
+    <div id="page-content-wrapper" class="mx-4 mt-4 mb-0 w-100">
+        <button class="sidebarToggleBtn" th:text="#{incidencias.sidebarbutton}"></button>
 
         <h1 class="text-center" th:text="#{newincidencia.titulo1}"></h1>
 
@@ -28,7 +28,6 @@
               method="POST" class=" needs-validation container" enctype="multipart/form-data" novalidate>
             <th:block th:include="view/fragments/form"></th:block>
         </form>
-
     </div>
 </main>
 
