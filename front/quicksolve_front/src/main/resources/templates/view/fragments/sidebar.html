@@ -21,9 +21,6 @@
         <li>
             <a href="#" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" th:text="#{sidebar.cancplan}"></a>
         </li>
-        <li>
-            <button class="sidebarToggleBtn">SHOWHIDE TEST</button>
-        </li>
     </ul>
 
 
@@ -32,9 +29,10 @@
         <div class="card-body">
             <h5 class="card-title" th:text="#{sidebar.planes.titulo}"></h5>
             <p class="card-text" th:text="#{sidebar.planes.body}"></p>
+            <img th:src="@{/img/rocket-svgrepo-com-white.svg}" alt="logo" width="50" height="50" class="mb-2">
             <div class="d-flex flex-column align-items-center">
-                <a id="plans-btn" href="#" style="background-color: rgb(255, 153, 0) !important;"
-                   class="btn" th:text="#{sidebar.planes.button}"></a>
+                <a id="plans-btn" href="#" class="btn bg-secondary"
+                    th:text="#{sidebar.planes.button}"></a>
             </div>
         </div>
     </div>

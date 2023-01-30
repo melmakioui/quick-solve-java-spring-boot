@@ -2,16 +2,18 @@ $(document).ready(function () {
 
     var main = $('main');
     var smallWith = 768;
-    var sidbarToggleBtn = $('.sidebarToggleBtn');
+    var sidbarToggleBtn = $('#sidebar-icon');
     var sidebar = $('#sidebar');
     var wrapper = $('#page-content-wrapper');
-
 
     if ($(window).width() > smallWith) {
         main.removeClass('sidebar-hide');
     }
 
+    triggerButton()
+
     sidbarToggleBtn.on('click', function () {
+        $(this).toggleClass('open');
 
         if ($(window).width() > smallWith) {
             main.toggleClass('sidebar-hide');
@@ -22,6 +24,7 @@ $(document).ready(function () {
             sidebar.toggleClass('sidebar-dashboard');
             sidebar.toggleClass('sidebar-dashboard-responsive');
             wrapper.toggleClass('d-none');
+
         }
     });
 
@@ -36,16 +39,16 @@ $(document).ready(function () {
                 wrapper.removeClass('d-none');
                 main.removeClass('sidebar-hide');
             }
-
         }
 
         if ($(window).width() > smallWith) {
             sidebar.removeClass('sidebar-dashboard-responsive');
             sidebar.addClass('sidebar-dashboard');
             main.removeClass('sidebar-hide');
+            wrapper.removeClass('d-none');
         }
+        triggerButton()
     });
-
 
     //El background del link cambia segun la pagina en la que estemos
     var as = $('.nav-link');
@@ -57,4 +60,14 @@ $(document).ready(function () {
     var activeLink = $('.nav-link[href="' + path + '"]');
     activeLink.addClass('sidebar-active');
 
+
+    //funciones para el sidebar responsive
+
+    function triggerButton(){
+        if (main.hasClass('sidebar-hide')) {
+            sidbarToggleBtn.removeClass('open')
+        }else {
+            sidbarToggleBtn.addClass('open')
+        }
+    }
 });
