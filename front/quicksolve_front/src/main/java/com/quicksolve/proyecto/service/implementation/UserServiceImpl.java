@@ -41,8 +41,17 @@ public class UserServiceImpl implements UserService {
     }
 
     public FullUserDTO updateUser(FullUserDTO usr){
-        System.out.println(usr.getId());
-        return new FullUserDTO();
+        User usrToUpdate = userRepo.findByEmail(usr.getEmail());
+        UserData usrDataToUpdate = userDataRepo.findByUserId(usrToUpdate.getId());
+
+        usrToUpdate.setUsername(usr.getUsername());
+        usrDataToUpdate.setName(usr.getData().getName());
+        usrDataToUpdate.setFirstSurname(usr.getData().getFirstSurname());
+        usrDataToUpdate.setSecondSurname(usr.getData().getSecondSurname());
+
+        userRepo.save(usrToUpdate);
+        userDataRepo.save(usrDataToUpdate);
+        return getFullUser(usrToUpdate.getId());
     }
 
     public FullUserDTO getUserBy(Long id){

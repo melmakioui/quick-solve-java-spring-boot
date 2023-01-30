@@ -31,4 +31,10 @@ public class FullUserDTO {
         this.department = department;
         this.data = data;
     }
+
+    public FullUserDTO(String email, String username, UserDataDTO data) {
+        this.email = email;
+        this.username = username;
+        this.data = data;
+    }
 }

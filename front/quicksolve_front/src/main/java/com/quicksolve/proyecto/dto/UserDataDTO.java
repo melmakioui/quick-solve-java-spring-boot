@@ -30,4 +30,10 @@ public class UserDataDTO {
         this.created = created;
         this.idUser = idUser;
     }
+
+    public UserDataDTO(String name, String firstSurname, String secondSurname) {
+        this.name = name;
+        this.firstSurname = firstSurname;
+        this.secondSurname = secondSurname;
+    }
 }
