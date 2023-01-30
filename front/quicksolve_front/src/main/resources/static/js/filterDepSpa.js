@@ -3,9 +3,13 @@ $(document).ready(function () {
 
     var waitingAccordion = $('#waiting') // Accordion for waiting list
     var solvingAccordion = $('#solving') // Accordion for solving list
+    var solvedAccordion = $('#solved') // Accordion for solved list
+    var cancelledAccordion = $('#cancelled') // Accordion for cancelled list
 
     var cardsWaiting = $('#waiting .card') // get all cards inside waiting accordion
     var cardsSolving = $('#solving .card') // get all cards inside solving accordion
+    var cardsSolved = $('#solved .card') // get all cards inside solved accordion
+    var cardsCancelled = $('#cancelled .card') // get all cards inside cancelled accordion
 
     var incidences = $('.incidence') // get all incidences cards
     var newIncidence = $('#newIncidence') // get new incidence button
@@ -51,6 +55,8 @@ $(document).ready(function () {
     function fillAccordions(result){
         cardsWaiting.remove()
         cardsSolving.remove()
+        cardsSolved.remove()
+        cardsCancelled.remove()
 
         $.each(result, function (index, incidence) {
 
@@ -60,6 +66,14 @@ $(document).ready(function () {
             }
             if ($(incidence).hasClass('solving')) {
                 solvingAccordion.append($(incidence))
+            }
+
+            if ($(incidence).hasClass('solved')) {
+                solvedAccordion.append($(incidence))
+            }
+
+            if ($(incidence).hasClass('cancelled')) {
+                cancelledAccordion.append($(incidence))
             }
         });
     }
