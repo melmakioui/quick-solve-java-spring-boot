@@ -51,8 +51,6 @@
                         <option th:each="spa : ${spaces}" th:value="${spa.name}" th:text="${spa.name}"></option>
                     </select>
                 </div>
-
-
             </div>
 
             <div class="accordion" id="accordion">
@@ -126,7 +124,7 @@
                          data-bs-parent="#accordion">
                         <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start"
                              id="solving">
-                                <div class="card card-animation card mb-4 mx-2 incidence solving"
+                                <div class="card card-animation border-primary card mb-4 mx-2 incidence solving"
                                      th:each="incidence : ${incidences}"
                                      th:if="${incidence.incidenceStateId == 2}"
                                      style="width: 18rem;"
@@ -156,7 +154,7 @@
                          data-bs-parent="#accordion">
                         <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start" id="solved">
 
-                            <div class="card card-animation card mb-4 mx-2 incidence solved"
+                            <div class="card card-animation border-successful card mb-4 mx-2 incidence solved"
                                  th:each="incidence : ${incidences}"
                                  th:if="${incidence.incidenceStateId == 3}"
                                  style="width: 18rem;"
@@ -187,7 +185,7 @@
                          data-bs-parent="#accordion">
                         <div class="accordion-body d-flex flex-wrap justify-content-sm-center justify-content-md-start" id="cancelled">
 
-                            <div class="card card-animation card mb-4 mx-2 incidence cancelled"
+                            <div class="card card-animation card border-delete mb-4 mx-2 incidence cancelled"
                                  th:each="incidence : ${incidences}"
                                  th:if="${incidence.incidenceStateId == 4}"
                                  style="width: 18rem;"

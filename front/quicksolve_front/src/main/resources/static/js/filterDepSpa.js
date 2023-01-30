@@ -1,18 +1,18 @@
 
 $(document).ready(function () {
 
-    var waitingAccordion = $('#waiting') // Accordion for waiting list
-    var solvingAccordion = $('#solving') // Accordion for solving list
-    var solvedAccordion = $('#solved') // Accordion for solved list
-    var cancelledAccordion = $('#cancelled') // Accordion for cancelled list
+    var waitingAccordion = $('#waiting')
+    var solvingAccordion = $('#solving')
+    var solvedAccordion = $('#solved')
+    var cancelledAccordion = $('#cancelled')
 
-    var cardsWaiting = $('#waiting .card') // get all cards inside waiting accordion
-    var cardsSolving = $('#solving .card') // get all cards inside solving accordion
-    var cardsSolved = $('#solved .card') // get all cards inside solved accordion
-    var cardsCancelled = $('#cancelled .card') // get all cards inside cancelled accordion
+    var cardsWaiting = $('#waiting .card')
+    var cardsSolving = $('#solving .card')
+    var cardsSolved = $('#solved .card')
+    var cardsCancelled = $('#cancelled .card')
 
-    var incidences = $('.incidence') // get all incidences cards
-    var newIncidence = $('#newIncidence') // get new incidence button
+    var incidences = $('.incidence')
+    var newIncidence = $('#newIncidence')
     var selectDep = $('#dep')
     var selectSpa = $('#spa')
 
@@ -49,7 +49,28 @@ $(document).ready(function () {
             }
         }
 
-        fillAccordions(result);
+        fillAccordions(result)
+        feedBackEmptyIncidences()
+    }
+
+
+    function feedBackEmptyIncidences(){
+
+        if (waitingAccordion.children().length === 0) {
+            waitingAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+        }
+
+        if (solvingAccordion.children().length === 0) {
+            solvingAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+        }
+
+        if (solvedAccordion.children().length === 0) {
+            solvedAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+        }
+
+        if (cancelledAccordion.children().length === 0) {
+            cancelledAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+        }
     }
 
     function fillAccordions(result){
@@ -57,6 +78,11 @@ $(document).ready(function () {
         cardsSolving.remove()
         cardsSolved.remove()
         cardsCancelled.remove()
+
+        waitingAccordion.empty()
+        solvedAccordion.empty()
+        solvingAccordion.empty()
+        cancelledAccordion.empty()
 
         $.each(result, function (index, incidence) {
 
