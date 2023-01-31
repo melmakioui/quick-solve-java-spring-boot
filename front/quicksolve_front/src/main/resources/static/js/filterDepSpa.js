@@ -57,7 +57,7 @@ $(document).ready(function () {
     function feedBackEmptyIncidences(){
 
         if (waitingAccordion.children().length === 0) {
-            waitingAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+            waitingAccordion.append($(newIncidence))
         }
 
         if (solvingAccordion.children().length === 0) {
