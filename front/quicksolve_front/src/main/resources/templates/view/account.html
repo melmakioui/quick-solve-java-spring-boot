@@ -15,8 +15,15 @@
 
   <div id="page-content-wrapper" class="m-4 mx-4 mt-4 mb-0 w-100">
     <div class="container-fluid">
-      <button id="sidebarToggle" th:text="#{incidencias.sidebarbutton}"></button>
-        <div class="row align-items-center normal-height">
+      <div class="w-100 d-flex justify-content-start">
+        <div id="sidebar-icon" class="open">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="row align-items-center normal-height">
           <div class="col-xl-10 col-lg-12 mx-auto">
             <h2 class="text-center mb-4" th:text="#{account.titulo2}"></h2>
             <form class="p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{cuenta}" th:object="${userdto}" method="POST">
