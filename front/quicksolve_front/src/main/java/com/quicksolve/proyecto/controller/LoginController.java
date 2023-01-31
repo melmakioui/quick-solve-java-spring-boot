@@ -18,7 +18,8 @@ public class LoginController {
     private PasswordEncoderConf passwordEncoder;
 
     @GetMapping("/login")
-    public String renderLogin(){
+    public String renderLogin(Model model){
+        model.addAttribute("loginError", "false");
         return "view/login";
     }
 
@@ -29,7 +30,7 @@ public class LoginController {
             FullUserDTO totalUser = userService.getFullUser(usr.getId());
             model.addAttribute("userlogin", totalUser);
         } else {
-            model.addAttribute("loginError", "No se han introducido los datos correctos para el email y/o contraseña.");
+            model.addAttribute("loginError", "true");
             return "view/login";
         }
 
