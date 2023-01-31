@@ -38,19 +38,34 @@
     </div>
     <!-- Cosas de cuenta todo -->
     <div id="useractions" class="dropdown p-2">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+        <a href="#" class="d-flex align-items-center text-texto-contraste text-decoration-none dropdown-toggle"
            data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong class="text-light">mdo</strong>
+            <img th:src="@{/img/user.png}" alt="user_profile" width="32" height="32" class="rounded-circle me-2">
+            <strong class="text-texto-contraste" th:text="${userlogin.username}"></strong>
         </a>
         <ul class="dropdown-menu text-small shadow">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" th:href="@{/incidencias}" th:text="#{sidebar.misincidencias}"></a></li>
+            <li><a class="dropdown-item" th:href="@{/cuenta}" th:text="#{sidebar.confcuenta}"></a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="#{nav.li2}"></a></li>
         </ul>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-primary text-texto-contraste">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" th:text="#{nav.li2}"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" th:text="#{nav.li2.body}"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal" th:text="#{nav.li2.cerrar}"></button>
+                <a th:href="@{/logout}"><button type="button" class="btn btn-secondary" th:text="#{nav.li2}"></button></a>
+            </div>
+        </div>
     </div>
 </div>

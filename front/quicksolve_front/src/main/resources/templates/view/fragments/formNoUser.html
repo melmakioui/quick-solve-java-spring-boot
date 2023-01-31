@@ -13,7 +13,7 @@
                 <span class="text-delete">*</span> </label>
               <input type="text" class="form-control" th:field="*{title}" name="title" id="title"
                      minlength="3" maxlength="50" required>
-              <div class="invalid-feedback" th:text="#{formupt.campo1.error}">
+              <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo1.error}">
                 Escribe un titulo valido.
               </div>
               <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
@@ -26,7 +26,7 @@
                       class="text-delete">*</span></label>
               <input type="email" class="form-control" th:field="*{email}" name="email" id="email"
                      required>
-              <div class="invalid-feedback" th:text="#{formupt.campo1.error}">
+              <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo1.error}">
                 No es un email valido.
               </div>
               <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
@@ -57,7 +57,7 @@
             <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
               <label for="description" class="form-label"><span class="text-texto-contraste"  th:text="#{formupt.campo5}"></span><span class="text-delete">*</span></label>
               <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3" minlength="10" maxlength="512" required></textarea>
-              <div class="invalid-feedback" th:text="#{formupt.campo5.error}"></div>
+              <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo5.error}"></div>
               <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
             </div>
           </div>
@@ -69,7 +69,7 @@
             </div>
           </div>
 
-          <div class="fst-italic text-center mb-3">
+          <div class="fst-italic text-center mb-3 text-texto-contraste">
             <span th:text="#{formnew.advise1}"></span>
             <strong th:text="#{formnew.advise2}"></strong>
             <span th:text="#{formnew.advise3}"></span>

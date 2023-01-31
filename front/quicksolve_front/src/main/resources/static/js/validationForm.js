@@ -60,7 +60,9 @@ $(document).ready(function () {
 
     function displayError() {
         alert('Error');
-        counterImages = 5;
+        //counterImages = 5;
+        counterImages -= fileInput[0].files.length;
+
         updateFilesToUpload() //para que no solo esten los que han dado error
     }
 
