@@ -79,6 +79,8 @@ public class IncidenceController {
             incidence.setIncidenceState(incidenceStateService.findById(incidence.getIncidenceStateId()));
         });
 
+        model.addAttribute("departments", departmentService.list());
+        model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
         model.addAttribute("status", incidenceStateService.list());
         return "view/incidences";
@@ -109,7 +111,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/nueva/incidencia")
-    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model) {
+    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
         if (model.getAttribute("userlogin") == null)
             throw new IllegalStateException("No user logged in");
@@ -123,9 +125,11 @@ public class IncidenceController {
             return "view/incidenceForm";
         }
 
+        incidenceFileService.validateFiles(files);
         incidenceService.save(incidenceDepartmentDTO,
                 (FullUserDTO) model.getAttribute("userlogin"));
-
+        FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
+        incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
         return "redirect:/incidencias";
     }
 
@@ -136,11 +140,12 @@ public class IncidenceController {
             throw new IllegalStateException("No user logged in");
 
         bindingResult = excludeEmailFormValidationForUsers(bindingResult, fullIncidenceDTO, model);
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", spaceService.list());
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", fullIncidenceDTO);
-            return "view/incidenceFormUpdate";
+            return "view/incidenceForm";
         }
 
         incidenceService.update(fullIncidenceDTO);

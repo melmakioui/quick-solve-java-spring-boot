@@ -15,7 +15,13 @@
     <th:block th:include="view/fragments/sidebar"></th:block>
 
     <div id="page-content-wrapper" class="mx-4 mt-4 mb-0 w-100">
-        <button class="sidebarToggleBtn" th:text="#{incidencias.sidebarbutton}"></button>
+        <div class="w-100 d-flex justify-content-start">
+            <div id="sidebar-icon" class="open">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
 
         <h1 class="text-center" th:text="#{newincidencia.titulo1}"></h1>
 
