@@ -41,15 +41,15 @@
                     <div class="p-lg-2">
                         <h3 class="h3 text-texto-contraste p-2 mt-2" th:text="#{registro.titulo3}"></h3>
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="username" th:field="*{username}" placeholder="nombre de usuario" required>
+                            <input type="text" class="form-control" th:classappend="${alreadyExistsUsername == 'true' ? 'is-invalid' : ''}" id="username" th:field="*{username}" placeholder="nombre de usuario" required>
                             <label for="username" th:text="#{registro.campo4}"></label>
-                            <span class="invalid-feedback text-texto-contraste" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsUsername == 'true'}" th:text="#{registro.usernameDuplicado}"></span>
                             <span class="invalid-feedback text-texto-contraste" th:text="#{registro.usernamevalido}"></span>
                         </div>
                         <div class="mb-3 form-floating">
-                            <input type="email" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" placeholder="nombre@ejemplo.com" required>
+                            <input type="email" class="form-control" th:classappend="${alreadyExistsEmail == 'true' ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" placeholder="nombre@ejemplo.com" required>
                             <label for="email" th:text="#{registro.campo5}"></label>
-                            <span class="invalid-feedback text-texto-contraste" th:if="${emailDuplicated}" th:text="#{}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsEmail == 'true'}" th:text="#{registro.emailDuplicado}"></span>
                             <span class="invalid-feedback text-texto-contraste" th:text="#{registro.emailvalido}"></span>
                         </div>
                         <div class="row">
