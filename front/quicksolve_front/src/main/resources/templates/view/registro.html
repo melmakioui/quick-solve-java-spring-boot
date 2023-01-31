@@ -14,27 +14,26 @@
         <div class="col-lg-6 offset-lg-3 mt-5">
             <h2 class="text-center text-texto-contraste mb-4" th:text="#{registro.titulo1}">Registro</h2>
             <div class="card rounded-4 bg-primary">
-                <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{registro}" method="POST" th:object="${user}" id="validatedForm">
+                <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4 needs-validation" th:action="@{registro}" method="POST" th:object="${user}" id="validatedForm" novalidate>
                     <div class="p-lg-2">
                         <h3 class="h3 text-texto-contraste p-2 mt-2" th:text="#{registro.titulo2}"></h3>
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="nombre">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="nombre" required>
                             <label for="name" th:text="#{registro.campo1}"></label>
-                            <span class="invalid-feedback text-texto-contraste" id="nameErrors"></span>
+                            <span class="invalid-feedback text-texto-contraste" id="nameErrors">Tiene que ser un nombre válido.</span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="firstsurname" name="firstSurname" placeholder="apellido1">
+                                    <input type="text" class="form-control" id="firstsurname" name="firstSurname" placeholder="apellido1" required>
                                     <label for="firstsurname" th:text="#{registro.campo2}"></label>
-                                    <span class="invalid-feedback text-texto-contraste" id="firstSurnameErrors"></span>
+                                    <span class="invalid-feedback text-texto-contraste" id="firstSurnameErrors">Tiene que ser un apellido válido.</span>
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="secondsurname" name="secondSurname" placeholder="Segundo apellido">
                                     <label for="secondsurname" th:text="#{registro.campo3}"></label>
-                                    <span class="invalid-feedback text-texto-contraste" id="secondSurnameErrors"></span>
                                 </div>
                             </div>
                         </div>
@@ -42,35 +41,36 @@
                     <div class="p-lg-2">
                         <h3 class="h3 text-texto-contraste p-2 mt-2" th:text="#{registro.titulo3}"></h3>
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="username" th:field="*{username}" placeholder="nombre de usuario">
+                            <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="username" th:field="*{username}" placeholder="nombre de usuario" required>
                             <label for="username" th:text="#{registro.campo4}"></label>
                             <span class="invalid-feedback text-texto-contraste" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-                            <span class="invalid-feedback text-texto-contraste" id="usernameErrors"></span>
+                            <span class="invalid-feedback text-texto-contraste" id="usernameErrors">Tiene que ser un nombre de usuario válido.</span>
                         </div>
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" placeholder="nombre@ejemplo.com">
+                            <input type="email" class="form-control" th:classappend="${#fields.hasErrors() ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" placeholder="nombre@ejemplo.com" required>
                             <label for="email" th:text="#{registro.campo5}"></label>
                             <span class="invalid-feedback text-texto-contraste" th:if="${emailDuplicated}" th:text="#{}"></span>
-                            <span class="invalid-feedback text-texto-contraste" id="emailErrors"></span>
+                            <span class="invalid-feedback text-texto-contraste" id="emailErrors">Tiene que ser un email válido.</span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="contraseña">
+                                    <input type="password" class="form-control" id="password" name="password" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d).*$" th:field="*{password}" placeholder="contraseña" required>
                                     <label for="password" th:text="#{registro.campo6}"></label>
+                                    <span class="invalid-feedback text-texto-contraste">La contraseña debe tener almenos 8 carácteres, 1 mayúscula, 1 mínúscula y 1 número.</span>
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Repetir contraseña">
+                                    <input type="password" class="form-control" id="confirmpassword" pattern="^$" name="confirmpassword" placeholder="Repetir contraseña" required>
                                     <label for="confirmpassword" th:text="#{registro.campo7}"></label>
-                                    <span id="passwordMatchError" class="invalid-feedback text-texto-contraste"></span>
+                                    <span id="passwordMatchError" class="invalid-feedback text-texto-contraste">Las contraseña no coincide.</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-secondary px-5 mb-3 w-50 disabled" id="submit" th:text="#{registro.botoncrear}"></button>
+                        <button type="submit" class="btn btn-secondary px-5 mb-3 w-50" id="submit" th:text="#{registro.botoncrear}"></button>
                     </div>
                     <div class="form-text text-center mb-4 text-texto-contraste">
                         <span th:text="#{registro.cambiologin1}"></span>
