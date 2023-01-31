@@ -7,7 +7,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title th:text="#{incidencias.titulo1}"></title>
-    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
 </head>
@@ -195,7 +195,7 @@
                                  th:each="incidence : ${incidences}"
                                  th:if="${incidence.incidenceStateId == 4}"
                                  style="width: 18rem;"
-                                 th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
+                                     th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
                                  th:attr="data-department=${incidence.department == null ? 'no-dep' : incidence.department.name },
                                        data-space=${incidence.space == null ? 'no-space' : incidence.space.name } ">
                                 <div class="card-body">
@@ -222,9 +222,9 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
 
-<script th:src="@{js/jquery-3.6.3-min.js}"></script>
-<script th:src="@{js/sidebar.js}"></script>
-<script th:src="@{js/filterDepSpa.js}"></script>
+<script th:src="@{/js/jquery-3.6.3-min.js}"></script>
+<script th:src="@{/js/sidebar.js}"></script>
+<script th:src="@{/js/filterDepSpa.js}"></script>
 
 </body>
 

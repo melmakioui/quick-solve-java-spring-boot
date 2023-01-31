@@ -1,8 +1,8 @@
 <header class="sticky-top">
     <nav th:fragment="nav" class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark"  data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{./}">
-                <img th:src="@{img/logo-tr.png}" alt="logo" width="70" height="70">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/img/logo-tr.png}" alt="logo" width="70" height="70">
             </a>
             <div id="button-navbar">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,26 +12,26 @@
             <div class="navbar-collapse collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-5">
                     <li class="nav-item px-2">
-                        <a class="nav-link current-page p-3 rounded-pill" aria-current="page" th:href="@{./}" th:text="#{nav.li1}"></a>
+                        <a class="nav-link current-page p-3 rounded-pill" aria-current="page" th:href="@{/}" th:text="#{nav.li1}"></a>
                     </li>
                     <li class="nav-item px-2">
                         <!-- el link de abajo tendrá que llevar al apartado de cuenta del usuario -->
-                        <a class="nav-link p-3 rounded-pill"th:href="@{cuenta}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
-                        <a class="nav-link p-3 rounded-pill" th:href="@{login}" th:unless="${userlogin}">Login <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
+                        <a class="nav-link p-3 rounded-pill"th:href="@{/cuenta}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
+                        <a class="nav-link p-3 rounded-pill" th:href="@{/login}" th:unless="${userlogin}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link p-3 rounded-pill" style="cursor: pointer;" th:if="${userlogin}" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="#{nav.li2}"></a>
-                        <a class="nav-link p-3 rounded-pill" th:href="@{registro}" th:unless="${userlogin}" th:text="#{nav.li3}"></a>
+                        <a class="nav-link p-3 rounded-pill" th:href="@{/registro}" th:unless="${userlogin}" th:text="#{nav.li3}"></a>
                     </li>
                     <li class="nav-item px-2" th:if="${userlogin}">
                         <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/incidencias}" th:text="#{nav.li4}"></a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" th:if="${userlogin}" th:href="@{incidencia/nueva}" th:text="#{nav.li5}"></a>
-                        <a class="nav-link p-3 rounded-pill" th:unless="${userlogin}" th:href="@{public/nueva}" th:text="#{nav.li5}"></a>
+                        <a class="nav-link p-3 rounded-pill" th:if="${userlogin}" th:href="@{/incidencia/nueva}" th:text="#{nav.li5}"></a>
+                        <a class="nav-link p-3 rounded-pill" th:unless="${userlogin}" th:href="@{/public/nueva}" th:text="#{nav.li5}"></a>
                     </li>
                     <li class="nav-item px-2" th:if="${userlogin}">
-                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{planes}" th:text="#{nav.li6}"></a>
+                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/planes}" th:text="#{nav.li6}"></a>
                     </li>
                     <li class="nav-item dropdown px-2">
                         <a th:text="#{idioma}" class="nav-link dropdown-toggle p-3 rounded-pill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
