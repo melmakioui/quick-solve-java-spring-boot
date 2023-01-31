@@ -1,10 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.*;
-import com.quicksolve.proyecto.service.DepartmentService;
-import com.quicksolve.proyecto.service.IncidenceService;
-import com.quicksolve.proyecto.service.IncidenceStateService;
-import com.quicksolve.proyecto.service.SpaceService;
+import com.quicksolve.proyecto.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +10,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,6 +26,8 @@ public class IncidenceController {
     private  SpaceService spaceService;
     @Autowired
     private  IncidenceStateService incidenceStateService;
+    @Autowired
+    private IncidenceFileService incidenceFileService;
 
 
     @GetMapping("/incidencia/nueva")
@@ -43,6 +43,7 @@ public class IncidenceController {
         model.addAttribute("spaces", spaces);
         model.addAttribute("departments", departments);
         model.addAttribute("incidence", fullIncidenceDTO);
+        model.addAttribute("isNewIncidence", true);
 
         return "view/incidenceForm";
     }
@@ -52,7 +53,8 @@ public class IncidenceController {
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidence", incidenceService.findById(id));
-        return "view/incidenceFormUpdate";
+        model.addAttribute("isNewIncidence", false);
+        return "view/incidenceForm";
     }
 
     @GetMapping("/public/nueva")
@@ -77,6 +79,8 @@ public class IncidenceController {
             incidence.setIncidenceState(incidenceStateService.findById(incidence.getIncidenceStateId()));
         });
 
+        model.addAttribute("departments", departmentService.list());
+        model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
         model.addAttribute("status", incidenceStateService.list());
         return "view/incidences";
@@ -89,7 +93,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/public/nueva/incidencia")
-    public String saveNoUserIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model) {
+    public String saveNoUserIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
@@ -98,12 +102,16 @@ public class IncidenceController {
             return "view/incidenceNoLoginForm";
         }
 
+        incidenceFileService.validateFiles(files);
         incidenceService.save(incidenceDepartmentDTO);
-        return "redirect:/incidencias";
+        FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
+        incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
+
+        return "redirect:/";
     }
 
     @PostMapping("/nueva/incidencia")
-    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model) {
+    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
         if (model.getAttribute("userlogin") == null)
             throw new IllegalStateException("No user logged in");
@@ -117,9 +125,11 @@ public class IncidenceController {
             return "view/incidenceForm";
         }
 
+        incidenceFileService.validateFiles(files);
         incidenceService.save(incidenceDepartmentDTO,
                 (FullUserDTO) model.getAttribute("userlogin"));
-
+        FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
+        incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
         return "redirect:/incidencias";
     }
 
@@ -130,11 +140,12 @@ public class IncidenceController {
             throw new IllegalStateException("No user logged in");
 
         bindingResult = excludeEmailFormValidationForUsers(bindingResult, fullIncidenceDTO, model);
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", spaceService.list());
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", fullIncidenceDTO);
-            return "view/incidenceFormUpdate";
+            return "view/incidenceForm";
         }
 
         incidenceService.update(fullIncidenceDTO);

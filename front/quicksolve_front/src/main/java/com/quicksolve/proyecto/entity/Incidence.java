@@ -2,8 +2,6 @@ package com.quicksolve.proyecto.entity;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -44,7 +42,7 @@ public class Incidence {
     @JoinColumn(name = "department_id", nullable = true)
     private Department department;
 
-    @OneToMany(mappedBy = "incidence")
+    @OneToMany(mappedBy = "incidence", cascade = CascadeType.ALL)
     private Set<IncidenceFiles> incidenceFiles;
 
     @ManyToOne

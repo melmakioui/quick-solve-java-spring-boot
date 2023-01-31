@@ -1,4 +1,3 @@
-<form th:fragment="form" th:action="@{/nueva/incidencia}"  th:object="${incidence}" method="POST" class=" needs-validation container" novalidate>
   <div class="row justify-content-center">
 
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
@@ -40,11 +39,11 @@
   <div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10">
       <label for="formFileMultiple" class="form-label" th:text="#{formupt.campo6}"></label>
-      <input class="form-control" type="file" id="formFileMultiple" multiple name="files">
+      <input class="form-control" type="file" id="formFileMultiple" name="files" multiple>
     </div>
   </div>
 
-  <div class="fst-italic text-center">
+  <div class="fst-italic text-center mb-3">
     <span th:text="#{formnew.advise1}"></span>
     <strong th:text="#{formnew.advise2}"></strong>
     <span th:text="#{formnew.advise3}"></span>
@@ -55,4 +54,3 @@
       <button type="submit" class="btn btn-secondary w-100">Enviar</button>
     </div>
   </div>
-</form>
