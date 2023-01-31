@@ -1,11 +1,14 @@
 package com.quicksolve.proyecto.service.implementation;
 
+import com.quicksolve.proyecto.dto.FileDTO;
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.entity.IncidenceFiles;
+import com.quicksolve.proyecto.mapper.IncidenceFileMapper;
 import com.quicksolve.proyecto.mapper.IncidenceMapper;
 import com.quicksolve.proyecto.repository.IncidenceFileRepository;
 import com.quicksolve.proyecto.service.IncidenceFileService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class IncidenceFileServiceImpl implements IncidenceFileService {
@@ -82,9 +87,30 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
     }
 
     @Override
-    public List<IncidenceFiles> getAllIncidenceFilesByIncidenceId(Long id) {
-        return incidenceFileRepository.findAllByIncidenceId(id);
+    public Set<FileDTO> findAllByIncidenceId(Long id) {
+        return incidenceFileRepository.findAllByIncidenceId(id).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toSet());
     }
 
+    @Override
+    public void deleteById(Long id) {
+        incidenceFileRepository.deleteById(id);
+    }
 
+    @Override
+    @Transactional
+    public void deleteByIdAndIncidenceId(Long id, Long incidenceId) {
+        IncidenceFiles incidenceFile = incidenceFileRepository.findByIdAndIncidenceId(id, incidenceId);
+
+        if (incidenceFile == null) {
+            throw new RuntimeException("No se ha encontrado el archivo");
+        }
+
+        incidenceFileRepository.deleteByIdAndIncidenceId(id, incidenceId);
+    }
+
+    private FileDTO convertToDTO(IncidenceFiles incidenceFiles){
+        return IncidenceFileMapper.INSTANCE.fileToDTO(incidenceFiles);
+    }
 }

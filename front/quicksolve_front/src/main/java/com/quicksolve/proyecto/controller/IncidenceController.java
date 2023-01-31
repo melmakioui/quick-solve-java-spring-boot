@@ -52,7 +52,9 @@ public class IncidenceController {
     public String showUpdateForm(@PathVariable long id, Model model) {
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
-        model.addAttribute("incidence", incidenceService.findById(id));
+        FullIncidenceDTO incidence = incidenceService.findById(id);
+        incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(id));
+        model.addAttribute("incidence", incidence);
         model.addAttribute("isNewIncidence", false);
         return "view/incidenceForm";
     }
@@ -77,6 +79,7 @@ public class IncidenceController {
             incidence.setDepartment(departmentService.findById(incidence.getDepartmentId()));
             incidence.setSpace(spaceService.findById(incidence.getSpaceId()));
             incidence.setIncidenceState(incidenceStateService.findById(incidence.getIncidenceStateId()));
+            incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidence.getId()));
         });
 
         model.addAttribute("departments", departmentService.list());
@@ -134,7 +137,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/modificar/incidencia/{id}")
-    public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model) {
+    public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
         if (model.getAttribute("userlogin") == null)
             throw new IllegalStateException("No user logged in");
@@ -148,7 +151,9 @@ public class IncidenceController {
             return "view/incidenceForm";
         }
 
+        incidenceFileService.validateFiles(files);
         incidenceService.update(fullIncidenceDTO);
+        incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
         return "redirect:/incidencias";
     }
 

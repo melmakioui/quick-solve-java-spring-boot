@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class FullIncidenceDTO {
@@ -20,7 +21,7 @@ public class FullIncidenceDTO {
     @Size(min = 10, message = "El campo debe tener al menos 10 caracteres")
     private String description;
 
-    private List<String> path;
+    private Set<FileDTO> incidenceFiles;
 
     @Email(message = "El email debe ser válido")
     @NotBlank

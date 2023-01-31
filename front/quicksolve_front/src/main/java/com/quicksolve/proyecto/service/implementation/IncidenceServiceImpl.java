@@ -25,6 +25,7 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
     private FullIncidenceDTO lastIncidence = null;
+    private FullIncidenceDTO lastUpdatedIncidence = null;
 
     @Autowired
     private IncidenceRepository incidenceRepository;
@@ -118,12 +119,18 @@ public class IncidenceServiceImpl implements IncidenceService {
         Incidence incidenceToUpdate = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
         incidenceToUpdate.setDateStart(incidence.getDateStart());
         incidenceToUpdate.setIncidenceState(incidence.getIncidenceState());
-        incidenceRepository.save(incidenceToUpdate);
+        Incidence updatedIncidence = incidenceRepository.save(incidenceToUpdate);
+        lastUpdatedIncidence = convertToDTO(updatedIncidence);
     }
 
     @Override
     public FullIncidenceDTO getLastIncidence() {
         return lastIncidence;
+    }
+
+    @Override
+    public FullIncidenceDTO getLastUpdatedIncidence() {
+        return lastUpdatedIncidence;
     }
 
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {

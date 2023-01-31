@@ -15,5 +15,5 @@ public interface IncidenceService {
     void delete(long id);
     void update(FullIncidenceDTO incidenceDepartmentDTO);
     FullIncidenceDTO getLastIncidence();
-
+    FullIncidenceDTO getLastUpdatedIncidence();
 }
