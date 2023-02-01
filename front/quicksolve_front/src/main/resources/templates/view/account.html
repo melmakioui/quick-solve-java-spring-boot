@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" th:href="@{css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
   <title th:text="#{account.titulo1}"></title>
 </head>
 <body>
@@ -15,8 +15,15 @@
 
   <div id="page-content-wrapper" class="m-4 mx-4 mt-4 mb-0 w-100">
     <div class="container-fluid">
-      <button id="sidebarToggle" th:text="#{incidencias.sidebarbutton}"></button>
-        <div class="row align-items-center normal-height">
+      <div class="w-100 d-flex justify-content-start">
+        <div id="sidebar-icon" class="open">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="row align-items-center normal-height">
           <div class="col-xl-10 col-lg-12 mx-auto">
             <h2 class="text-center mb-4" th:text="#{account.titulo2}"></h2>
             <form class="p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{cuenta}" th:object="${userdto}" method="POST">
@@ -76,7 +83,7 @@
 <th:block th:include="view/fragments/footer"></th:block>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-<script th:src="@{js/jquery-3.6.3-min.js}"></script>
-<script th:src="@{js/sidebar.js}"></script>
+<script th:src="@{/js/jquery-3.6.3-min.js}"></script>
+<script th:src="@{/js/sidebar.js}"></script>
 </body>
 </html>

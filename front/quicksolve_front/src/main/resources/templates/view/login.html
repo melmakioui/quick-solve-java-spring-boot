@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title th:text="#{login.titulo1}"></title>
 </head>
 <body class="custom-bg-1">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-text text-center mb-4 text-texto-contraste">
                         <span th:text="#{login.cambioregistro1}"></span>
-                        <a th:href="@{registro}" class="text-texto-contraste fw-bold text-decoration-none" th:text="#{login.cambioregistro2}"></a>
+                        <a th:href="@{/registro}" class="text-texto-contraste fw-bold text-decoration-none" th:text="#{login.cambioregistro2}"></a>
                     </div>
                 </form>
             </div>

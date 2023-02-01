@@ -24,15 +24,19 @@ import java.util.stream.Collectors;
 public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
+    private FullIncidenceDTO lastIncidence = null;
 
     @Autowired
-    private  IncidenceRepository incidenceRepository;
+    private IncidenceRepository incidenceRepository;
 
     @Autowired
-    private  UserIncidenceRepository userIncidenceRepo;
+    private UserIncidenceRepository userIncidenceRepo;
 
     @Autowired
-    private  IncidenceStateRepository incidenceStateRepository;
+    private IncidenceStateRepository incidenceStateRepository;
+
+    @Autowired
+    private IncidenceFileRepository incidenceFileRepository;
 
     @Override
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
@@ -53,31 +57,34 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public void save(FullIncidenceDTO fullIncidenceDTO) {
-
-        checkDepartmentAndSpace(fullIncidenceDTO);
-
-        Incidence incidence = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
-        incidence.setDateStart(LocalDateTime.now());
-        IncidenceState waitingState = incidenceStateRepository.getReferenceById(INCIDENCE_WAITING_STATE);
-        incidence.setIncidenceState(waitingState);
-        incidenceRepository.save(incidence);
+        Incidence incidence = saveIncidence(fullIncidenceDTO);
+        lastIncidence = convertToDTO(incidence);
     }
 
     @Override
     public void save(FullIncidenceDTO fullIncidenceDTO, FullUserDTO userDTO) {
+        Incidence incidence = saveIncidence(fullIncidenceDTO);
+        lastIncidence = convertToDTO(incidence);
+        UserIncidence userIncidence = new UserIncidence();
+        userIncidence.setIncidence(incidence);
+        userIncidence.setUser(UserMapper.INSTANCE.DTOtoUser(userDTO));
+        userIncidenceRepo.save(userIncidence);
+    }
 
+    /**
+     * @param fullIncidenceDTO
+     * Comprueba si la incidencia tiene espacio y departamento asignado, si no los tiene los asigna null
+     * Assigna el estado de la incidencia a "Esperando" y la fecha de creacion a la fecha actual
+     * * @return Incidence
+     */
+
+    private Incidence saveIncidence(FullIncidenceDTO fullIncidenceDTO) {
         checkDepartmentAndSpace(fullIncidenceDTO);
-
         Incidence incidence = IncidenceMapper.INSTANCE.dtoToIncidence(fullIncidenceDTO);
         incidence.setDateStart(LocalDateTime.now());
         IncidenceState waitingState = incidenceStateRepository.getReferenceById(INCIDENCE_WAITING_STATE);
         incidence.setIncidenceState(waitingState);
-        Incidence newIncidence = incidenceRepository.save(incidence);
-
-        UserIncidence userIncidence = new UserIncidence();
-        userIncidence.setIncidence(newIncidence);
-        userIncidence.setUser(UserMapper.INSTANCE.DTOtoUser(userDTO));
-        userIncidenceRepo.save(userIncidence);
+        return incidenceRepository.save(incidence);
     }
 
     @Override
@@ -92,6 +99,8 @@ public class IncidenceServiceImpl implements IncidenceService {
 
         //UserIncidence tiene una relacion de tipo cascade.ALL, por lo que al eliminar la incidencia
         userIncidenceRepo.deleteByIncidenceId(incidence.getId());
+        //Si se elimina una incidencia la ruta de archivos asociados tambien se eliminan
+        incidenceFileRepository.deleteAllByIncidenceId(incidence.getId());
     }
 
     @Override
@@ -112,6 +121,10 @@ public class IncidenceServiceImpl implements IncidenceService {
         incidenceRepository.save(incidenceToUpdate);
     }
 
+    @Override
+    public FullIncidenceDTO getLastIncidence() {
+        return lastIncidence;
+    }
 
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {
         long departmentId = fullIncidenceDTO.getDepartment().getId();
@@ -133,20 +146,13 @@ public class IncidenceServiceImpl implements IncidenceService {
         return fullIncidenceDTO;
     }
 
-
-    private String getTotalDays(LocalDateTime dateStart){
+    private String getTotalDays(LocalDateTime dateStart) {
         Locale locale = LocaleContextHolder.getLocale();
         Period between = Period.between(dateStart.toLocalDate(), LocalDateTime.now().toLocalDate());
-        if (between.isZero()){
-            if (locale.getLanguage().equals("es")) {
-                return  "Hoy";
-            } else {
-                return  "Today";
-            }
-        }else {
-            return (locale.getLanguage().equals("es") ? "Hace " : "" +
-                    Integer.toString(between.getDays()) + " " +
-                    (locale.getLanguage().equals("es") ? " días" : " days ago"));
+        if (between.isZero()) {
+            return (locale.getLanguage().equals("es")) ? "Hoy" : "Today";
+        } else {
+            return (locale.getLanguage().equals("es") ? "Hace " + between.getDays() + " día/s" : between.getDays() + " day/s ago");
         }
     }
 }
