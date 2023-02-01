@@ -20,18 +20,18 @@
                             <img th:src="@{img/user.png}" class="img-fluid img-thumbnail rounded-circle my-3" width="200px" alt="img-principal" style="object-fit: cover;">
                         </div>
                         <div class="w-75 mx-auto mt-3">
-                            <div class="mb-3 form-floating">
-                                <input type="text" class="form-control" id="email" th:classappend="${loginError == 'true' ? 'is-invalid' : ''}" placeholder="Correo Electrónico" name="email">
-                                <label for="email" th:text="#{login.campo1}"></label>
+                            <div>
+                                <label for="email" th:text="#{login.campo1}" class="text-texto-contraste"></label>
+                                <input type="text" class="form-control" id="email" th:classappend="${loginError == 'true' ? 'is-invalid' : ''}" name="email">
                                 <span class="invalid-feedback text-texto-contraste" th:if="${loginError == 'true'}" th:text="#{login.loginError}"></span>
                             </div>
-                            <div class="mb-3 form-floating">
-                                <input type="password" class="form-control" id="password" th:classappend="${loginError == 'true' ? 'is-invalid' : ''}" placeholder="Contraseña" name="pwd">
-                                <label for="password" th:text="#{login.campo2}"></label>
+                            <div class="mt-lg-3 mt-2">
+                                <label for="password" th:text="#{login.campo2}" class="text-texto-contraste"></label>
+                                <input type="password" class="form-control" id="password" th:classappend="${loginError == 'true' ? 'is-invalid' : ''}" name="pwd">
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center mt-lg-3 mt-2">
                         <button type="submit" class="btn btn-secondary px-5 mb-3 w-50" th:text="#{login.botonentrar}"></button>
                     </div>
                     <div class="form-text text-center mb-4 text-texto-contraste">
