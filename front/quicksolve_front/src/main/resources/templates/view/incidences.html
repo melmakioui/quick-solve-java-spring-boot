@@ -38,7 +38,7 @@
 
             <p th:text="#{incidencias.texto2}"></p>
 
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end align-items-baseline">
 
                 <p class="fs-5" th:text="#{incidencias.filtrotitulo}"></p>
                 <div class=" mx-2">
@@ -87,9 +87,9 @@
                                             <a  th:href="@{/incidencia/modificar/} + ${incidence.id}"
                                                class="icons-crud mx-1 text-primary"><span disabled="disabled"
                                                     class="material-symbols-outlined">edit</span></a>
-                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/eliminar/' + ${incidence.id}"
+                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}"
                                                class="icons-crud text-danger mx-1 text-delete btnDelModal"><span disabled="disabled"
-                                                    class="material-symbols-outlined">delete_forever</span></a>
+                                                    class="material-symbols-outlined">close</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -241,6 +241,8 @@
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
 <script th:src="@{/js/sidebar.js}"></script>
 <script th:src="@{/js/filterDepSpa.js}"></script>
+<script th:src="@{/js/activeLinks.js}"> </script>
+
 
 </body>
 

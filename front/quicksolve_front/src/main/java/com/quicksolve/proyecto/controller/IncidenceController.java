@@ -89,9 +89,9 @@ public class IncidenceController {
         return "view/incidences";
     }
 
-    @GetMapping("/incidencia/eliminar/{id}")
-    public String deleteIncidence(@PathVariable long id) {
-        incidenceService.delete(id);
+    @GetMapping("/incidencia/cancelar/{id}")
+    public String cancelIncidence(@PathVariable long id) {
+        incidenceService.cancel(id);
         return "redirect:/incidencias";
     }
 

@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
+    private final Long INCIDENCE_CANCELLED_STATE = 4L;
     private FullIncidenceDTO lastIncidence = null;
     private FullIncidenceDTO lastUpdatedIncidence = null;
 
@@ -102,6 +103,15 @@ public class IncidenceServiceImpl implements IncidenceService {
         userIncidenceRepo.deleteByIncidenceId(incidence.getId());
         //Si se elimina una incidencia la ruta de archivos asociados tambien se eliminan
         incidenceFileRepository.deleteAllByIncidenceId(incidence.getId());
+    }
+
+    @Override
+    public void cancel(long id) {
+        Incidence incidence = incidenceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
+        incidence.setIncidenceState(incidenceStateRepository.getReferenceById(INCIDENCE_CANCELLED_STATE));
+        incidence.setDateEnd(LocalDateTime.now());
+        incidenceRepository.save(incidence);
     }
 
     @Override

@@ -18,18 +18,43 @@
 }
 
 li .hoverEffect:hover {
-  background-color: $secondary;
-  color: $darker;
+  color: $dark !important;
+    background-color: $secondary;
 }
 
 .sidebar-hide {
   margin-left: -280px;
 }
 
+
+.nav-pills .nav-link {
+  color: $background-icon !important;
+}
+
 .nav-pills .nav-link.sidebar-active {
+  transition: all 0.3s;
+  background-color: $secondary;
+  color: $dark !important;
+}
+
+
+/*User actions*/
+#user-actions{
+  background-color: $dark;
+  box-shadow: 0 0 10px 0 rgba(255, 165, 0, 0.5);
+}
+#user-actions li > hr{
   background-color: $secondary;
 }
 
+#user-actions li > a{
+  color: $text-1;
+}
+
+#user-actions li > a:hover{
+  background-color: $secondary;
+  color: $dark;
+}
 
 /*Sidebar button animation*/
 

@@ -13,6 +13,7 @@ public interface IncidenceService {
     void save(FullIncidenceDTO incidenceDepartmentDTO);
     void save(FullIncidenceDTO incidenceDepartmentDTO, FullUserDTO userDTO);
     void delete(long id);
+    void cancel(long id);
     void update(FullIncidenceDTO incidenceDepartmentDTO);
     FullIncidenceDTO getLastIncidence();
     FullIncidenceDTO getLastUpdatedIncidence();

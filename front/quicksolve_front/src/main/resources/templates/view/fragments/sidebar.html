@@ -2,7 +2,7 @@
 
 <!--    style="min-width: 280px; max-width: 280px; position: sticky; top: 96px;  z-index: 777; height: calc(100vh - 96px);"-->
 
-    <ul class="nav nav-pills flex-column mb-3">
+    <ul class="nav nav-pills flex-column mb-3 text-white-low-opacity">
         <li class="nav-item">
             <a href="#" class="nav-link link-texto-contraste p-3 mb-1" aria-current="page">
                 Incidencias (solo tech)
@@ -10,7 +10,7 @@
         </li>
 
         <li class="nav-item">
-            <a th:href="@{/incidencia/nueva}" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" aria-current="page" th:text="#{sidebar.newincidencia}"></a>
+            <a th:href="@{/incidencia/nueva}" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" aria-current="page" th:text="#{nav.li5}"></a>
         </li>
         <li>
             <a th:href="@{/incidencias}" class="nav-link link-texto-contraste hoverEffect p-3 mb-1" th:text="#{sidebar.misincidencias}"></a>
@@ -43,7 +43,7 @@
             <img th:src="@{/img/user.png}" alt="user_profile" width="32" height="32" class="rounded-circle me-2">
             <strong class="text-texto-contraste" th:text="${userlogin.username}"></strong>
         </a>
-        <ul class="dropdown-menu text-small shadow">
+        <ul id="user-actions" class="dropdown-menu text-small shadow">
             <li><a class="dropdown-item" th:href="@{/incidencias}" th:text="#{sidebar.misincidencias}"></a></li>
             <li><a class="dropdown-item" th:href="@{/cuenta}" th:text="#{sidebar.confcuenta}"></a></li>
             <li>
