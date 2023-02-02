@@ -59,15 +59,14 @@ $(document).ready(function () {
     }
 
     function displayError() {
-        alert('Error');
-        //counterImages = 5;
+        $('#alert-quantity').toggleClass('d-none');
         counterImages -= fileInput[0].files.length;
 
         updateFilesToUpload() //para que no solo esten los que han dado error
     }
 
     function displayMimeTypeError() {
-        alert('Error');
+        $('#alert-content-type').toggleClass('d-none');
         fileInput.val('');
     }
 
@@ -127,12 +126,10 @@ $(document).ready(function () {
     }
 
     function createCard() {
-        var card = $('<div/>', {
+        return $('<div/>', {
             id: 'card-img',
             class: 'card m-2'
         });
-
-        return card;
     }
 
     function createImage(file) {
@@ -145,7 +142,5 @@ $(document).ready(function () {
         }
         return image;
     }
-
-
 });
 

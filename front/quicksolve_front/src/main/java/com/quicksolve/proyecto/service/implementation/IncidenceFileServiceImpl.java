@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class IncidenceFileServiceImpl implements IncidenceFileService {
 
     private final int MAX_FILE_QUANTITY = 5;
+    private final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     @Autowired
     private IncidenceFileRepository incidenceFileRepository;
@@ -70,9 +71,12 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
         }
 
         Arrays.stream(files).toList().forEach(file -> {
+
+            String fileName = generateRandomString(10) + file.getOriginalFilename();
+
             try{
                 byte[] bytes = file.getBytes();
-                Path completePath = Paths.get(env.getProperty("upload.path") + file.getOriginalFilename()); //funciona
+                Path completePath = Paths.get(env.getProperty("upload.path") + fileName);
                 Files.write(completePath, bytes);
             }catch (IOException e){
                 e.printStackTrace();
@@ -80,7 +84,7 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
 
             Incidence incidence = IncidenceMapper.INSTANCE.dtoToIncidence(incidenceDTO);
             IncidenceFiles incidenceFiles = new IncidenceFiles();
-            incidenceFiles.setFilePath("/uploads/" + file.getOriginalFilename());
+            incidenceFiles.setFilePath("/uploads/" + fileName);
             incidenceFiles.setIncidence(incidence);
             incidenceFileRepository.save(incidenceFiles);
         });
@@ -112,5 +116,14 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
 
     private FileDTO convertToDTO(IncidenceFiles incidenceFiles){
         return IncidenceFileMapper.INSTANCE.fileToDTO(incidenceFiles);
+    }
+
+    private String generateRandomString(int length) {
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            int index = (int) (CHARACTERS.length() * Math.random());
+            sb.append(CHARACTERS.charAt(index));
+        }
+        return sb.toString();
     }
 }

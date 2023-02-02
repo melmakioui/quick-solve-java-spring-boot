@@ -82,6 +82,7 @@ public class IncidenceController {
             incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidence.getId()));
         });
 
+        System.out.println(model.getAttribute("userlogin"));
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
@@ -102,6 +103,8 @@ public class IncidenceController {
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("spaces", spaceService.list());
             model.addAttribute("incidence", incidenceDepartmentDTO);
+            model.addAttribute("isNewIncidence", true);
+
             return "view/incidenceNoLoginForm";
         }
 
@@ -125,6 +128,8 @@ public class IncidenceController {
             model.addAttribute("spaces", spaceService.list());
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", incidenceDepartmentDTO);
+            model.addAttribute("isNewIncidence", true);
+
             return "view/incidenceForm";
         }
 
@@ -148,6 +153,7 @@ public class IncidenceController {
             model.addAttribute("departments", spaceService.list());
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", fullIncidenceDTO);
+            model.addAttribute("isNewIncidence", false);
             return "view/incidenceForm";
         }
 
