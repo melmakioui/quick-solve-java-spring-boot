@@ -12,7 +12,7 @@
     <div class="row align-items-center normal-height">
         <div class="col-lg-6 offset-lg-3 mt-5">
             <h2 class="text-center text-texto-contraste mb-4" th:text="#{login.titulo2}"></h2>
-            <div class="card rounded-4 bg-primary">
+            <div class="card rounded-4 bg-primary mx-auto" style="max-width: 850px;">
                 <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{login}" method="POST">
                     <div class="p-lg-2">
                         <div class="text-center">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="text-center my-4">
-                        <button type="submit" class="btn btn-secondary px-5 w-50" th:text="#{login.botonentrar}"></button>
+                        <button type="submit" class="btn btn-secondary px-5 w-75" th:text="#{login.botonentrar}"></button>
                     </div>
                     <div class="form-text text-center mb-4 mt-0 text-texto-contraste">
                         <span th:text="#{login.cambioregistro1}"></span>

@@ -2,8 +2,19 @@
   height: calc(100vh - 96px);
 }
 
+.variable-full-height {
+  height: calc(100vh - 96px);
+}
+
+.card-plans-height {
+  height: 250px;
+}
+
 @media (max-width: 968px){
-  .normal-height {
+  .variable-full-height {
+    height: auto;
+  }
+  .card-plans-height {
     height: auto;
   }
 }

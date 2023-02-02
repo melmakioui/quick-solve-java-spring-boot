@@ -14,5 +14,4 @@ public interface UserMapper {
     @Mapping(source = "user.id", target = "id")
     FullUserDTO userToDTO (User user);
     User DTOtoUser(FullUserDTO fullUserDTO);
-    void updateUserFromDto(FullUserDTO dto, @MappingTarget User entity);
 }
