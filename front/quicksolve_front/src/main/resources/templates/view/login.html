@@ -7,7 +7,6 @@
     <title th:text="#{login.titulo1}"></title>
 </head>
 <body class="custom-bg-1">
-<th:block th:include="view/fragments/nav"></th:block>
 
 <div class="container-fluid mb-5">
     <div class="row align-items-center normal-height">
@@ -31,10 +30,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-lg-3 mt-2">
-                        <button type="submit" class="btn btn-secondary px-5 mb-3 w-50" th:text="#{login.botonentrar}"></button>
+                    <div class="text-center my-4">
+                        <button type="submit" class="btn btn-secondary px-5 w-50" th:text="#{login.botonentrar}"></button>
                     </div>
-                    <div class="form-text text-center mb-4 text-texto-contraste">
+                    <div class="form-text text-center mb-4 mt-0 text-texto-contraste">
                         <span th:text="#{login.cambioregistro1}"></span>
                         <a th:href="@{/registro}" class="text-texto-contraste fw-bold text-decoration-none" th:text="#{login.cambioregistro2}"></a>
                     </div>
@@ -44,7 +43,6 @@
     </div>
 </div>
 
-<th:block th:include="view/fragments/footer"></th:block>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 </body>

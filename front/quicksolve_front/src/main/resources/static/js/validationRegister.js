@@ -7,7 +7,7 @@ $(document).ready(function () {
     const forms = document.querySelectorAll('.needs-validation');
     Array.prototype.slice.call(forms)
     .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('input', function (event) {
             if (!form.checkValidity()) {
                 event.preventDefault()
                 event.stopPropagation()
