@@ -1,0 +1,25 @@
+<div th:fragment="sidebar" class="sticky-top d-flex flex-nowrap justify-content-center mx-2 mb-4" style="top:96px">
+  <div class="d-flex justify-content-center mx-2">
+    <a th:href="@{/incidencia/nueva}" class="btn btn-secondary  qs-button d-flex align-items-center justify-content-center">
+      <span class="material-symbols-outlined mx-1">note_add</span><span class="d-none d-sm-none d-lg-block">New Incidence</span>
+    </a>
+  </div>
+
+  <div class=" d-flex justify-content-center mx-2">
+    <a th:href="@{/incidencia/nueva}" type="button" class="btn btn-secondary qs-button d-flex flex-nowrap  align-items-center justify-content-center">
+      <span class="material-symbols-outlined mx-1">construction</span><span class="d-none d-sm-none d-lg-block" th:text="#{sidebar.incidenciastech}"></span>
+    </a>
+  </div>
+
+  <div class=" d-flex justify-content-center mx-2">
+    <a th:href="@{/incidencias}" type="button" class="btn btn-secondary  qs-button d-flex flex-nowrap align-items-center justify-content-center">
+      <span class="material-symbols-outlined mx-1">list</span> <span class="d-none d-sm-none d-lg-block" th:text="#{sidebar.misincidencias}"></span>
+    </a>
+  </div>
+
+  <div class=" d-flex justify-content-center mx-2">
+    <a th:href="@{/incidencias}" type="button" class="btn btn-secondary  qs-button d-flex align-items-center justify-content-center">
+      <span class="material-symbols-outlined mx-1">rocket_launch</span> <span class="d-none d-sm-none d-lg-block" th:text="#{sidebar.mejorar.plan}"></span>
+    </a>
+  </div>
+</div>

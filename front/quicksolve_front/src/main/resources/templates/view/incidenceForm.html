@@ -6,47 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <title th:text="#{nav.li5}"></title>
 </head>
 
 <body>
 <th:block th:include="view/fragments/nav"></th:block>
+<th:block th:include="view/fragments/sub-nav"></th:block>
 
-<main class="d-flex flex-nowrap sidebar-hide" style="transition: 0.3s;">
-    <th:block th:include="view/fragments/sidebar"></th:block>
-
-    <div id="page-content-wrapper" class="mx-4 mt-4 mb-0 w-100">
-        <div class="w-100 d-flex justify-content-start">
-            <div id="sidebar-icon" class="open">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-
-        <h1 th:if="${isNewIncidence}" class="text-center" th:text="#{newincidencia.titulo1}"></h1>
-        <h1 th:if="${!isNewIncidence}" class="text-center" th:text="#{updateincidencia.titulo2}"></h1>
+<main class="d-flex flex-nowrap flex-column">
+        <h1 th:if="${isNewIncidence}" class="text-center" th:text="#{newincidencia.titulo1.upper}"></h1>
+        <h1 th:if="${!isNewIncidence}" class="text-center" th:text="#{updateincidencia.titulo2.upper}"></h1>
 
         <form th:if="${isNewIncidence}" th:fragment="form" th:action="@{/nueva/incidencia}" th:object="${incidence}"
-              method="POST" class=" needs-validation container" enctype="multipart/form-data" th:class="my-5" novalidate>
+              method="POST" class="needs-validation container my-5" enctype="multipart/form-data" novalidate>
             <th:block th:include="view/fragments/form"></th:block>
         </form>
 
-        <form th:if="${!isNewIncidence}" th:fragment="form" th:action="@{/modificar/incidencia/{id}(id=${incidence.id})}" th:object="${incidence}"
-              method="POST" class=" needs-validation container" enctype="multipart/form-data"  th:class="my-5" novalidate>
+        <form th:if="${!isNewIncidence}" th:fragment="form"
+              th:action="@{/modificar/incidencia/{id}(id=${incidence.id})}" th:object="${incidence}"
+              method="POST" class="needs-validation container my-5" enctype="multipart/form-data" novalidate>
             <th:block th:include="view/fragments/form"></th:block>
         </form>
-    </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
         crossorigin="anonymous"></script>
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
 <script th:src="@{/js/validationForm.js}"></script>
 <script th:src="@{/js/sidebar.js}"></script>
-<script th:src="@{/js/activeLinks.js}"> </script>
+<script th:src="@{/js/activeLinks.js}"></script>
 
 </body>
 </html>

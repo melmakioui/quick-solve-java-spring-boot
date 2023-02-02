@@ -1,0 +1,24 @@
+@import "variables";
+
+a.qs-button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  width: 195px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+a.qs-button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 920px) {
+  a.qs-button {
+    width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  a.qs-button {
+    width: 70px;
+  }
+}

@@ -11,26 +11,25 @@
             </div>
             <div class="navbar-collapse collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-5">
-                    <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/}" th:text="#{nav.li1}"></a>
+                    <li class="nav-item px-2" th:if="not ${userLogin}">
+                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:if="not ${userLogin}"  th:href="@{/}"  th:text="#{nav.li1}"></a>
                     </li>
                     <li class="nav-item px-2">
                         <!-- el link de abajo tendrá que llevar al apartado de cuenta del usuario -->
-                        <a class="nav-link p-3 rounded-pill"th:href="@{/cuenta}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
+                        <a class="nav-link p-3 rounded-pill" th:href="@{/cuenta}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
                         <a class="nav-link p-3 rounded-pill" th:href="@{/login}" th:unless="${userlogin}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link p-3 rounded-pill" style="cursor: pointer;" th:if="${userlogin}" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="#{nav.li2}"></a>
                         <a class="nav-link p-3 rounded-pill" th:href="@{/registro}" th:unless="${userlogin}" th:text="#{nav.li3}"></a>
                     </li>
-                    <li class="nav-item px-2" th:if="${userlogin}">
+               <!--     <li class="nav-item px-2" th:if="!${userlogin}">
                         <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/incidencias}" th:text="#{nav.li4}"></a>
+                    </li>-->
+                    <li class="nav-item px-2" th:if="not ${userLogin}">
+                        <a class="nav-link p-3 rounded-pill" th:if="not ${userlogin}" th:href="@{/public/nueva}" th:text="#{nav.li5}"></a>
                     </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" th:if="${userlogin}" th:href="@{/incidencia/nueva}" th:text="#{nav.li5}"></a>
-                        <a class="nav-link p-3 rounded-pill" th:unless="${userlogin}" th:href="@{/public/nueva}" th:text="#{nav.li5}"></a>
-                    </li>
-                    <li class="nav-item px-2" th:if="${userlogin}">
+                    <li class="nav-item px-2" th:if="not ${userlogin}">
                         <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/planes}" th:text="#{nav.li6}"></a>
                     </li>
                     <li class="nav-item dropdown px-2">
