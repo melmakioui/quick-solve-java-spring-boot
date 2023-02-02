@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     var waitingAccordion = $('#waiting')
@@ -15,6 +14,23 @@ $(document).ready(function () {
     var newIncidence = $('#newIncidence')
     var selectDep = $('#dep')
     var selectSpa = $('#spa')
+    var buttonReset = $('#reset-filter')
+
+    var solvingMessage = $('#solving-message')
+    var solvedMessage = $('#solved-message')
+    var cancelledMessage = $('#cancelled-message')
+
+
+    feedBackEmptyIncidences()
+
+
+    buttonReset.on('click', function () {
+        selectDep.val('all')
+        selectSpa.val('all')
+        var result = incidences
+        fillAccordions(result)
+
+    });
 
     selectDep.on('change', filterIncidence)
     selectSpa.on('change', filterIncidence)
@@ -28,7 +44,7 @@ $(document).ready(function () {
                 $(incidence).data('space') === value;
         });
 
-        if(value === 'all') {
+        if (value === 'all') {
             if (selectSpa.val() === 'all' && selectDep.val() === 'all') {
                 result = incidences;
             }
@@ -50,30 +66,41 @@ $(document).ready(function () {
         }
 
         fillAccordions(result)
-        feedBackEmptyIncidences()
     }
 
 
-    function feedBackEmptyIncidences(){
+    function feedBackEmptyIncidences() {
 
         if (waitingAccordion.children().length === 0) {
             waitingAccordion.append($(newIncidence))
         }
 
-        if (solvingAccordion.children().length === 0) {
-            solvingAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+        if (solvingAccordion.children().length === 1) {
+            if (solvingAccordion.children().is('h1')) {
+                solvingMessage.toggleClass('d-none')
+            }else solvingMessage.removeClass('d-none')
+        }else if (solvingAccordion.children().length === 0) {
+            solvingAccordion.append($(solvingMessage.removeClass('d-none')))
         }
 
-        if (solvedAccordion.children().length === 0) {
-            solvedAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+        if (solvedAccordion.children().length === 1) {
+            if (solvedAccordion.children().is('h1')) {
+                solvedMessage.removeClass('d-none')
+            }
+        }else if (solvedAccordion.children().length === 0) {
+            solvedAccordion.append($(solvedMessage.removeClass('d-none')))
         }
 
-        if (cancelledAccordion.children().length === 0) {
-            cancelledAccordion.append('<h3 class="text-center m-auto">N/A</h3>')
+        if (cancelledAccordion.children().length === 1) {
+            if (cancelledAccordion.children().is('h1')) {
+                cancelledMessage.removeClass('d-none')
+            }else cancelledMessage.removeClass('d-none')
+        }else if (cancelledAccordion.children().length === 0) {
+            cancelledAccordion.append($(cancelledMessage.removeClass('d-none')))
         }
     }
 
-    function fillAccordions(result){
+    function fillAccordions(result) {
         cardsWaiting.remove()
         cardsSolving.remove()
         cardsSolved.remove()
@@ -83,6 +110,7 @@ $(document).ready(function () {
         solvedAccordion.empty()
         solvingAccordion.empty()
         cancelledAccordion.empty()
+
 
         $.each(result, function (index, incidence) {
 
@@ -102,8 +130,9 @@ $(document).ready(function () {
                 cancelledAccordion.append($(incidence))
             }
         });
-    }
 
+        feedBackEmptyIncidences()
+    }
 
 
     // Funcion para mostrar modal de incidencia a eliminar
