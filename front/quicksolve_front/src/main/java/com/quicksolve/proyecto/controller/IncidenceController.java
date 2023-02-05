@@ -1,6 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.*;
+import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -28,6 +30,9 @@ public class IncidenceController {
     private  IncidenceStateService incidenceStateService;
     @Autowired
     private IncidenceFileService incidenceFileService;
+    @Autowired
+    private IncidenceMessageService incidenceMessageService;
+
 
 
     @GetMapping("/incidencia/nueva")
@@ -82,12 +87,36 @@ public class IncidenceController {
             incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidence.getId()));
         });
 
-        System.out.println(model.getAttribute("userlogin"));
+        System.out.println(incidenceDTOS);
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
         model.addAttribute("status", incidenceStateService.list());
         return "view/incidences";
+    }
+
+    @GetMapping("/incidencia/{incidenceId}")
+    public String showIncidence(@PathVariable long incidenceId, Model model) {
+
+        FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
+        FullIncidenceDTO incidenceDTO = null;
+        System.out.println(user);
+        if (user.getType() == UserType.USER) {
+             incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId,  user.getId());
+        }else {
+            incidenceDTO = incidenceService.findIncidenceByIdAndUserTechId(incidenceId,  user.getId());
+        }
+
+        //Monta el dto con los datos de la incidencia
+        incidenceDTO.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
+        List<IncidenceMessageDTO> incidenceMessageDTOS = incidenceMessageService.findAllByIncidenceId(incidenceId);
+        Collections.reverse(incidenceMessageDTOS);
+        incidenceDTO.setMessages(incidenceMessageDTOS);
+
+
+        model.addAttribute("incidence", incidenceDTO);
+        model.addAttribute("newMessage", new IncidenceMessageDTO());
+        return "view/incidence";
     }
 
     @GetMapping("/incidencia/cancelar/{id}")
@@ -97,19 +126,19 @@ public class IncidenceController {
     }
 
     @PostMapping("/public/nueva/incidencia")
-    public String saveNoUserIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
+    public String saveNoUserIncidence(@Valid FullIncidenceDTO newIncidence, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("spaces", spaceService.list());
-            model.addAttribute("incidence", incidenceDepartmentDTO);
+            model.addAttribute("incidence", newIncidence);
             model.addAttribute("isNewIncidence", true);
 
             return "view/incidenceNoLoginForm";
         }
 
         incidenceFileService.validateFiles(files);
-        incidenceService.save(incidenceDepartmentDTO);
+        incidenceService.save(newIncidence);
         FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
 

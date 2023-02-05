@@ -60,6 +60,9 @@ public class IncidenceServiceImpl implements IncidenceService {
     @Override
     public void save(FullIncidenceDTO fullIncidenceDTO) {
         Incidence incidence = saveIncidence(fullIncidenceDTO);
+        UserIncidence userIncidence = new UserIncidence();
+        userIncidence.setIncidence(incidence);
+        userIncidenceRepo.save(userIncidence);
         lastIncidence = convertToDTO(incidence);
     }
 
@@ -143,6 +146,28 @@ public class IncidenceServiceImpl implements IncidenceService {
         return lastUpdatedIncidence;
     }
 
+    @Override
+    public FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, long userId) {
+        UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndUserId(incidenceId,userId);
+
+        if (userIncidence == null){
+            throw new RuntimeException("No es usuario de la incidencia");
+        }
+
+        return convertToDTO(userIncidence.getIncidence());
+    }
+
+    @Override
+    public FullIncidenceDTO findIncidenceByIdAndUserTechId(long incidenceId, long userTechId) {
+        UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndTechId(incidenceId,userTechId);
+
+        if (userIncidence == null){
+            throw new RuntimeException("No es usuario de la incidencia");
+        }
+
+        return convertToDTO(userIncidence.getIncidence());
+    }
+
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {
         long departmentId = fullIncidenceDTO.getDepartment().getId();
         long spaceId = fullIncidenceDTO.getSpace().getId();
@@ -157,9 +182,20 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {
+
+
         String days = getTotalDays(incidence.getDateStart());
         FullIncidenceDTO fullIncidenceDTO = IncidenceMapper.INSTANCE.incidenceToDTO(incidence);
         fullIncidenceDTO.setDaysAgo(days);
+
+        UserIncidence ui = userIncidenceRepo.findByIncidenceId(incidence.getId());
+
+        if (ui == null){
+            fullIncidenceDTO.setUser(null);
+        }else{
+            fullIncidenceDTO.setUser(UserMapper.INSTANCE.userToDTO(ui.getUser()));
+        }
+
         return fullIncidenceDTO;
     }
 
