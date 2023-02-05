@@ -8,6 +8,7 @@ import com.quicksolve.proyecto.entity.UserData;
 import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.mapper.UserMapper;
 import com.quicksolve.proyecto.mapper.UserDataMapper;
+import com.quicksolve.proyecto.repository.ServiceRepository;
 import com.quicksolve.proyecto.repository.UserDataRepository;
 import com.quicksolve.proyecto.repository.UserRepository;
 import com.quicksolve.proyecto.service.UserService;
@@ -19,10 +20,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepo;
     @Autowired
+    private ServiceRepository serviceRepo;
+    @Autowired
     private UserDataRepository userDataRepo;
     @Autowired
     private PasswordEncoderConf passwordEncoder;
 
+    @Override
     public FullUserDTO createUser(FullUserDTO usr){
         usr.setActive(true);
         usr.setType(UserType.USER);
@@ -40,6 +44,7 @@ public class UserServiceImpl implements UserService {
         return userInserted;
     }
 
+    @Override
     public FullUserDTO updateUser(FullUserDTO usr){
         User usrToUpdate = userRepo.findByEmail(usr.getEmail());
         UserData usrDataToUpdate = userDataRepo.findByUserId(usrToUpdate.getId());
@@ -54,21 +59,35 @@ public class UserServiceImpl implements UserService {
         return getFullUser(usrToUpdate.getId());
     }
 
+    @Override
+    public FullUserDTO updateService(String email, Long idService){
+        User usrToUpdate = userRepo.findByEmail(email);
+        usrToUpdate.setService(null);
+        if (idService != 0){
+            usrToUpdate.setService(serviceRepo.getReferenceById(idService));
+        }
+        userRepo.save(usrToUpdate);
+
+        return getFullUser(usrToUpdate.getId());
+    }
+
+    @Override
     public FullUserDTO getUserBy(Long id){
         return UserMapper.INSTANCE.userToDTO(userRepo.getReferenceById(id));
     }
+    @Override
     public FullUserDTO getUserBy(String email){
         return UserMapper.INSTANCE.userToDTO(userRepo.findByEmail(email));
     }
-
+    @Override
     public boolean existsWithUsername(String username){
         return userRepo.existsByUsername(username);
     }
-
+    @Override
     public boolean existsWithEmail(String email){
         return userRepo.existsByEmail(email);
     }
-
+    @Override
     public FullUserDTO getFullUser(Long id){
         UserData userData = userDataRepo.getReferenceById(id);
 

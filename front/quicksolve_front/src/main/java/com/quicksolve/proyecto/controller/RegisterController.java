@@ -42,10 +42,10 @@ public class RegisterController {
     ){
 
         model.addAttribute("user", user);
-
         if (userService.existsWithEmail(user.getEmail())){
             model.addAttribute("alreadyExistsEmail", "true");
         }
+
         if (userService.existsWithUsername(user.getUsername())){
             model.addAttribute("alreadyExistsUsername", "true");
         }
@@ -54,12 +54,7 @@ public class RegisterController {
             return "view/registro";
         }
 
-        user.setData(new UserDataDTO(
-                name,
-                firstSurname,
-                secondSurname,
-                LocalDateTime.now()
-        ));
+        user.setData(new UserDataDTO(name, firstSurname, secondSurname, LocalDateTime.now()));
 
         FullUserDTO totalUser = userService.createUser(user);
         model.addAttribute("userlogin", totalUser);

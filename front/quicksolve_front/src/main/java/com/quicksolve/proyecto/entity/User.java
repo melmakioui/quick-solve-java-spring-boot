@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -38,6 +40,8 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "service_id")
     private Service service;
+
+    private LocalDateTime serviceExpiration;
 
     @OneToMany(mappedBy = "user")
     @ToString.Exclude

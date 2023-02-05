@@ -44,6 +44,10 @@ public class ServiceServiceImpl implements ServiceService {
                 .collect(Collectors.toList());
     }
 
+    public Long getLastService(){
+        return serviceRepo.findTopByOrderByIdDesc().getId();
+    }
+
     private ServiceDTO convertToDTO(com.quicksolve.proyecto.entity.Service service){
         ServiceDTO serviceDTO = ServiceMapper.INSTANCE.serviceToDTO(service);
 

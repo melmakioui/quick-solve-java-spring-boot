@@ -17,5 +17,4 @@ public interface UserDataMapper {
     @Mapping(source = "userData.user.id", target = "idUser")
     UserDataDTO dataToDTO (UserData userData);
     UserData DTOtoUserData(UserDataDTO userDataDTO);
-    void updateDataFromDto(UserDataDTO dto, @MappingTarget UserData entity);
 }

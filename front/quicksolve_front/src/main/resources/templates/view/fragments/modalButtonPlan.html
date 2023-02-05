@@ -7,7 +7,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal" th:text="#{planes.modal.cerrar}"></button>
-        <a th:href="@{/cancelarPlan}"><button type="button" class="btn btn-secondary" th:text="#{planes.modal.confirmar}"></button></a>
+        <form th:action="@{/modificar/plan}" id="modalFormButtonPlan" method="POST">
+          <div id="inputPlanForm"></div>
+          <button type="submit" class="btn btn-secondary" th:text="#{planes.modal.confirmar}"></button>
+        </form>
       </div>
     </div>
   </div>

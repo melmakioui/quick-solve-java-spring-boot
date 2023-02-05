@@ -17,7 +17,9 @@ public class FullUserDTO {
     private String email;
     private UserType type;
     private boolean active;
+    private long serviceId;
     private ServiceDTO service;
+    private LocalDateTime serviceExpiration;
     private DepartmentDTO department;
     private UserDataDTO data;
 

@@ -21,4 +21,11 @@ public class InvoiceLine {
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
+
+    public InvoiceLine(String name, double price, int tax, Invoice invoice) {
+        this.name = name;
+        this.price = price;
+        this.tax = tax;
+        this.invoice = invoice;
+    }
 }
