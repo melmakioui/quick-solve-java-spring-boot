@@ -22,6 +22,7 @@ public class FullIncidenceDTO {
     private String description;
 
     private Set<FileDTO> incidenceFiles;
+    private List<IncidenceMessageDTO> messages; //sort segun el order
 
     @Email(message = "El email debe ser válido")
     @NotBlank

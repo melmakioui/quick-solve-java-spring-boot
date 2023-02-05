@@ -21,10 +21,14 @@ public class IncidenceMessage {
     private boolean isAction;
 
     @ManyToOne
-    @JoinColumn(name = "incidence_id")
+    @JoinColumn(name = "incidence_id", referencedColumnName = "incidence_id")
     private UserIncidence incidence;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserIncidence user;
+
+    @ManyToOne
+    @JoinColumn(name = "tech_id", referencedColumnName = "tech_id")
+    private UserIncidence tech;
 }
