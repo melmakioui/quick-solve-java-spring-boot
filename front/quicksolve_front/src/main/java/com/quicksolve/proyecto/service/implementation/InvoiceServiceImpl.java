@@ -35,8 +35,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         User usr = userRepo.findByEmail(email);
         UserData userData = userDataRepo.findByUserId(usr.getId());
         com.quicksolve.proyecto.entity.Service service = serviceRepo.getReferenceById(serviceId);
+
         Invoice inv = new Invoice(LocalDateTime.now(), userData.getName(), userData.getFirstSurname(), userData.getSecondSurname(), usr);
         InvoiceLine invLine = new InvoiceLine(service.getName(), service.getPrice(), service.getTax(), inv);
+
+        Set<InvoiceLine> invoiceLines = new HashSet<>();
+        invoiceLines.add(invLine);
+        inv.setInvoiceLines(invoiceLines);
 
         invoiceRepo.save(inv);
         invoiceLineRepo.save(invLine);

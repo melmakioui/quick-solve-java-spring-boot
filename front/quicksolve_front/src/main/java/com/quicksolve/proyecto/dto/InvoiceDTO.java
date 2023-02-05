@@ -12,5 +12,5 @@ public class InvoiceDTO {
     private String firstSurname;
     private String secondSurname;
     private LocalDateTime dateHour;
-    private Set<InvoiceLineDTO> lines;
+    private Set<InvoiceLineDTO> invoiceLines;
 }

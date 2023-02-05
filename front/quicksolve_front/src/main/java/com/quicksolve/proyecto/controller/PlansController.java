@@ -36,7 +36,7 @@ public class PlansController {
             FullUserDTO actualUsr = ((FullUserDTO) model.getAttribute("userlogin"));
             model.addAttribute("userlogin", userService.updateService(actualUsr.getEmail(), idPlan));
             if (idPlan != 0){
-                invService.generateNewInvoice(actualUsr.getEmail(), idPlan);
+                System.out.println(invService.generateNewInvoice(actualUsr.getEmail(), idPlan));
             }
         }
         return "redirect:/planes";
