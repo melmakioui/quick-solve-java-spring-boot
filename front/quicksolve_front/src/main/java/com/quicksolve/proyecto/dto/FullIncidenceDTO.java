@@ -27,7 +27,7 @@ public class FullIncidenceDTO {
     @Email(message = "El email debe ser válido")
     @NotBlank
     private String email;
-
+    private FullUserDTO user;
     private String daysAgo;
     private long incidenceStateId;
     private long departmentId;
