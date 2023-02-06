@@ -26,7 +26,7 @@
                <!--     <li class="nav-item px-2" th:if="!${userlogin}">
                         <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/incidencias}" th:text="#{nav.li4}"></a>
                     </li>-->
-                    <li class="nav-item px-2" th:if="not ${userLogin}">
+                    <li class="nav-item px-2" th:if="not ${userlogin}">
                         <a class="nav-link p-3 rounded-pill" th:if="not ${userlogin}" th:href="@{/public/nueva}" th:text="#{nav.li5}"></a>
                     </li>
                     <li class="nav-item px-2" th:if="not ${userlogin}">

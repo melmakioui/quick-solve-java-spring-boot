@@ -1,5 +1,7 @@
 $primary: rgb(35, 102, 153);
 $secondary: rgb(255, 153, 0);
+$secondary-low: rgba(255, 153, 0, 0.71);
+
 $dark: rgb(15, 31, 63);
 $text-1: rgb(240, 240, 240);
 $background-icon: rgb(150, 150, 150);
@@ -11,3 +13,7 @@ $dark-soft: rgba(15, 31, 63, 0.5);
 $delete-soft: rgba(255, 0, 0, 0.5);
 $darker-btn: rgb(147,147,154);
 $warning: rgb(255, 215, 119);
+
+$scroll-bg: rgb(241, 241, 241);
+$scroll-thumb: rgb(136, 136, 136);
+$scroll-thumb-hover: rgb(85, 85, 85);

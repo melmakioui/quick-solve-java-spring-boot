@@ -55,3 +55,29 @@
   color: $primary;
   cursor: pointer;
 }
+
+
+/*Handle comment div */
+.comment-section {
+  margin: 0 auto;
+  min-height: 10px;
+  max-height: 600px;
+  overflow-x: hidden;
+  direction: ltr;
+}
+
+.comment-section::-webkit-scrollbar {
+  width: 10px;
+}
+
+.comment-section::-webkit-scrollbar-track {
+  background: $scroll-bg;
+}
+
+.comment-section::-webkit-scrollbar-thumb {
+  background: $scroll-thumb;
+}
+
+.comment-section::-webkit-scrollbar-thumb:hover {
+  background: $scroll-thumb-hover;
+}
