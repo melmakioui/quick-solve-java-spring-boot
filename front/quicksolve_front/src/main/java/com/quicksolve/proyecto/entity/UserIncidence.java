@@ -19,14 +19,14 @@ public class UserIncidence {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",unique = false, nullable = true)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "tech_id",unique = false, nullable = true)
+    @JoinColumn(name = "tech_id")
     private User tech;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "incidence_id",unique = false, nullable = true)
+    @JoinColumn(name = "incidence_id")
     private Incidence incidence;
 }

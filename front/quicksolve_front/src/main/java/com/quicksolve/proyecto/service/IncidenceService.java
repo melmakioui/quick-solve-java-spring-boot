@@ -18,6 +18,5 @@ public interface IncidenceService {
     FullIncidenceDTO getLastIncidence();
     FullIncidenceDTO getLastUpdatedIncidence();
     FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, long userId);
-    FullIncidenceDTO findIncidenceByIdAndUserTechId(long incidenceId, long userTechId);
 
 }

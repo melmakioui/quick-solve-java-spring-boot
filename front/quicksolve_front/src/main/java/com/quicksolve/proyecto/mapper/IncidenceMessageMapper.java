@@ -11,8 +11,6 @@ public interface IncidenceMessageMapper {
 
     IncidenceMessageMapper INSTANCE = Mappers.getMapper(IncidenceMessageMapper.class);
 
-    @Mapping(source = "user.user.username", target = "userNameUser")
-    @Mapping(source = "tech.tech.username", target = "userNameTech")
     IncidenceMessageDTO toIncidenceMessageDTO(IncidenceMessage incidenceMessage);
 
     IncidenceMessage toIncidenceMessage(IncidenceMessageDTO incidenceMessageDTO);

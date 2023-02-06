@@ -12,8 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -30,24 +28,20 @@ public class IncidenceController {
     private  IncidenceStateService incidenceStateService;
     @Autowired
     private IncidenceFileService incidenceFileService;
-    @Autowired
-    private IncidenceMessageService incidenceMessageService;
-
-
 
     @GetMapping("/incidencia/nueva")
     public String showForm(Model model) {
 
-        FullIncidenceDTO fullIncidenceDTO = new FullIncidenceDTO();
-        fullIncidenceDTO.setDepartment(new DepartmentDTO());
-        fullIncidenceDTO.setSpace(new SpaceDTO());
+        FullIncidenceDTO incidenceDTO = new FullIncidenceDTO();
+        incidenceDTO.setDepartment(new DepartmentDTO());
+        incidenceDTO.setSpace(new SpaceDTO());
 
         List<DepartmentDTO> departments = departmentService.list();
         List<SpaceDTO> spaces = spaceService.list();
 
         model.addAttribute("spaces", spaces);
         model.addAttribute("departments", departments);
-        model.addAttribute("incidence", fullIncidenceDTO);
+        model.addAttribute("incidence", incidenceDTO);
         model.addAttribute("isNewIncidence", true);
 
         return "view/incidenceForm";
@@ -99,21 +93,10 @@ public class IncidenceController {
     public String showIncidence(@PathVariable long incidenceId, Model model) {
 
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
-        FullIncidenceDTO incidenceDTO = null;
         System.out.println(user);
-        if (user.getType() == UserType.USER) {
-             incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId,  user.getId());
-        }else {
-            incidenceDTO = incidenceService.findIncidenceByIdAndUserTechId(incidenceId,  user.getId());
-        }
+        FullIncidenceDTO incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId,  user.getId());
 
-        //Monta el dto con los datos de la incidencia
         incidenceDTO.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
-        List<IncidenceMessageDTO> incidenceMessageDTOS = incidenceMessageService.findAllByIncidenceId(incidenceId);
-        Collections.reverse(incidenceMessageDTOS);
-        incidenceDTO.setMessages(incidenceMessageDTOS);
-
-
         model.addAttribute("incidence", incidenceDTO);
         model.addAttribute("newMessage", new IncidenceMessageDTO());
         return "view/incidence";

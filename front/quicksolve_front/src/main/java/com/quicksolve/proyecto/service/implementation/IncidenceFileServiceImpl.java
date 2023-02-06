@@ -60,7 +60,7 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
 
     @Override
     public void saveIncidenceFiles(MultipartFile[] files, Long incidenceId) {
-        //incidenceFileRepository.save()
+        //
     }
 
     @Override

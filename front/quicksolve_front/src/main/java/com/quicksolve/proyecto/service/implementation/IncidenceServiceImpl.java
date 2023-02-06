@@ -157,17 +157,6 @@ public class IncidenceServiceImpl implements IncidenceService {
         return convertToDTO(userIncidence.getIncidence());
     }
 
-    @Override
-    public FullIncidenceDTO findIncidenceByIdAndUserTechId(long incidenceId, long userTechId) {
-        UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndTechId(incidenceId,userTechId);
-
-        if (userIncidence == null){
-            throw new RuntimeException("No es usuario de la incidencia");
-        }
-
-        return convertToDTO(userIncidence.getIncidence());
-    }
-
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {
         long departmentId = fullIncidenceDTO.getDepartment().getId();
         long spaceId = fullIncidenceDTO.getSpace().getId();
@@ -182,7 +171,6 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {
-
 
         String days = getTotalDays(incidence.getDateStart());
         FullIncidenceDTO fullIncidenceDTO = IncidenceMapper.INSTANCE.incidenceToDTO(incidence);

@@ -22,13 +22,9 @@ public class IncidenceMessage {
 
     @ManyToOne
     @JoinColumn(name = "incidence_id")
-    private UserIncidence incidence;
+    private Incidence incidence;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserIncidence user;
-
-    @ManyToOne
-    @JoinColumn(name = "tech_id")
-    private UserIncidence tech;
+    private User user;
 }
