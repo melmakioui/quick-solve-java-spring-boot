@@ -28,6 +28,8 @@ public class IncidenceController {
     private  IncidenceStateService incidenceStateService;
     @Autowired
     private IncidenceFileService incidenceFileService;
+    @Autowired
+    private IncidenceMessageService messageService;
 
     @GetMapping("/incidencia/nueva")
     public String showForm(Model model) {
@@ -93,10 +95,13 @@ public class IncidenceController {
     public String showIncidence(@PathVariable long incidenceId, Model model) {
 
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
-        System.out.println(user);
-        FullIncidenceDTO incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId,  user.getId());
 
+
+        FullIncidenceDTO incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId,user);
         incidenceDTO.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
+        incidenceDTO.setMessages(messageService.findAllByIncidenceId(incidenceId));
+
+        System.out.println(incidenceDTO);
         model.addAttribute("incidence", incidenceDTO);
         model.addAttribute("newMessage", new IncidenceMessageDTO());
         return "view/incidence";

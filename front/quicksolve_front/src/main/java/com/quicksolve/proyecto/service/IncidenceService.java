@@ -17,6 +17,6 @@ public interface IncidenceService {
     void update(FullIncidenceDTO incidenceDepartmentDTO);
     FullIncidenceDTO getLastIncidence();
     FullIncidenceDTO getLastUpdatedIncidence();
-    FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, long userId);
+    FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, FullUserDTO userDTO);
 
 }

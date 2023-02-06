@@ -19,6 +19,7 @@ public class IncidenceMessage {
     private int orderr;
     private LocalDateTime dateHour;
     private boolean isAction;
+    private boolean isModified;
 
     @ManyToOne
     @JoinColumn(name = "incidence_id")

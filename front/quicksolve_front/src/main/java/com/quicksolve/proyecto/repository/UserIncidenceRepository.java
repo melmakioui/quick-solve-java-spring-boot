@@ -14,7 +14,7 @@ public interface UserIncidenceRepository extends JpaRepository<UserIncidence, Lo
     List<UserIncidence> findAllByUser(User user);
     void deleteByIncidenceId(long id);
     UserIncidence findByIncidenceId(long id);
-    UserIncidence findByIncidenceIdAndUserId (long incidenceId, long userId);
+    UserIncidence findByIncidenceIdAndUserId(long incidenceId, long userId);
     @Query("SELECT u FROM UserIncidence u WHERE u.incidence.id = ?1 AND u.tech.id = ?2")
     UserIncidence findByIncidenceIdAndTechId (long incidenceId, long techId);
 }

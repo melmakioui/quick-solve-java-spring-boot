@@ -19,29 +19,38 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.Collections;
 import java.util.List;
 
+
 @Controller
 @SessionAttributes({"userlogin"})
 public class MessageController {
 
     @Autowired
-    private IncidenceMessageService incidenceMessageService;
+    private IncidenceMessageService messageService;
+
     @Autowired
     private IncidenceService incidenceService;
+
     @Autowired
     private IncidenceFileService incidenceFileService;
 
     @PostMapping("/guardar/mensaje/{incidenceId}")
     public String saveMessage(@PathVariable long incidenceId, @Valid IncidenceMessageDTO incidenceMessageDTO, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            throw new RuntimeException("Error al guardar el mensaje");
+        }
+
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
-        incidenceMessageService.save(incidenceMessageDTO, incidenceId, user);
+
+        messageService.save(incidenceMessageDTO, incidenceId, user.getId());
         return "redirect:/incidencia/" + incidenceId;
     }
-
 
     @GetMapping("/borrar/mensaje/{incidenceId}/{messageId}")
     public String deleteMessage(@PathVariable long incidenceId, @PathVariable long messageId,Model model) {
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
-        incidenceMessageService.delete(messageId, incidenceId, user);
+
+        messageService.delete(messageId,incidenceId, user.getId());
         return "redirect:/incidencia/" + incidenceId;
     }
 
@@ -50,16 +59,20 @@ public class MessageController {
     public String updateMessage(@PathVariable long incidenceId, @PathVariable long messageId, Model model) {
 
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
-        incidenceMessageService.verifyOwner(messageId,user);
+
+        IncidenceMessageDTO messageToUpdate = messageService.findByIdAndIncidenceIdAndUserId(messageId, incidenceId, user.getId());
+        if (messageToUpdate == null) {
+            throw new RuntimeException("No se ha encontrado el mensaje");
+        }
 
         FullIncidenceDTO incidenceDTO = incidenceService.findById(incidenceId);
 
         incidenceDTO.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
-        List<IncidenceMessageDTO> incidenceMessageDTOS = incidenceMessageService.findAllByIncidenceId(incidenceId);
-        Collections.reverse(incidenceMessageDTOS);
+        System.out.println(messageService.findAllByIncidenceId(incidenceId));
+        List<IncidenceMessageDTO> incidenceMessageDTOS = messageService.findAllByIncidenceId(incidenceId);
         incidenceDTO.setMessages(incidenceMessageDTOS);
 
-        model.addAttribute("message", incidenceMessageService.findById(messageId));
+        model.addAttribute("message", messageService.findById(messageId));
         model.addAttribute("isUpdateMessage", true);
         model.addAttribute("incidence", incidenceDTO);
         return "view/incidence";
@@ -69,11 +82,17 @@ public class MessageController {
     public String updateMessage(@PathVariable long incidenceId, @PathVariable long messageId, @Valid IncidenceMessageDTO incidenceMessageDTO, BindingResult result, Model model) {
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
 
+        System.out.println(incidenceMessageDTO);
+
         if (result.hasErrors()){
             return "redirect:/editar/mensaje/" + incidenceId + "/" + messageId;
         }
 
-        incidenceMessageService.update(incidenceMessageDTO, incidenceId, messageId, user);
+        incidenceMessageDTO.setId(messageId);
+        messageService.update(incidenceMessageDTO, incidenceId, messageId, user.getId());
         return "redirect:/incidencia/" + incidenceId;
     }
+
+
+
 }

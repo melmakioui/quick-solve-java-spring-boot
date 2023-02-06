@@ -5,6 +5,7 @@ import com.quicksolve.proyecto.dto.FullUserDTO;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.entity.IncidenceState;
 import com.quicksolve.proyecto.entity.UserIncidence;
+import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.mapper.IncidenceMapper;
 import com.quicksolve.proyecto.mapper.UserMapper;
 import com.quicksolve.proyecto.repository.*;
@@ -147,8 +148,18 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
-    public FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, long userId) {
-        UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndUserId(incidenceId,userId);
+    public FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, FullUserDTO userDTO) {
+        UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndUserId(userDTO.getId(),incidenceId);
+
+
+        //Comprueba si viene como tecnico o como usuario de su propia incidencia
+        if(userDTO.getType() == UserType.TECH && userIncidence == null){
+            UserIncidence techIncidence = userIncidenceRepo.findByIncidenceIdAndTechId(incidenceId,userDTO.getId());
+            if(techIncidence == null){
+                throw new RuntimeException("No esta asignado a esta incidencia");
+            }
+            return convertToDTO(techIncidence.getIncidence());
+        }
 
         if (userIncidence == null){
             throw new RuntimeException("No es usuario de la incidencia");
@@ -156,6 +167,8 @@ public class IncidenceServiceImpl implements IncidenceService {
 
         return convertToDTO(userIncidence.getIncidence());
     }
+
+
 
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {
         long departmentId = fullIncidenceDTO.getDepartment().getId();
