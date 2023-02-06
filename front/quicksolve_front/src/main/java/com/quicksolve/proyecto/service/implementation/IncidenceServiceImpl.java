@@ -149,10 +149,8 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, FullUserDTO userDTO) {
-        UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndUserId(userDTO.getId(),incidenceId);
+        UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndUserId(incidenceId,userDTO.getId());
 
-
-        //Comprueba si viene como tecnico o como usuario de su propia incidencia
         if(userDTO.getType() == UserType.TECH && userIncidence == null){
             UserIncidence techIncidence = userIncidenceRepo.findByIncidenceIdAndTechId(incidenceId,userDTO.getId());
             if(techIncidence == null){

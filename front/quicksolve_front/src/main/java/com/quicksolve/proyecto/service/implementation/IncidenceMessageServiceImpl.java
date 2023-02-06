@@ -85,7 +85,6 @@ public class IncidenceMessageServiceImpl implements IncidenceMessageService {
 
         incidenceMessageUpdate.setBody(incidenceMessageDTO.getBody());
         incidenceMessageUpdate.setAction(incidenceMessageDTO.isAction());
-        incidenceMessageUpdate.setDateHour(incidenceMessageDTO.getDateHour());
         incidenceMessageUpdate.setModified(true);
         incidenceMessageRepository.save(incidenceMessageUpdate);
     }
