@@ -24,7 +24,7 @@
                                 <input type="text" class="form-control" id="email" th:classappend="${loginError == 'true' ? 'is-invalid' : ''}" name="email">
                                 <span class="invalid-feedback text-texto-contraste" th:if="${loginError == 'true'}" th:text="#{login.loginError}"></span>
                             </div>
-                            <div class="mt-lg-3 mt-2">
+                            <div class="mt-lg-4 mt-3">
                                 <label for="password" th:text="#{login.campo2}" class="text-texto-contraste"></label>
                                 <input type="password" class="form-control" id="password" th:classappend="${loginError == 'true' ? 'is-invalid' : ''}" name="pwd">
                             </div>

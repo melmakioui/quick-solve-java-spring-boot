@@ -33,11 +33,13 @@ public class PlansController {
         /* TODO generar la transacción mediante REDSYS u otro método y si va bien... ---> */
         long idPlan = Long.parseLong(planId);
         if (idPlan <= serviceServ.getLastService() && idPlan >= 0){
-            FullUserDTO actualUsr = ((FullUserDTO) model.getAttribute("userlogin"));
-            model.addAttribute("userlogin", userService.updateService(actualUsr.getEmail(), idPlan));
+            FullUserDTO newUser = userService.updateService(((FullUserDTO) model.getAttribute("userlogin")).getEmail(), idPlan);
             if (idPlan != 0){
-                System.out.println(invService.generateNewInvoice(actualUsr.getEmail(), idPlan));
+                newUser.addInvoice(invService.generateNewInvoice(newUser.getEmail(), idPlan));
+                System.out.println(newUser);
             }
+            model.addAttribute("userlogin", newUser);
+            System.out.println(model.getAttribute("userlogin"));
         }
         return "redirect:/planes";
     }

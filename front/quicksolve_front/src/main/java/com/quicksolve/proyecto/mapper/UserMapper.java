@@ -12,6 +12,7 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(source = "user.id", target = "id")
+    @Mapping(source = "invoices", target = "invoices")
     FullUserDTO userToDTO (User user);
     User DTOtoUser(FullUserDTO fullUserDTO);
 }

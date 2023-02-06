@@ -22,12 +22,12 @@
                             <span class="invalid-feedback text-texto-contraste" th:text="#{registro.nombrevalido}"></span>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 mt-lg-2 mt-1">
+                            <div class="col-lg-6 mt-lg-2 mt-3">
                                 <label for="firstsurname" th:text="#{registro.campo2}" class="text-texto-contraste"></label>
                                 <input type="text" class="form-control" id="firstsurname" name="firstSurname" required>
                                 <span class="invalid-feedback text-texto-contraste" th:text="#{registro.apellidovalido}"></span>
                             </div>
-                            <div class="col-lg-6 mt-lg-2 mt-1">
+                            <div class="col-lg-6 mt-lg-2 mt-3">
                                 <label for="secondsurname" th:text="#{registro.campo3}" class="text-texto-contraste"></label>
                                 <input type="text" class="form-control" id="secondsurname" name="secondSurname">
                             </div>
@@ -41,26 +41,26 @@
                             <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsUsername == 'true'}" th:text="#{registro.usernameDuplicado}"></span>
                             <span class="invalid-feedback text-texto-contraste" th:text="#{registro.usernamevalido}"></span>
                         </div>
-                        <div class="mt-lg-2 mt-1">
+                        <div class="mt-lg-2 mt-3">
                             <label for="email" th:text="#{registro.campo5}" class="text-texto-contraste"></label>
                             <input type="email" class="form-control" th:classappend="${alreadyExistsEmail == 'true' ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" required>
                             <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsEmail == 'true'}" th:text="#{registro.emailDuplicado}"></span>
                             <span class="invalid-feedback text-texto-contraste" th:text="#{registro.emailvalido}"></span>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 mt-lg-2 mt-1">
+                            <div class="col-lg-6 mt-lg-2 mt-3">
                                 <label for="password" th:text="#{registro.campo6}" class="text-texto-contraste"></label>
                                 <input type="password" class="form-control" id="password" name="password" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d).*$" th:field="*{password}" required>
                                 <span class="invalid-feedback text-texto-contraste" th:text="#{registro.contravalida}"></span>
                             </div>
-                            <div class="col-lg-6 mt-lg-2 mt-1">
+                            <div class="col-lg-6 mt-lg-2 mt-3">
                                 <label for="confirmpassword" th:text="#{registro.campo7}" class="text-texto-contraste"></label>
                                 <input type="password" class="form-control" id="confirmpassword" pattern="^$" name="confirmpassword" required>
                                 <span id="passwordMatchError" class="invalid-feedback text-texto-contraste" th:text="#{registro.contracoincide}"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-lg-3 mt-2">
+                    <div class="text-center mt-lg-3 mt-4">
                         <button type="submit" class="btn btn-secondary px-5 mb-3 w-75" id="submit" th:text="#{registro.botoncrear}"></button>
                     </div>
                     <div class="form-text text-center mb-4 text-texto-contraste">

@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"service", "department"})
+@EqualsAndHashCode(exclude = {"service", "department", "invoices"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -44,7 +44,6 @@ public class User {
     private LocalDateTime serviceExpiration;
 
     @OneToMany(mappedBy = "user")
-    @ToString.Exclude
     private Set<Invoice> invoices;
 
     @ManyToOne
