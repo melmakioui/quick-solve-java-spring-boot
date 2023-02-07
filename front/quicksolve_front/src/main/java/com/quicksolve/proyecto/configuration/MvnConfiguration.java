@@ -22,7 +22,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(UserInterceptor)
-                .addPathPatterns("/incidencias/**", "/incidencia/**", "/nueva/**", "/modificar/**", "/planes/**", "/cuenta");
+                .addPathPatterns("/incidencias/**", "/incidencia/**", "/nueva/**", "/modificar/**", "/planes/**", "/cuenta", "/invoices");
     }
 
     @Override

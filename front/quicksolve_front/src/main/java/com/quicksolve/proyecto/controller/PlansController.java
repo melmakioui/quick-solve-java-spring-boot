@@ -39,7 +39,6 @@ public class PlansController {
                 System.out.println(newUser);
             }
             model.addAttribute("userlogin", newUser);
-            System.out.println(model.getAttribute("userlogin"));
         }
         return "redirect:/planes";
     }
