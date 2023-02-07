@@ -6,11 +6,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"service", "department"})
+@EqualsAndHashCode(exclude = {"service", "department", "invoices"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -39,8 +41,9 @@ public class User {
     @JoinColumn(name = "service_id")
     private Service service;
 
+    private LocalDateTime serviceExpiration;
+
     @OneToMany(mappedBy = "user")
-    @ToString.Exclude
     private Set<Invoice> invoices;
 
     @ManyToOne

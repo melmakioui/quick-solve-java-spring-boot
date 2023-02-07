@@ -9,8 +9,8 @@
 <body class="custom-bg-1">
     <th:block th:include="view/fragments/nav"></th:block>
     <div class="d-flex flex-column justify-content-center align-items-center">
-        <div class="d-flex justify-content-center align-items-center flex-column text-center" style="height: calc(100vh - 96px);">
-            <div class="mx-2 bg-texto-contraste bg-opacity-75 p-5 rounded-5" style="max-width: 1000px; max-height: 1000px; backdrop-filter: blur(4px);">
+        <div class="d-flex justify-content-center align-items-center flex-column text-center normal-height">
+            <div class="mx-lg-2 mx-1 bg-texto-contraste bg-opacity-75 p-md-5 p-3 rounded-5" style="max-width: 1000px; max-height: 1000px; backdrop-filter: blur(4px);">
                 <h2 class="display-2 w-75 mx-auto" th:text="#{inicio.lema1}"></h2>
                 <p class="lead" th:text="#{inicio.lema2}"></p>
                 <a th:href="@{/public/nueva}" class="btn btn-secondary btn-lg rounded-pill m-lg-5 m-3 p-lg-4 p-3" th:text="#{inicio.botonincidencia1}"></a>
@@ -23,11 +23,11 @@
             <div class="container px-5 my-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 order-lg-2">
-                        <div class="p-2"><img class="img-fluid" th:src="@{img/advice-1-homepage.svg}" alt="chica mirando pantalla con aviso" /></div>
+                        <div class="p-lg-2 p-1"><img class="img-fluid" th:src="@{img/advice-1-homepage.svg}" alt="chica mirando pantalla con aviso" /></div>
                     </div>
                     <div class="col-lg-6 order-lg-1 border border-secondary rounded-4">
-                        <div class="p-5">
-                            <h2 class="display-5 pb-2" th:text="#{inicio.subtexto1.titulo}"></h2>
+                        <div class="p-lg-5 p-1">
+                            <h2 class="display-5  pt-2" th:text="#{inicio.subtexto1.titulo}"></h2>
                             <p th:text="#{inicio.subtexto1.cuerpo}"></p>
                         </div>
                     </div>
@@ -38,11 +38,11 @@
             <div class="container px-5 mb-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
-                        <div class="p-2"><img class="img-fluid" th:src="@{img/advice-2-homepage.svg}" alt="chico enseñando un chat surrealista con iconos decorativos" /></div>
+                        <div class="p-lg-2 p-1"><img class="img-fluid" th:src="@{img/advice-2-homepage.svg}" alt="chico enseñando un chat surrealista con iconos decorativos" /></div>
                     </div>
                     <div class="col-lg-6 border border-secondary rounded-4">
-                        <div class="p-5">
-                            <h2 class="display-5 pb-2" th:text="#{inicio.subtexto2.titulo}"></h2>
+                        <div class="p-lg-5 p-1">
+                            <h2 class="display-5 pb-2 pt-2" th:text="#{inicio.subtexto2.titulo}"></h2>
                             <p th:text="#{inicio.subtexto2.cuerpo}"></p>
                         </div>
                     </div>

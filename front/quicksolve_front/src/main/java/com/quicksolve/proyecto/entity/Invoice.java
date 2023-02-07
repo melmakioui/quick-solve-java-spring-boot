@@ -4,10 +4,11 @@ package com.quicksolve.proyecto.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = "user")
+@EqualsAndHashCode(exclude = {"user", "invoiceLines"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Invoice {
@@ -23,4 +24,15 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "invoice")
+    private Set<InvoiceLine> invoiceLines;
+
+    public Invoice(LocalDateTime dateHour, String name, String firstSurname, String secondSurname, User user) {
+        this.dateHour = dateHour;
+        this.name = name;
+        this.firstSurname = firstSurname;
+        this.secondSurname = secondSurname;
+        this.user = user;
+    }
 }

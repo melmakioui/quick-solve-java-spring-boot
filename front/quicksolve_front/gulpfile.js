@@ -14,4 +14,4 @@ function minifyCss() {
         .pipe(gulp.dest('./src/main/resources/static/dist'));
 }
 
-exports.build = gulp.parallel(gulp.series(compileSass,minifyCss));
+exports.default = gulp.parallel(gulp.series(compileSass,minifyCss));

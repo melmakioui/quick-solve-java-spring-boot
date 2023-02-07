@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -17,9 +18,16 @@ public class FullUserDTO {
     private String email;
     private UserType type;
     private boolean active;
+    private long serviceId;
     private ServiceDTO service;
+    private Set<InvoiceDTO> invoices;
+    private LocalDateTime serviceExpiration;
     private DepartmentDTO department;
     private UserDataDTO data;
+
+    public void addInvoice(InvoiceDTO invoice){
+        this.invoices.add(invoice);
+    }
 
     public FullUserDTO(String username, String password, String email, UserType type, boolean active, ServiceDTO service, DepartmentDTO department, UserDataDTO data) {
         this.username = username;

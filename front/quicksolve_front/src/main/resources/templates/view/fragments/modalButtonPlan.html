@@ -1,0 +1,17 @@
+<div class="modal fade" id="buttonModal" tabindex="-1" aria-labelledby="buttonModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-primary text-texto-contraste">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="buttonModalLabel" th:text="#{planes.modal.titulo}"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal" th:text="#{planes.modal.cerrar}"></button>
+        <form th:action="@{/modificar/plan}" id="modalFormButtonPlan" method="POST">
+          <div id="inputPlanForm"></div>
+          <button type="submit" class="btn btn-secondary" th:text="#{planes.modal.confirmar}"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

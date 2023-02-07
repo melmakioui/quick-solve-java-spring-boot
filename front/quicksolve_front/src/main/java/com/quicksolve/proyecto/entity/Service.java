@@ -1,10 +1,9 @@
 package com.quicksolve.proyecto.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,6 +17,9 @@ public class Service {
     private String name;
     private double price;
     private int tax;
+
+    @OneToMany(mappedBy = "service")
+    private Set<Advantage> advantages;
 
     public Service(String name, double price, int tax) {
         this.name = name;
