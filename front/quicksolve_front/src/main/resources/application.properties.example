@@ -6,4 +6,8 @@ upload=#where the resorucehandler will look for the files
 upload.path=#where the files will be uploaded in the server
 spring.servlet.multipart.max-file-size=1000MB
 spring.messages.basename=lang/res
+#Mailgun
+API_KEY=
+mailgun.from=
+mailgun.domain=
 
