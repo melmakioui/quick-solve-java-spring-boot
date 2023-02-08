@@ -36,7 +36,6 @@ public class PlansController {
             FullUserDTO newUser = userService.updateService(((FullUserDTO) model.getAttribute("userlogin")).getEmail(), idPlan);
             if (idPlan != 0){
                 newUser.addInvoice(invService.generateNewInvoice(newUser.getEmail(), idPlan));
-                System.out.println(newUser);
             }
             model.addAttribute("userlogin", newUser);
         }

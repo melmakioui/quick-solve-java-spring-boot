@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface UserIncidenceRepository extends JpaRepository<UserIncidence, Long> {
     List<UserIncidence> findAllByUser(User user);
+    List<UserIncidence> findAllByTech(User user);
     void deleteByIncidenceId(long id);
     UserIncidence findByIncidenceId(long id);
     UserIncidence findByIncidenceIdAndUserId(long incidenceId, long userId);

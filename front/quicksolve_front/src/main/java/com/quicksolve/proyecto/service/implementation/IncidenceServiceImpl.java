@@ -52,6 +52,15 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
+    public List<FullIncidenceDTO> listByAssignedTech(FullUserDTO userDTO){
+        List<Incidence> incidences = userIncidenceRepo.findAllByTech(UserMapper.INSTANCE.DTOtoUser(userDTO))
+                .stream()
+                .map(UserIncidence::getIncidence)
+                .toList();
+        return incidences.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public FullIncidenceDTO findById(long id) {
         Incidence incidence = incidenceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
