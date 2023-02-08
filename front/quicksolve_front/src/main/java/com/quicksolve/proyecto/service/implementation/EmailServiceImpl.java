@@ -26,11 +26,12 @@ public class EmailServiceImpl implements EmailService {
             MailgunMessagesApi mailgunMessagesApi = MailgunClient.config(URL, API_KEY)
                     .createApi(MailgunMessagesApi.class);
 
+            //TODO enviar un html con el link a la incidencia
             Message message = Message.builder()
                     .from(FROM)
                     .to(to)
                     .subject("No Reply")
-                    .text("Tienes un mensjae nuevo en la incidencia con el titulo: " + incidenceTitle)
+                    .html("<html><body><p>Ha habido un cambio en tu incidencia : <strong>" + incidenceTitle + "</strong></p></body></html>")
                     .build();
             mailgunMessagesApi.sendMessage(DOMAIN, message);
         } catch (Exception e) {

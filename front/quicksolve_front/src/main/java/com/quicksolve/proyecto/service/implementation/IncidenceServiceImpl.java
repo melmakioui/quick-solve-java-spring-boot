@@ -166,6 +166,21 @@ public class IncidenceServiceImpl implements IncidenceService {
         return convertToDTO(userIncidence.getIncidence());
     }
 
+    @Override
+    public void changeState(long incidenceId, long stateId) {
+
+        Incidence incidence = incidenceRepository.findById(incidenceId)
+                .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
+
+        IncidenceState state = incidenceStateRepository.findById(stateId)
+                        .orElseThrow(() -> new RuntimeException("No se encontro el estado"));
+
+        if (stateId < state.getId())
+            throw new RuntimeException("No se puede cambiar a un estado anterior");
+
+        incidence.setIncidenceState(state);
+        incidenceRepository.save(incidence);
+    }
 
 
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {

@@ -39,16 +39,30 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
             <h2 th:text="${incidence.title}"></h2>
-            <div id="actions" class="d-flex align-items-center ">
-                <!-- <button class="btn btn-primary mx-2">Finalizar</button> -->
-                <span th:if="${incidence.incidenceState.id == 1}"
-                      class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5">En Espera</span>
-                <span th:if="${incidence.incidenceState.id == 2}"
-                      class="badge text-texto-contraste text-bg-primary text-nowrap fs-5">En Progreso</span>
-                <span th:if="${incidence.incidenceState.id == 3}"
-                      class="badge text-texto-contraste text-bg-successful text-nowrap fs-5">Solucionada</span>
-                <span th:if="${incidence.incidenceState.id == 4}"
-                      class="badge text-texto-contraste text-bg-delete text-nowrap fs-5">Cancelada</span>
+            <div class="d-flex align-items-center justify-content-center">
+                <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} and ${incidence.incidenceState.id == 1 or incidence.incidenceState.id == 2}"
+                     class="dropdown mx-3">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Cambiar estado
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'">En Progreso</a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'">Solucionada</a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/4'">Cancelada</a></li>
+                    </ul>
+                </div>
+                <div id="actions" class="d-flex align-items-center ">
+                    <!-- <button class="btn btn-primary mx-2">Finalizar</button> -->
+                    <span th:if="${incidence.incidenceState.id == 1}"
+                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5">En Espera</span>
+                    <span th:if="${incidence.incidenceState.id == 2}"
+                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5">En Progreso</span>
+                    <span th:if="${incidence.incidenceState.id == 3}"
+                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5">Solucionada</span>
+                    <span th:if="${incidence.incidenceState.id == 4}"
+                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5">Cancelada</span>
+                </div>
             </div>
         </div>
     </div>

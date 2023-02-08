@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Controller
@@ -30,6 +32,12 @@ public class IncidenceController {
     private IncidenceFileService incidenceFileService;
     @Autowired
     private IncidenceMessageService messageService;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserIncidenceService userIncidenceService;
 
     @GetMapping("/incidencia/nueva")
     public String showForm(Model model) {
@@ -83,7 +91,6 @@ public class IncidenceController {
             incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidence.getId()));
         });
 
-        System.out.println(incidenceDTOS);
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
@@ -136,9 +143,6 @@ public class IncidenceController {
     @PostMapping("/nueva/incidencia")
     public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
-        if (model.getAttribute("userlogin") == null)
-            throw new IllegalStateException("No user logged in");
-
          bindingResult = excludeEmailFormValidationForUsers(bindingResult, incidenceDepartmentDTO, model);
 
         if (bindingResult.hasErrors()) {
@@ -161,9 +165,6 @@ public class IncidenceController {
     @PostMapping("/modificar/incidencia/{id}")
     public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
 
-        if (model.getAttribute("userlogin") == null)
-            throw new IllegalStateException("No user logged in");
-
         bindingResult = excludeEmailFormValidationForUsers(bindingResult, fullIncidenceDTO, model);
 
         if (bindingResult.hasErrors()) {
@@ -179,6 +180,26 @@ public class IncidenceController {
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
         return "redirect:/incidencias";
     }
+
+
+    @GetMapping("/incidencia/estado/{incidenceId}/{stateId}")
+    public String changeIncidenceState(@PathVariable long incidenceId, @PathVariable long stateId,Model model) throws AccessDeniedException {
+
+        FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
+
+        if (user.getType() != UserType.TECH)
+            throw new AccessDeniedException("No tienes permisos para realizar esta acción");
+
+        incidenceService.changeState(incidenceId, stateId);
+
+        FullUserDTO owner = userService.getUserBy(userIncidenceService.findByIncidenceId(incidenceId).getUser().getId());
+        FullIncidenceDTO incidence = incidenceService.findById(incidenceId);
+        emailService.sendEmail(owner.getEmail(), incidence.getTitle());
+
+        return "redirect:/incidencia/" + incidenceId;
+    }
+
+
 
     private BindingResult excludeEmailFormValidationForUsers(BindingResult bindingResult, FullIncidenceDTO fullIncidenceDTO, Model model){
         if (model.getAttribute("userlogin") instanceof FullUserDTO) {
