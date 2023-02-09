@@ -20,17 +20,9 @@
 
     <h1 class="mt-4" th:text="#{incidencias.titulo1}"></h1>
 
-<!--    <p th:class="fs-5" th:text="#{incidencias.texto1}"></p>
-    <p th:class="fs-5" th:text="#{incidencias.texto2}"></p>
-    <p th:class="fs-5" th:text="#{incidencias.texto3}"></p>
-    <p th:class="fs-5" th:text="#{incidencias.texto4}"></p>-->
-
     <div class="d-flex justify-content-end align-items-end mb-3">
 
-        <!--<p class="fs-5" th:text="#{incidencias.filtrotitulo}"></p>-->
-        <span class="fs-1 text-secondary material-symbols-outlined" style="user-select: none">
-filter_list
-</span>
+        <span class="fs-1 text-secondary material-symbols-outlined" style="user-select: none">filter_list</span>
         <div class=" mx-2 d-flex flex-column align-items-start">
             <span class="mx-2">Departamento</span>
             <select class="form-select mx-2" name="department" id="dep">
@@ -53,23 +45,26 @@ filter_list
     </div>
 
     <div class="accordion" id="accordion">
-        <div class="accordion-item">
+        <div class="accordion-item" th:each="state : ${status}">
             <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne" th:text="${status.get(0).name}">
+                        aria-expanded="false" th:text="${state.name}"
+                        th:attr="data-bs-target='#' + ${#strings.replace(state.name,' ','')}, aria-controls=${state.name}">
 
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            <div th:id="${#strings.replace(state.name,' ','')}"
+                 th:class="${state.id == 1} ? 'accordion-collapse collapse show' : 'accordion-collapse collapse'"
+                 aria-labelledby="headingOne"
                  data-bs-parent="#accordion">
 
-                <div class="accordion-body d-flex flex-wrap justify-content-center justify-content-md-start"
-                     id="waiting">
+                <div class="accordion-body d-flex flex-wrap justify-content-center justify-content-md-start incidences">
 
-                    <div class="card card-animation card mb-4 mx-2 incidence waiting"
+                    <h1 id="messageEmpty" class="d-none text-center m-auto" th:text="#{incidencia.nodisponible.progreso}"></h1>
+
+                    <div th:class="'card card-animation card mb-4 mx-2 incidence '+ ${#strings.replace(state.name,' ','')}"
                          th:each="incidence : ${incidences}"
-                         th:if="${incidence.incidenceStateId == 1}"
+                         th:if="${incidence.incidenceState.id == state.id}"
                          style="width: 18rem;"
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
                          th:attr="data-department=${incidence.department == null ? 'no-dep' : incidence.department.name },
@@ -80,7 +75,8 @@ filter_list
                                th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
                                 <small th:text="${incidence.daysAgo}"></small>
-                                <div>
+
+                                <div th:if="${incidence.incidenceStateId == 1}">
                                     <a th:href="@{/incidencia/modificar/} + ${incidence.id}"
                                        class="icons-crud mx-1 text-primary"><span disabled="disabled"
                                                                                   class="material-symbols-outlined">edit</span></a>
@@ -95,7 +91,9 @@ filter_list
                     </div>
 
                     <!--TODO corregir href de nueva incidencia-->
-                    <div id="newIncidence" class="card card-animation mx-2 bg-primary"
+                    <div th:if="${state.id == 1 or state.id == 3}"
+                         id="newIncidence"
+                         class="card card-animation mx-2 bg-primary"
                          style="width: 18rem; height: 122px;"
                          th:onclick="|window.location.href='@{/incidencia/nueva}'|">
                         <div class="card-body d-flex justify-content-center">
@@ -116,7 +114,7 @@ filter_list
                 </div>
             </div>
         </div>
-        <div class="accordion-item">
+        <!--<div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
@@ -214,7 +212,7 @@ filter_list
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     </div>
 </main>
@@ -246,6 +244,7 @@ filter_list
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
 <script th:src="@{/js/activeLinks.js}"></script>
 <script th:src="@{/js/filterDepSpa.js}"></script>
+<script th:src="@{/js/deleteModal.js}"></script>
 
 
 </body>
