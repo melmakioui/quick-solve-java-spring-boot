@@ -29,6 +29,7 @@ public class FullIncidenceDTO {
     private String email;
     private FullUserDTO user;
     private String daysAgo;
+    private long priority;
     private long incidenceStateId;
     private long departmentId;
     private long spaceId;

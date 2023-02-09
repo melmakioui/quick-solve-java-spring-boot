@@ -82,11 +82,9 @@ filter_list
                                     <a th:href="@{/incidencia/modificar/} + ${incidence.id}"
                                        class="icons-crud mx-1 text-primary"><span disabled="disabled"
                                                                                   class="material-symbols-outlined">edit</span></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
-                                       th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}"
-                                       class="icons-crud text-danger mx-1 text-delete btnDelModal"><span
-                                            disabled="disabled"
-                                            class="material-symbols-outlined">close</span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
+                                        <span disabled="disabled" class="material-symbols-outlined">close</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

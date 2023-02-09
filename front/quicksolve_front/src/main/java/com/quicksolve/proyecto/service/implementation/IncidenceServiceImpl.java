@@ -2,6 +2,7 @@ package com.quicksolve.proyecto.service.implementation;
 
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.dto.FullUserDTO;
+import com.quicksolve.proyecto.dto.ServiceDTO;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.entity.IncidenceState;
 import com.quicksolve.proyecto.entity.UserIncidence;
@@ -57,7 +58,13 @@ public class IncidenceServiceImpl implements IncidenceService {
                 .stream()
                 .map(UserIncidence::getIncidence)
                 .toList();
-        return incidences.stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<FullIncidenceDTO> incidencesDTO = incidences.stream().map(this::convertToDTO).toList();
+        incidencesDTO.forEach(i -> i.setPriority(getPriority(i.getUser())));
+        return incidencesDTO;
+    }
+
+    private long getPriority(FullUserDTO userDTO){
+        return userDTO.getService() == null ? 0L : userDTO.getService().getId();
     }
 
     @Override

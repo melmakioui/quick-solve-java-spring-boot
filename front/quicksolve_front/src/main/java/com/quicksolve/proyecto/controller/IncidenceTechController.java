@@ -17,7 +17,6 @@ public class IncidenceTechController {
 
     @GetMapping("/incidencias/tech")
     public String showIncidencesTech(Model model){
-        System.out.println(incidenceService.listByAssignedTech((FullUserDTO) model.getAttribute("userlogin")));
         model.addAttribute("incidences", incidenceService.listByAssignedTech((FullUserDTO) model.getAttribute("userlogin")));
         return "view/incidencesTech";
     }
