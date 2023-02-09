@@ -29,7 +29,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         WebMvcConfigurer.super.addResourceHandlers(registry);
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations(env.getProperty("upload"));
+                .addResourceLocations("file:C:/temp/");
     }
 
     // CORS para pruebas

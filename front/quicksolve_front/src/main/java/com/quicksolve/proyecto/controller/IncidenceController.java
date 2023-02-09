@@ -38,7 +38,7 @@ public class IncidenceController {
     private UserService userService;
     @Autowired
     private UserIncidenceService userIncidenceService;
-
+    private final Long INCIDENCE_WAITING_STATE = 1L;
     @GetMapping("/incidencia/nueva")
     public String showForm(Model model) {
 
@@ -62,6 +62,10 @@ public class IncidenceController {
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
         FullIncidenceDTO incidence = incidenceService.findById(id);
+
+        if (incidence.getIncidenceState().getId() > INCIDENCE_WAITING_STATE) {
+            throw new RuntimeException("No se puede modificar una incidencia que no esté en estado pendiente");
+        }
         incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(id));
         model.addAttribute("incidence", incidence);
         model.addAttribute("isNewIncidence", false);
@@ -150,7 +154,6 @@ public class IncidenceController {
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("incidence", incidenceDepartmentDTO);
             model.addAttribute("isNewIncidence", true);
-
             return "view/incidenceForm";
         }
 
