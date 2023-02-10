@@ -6,6 +6,7 @@ import lombok.*;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = "invoice")
+@ToString(exclude = "invoice")
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceLine {

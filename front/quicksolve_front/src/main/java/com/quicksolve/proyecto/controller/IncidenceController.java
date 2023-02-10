@@ -83,7 +83,6 @@ public class IncidenceController {
             incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidence.getId()));
         });
 
-        System.out.println(incidenceDTOS);
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
@@ -101,7 +100,6 @@ public class IncidenceController {
         incidenceDTO.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
         incidenceDTO.setMessages(messageService.findAllByIncidenceId(incidenceId));
 
-        System.out.println(incidenceDTO);
         model.addAttribute("incidence", incidenceDTO);
         model.addAttribute("newMessage", new IncidenceMessageDTO());
         return "view/incidence";
@@ -151,8 +149,7 @@ public class IncidenceController {
         }
 
         incidenceFileService.validateFiles(files);
-        incidenceService.save(incidenceDepartmentDTO,
-                (FullUserDTO) model.getAttribute("userlogin"));
+        incidenceService.save(incidenceDepartmentDTO, (FullUserDTO) model.getAttribute("userlogin"));
         FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
         return "redirect:/incidencias";

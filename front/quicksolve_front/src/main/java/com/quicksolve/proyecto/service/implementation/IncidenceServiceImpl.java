@@ -1,11 +1,10 @@
 package com.quicksolve.proyecto.service.implementation;
 
+import com.quicksolve.proyecto.dto.DepartmentDTO;
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.dto.FullUserDTO;
-import com.quicksolve.proyecto.dto.ServiceDTO;
-import com.quicksolve.proyecto.entity.Incidence;
-import com.quicksolve.proyecto.entity.IncidenceState;
-import com.quicksolve.proyecto.entity.UserIncidence;
+import com.quicksolve.proyecto.entity.*;
+import com.quicksolve.proyecto.entity.type.MethodType;
 import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.mapper.IncidenceMapper;
 import com.quicksolve.proyecto.mapper.UserMapper;
@@ -27,6 +26,7 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
     private final Long INCIDENCE_CANCELLED_STATE = 4L;
+    private int rrCount = 0;
     private FullIncidenceDTO lastIncidence = null;
     private FullIncidenceDTO lastUpdatedIncidence = null;
 
@@ -34,13 +34,22 @@ public class IncidenceServiceImpl implements IncidenceService {
     private IncidenceRepository incidenceRepository;
 
     @Autowired
+    private UserRepository userRepo;
+    @Autowired
     private UserIncidenceRepository userIncidenceRepo;
+
+    @Autowired
+    private GeneralDepartmentConfigurationRepository genDepConfRepo;
 
     @Autowired
     private IncidenceStateRepository incidenceStateRepository;
 
     @Autowired
     private IncidenceFileRepository incidenceFileRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepo;
+    private MethodType typeMethod;
 
     @Override
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
@@ -88,9 +97,50 @@ public class IncidenceServiceImpl implements IncidenceService {
         Incidence incidence = saveIncidence(fullIncidenceDTO);
         lastIncidence = convertToDTO(incidence);
         UserIncidence userIncidence = new UserIncidence();
+
+        userIncidence = fullIncidenceDTO.getDepartment() == null ?
+                assignIncidenceToTech(userIncidence, null) :
+                assignIncidenceToTech(userIncidence, departmentRepo.getReferenceById(fullIncidenceDTO.getDepartment().getId()));
+
         userIncidence.setIncidence(incidence);
         userIncidence.setUser(UserMapper.INSTANCE.DTOtoUser(userDTO));
         userIncidenceRepo.save(userIncidence);
+    }
+
+    private UserIncidence assignIncidenceToTech(UserIncidence userIncidence, Department department){
+        String method = department != null && !department.getUsers().isEmpty() ?
+                department.getType().name :
+                genDepConfRepo.getReferenceById(1L).getType().name;
+
+        if (method.equals(MethodType.ROUND_ROBIN.name)){
+            return rrMethod(department, userIncidence);
+        }
+        if (method.equals(MethodType.LESS_INCIDENCES_TECH.name)){
+            return lessIncidencesTechMethod(department, userIncidence);
+        }
+
+        return new UserIncidence();
+    }
+
+    private UserIncidence rrMethod(Department department, UserIncidence userIncidence){
+        List<User> usersDep = department == null ?
+                userRepo.getUsersByAnyDepartment() :
+                userRepo.getUsersByDepartment(department.getId());
+        userIncidence.setTech(usersDep.get(rrCount));
+
+        if (rrCount < (usersDep.size() - 1)){
+            rrCount++;
+        } else if (rrCount == (usersDep.size() - 1)){
+            rrCount = 0;
+        }
+        return userIncidence;
+    }
+
+    private UserIncidence lessIncidencesTechMethod(Department department, UserIncidence userIncidence){
+        userIncidence.setTech(department != null ?
+                userIncidenceRepo.findByLessIncidencesTech() :
+                userIncidenceRepo.findByLessIncidencesTech(department.getId()));
+        return userIncidence;
     }
 
     /**

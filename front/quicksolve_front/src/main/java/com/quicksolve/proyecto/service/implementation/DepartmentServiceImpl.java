@@ -63,10 +63,10 @@ public class DepartmentServiceImpl implements DepartmentService {
                 languageId
         );
 
-        //Handle Null
-        return DepartmentMapper.INSTANCE.departmentDTO(departmentLanguage);
+        DepartmentDTO departmentDTO = DepartmentMapper.INSTANCE.departmentDTO(departmentLanguage);
+        departmentDTO.setMethod(department.getType().name);
+        return departmentDTO;
     }
-
 }
 
 

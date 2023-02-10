@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"user", "invoiceLines"})
+@ToString(exclude = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Invoice {
