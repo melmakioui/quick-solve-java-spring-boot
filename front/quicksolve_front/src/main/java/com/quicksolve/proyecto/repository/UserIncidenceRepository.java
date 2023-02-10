@@ -1,6 +1,7 @@
 package com.quicksolve.proyecto.repository;
 
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
+import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.entity.UserIncidence;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,9 @@ public interface UserIncidenceRepository extends JpaRepository<UserIncidence, Lo
     void deleteByIncidenceId(long id);
     UserIncidence findByIncidenceId(long id);
     UserIncidence findByIncidenceIdAndUserId(long incidenceId, long userId);
+
+    @Query("SELECT i FROM UserIncidence i WHERE i.incidence.incidenceState.id = ?1 AND i.incidence.title LIKE CONCAT('%', ?2, '%') AND i.incidence.description LIKE CONCAT('%', ?2, '%')")
+    List<UserIncidence> findByIncidenceState(long incidenceState, String search);
 
     @Query("SELECT tech FROM UserIncidence WHERE tech IS NOT NULL GROUP BY tech ORDER BY COUNT(tech) ASC LIMIT 1")
     User findByLessIncidencesTech();

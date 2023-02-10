@@ -13,6 +13,8 @@ public interface IncidenceService {
     FullIncidenceDTO findById(long id);
     void save(FullIncidenceDTO incidenceDepartmentDTO);
     void save(FullIncidenceDTO incidenceDepartmentDTO, FullUserDTO userDTO);
+
+    List<FullIncidenceDTO> listIncidencesByState(long id, String search);
     void delete(long id);
     void cancel(long id);
     void update(FullIncidenceDTO incidenceDepartmentDTO);

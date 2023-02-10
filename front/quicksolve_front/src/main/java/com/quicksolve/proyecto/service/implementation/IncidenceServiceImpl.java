@@ -49,7 +49,6 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Autowired
     private DepartmentRepository departmentRepo;
-    private MethodType typeMethod;
 
     @Override
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
@@ -84,9 +83,21 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
+    public List<FullIncidenceDTO> listIncidencesByState(long id, String search){
+        List<Incidence> incidences = (userIncidenceRepo.findByIncidenceState(id, search))
+                .stream()
+                .map(UserIncidence::getIncidence)
+                .toList();
+        return incidences.stream().map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void save(FullIncidenceDTO fullIncidenceDTO) {
         Incidence incidence = saveIncidence(fullIncidenceDTO);
         UserIncidence userIncidence = new UserIncidence();
+        userIncidence = assignIncidenceToTech(userIncidence, fullIncidenceDTO);
+
         userIncidence.setIncidence(incidence);
         userIncidenceRepo.save(userIncidence);
         lastIncidence = convertToDTO(incidence);
@@ -97,17 +108,21 @@ public class IncidenceServiceImpl implements IncidenceService {
         Incidence incidence = saveIncidence(fullIncidenceDTO);
         lastIncidence = convertToDTO(incidence);
         UserIncidence userIncidence = new UserIncidence();
-
-        userIncidence = fullIncidenceDTO.getDepartment() == null ?
-                assignIncidenceToTech(userIncidence, null) :
-                assignIncidenceToTech(userIncidence, departmentRepo.getReferenceById(fullIncidenceDTO.getDepartment().getId()));
+        userIncidence = assignIncidenceToTech(userIncidence, fullIncidenceDTO);
 
         userIncidence.setIncidence(incidence);
         userIncidence.setUser(UserMapper.INSTANCE.DTOtoUser(userDTO));
         userIncidenceRepo.save(userIncidence);
     }
 
-    private UserIncidence assignIncidenceToTech(UserIncidence userIncidence, Department department){
+    private UserIncidence assignIncidenceToTech(UserIncidence userIncidence, FullIncidenceDTO fullIncidenceDTO){
+        userIncidence = fullIncidenceDTO.getDepartment() == null ?
+                assignIncidence(userIncidence, null) :
+                assignIncidence(userIncidence, departmentRepo.getReferenceById(fullIncidenceDTO.getDepartment().getId()));
+        return userIncidence;
+    }
+
+    private UserIncidence assignIncidence(UserIncidence userIncidence, Department department){
         String method = department != null && !department.getUsers().isEmpty() ?
                 department.getType().name :
                 genDepConfRepo.getReferenceById(1L).getType().name;
@@ -137,7 +152,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     private UserIncidence lessIncidencesTechMethod(Department department, UserIncidence userIncidence){
-        userIncidence.setTech(department != null ?
+        userIncidence.setTech(department == null ?
                 userIncidenceRepo.findByLessIncidencesTech() :
                 userIncidenceRepo.findByLessIncidencesTech(department.getId()));
         return userIncidence;
