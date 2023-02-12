@@ -38,6 +38,9 @@ public class IncidenceController {
     private UserService userService;
     @Autowired
     private UserIncidenceService userIncidenceService;
+    @Autowired
+    private HistoryService historyService;
+
     private final Long INCIDENCE_WAITING_STATE = 1L;
     @GetMapping("/incidencia/nueva")
     public String showForm(Model model) {
@@ -121,6 +124,7 @@ public class IncidenceController {
     @GetMapping("/incidencia/cancelar/{id}")
     public String cancelIncidence(@PathVariable long id) {
         incidenceService.cancel(id);
+        historyService.saveHistory(id);
         return "redirect:/incidencias";
     }
 
@@ -162,6 +166,7 @@ public class IncidenceController {
                 (FullUserDTO) model.getAttribute("userlogin"));
         FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
+        historyService.saveHistory(fullIncidenceDTO.getId());
         return "redirect:/incidencias";
     }
 
@@ -181,6 +186,7 @@ public class IncidenceController {
         incidenceFileService.validateFiles(files);
         incidenceService.update(fullIncidenceDTO);
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
+        historyService.saveHistory(fullIncidenceDTO.getId());
         return "redirect:/incidencias";
     }
 
@@ -198,7 +204,7 @@ public class IncidenceController {
         FullUserDTO owner = userService.getUserBy(userIncidenceService.findByIncidenceId(incidenceId).getUser().getId());
         FullIncidenceDTO incidence = incidenceService.findById(incidenceId);
         emailService.sendEmail(owner.getEmail(), incidence.getTitle());
-
+        historyService.saveHistory(incidenceId);
         return "redirect:/incidencia/" + incidenceId;
     }
 
