@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
@@ -42,26 +45,23 @@
             <div class="d-flex align-items-center justify-content-center">
                 <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} and ${incidence.incidenceState.id == 1 or incidence.incidenceState.id == 2}"
                      class="dropdown mx-3">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Cambiar estado
-                    </a>
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{incidencia.cambiar.estado}"></a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'">En Progreso</a></li>
-                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'">Solucionada</a></li>
-                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/4'">Cancelada</a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'" th:text="#{incidencia.estado.enprogreso}"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'" th:text="#{incidencia.estado.solucionada}"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/4'" th:text="#{incidencia.estado.cancelada}"></a></li>
                     </ul>
                 </div>
                 <div id="actions" class="d-flex align-items-center ">
-                    <!-- <button class="btn btn-primary mx-2">Finalizar</button> -->
                     <span th:if="${incidence.incidenceState.id == 1}"
-                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5">En Espera</span>
+                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5" th:text="#{incidencia.estado.enespera}"></span>
                     <span th:if="${incidence.incidenceState.id == 2}"
-                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5">En Progreso</span>
+                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5" th:text="#{incidencia.estado.enprogreso}"></span>
                     <span th:if="${incidence.incidenceState.id == 3}"
-                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5">Solucionada</span>
+                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5" th:text="#{incidencia.estado.solucionada}"></span>
                     <span th:if="${incidence.incidenceState.id == 4}"
-                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5">Cancelada</span>
+                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5" th:text="#{incidencia.estado.cancelada}"></span>
                 </div>
             </div>
         </div>
@@ -96,14 +96,13 @@
         </div>
         <div th:unless="not ${incidence.incidenceFiles.isEmpty()}"
              class="col-12 col-lg-6 d-flex justify-content-center">
-            <h3>Esta incidencia no dispone de imagenes.</h3>
+            <h3 th:text="#{incidencia.sin.imagenes}"></h3>
         </div>
     </div>
 
     <hr>
 
-    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null}" class="w-100 text-center">De momento
-        no hay ningun mensaje...</h5>
+    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null}" class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
 
     <div class="row justify-content-center mb-5">
         <div class="col-12 mt-3 mb-5 comment-section" id="comments">
@@ -132,17 +131,19 @@
                         <a
                                 th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
                                 th:if="${message.user.id == userlogin.id and incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
-                                th:href="@{/editar/mensaje/} + ${incidence.id} +'/'+ ${message.id}">Modificar
+                                th:href="@{/editar/mensaje/} + ${incidence.id} +'/'+ ${message.id}"
+                                th:text="#{incidencia.mensaje.modificada}">
                         </a>
                         <a
                                 th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
                                 th:if="${message.user.id == userlogin.id and  incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
-                                th:href="@{/borrar/mensaje/} + ${incidence.id} +'/'+ ${message.id}">Eliminar
+                                th:href="@{/borrar/mensaje/} + ${incidence.id} +'/'+ ${message.id}"
+                                th:text="#{incidencia.mensaje.borrar}">
                         </a>
                     </div>
 
                     <div th:if="${message.modified == true}">
-                        <small class="text-muted">(Modificado)</small>
+                        <small class="text-muted" th:text="'(' + #{incidencia.mensaje.modificada} + ')'"></small>
                     </div>
                 </div>
             </div>
@@ -157,13 +158,11 @@
                               th:object="${newMessage}" class="w-100">
 
                             <div class="d-flex justify-content-between">
-                                <p class="fs-6 w-50">Nuevo Mensaje</p>
+                                <p class="fs-6 w-50" th:text="#{incidencia.mensaje.nuevo}"></p>
 
                                 <div class="w-50 d-flex justify-content-end align-items-center"
                                      th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
-                                    <label for="action" class="mx-2">
-                                        Es una acción?
-                                    </label>
+                                    <label for="action" class="mx-2" th:text="#{incidencia.mensaje.accion}"></label>
                                     <input type="checkbox" name="isAction" th:field="*{action}" th:value="*{action}"
                                            id="action">
                                 </div>
@@ -172,13 +171,13 @@
 
                             <div class="form-floating">
                                     <textarea th:field="*{body}" th:value="*{body}" class="form-control"
-                                              placeholder="Envia tu mensaje..."
+                                              th:placeholder="#{incidencia.mensaje.enviar.placeholder}"
                                               id="messageUser"></textarea>
-                                <label for="messageUser">Mensaje</label>
+                                <label for="messageUser" th:text="#{incidencia.mensaje}"></label>
                             </div>
 
                             <div class="d-flex justify-content-end w-100">
-                                <button class="btn btn-secondary mt-2">ENVIAR</button>
+                                <button class="btn btn-secondary mt-2" th:text="#{formupt.enviar}"></button>
                             </div>
                         </form>
 
@@ -197,7 +196,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <p class="fs-6 w-50">Nuevo Mensaje</p>
+                                <p class="fs-6 w-50" th:text="#{incidencia.mensaje.nuevo}"></p>
 
                                 <div class="w-50 d-flex justify-content-end"
                                      th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
@@ -220,8 +219,8 @@
 
 
                             <div class="d-flex justify-content-end w-100">
-                                <a th:href="@{/incidencia/} + ${incidence.id}" class="btn btn-primary mt-2 mx-2">CANCELAR</a>
-                                <button class="btn btn-secondary mt-2 mx-2">ENVIAR</button>
+                                <a th:href="@{/incidencia/} + ${incidence.id}" class="btn btn-primary mt-2 mx-2" th:text="#{incidencia.eliminar.cancelar}"></a>
+                                <button class="btn btn-secondary mt-2 mx-2" th:text="#{formupt.enviar}"></button>
                             </div>
                         </form>
                     </div>
