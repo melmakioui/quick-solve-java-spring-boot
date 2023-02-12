@@ -12,5 +12,6 @@ public interface IncidenceFileRepository extends JpaRepository<IncidenceFiles, L
     void deleteByIdAndIncidenceId(long id, long incidenceId);
     IncidenceFiles findByIdAndIncidenceId(long id, long incidenceId);
     void deleteAllByIncidenceId(long id);
+    void deleteByFilePathAndIncidenceId(String src, long incidenceId);
 
 }

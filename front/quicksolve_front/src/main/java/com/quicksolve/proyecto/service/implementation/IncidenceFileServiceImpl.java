@@ -97,10 +97,6 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
                 .collect(Collectors.toSet());
     }
 
-    @Override
-    public void deleteById(Long id) {
-        incidenceFileRepository.deleteById(id);
-    }
 
     @Override
     @Transactional
@@ -112,6 +108,12 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
         }
 
         incidenceFileRepository.deleteByIdAndIncidenceId(id, incidenceId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteBySrc(String src, Long incidenceId) {
+        incidenceFileRepository.deleteByFilePathAndIncidenceId(src, incidenceId);
     }
 
     private FileDTO convertToDTO(IncidenceFiles incidenceFiles){

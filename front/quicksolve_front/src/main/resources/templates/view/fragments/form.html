@@ -57,25 +57,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
 
-      <label for="formFileMultiple" class="form-label" th:text="#{formupt.campo6}"></label>
-      <input class="form-control" type="file" id="formFileMultiple" name="files" multiple>
+
     </div>
   </div>
 
-  <div th:if="${isNewIncidence}" class="row justify-content-center flex-wrap">
-    <div th:id="images-container" class="col-12 col-xl-9 col-lg-10 col-md-10 d-flex justify-content-center align-items-center flex-wrap">
-    </div>
+  <div class="row justify-content-center flex-wrap mb-3">
+    <div class="input-images col-12 col-xl-6 col-lg-8 col-md-10"></div>
   </div>
-
-  <div th:if="${!isNewIncidence}" class="row justify-content-center flex-wrap">
-      <div id="card-img" class="card m-2" th:each="file : ${incidence.incidenceFiles}">
-        <img th:src="@{${file.filePath}}" class="card-img" alt="s" width="200px" height="200px">
-        <a th:href="@{/img/} + ${incidence.id} + '/' + ${file.id}" id="del-img" class="btn d-flex justify-content-center align-items-center"><span class="material-symbols-outlined">close</span></a>
-      </div>
-  </div>
-
-
-
 
   <div class="fst-italic text-center mb-3">
     <span th:text="#{formnew.advise1}"></span>

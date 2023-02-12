@@ -18,7 +18,7 @@ public interface IncidenceFileService {
     void saveIncidenceFiles(MultipartFile[] files, Long incidenceId);
     void saveIncidenceFiles(MultipartFile[] files, FullIncidenceDTO incidenceDTO);
     Set<FileDTO> findAllByIncidenceId(Long id);
-    void deleteById(Long id);
     void deleteByIdAndIncidenceId(Long id, Long incidenceId);
+    void deleteBySrc(String src, Long incidenceId);
 
 }

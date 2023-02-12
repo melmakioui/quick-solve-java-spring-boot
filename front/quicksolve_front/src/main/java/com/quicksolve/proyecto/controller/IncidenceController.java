@@ -149,7 +149,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/nueva/incidencia")
-    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
+    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
 
          bindingResult = excludeEmailFormValidationForUsers(bindingResult, incidenceDepartmentDTO, model);
 
@@ -171,7 +171,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/modificar/incidencia/{id}")
-    public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
+    public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
 
         bindingResult = excludeEmailFormValidationForUsers(bindingResult, fullIncidenceDTO, model);
 
