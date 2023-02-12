@@ -1,83 +1,61 @@
 $(document).ready(function () {
 
-    var displayAcc = document.getElementsByClassName("accordion-collapse");
-    displayAcc[0].classList.add("show");
+    var selectDepartment = $('#dep')
+    var selectSpace = $('#spa')
+    var accordions = $('.incidences')
+    var reset = $('#reset-filter')
+    var newIncidence = $('#new-incidence')
+    console.log(newIncidence)
 
-    var accordions = document.getElementsByClassName("incidences");
-    var selectSpace = document.getElementById("spa");
-    var selectDepartment = document.getElementById("dep");
-    var messageEmpty = document.getElementById("messageEmpty");
-    var newIncidence = document.getElementById("newIncidence");
-    var reset = document.getElementById("reset-filter");
+    var firstAccordionShow = $('.accordion-collapse')[0]
+    $(firstAccordionShow).addClass('show')
 
-    selectSpace.oninput = filter;
-    selectDepartment.oninput = filter;
-    reset.onclick = resetFilter;
+    selectDepartment.on('input',filter);
+    selectSpace.on('input',filter);
+    reset.on('click',resetFilter);
 
-    //TODO feedback to user when no incidences are found
 
     function resetFilter() {
-        for (var accordion of accordions) {
-            for (var child of accordion.children) {
-                if (child.classList.contains("card")) {
-                    child.classList.remove("d-none");
-                }
-            }
-        }
-        selectSpace.value = "all";
-        selectDepartment.value = "all";
+        selectDepartment.val(0)
+        selectSpace.val(0)
+        filter()
     }
 
-    function filter(event) {
+    function filter() {
+        $.each(accordions,function(index,accordion){
 
-        var value = event.target.value;
+            var incidenceCards = $(accordion).children('.card')
 
-        if (selectSpace.value === "all" && selectDepartment.value === "all") {
-            for (var accoridionElement of accordions) {
-                for (var card of accoridionElement.children) {
-                    card.classList.remove("d-none");
+            $.each(incidenceCards, function(index,card) {
+
+                var depData = $(card).data("department")
+                var spaData = $(card).data("space")
+
+                if (selectDepartment.val() === depData && selectSpace.val() === spaData) {
+                    $(card).show()
+                }else if (selectDepartment.val() === depData && selectSpace.val() == 0) {
+                    $(card).show()
+                }else if (selectDepartment.val() == 0 && selectSpace.val() === spaData) {
+                    $(card).show()
+                }else if (selectDepartment.val() == 0 && selectSpace.val() == 0) {
+                    $(card).show()
+                }else{
+                    $(card).hide()
                 }
+
+            })
+
+
+            var visibleCards = $(accordion).children('.card:visible')
+
+            if (visibleCards.length === 0) {
             }
-        }
+        })
 
-        if (selectSpace.value === "all" && selectDepartment.value !== "all") {
-            for (var accoridionElement of accordions) {
-                for (var card of accoridionElement.children) {
-                    if (card.dataset.department === value) {
-                        card.classList.remove("d-none");
-                    } else {
-                        card.classList.add("d-none");
-                    }
-                }
-            }
-        }
+        newIncidence.show()
 
-        if (selectSpace.value !== "all" && selectDepartment.value === "all") {
-            for (var accoridionElement of accordions) {
-                for (var card of accoridionElement.children) {
-                    if (card.dataset.space === value) {
-                        card.classList.remove("d-none");
-                    } else {
-                        card.classList.add("d-none");
-                    }
-                }
-            }
-        }
-
-        if (selectSpace.value !== "all" && selectDepartment.value !== "all") {
-            for (var accoridionElement of accordions) {
-                for (var card of accoridionElement.children) {
-                    if (card.dataset.space === selectSpace.value && card.dataset.department === selectDepartment.value) {
-                        card.classList.remove("d-none");
-                    } else {
-                        card.classList.add("d-none");
-                    }
-                }
-            }
-        }
-
-
-        newIncidence.classList.remove("d-none");
     }
+
+
 });
 
