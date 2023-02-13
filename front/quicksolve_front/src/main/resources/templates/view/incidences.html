@@ -25,7 +25,7 @@
 
         <span class="fs-1 text-secondary material-symbols-outlined" style="user-select: none">filter_list</span>
         <div class=" mx-2 d-flex flex-column align-items-start">
-            <span class="mx-2">Departamento</span>
+            <span class="mx-2" th:text="#{formupt.campo3}"></span>
             <select class="form-select mx-2" name="department" id="dep">
                 <option th:text="#{filter.todos}" th:value="0" selected></option>
                 <option th:each="dep : ${departments}" th:value="${dep.name}" th:text="${dep.name}"></option>
@@ -33,9 +33,9 @@
         </div>
 
         <div class=" mx-2">
-            <span>Espacio</span>
+            <span th:text="#{formupt.campo4}"></span>
             <select class="form-select" name="department" id="spa">
-                <option th:text="#{filter.todos}" th:value="0" selected>Espacio</option>
+                <option th:text="#{filter.todos}" th:value="0" selected></option>
                 <option th:each="spa : ${spaces}" th:value="${spa.name}" th:text="${spa.name}"></option>
             </select>
         </div>

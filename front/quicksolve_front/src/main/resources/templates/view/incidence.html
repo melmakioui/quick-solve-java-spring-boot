@@ -6,7 +6,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/viewbox.css}">
+    <link rel="stylesheet" th:href="@{/css/viewbox.min.css}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <title>Title</title>
@@ -17,16 +17,17 @@
 
 <body>
 
-
 <div class="container mt-5">
     <div class="row mb-4">
 
+        <!--TODO poner las altertas en ingles -->
         <div class="col-12 d-flex justify-content-center" th:if="${incidence.incidenceState.id == 4}">
             <div class="alert alert-delete d-flex flex-nowrap align-items-center justify-content-center w-100"
                  role="alert">
                 <span class="material-symbols-outlined mx-2">
                     lock
-                </span> Esta Incidencia esta &ensp; <strong>cancelada</strong>, no se pueden enviar mensajes.
+                </span>
+                <span class="mx-2"  th:text="#{incidencia.alert.cancelada}"></span>
             </div>
         </div>
 
@@ -35,7 +36,9 @@
                  role="alert">
                 <span class="material-symbols-outlined mx-2">
                     lock
-                </span> Esta Incidencia esta &ensp;<strong>resuelta</strong> , no se pueden enviar mensajes.
+                </span>
+                <span class="mx-2"  th:text="#{incidencia.alert.resuelta}"></span>
+
             </div>
         </div>
     </div>
@@ -105,7 +108,7 @@
 
     <hr>
 
-    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null}" class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
+    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null} and ${incidence.incidenceState.id < 3}" class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
 
     <div class="row justify-content-center mb-5">
         <div class="col-12 mt-3 mb-5 comment-section" id="comments">

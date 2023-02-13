@@ -103,9 +103,7 @@ public class IncidenceServiceImpl implements IncidenceService {
             throw new RuntimeException("No se puede eliminar una incidencia que no esta en estado de espera");
         }
 
-        //UserIncidence tiene una relacion de tipo cascade.ALL, por lo que al eliminar la incidencia
         userIncidenceRepo.deleteByIncidenceId(incidence.getId());
-        //Si se elimina una incidencia la ruta de archivos asociados tambien se eliminan
         incidenceFileRepository.deleteAllByIncidenceId(incidence.getId());
     }
 
@@ -187,13 +185,8 @@ public class IncidenceServiceImpl implements IncidenceService {
         long departmentId = fullIncidenceDTO.getDepartment().getId();
         long spaceId = fullIncidenceDTO.getSpace().getId();
 
-        if (departmentId == -1) {
-            fullIncidenceDTO.setDepartment(null);
-        }
-
-        if (spaceId == -1) {
-            fullIncidenceDTO.setSpace(null);
-        }
+        if (departmentId == -1) fullIncidenceDTO.setDepartment(null);
+        if (spaceId == -1) fullIncidenceDTO.setSpace(null);
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {

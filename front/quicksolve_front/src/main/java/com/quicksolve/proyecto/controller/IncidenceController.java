@@ -21,13 +21,13 @@ import java.util.List;
 public class IncidenceController {
 
     @Autowired
-    private  IncidenceService incidenceService;
+    private IncidenceService incidenceService;
     @Autowired
-    private  DepartmentService departmentService;
+    private DepartmentService departmentService;
     @Autowired
-    private  SpaceService spaceService;
+    private SpaceService spaceService;
     @Autowired
-    private  IncidenceStateService incidenceStateService;
+    private IncidenceStateService incidenceStateService;
     @Autowired
     private IncidenceFileService incidenceFileService;
     @Autowired
@@ -42,6 +42,9 @@ public class IncidenceController {
     private HistoryService historyService;
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
+    private final Long INCIDENCE_SOLVE_STATE = 3L;
+    private final Long INCIDENCE_CANCELLED_STATE = 4L;
+
     @GetMapping("/incidencia/nueva")
     public String showForm(Model model) {
 
@@ -110,12 +113,21 @@ public class IncidenceController {
 
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
 
+        FullIncidenceDTO cancelledIncidence = incidenceService.findById(incidenceId);
 
-        FullIncidenceDTO incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId,user);
+        if (cancelledIncidence.getIncidenceStateId() == INCIDENCE_SOLVE_STATE ||
+                cancelledIncidence.getIncidenceStateId() == INCIDENCE_CANCELLED_STATE
+                && user.getType() == UserType.USER) {
+            cancelledIncidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
+            cancelledIncidence.setMessages(messageService.findAllByIncidenceId(incidenceId));
+            model.addAttribute("incidence", cancelledIncidence);
+            return "view/incidence";
+        }
+
+        FullIncidenceDTO incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId, user);
         incidenceDTO.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
         incidenceDTO.setMessages(messageService.findAllByIncidenceId(incidenceId));
 
-        System.out.println(incidenceDTO);
         model.addAttribute("incidence", incidenceDTO);
         model.addAttribute("newMessage", new IncidenceMessageDTO());
         return "view/incidence";
@@ -129,14 +141,13 @@ public class IncidenceController {
     }
 
     @PostMapping("/public/nueva/incidencia")
-    public String saveNoUserIncidence(@Valid FullIncidenceDTO newIncidence, BindingResult bindingResult, Model model, @RequestParam("files") MultipartFile[] files) {
+    public String saveNoUserIncidence(@Valid FullIncidenceDTO newIncidence, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
             model.addAttribute("spaces", spaceService.list());
             model.addAttribute("incidence", newIncidence);
             model.addAttribute("isNewIncidence", true);
-
             return "view/incidenceNoLoginForm";
         }
 
@@ -148,10 +159,10 @@ public class IncidenceController {
         return "redirect:/";
     }
 
-    @PostMapping("/nueva/incidencia")
+    @PostMapping("/incidencia/nueva")
     public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
 
-         bindingResult = excludeEmailFormValidationForUsers(bindingResult, incidenceDepartmentDTO, model);
+        bindingResult = excludeEmailFormValidationForUsers(bindingResult, incidenceDepartmentDTO, model);
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("spaces", spaceService.list());
@@ -170,7 +181,7 @@ public class IncidenceController {
         return "redirect:/incidencias";
     }
 
-    @PostMapping("/modificar/incidencia/{id}")
+    @PostMapping("/incidencia/modificar/{id}")
     public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
 
         bindingResult = excludeEmailFormValidationForUsers(bindingResult, fullIncidenceDTO, model);
@@ -190,9 +201,8 @@ public class IncidenceController {
         return "redirect:/incidencias";
     }
 
-
     @GetMapping("/incidencia/estado/{incidenceId}/{stateId}")
-    public String changeIncidenceState(@PathVariable long incidenceId, @PathVariable long stateId,Model model) throws AccessDeniedException {
+    public String changeIncidenceState(@PathVariable long incidenceId, @PathVariable long stateId, Model model) throws AccessDeniedException {
 
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
 
@@ -208,9 +218,7 @@ public class IncidenceController {
         return "redirect:/incidencia/" + incidenceId;
     }
 
-
-
-    private BindingResult excludeEmailFormValidationForUsers(BindingResult bindingResult, FullIncidenceDTO fullIncidenceDTO, Model model){
+    private BindingResult excludeEmailFormValidationForUsers(BindingResult bindingResult, FullIncidenceDTO fullIncidenceDTO, Model model) {
         if (model.getAttribute("userlogin") instanceof FullUserDTO) {
             List<FieldError> errorsToKeep = bindingResult.getFieldErrors().stream()
                     .filter(error -> !error.getField().equals("email"))
