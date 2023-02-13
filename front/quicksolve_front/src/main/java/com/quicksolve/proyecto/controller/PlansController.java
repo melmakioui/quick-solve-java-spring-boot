@@ -1,26 +1,29 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.FullUserDTO;
-import com.quicksolve.proyecto.service.implementation.InvoiceServiceImpl;
-import com.quicksolve.proyecto.service.implementation.ServiceServiceImpl;
-import com.quicksolve.proyecto.service.implementation.UserServiceImpl;
+import com.quicksolve.proyecto.service.InvoiceService;
+import com.quicksolve.proyecto.service.ServiceService;
+import com.quicksolve.proyecto.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Controller
 @SessionAttributes({"userlogin"})
 public class PlansController {
 
     @Autowired
-    ServiceServiceImpl serviceServ;
+    ServiceService serviceServ;
 
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
 
     @Autowired
-    InvoiceServiceImpl invService;
+    InvoiceService invService;
 
     @GetMapping("/planes")
     public String renderPlans(Model model){
@@ -29,8 +32,8 @@ public class PlansController {
     }
 
     @PostMapping("/modificar/plan")
-    public String modifyPlan(@RequestParam("tipoplan") String planId, Model model){
-        /* TODO generar la transacción mediante REDSYS u otro método y si va bien... ---> */
+    public @ResponseBody void modifyPlan(@RequestBody String planId, Model model, HttpServletResponse response) throws IOException {
+        planId = planId.replace("plan=", "");
         long idPlan = Long.parseLong(planId);
         if (idPlan <= serviceServ.getLastService() && idPlan >= 0){
             FullUserDTO newUser = userService.updateService(((FullUserDTO) model.getAttribute("userlogin")).getEmail(), idPlan);
@@ -39,6 +42,6 @@ public class PlansController {
             }
             model.addAttribute("userlogin", newUser);
         }
-        return "redirect:/planes";
+        response.sendRedirect("/planes");
     }
 }

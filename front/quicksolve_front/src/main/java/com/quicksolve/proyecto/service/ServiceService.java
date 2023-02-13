@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ServiceService {
     List<ServiceDTO> showAll();
+
+    long getLastService();
+    double getServicePrice(long id);
 }

@@ -1,6 +1,5 @@
 package com.quicksolve.proyecto.controller;
 
-import com.google.gson.Gson;
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.service.IncidenceService;
 import org.springframework.beans.factory.annotation.Autowired;

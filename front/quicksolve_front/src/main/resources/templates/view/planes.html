@@ -28,8 +28,7 @@
                     </ul>
                 </div>
                 <button class="btn btn-outline-dark disabled" th:if="${userlogin.service == null}" th:text="#{planes.planactual}"></button>
-                <input type="number" value="0" name="plan" hidden>
-                <button type="button" name="submit" th:if="${userlogin.service != null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="#{planes.cambiar}"></button>
+                <button type="button" th:if="${userlogin.service != null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModalFree" th:text="#{planes.cambiar}"></button>
             </div>
         </div>
     </div>
@@ -62,8 +61,9 @@
 
 <th:block th:include="view/fragments/footer"></th:block>
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
-<script th:src="@{/js/sendPlanInfoToModal.js}" th:inline="javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
+<script th:src="@{/js/sendPlanInfoToModal.js}" th:inline="javascript"></script>
 </body>
 </html>

@@ -1,16 +1,37 @@
-<div class="modal fade" id="buttonModal" tabindex="-1" aria-labelledby="buttonModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="buttonModalFree" tabindex="-1" aria-labelledby="buttonModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content bg-primary text-texto-contraste">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="buttonModalLabel" th:text="#{planes.modal.titulo}"></h1>
+        <h1 class="modal-title fs-5" id="buttonModalLabelFree" th:text="#{planes.modal.titulo}"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal" th:text="#{planes.modal.cerrar}"></button>
-        <form th:action="@{/modificar/plan}" id="modalFormButtonPlan" method="POST">
-          <div id="inputPlanForm"></div>
+        <form th:action="@{/modificar/plan}" id="modalFormButtonPlanFree" method="POST">
+          <input type="number" value="0" name="plan" hidden>
           <button type="submit" class="btn btn-secondary" th:text="#{planes.modal.confirmar}"></button>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="buttonModal" tabindex="-1" aria-labelledby="buttonModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-primary text-texto-contraste">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="buttonModalLabel" th:text="#{planes.modal.titulopago}"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-white">
+        <div id="smart-button-container">
+          <div style="text-align: center;">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal" th:text="#{planes.modal.cerrar}"></button>
       </div>
     </div>
   </div>
