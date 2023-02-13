@@ -83,7 +83,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     @Override
-    public List<FullIncidenceDTO> listIncidencesByState(long id, String search){
+    public List<FullIncidenceDTO> listIncidencesByStateAndSearch(long id, String search){
         List<Incidence> incidences = (userIncidenceRepo.findByIncidenceState(id, search))
                 .stream()
                 .map(UserIncidence::getIncidence)

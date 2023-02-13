@@ -1,10 +1,10 @@
 package com.quicksolve.proyecto.controller;
 
+import com.google.gson.Gson;
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.service.IncidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,9 +14,8 @@ public class IncidencesSearchController {
     @Autowired
     private IncidenceService incidenceService;
 
-    @GetMapping("/incidencias/buscar")
-    public List<FullIncidenceDTO> showAllResolvedIncidences(){
-        String search = "fewfew";
-        return incidenceService.listIncidencesByState(3, search);
+    @PostMapping(value = "/incidencias/buscar", produces = "application/json")
+    public @ResponseBody List<FullIncidenceDTO> showAllResolvedIncidences(@RequestBody String search){
+        return incidenceService.listIncidencesByStateAndSearch(3, search);
     }
 }
