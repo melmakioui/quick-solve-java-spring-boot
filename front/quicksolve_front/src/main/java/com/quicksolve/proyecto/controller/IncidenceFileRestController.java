@@ -15,7 +15,6 @@ public class IncidenceFileRestController {
     @Autowired
     private IncidenceFileService incidenceFileService;
 
-    @CrossOrigin(origins = "http://localhost:5500")
     @PostMapping("/imagenes/{incidenceId}")
     public ResponseEntity<Set<FileDTO>> getFilesByIncidenceId(@PathVariable Long incidenceId){
         if (incidenceId == null){
@@ -29,7 +28,6 @@ public class IncidenceFileRestController {
         return ResponseEntity.ok(files);
     }
 
-    @CrossOrigin(origins = "http://localhost:5500")
     @DeleteMapping("/imagenes/eliminar")
     public ResponseEntity<HttpResponse> deleteFileByIncidenceId(@RequestParam String src, @RequestParam Long incidenceId){
         incidenceFileService.deleteBySrc(src, incidenceId);

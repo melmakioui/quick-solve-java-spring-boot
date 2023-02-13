@@ -27,7 +27,7 @@
                 <span class="material-symbols-outlined mx-2">
                     lock
                 </span>
-                <span class="mx-2"  th:text="#{incidencia.alert.cancelada}"></span>
+                <span class="mx-2" th:text="#{incidencia.alert.cancelada}"></span>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
                 <span class="material-symbols-outlined mx-2">
                     lock
                 </span>
-                <span class="mx-2"  th:text="#{incidencia.alert.resuelta}"></span>
+                <span class="mx-2" th:text="#{incidencia.alert.resuelta}"></span>
 
             </div>
         </div>
@@ -49,23 +49,31 @@
             <div class="d-flex align-items-center justify-content-center">
                 <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} and ${incidence.incidenceState.id == 1 or incidence.incidenceState.id == 2}"
                      class="dropdown mx-3">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{incidencia.cambiar.estado}"></a>
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false" th:text="#{incidencia.cambiar.estado}"></a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'" th:text="#{incidencia.estado.enprogreso}"></a></li>
-                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'" th:text="#{incidencia.estado.solucionada}"></a></li>
-                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/4'" th:text="#{incidencia.estado.cancelada}"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'"
+                               th:text="#{incidencia.estado.enprogreso}"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'"
+                               th:text="#{incidencia.estado.solucionada}"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/4'"
+                               th:text="#{incidencia.estado.cancelada}"></a></li>
                     </ul>
                 </div>
                 <div id="actions" class="d-flex align-items-center ">
                     <span th:if="${incidence.incidenceState.id == 1}"
-                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5" th:text="#{incidencia.estado.enespera}"></span>
+                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5"
+                          th:text="#{incidencia.estado.enespera}"></span>
                     <span th:if="${incidence.incidenceState.id == 2}"
-                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5" th:text="#{incidencia.estado.enprogreso}"></span>
+                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5"
+                          th:text="#{incidencia.estado.enprogreso}"></span>
                     <span th:if="${incidence.incidenceState.id == 3}"
-                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5" th:text="#{incidencia.estado.solucionada}"></span>
+                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5"
+                          th:text="#{incidencia.estado.solucionada}"></span>
                     <span th:if="${incidence.incidenceState.id == 4}"
-                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5" th:text="#{incidencia.estado.cancelada}"></span>
+                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5"
+                          th:text="#{incidencia.estado.cancelada}"></span>
                 </div>
             </div>
         </div>
@@ -86,7 +94,7 @@
         <img class="modal-content-image" id="img-target">
     </div>
 
-    <div class="row align-items-center mb-4" >
+    <div class="row align-items-center mb-4">
         <div class="col-12 col-lg-6 p-4">
             <p class="fs-5 text-break" th:text="${incidence.description}"></p>
         </div>
@@ -96,7 +104,8 @@
 
             <div class="images-container d-flex flex-wrap justify-content-center align-items-center">
                 <a th:each="image : ${incidence.incidenceFiles}" th:href="@{${image.filePath}}" class="image-link">
-                    <img th:src="@{${image.filePath}}" class="img-thumbnail mx-2 image-modal" width="300" style="cursor: pointer">
+                    <img th:src="@{${image.filePath}}" class="img-thumbnail mx-2 image-modal" width="300"
+                         style="cursor: pointer">
                 </a>
             </div>
         </div>
@@ -108,7 +117,8 @@
 
     <hr>
 
-    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null} and ${incidence.incidenceState.id < 3}" class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
+    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null} and ${incidence.incidenceState.id < 3}"
+        class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
 
     <div class="row justify-content-center mb-5">
         <div class="col-12 mt-3 mb-5 comment-section" id="comments">
@@ -225,7 +235,8 @@
 
 
                             <div class="d-flex justify-content-end w-100">
-                                <a th:href="@{/incidencia/} + ${incidence.id}" class="btn btn-primary mt-2 mx-2" th:text="#{incidencia.eliminar.cancelar}"></a>
+                                <a th:href="@{/incidencia/} + ${incidence.id}" class="btn btn-primary mt-2 mx-2"
+                                   th:text="#{incidencia.eliminar.cancelar}"></a>
                                 <button class="btn btn-secondary mt-2 mx-2" th:text="#{formupt.enviar}"></button>
                             </div>
                         </form>
@@ -244,7 +255,7 @@
             crossorigin="anonymous"></script>
     <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
     <script th:src="@{/js/activeLinks.js}"></script>
-<!--    <script th:src="@{/js/incidenceInteraction.js}"></script>-->
+    <!--    <script th:src="@{/js/incidenceInteraction.js}"></script>-->
     <script th:src="@{/js/jquery.viewbox.min.js}"></script>
     <script th:src="@{/js/viewbox.js}"></script>
 

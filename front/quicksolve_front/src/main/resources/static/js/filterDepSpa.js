@@ -9,6 +9,8 @@ $(document).ready(function () {
 
     var firstAccordionShow = $('.accordion-collapse')[0]
     $(firstAccordionShow).addClass('show')
+    var firstAccordion = $('.accordion-button')[0]
+    $(firstAccordion).removeClass('collapsed')
 
     selectDepartment.on('input',filter);
     selectSpace.on('input',filter);

@@ -48,7 +48,7 @@
     <div class="accordion mb-5" id="accordion">
         <div class="accordion-item" th:each="state : ${status}">
             <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         aria-expanded="false" th:text="${state.name}"
                         th:attr="data-bs-target='#' + ${#strings.replace(state.name,' ','')}, aria-controls=${state.name}">
 
@@ -93,12 +93,11 @@
                             <p class="card-text text-truncate mb-1"
                                th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
-                                <small th:text="${incidence.daysAgo}"></small>
-
+                                <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy')}"></small>
                                 <div th:if="${incidence.incidenceStateId == 1}">
                                     <a th:href="@{/incidencia/modificar/} + ${incidence.id}"
-                                       class="icons-crud mx-1 text-primary"><span disabled="disabled"
-                                                                                  class="material-symbols-outlined">edit</span></a>
+                                       class="icons-crud mx-1 text-primary">
+                                        <span disabled="disabled" class="material-symbols-outlined">edit</span></a>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
                                        th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}"
                                        class="icons-crud text-danger mx-1 text-delete btnDelModal"><span
@@ -147,8 +146,9 @@
 <script th:src="@{/js/pagination-min.js}"></script>
 <script th:src="@{/js/activeLinks.js}"></script>
 <script th:src="@{/js/filterDepSpa.js}"></script>
-<script th:src="@{/js/deleteModal.js}"></script>
 <script th:src="@{/js/pagination.js}"></script>
+<script th:src="@{/js/deleteModal.js}"></script>
+
 
 
 </body>

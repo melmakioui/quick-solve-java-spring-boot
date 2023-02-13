@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,8 @@ public class FullIncidenceDTO {
     private Set<FileDTO> incidenceFiles;
     private List<IncidenceMessageDTO> messages; //sort segun el order
 
+    private LocalDateTime dateStart;
+    private LocalDateTime dateEnd;
     @Email(message = "El email debe ser válido")
     @NotBlank
     private String email;
