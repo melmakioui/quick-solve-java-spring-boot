@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var accordions = $('.incidences')
     var pagination = $('.pagination')
-    var size = 5;
+    var size = 8;
 
 
         accordions.each(function (index, accordion) {

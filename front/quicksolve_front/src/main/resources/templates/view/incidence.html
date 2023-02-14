@@ -20,7 +20,6 @@
 <div class="container mt-5">
     <div class="row mb-4">
 
-        <!--TODO poner las altertas en ingles -->
         <div class="col-12 d-flex justify-content-center" th:if="${incidence.incidenceState.id == 4}">
             <div class="alert alert-delete d-flex flex-nowrap align-items-center justify-content-center w-100"
                  role="alert">
@@ -82,7 +81,7 @@
     <div class="col-12">
         <!--TODO poner el usuario propietario de la incidencia  -->
         <p th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}"
-           th:text="${incidence.user} ?  'Enviado por: ' + ${incidence.user.username} : 'Enviado por: ' + ${incidence.email}"></p>
+           th:text="${incidence.user} ?  #{incidencia.enviada.por} + ' ' + ${incidence.user.username} : #{incidencia.enviada.por} + ' ' + ${incidence.email}"></p>
 
     </div>
 
@@ -129,7 +128,7 @@
                     <div class="user d-flex flex-row align-items-center">
                         <img th:src="@{/img/user.png}" width="30" alt="" class="user-img rounded-circle mx-3">
                         <span>
-                            <small th:if="${message.user.id == userlogin.id}" th:text="'(Tú)'"
+                            <small th:if="${message.user.id == userlogin.id}" th:text="#{incidencia.mensaje.propio}"
                                    class="font-weight-bold fs-5"></small>
                             <small th:unless="${message.user.id == userlogin.id}" th:text="${message.user.username}"
                                    class="font-weight-bold fs-5"></small>
@@ -148,7 +147,7 @@
                                 th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
                                 th:if="${message.user.id == userlogin.id and incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
                                 th:href="@{/editar/mensaje/} + ${incidence.id} +'/'+ ${message.id}"
-                                th:text="#{incidencia.mensaje.modificada}">
+                                th:text="#{incidencia.mensaje.modificar}">
                         </a>
                         <a
                                 th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
@@ -255,7 +254,7 @@
             crossorigin="anonymous"></script>
     <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
     <script th:src="@{/js/activeLinks.js}"></script>
-    <!--    <script th:src="@{/js/incidenceInteraction.js}"></script>-->
+    <script th:src="@{/js/interactionIncidence.js}"></script>
     <script th:src="@{/js/jquery.viewbox.min.js}"></script>
     <script th:src="@{/js/viewbox.js}"></script>
 
