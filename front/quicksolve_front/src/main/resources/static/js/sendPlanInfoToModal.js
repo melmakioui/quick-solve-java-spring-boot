@@ -8,7 +8,7 @@ function initPayPalButton(id) {
     $.ajax('http://localhost:8080/planes/precio', {
         method: 'POST',
         contentType: 'application/json',
-        data: id + "",
+        data: id,
         success: function (precio) {
             paypal.Buttons({
                 style: {

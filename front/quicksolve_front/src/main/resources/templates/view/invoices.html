@@ -10,28 +10,23 @@
 </head>
 <body>
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
-<main class="d-flex flex-nowrap sidebar-hide">
-  <div id="page-content-wrapper" class="m-4 mx-4 mt-4 mb-0 w-100">
-    <div class="container-fluid">
-      <div class="w-100 d-flex justify-content-start">
-        <div id="sidebar-icon" class="open">
-          <span></span>
-          <span></span>
-          <span></span>
+<main class="normal-height">
+  <div class="d-flex justify-content-start align-items-center flex-column mx-auto" th:if="${not #lists.isEmpty(userlogin.invoices)}" style="height: 100%;">
+    <div class="container mx-auto">
+      <h1 class="h1 my-lg-5 my-2 align-self-start">Mis facturas</h1>
+      <div class="d-flex align-items-center flex-wrap">
+        <div th:each="invoice : ${userlogin.invoices}" class="card m-lg-3 m-1" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${'Factura #' + invoice.id}"></h5>
+            <h6 class="card-subtitle mb-2 text-muted" th:text="${'Servicio comprado: ' + invoice.invoiceLines[0].name}"></h6>
+            <p class="card-text" th:text="${#temporals.format(invoice.dateHour, 'dd/MM/yyyy HH:mm')}"></p>
+          </div>
         </div>
       </div>
-        <div class="row align-items-center normal-height">
-          <th:block th:if="${userlogin.invoices}">
-          <div th:each="invoice : ${userlogin.invoices}" class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title" th:text="${'Factura #' + invoice.id}"></h5>
-              <h6 class="card-subtitle mb-2 text-muted" th:text="${'Servicio comprado: ' + invoice.invoiceLines[0].name}"></h6>
-              <p class="card-text"></p>
-            </div>
-          </div>
-          </th:block>
-        </div>
     </div>
+  </div>
+  <div class="d-flex justify-content-center align-items-start mt-lg-5 mt-2" style="height: 100%;" th:if="${#lists.isEmpty(userlogin.invoices)}">
+    <h1 class="h1 mt-lg-5">No se han encontrado facturas...</h1>
   </div>
 </main>
 
