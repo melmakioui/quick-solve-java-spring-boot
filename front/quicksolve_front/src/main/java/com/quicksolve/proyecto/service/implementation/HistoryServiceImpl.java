@@ -40,6 +40,17 @@ public class HistoryServiceImpl implements HistoryService {
         history.setDateStart(incidence.getDateStart());
         history.setChangeDate(LocalDateTime.now());
 
+        History currentHistory = historyRepository.findFirstByIncidenceIdOrderByChangeDateDesc(incidenceId);
+
+        System.out.println("New history: " + history);
+        System.out.println("Last" + currentHistory);
+
+
+        if (history.equals(currentHistory) ) {
+            System.out.println("No se ha guardado el historial");
+            return;
+        }
+
         historyRepository.save(history);
     }
 

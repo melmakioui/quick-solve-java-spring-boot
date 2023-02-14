@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.AccessDeniedException;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -100,6 +101,8 @@ public class IncidenceController {
             incidence.setIncidenceState(incidenceStateService.findById(incidence.getIncidenceStateId()));
             incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidence.getId()));
         });
+
+        Collections.reverse(incidenceDTOS);
 
         model.addAttribute("departments", departmentService.list());
         model.addAttribute("spaces", spaceService.list());

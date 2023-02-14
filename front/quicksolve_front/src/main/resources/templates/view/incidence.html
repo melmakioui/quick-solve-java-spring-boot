@@ -121,130 +121,10 @@
         class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
 
     <div class="row justify-content-center mb-5">
-        <div class="col-12 mt-3 mb-5 comment-section" id="comments">
-
-            <div class="card-comment p-3 mb-4" th:each="message : ${incidence.messages}"
-                 th:class="${message.action} ? 'card-comment p-3 mb-4 bg-secondary' : 'card-comment p-3 mb-4'">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="user d-flex flex-row align-items-center">
-                        <img th:src="@{/img/user.png}" width="30" alt="" class="user-img rounded-circle mx-3">
-                        <span>
-                            <small th:if="${message.user.id == userlogin.id}" th:text="#{incidencia.mensaje.propio}"
-                                   class="font-weight-bold fs-5"></small>
-                            <small th:unless="${message.user.id == userlogin.id}" th:text="${message.user.username}"
-                                   class="font-weight-bold fs-5"></small>
-                                                   <br>
-                                <p th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker fs-5' : 'font-weight-bold fs-5'"
-                                   th:text="${message.body}"></p>
-                        </span>
-                    </div>
-                    <small th:text="${#temporals.format(message.dateHour,'dd-MM-yyyy HH:mm')}"></small>
-                </div>
-
-
-                <div class="action d-flex justify-content-between mt-2 align-items-center">
-                    <div class="reply px-4">
-                        <a
-                                th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
-                                th:if="${message.user.id == userlogin.id and incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
-                                th:href="@{/editar/mensaje/} + ${incidence.id} +'/'+ ${message.id}"
-                                th:text="#{incidencia.mensaje.modificar}">
-                        </a>
-                        <a
-                                th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
-                                th:if="${message.user.id == userlogin.id and  incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
-                                th:href="@{/borrar/mensaje/} + ${incidence.id} +'/'+ ${message.id}"
-                                th:text="#{incidencia.mensaje.borrar}">
-                        </a>
-                    </div>
-
-                    <div th:if="${message.modified == true}">
-                        <small class="text-muted" th:text="'(' + #{incidencia.mensaje.modificada} + ')'"></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 mt- mb-5" th:if="${incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}">
-            <div id="message" class="card-comment p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="user d-flex flex-row align-items-center w-100">
-                        <form th:if="!${isUpdateMessage}"
-                              th:action="@{/guardar/mensaje/{incidenceId}(incidenceId=${incidence.id})}" method="POST"
-                              th:object="${newMessage}" class="w-100">
-
-                            <div class="d-flex justify-content-between">
-                                <p class="fs-6 w-50" th:text="#{incidencia.mensaje.nuevo}"></p>
-
-                                <div class="w-50 d-flex justify-content-end align-items-center"
-                                     th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
-                                    <label for="action" class="mx-2" th:text="#{incidencia.mensaje.accion}"></label>
-                                    <input type="checkbox" name="isAction" th:field="*{action}" th:value="*{action}"
-                                           id="action">
-                                </div>
-                            </div>
-
-
-                            <div class="form-floating">
-                                    <textarea th:field="*{body}" th:value="*{body}" class="form-control"
-                                              th:placeholder="#{incidencia.mensaje.enviar.placeholder}"
-                                              id="messageUser"></textarea>
-                                <label for="messageUser" th:text="#{incidencia.mensaje}"></label>
-                            </div>
-
-                            <div class="d-flex justify-content-end w-100">
-                                <button class="btn btn-secondary mt-2" th:text="#{formupt.enviar}"></button>
-                            </div>
-                        </form>
-
-
-                        <form th:if="${isUpdateMessage}" th:id="update"
-                              th:action="@{/editar/mensaje/{incidenceId}(incidenceId=${incidence.id})} + '/' + ${message.id}"
-                              method="POST" th:object="${message}" class="w-100">
-
-                            <div class="col-12 d-flex justify-content-center"
-                                 th:if="${incidence.incidenceState.id == 3}">
-                                <div class="alert alert-warning d-flex flex-nowrap align-items-center justify-content-center w-100"
-                                     role="alert">
-                <span class="material-symbols-outlined mx-2">
-                    lock
-                </span> Estas editando un mensaje!
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <p class="fs-6 w-50" th:text="#{incidencia.mensaje.nuevo}"></p>
-
-                                <div class="w-50 d-flex justify-content-end"
-                                     th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
-                                    <label for="actionUpdate" class="mx-2">
-                                        Es una acción?
-                                    </label>
-                                    <input type="checkbox" id="actionUpdate"
-                                           th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}"
-                                           name="isAction" th:field="*{action}" th:value="*{action}">
-                                </div>
-                            </div>
-
-
-                            <div class="form-floating">
-                                    <textarea th:field="*{body}" th:value="*{body}" class="form-control"
-                                              placeholder="Envia tu mensaje..."
-                                              id="messageUserUpdate"></textarea>
-                                <label for="messageUser">Mensaje</label>
-                            </div>
-
-
-                            <div class="d-flex justify-content-end w-100">
-                                <a th:href="@{/incidencia/} + ${incidence.id}" class="btn btn-primary mt-2 mx-2"
-                                   th:text="#{incidencia.eliminar.cancelar}"></a>
-                                <button class="btn btn-secondary mt-2 mx-2" th:text="#{formupt.enviar}"></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <th:block th:include="/view/fragments/messages"></th:block>
     </div>
+
+    <th:block th:include="/view/fragments/formMessage"></th:block>
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -258,6 +138,7 @@
     <script th:src="@{/js/interactionIncidence.js}"></script>
     <script th:src="@{/js/jquery.viewbox.min.js}"></script>
     <script th:src="@{/js/viewbox.js}"></script>
+
 
 </body>
 </html>
