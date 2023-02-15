@@ -31,7 +31,6 @@ public class FullIncidenceDTO {
     @NotBlank
     private String email;
     private FullUserDTO user;
-    private String daysAgo;
     private long incidenceStateId;
     private long departmentId;
     private long spaceId;

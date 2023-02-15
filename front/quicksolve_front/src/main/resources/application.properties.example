@@ -2,9 +2,9 @@ spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 spring.datasource.url=jdbc:mariadb://localhost:3306/esquelet?useSSL=false&serverTimeZone=UTC&allowPublicKeyRetrieval=true
 spring.datasource.username=
 spring.datasource.password=
-upload=#where the resorucehandler will look for the files
-upload.path=#where the files will be uploaded in the server
-spring.servlet.multipart.max-file-size=1000MB
+upload= #where the resorucehandler will look for save the files
+upload.path= #where the files will be uploaded in the server
+spring.servlet.multipart.max-file-size=10MB
 spring.messages.basename=lang/res
 #Mailgun
 API_KEY=

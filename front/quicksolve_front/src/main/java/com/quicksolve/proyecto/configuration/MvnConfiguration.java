@@ -2,6 +2,7 @@ package com.quicksolve.proyecto.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,8 +17,9 @@ public class MvnConfiguration implements WebMvcConfigurer {
     @Qualifier("Interceptor")
     private HandlerInterceptor UserInterceptor;
 
-    @Autowired
-    private Environment env;
+    @Value("${upload}")
+    private String upload;
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
@@ -29,7 +31,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         WebMvcConfigurer.super.addResourceHandlers(registry);
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations(env.getProperty("upload"));
+                .addResourceLocations(upload);
     }
 
     // CORS para pruebas

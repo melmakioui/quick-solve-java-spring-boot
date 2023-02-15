@@ -10,7 +10,7 @@ import com.quicksolve.proyecto.repository.IncidenceFileRepository;
 import com.quicksolve.proyecto.service.IncidenceFileService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,8 +33,8 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
     @Autowired
     private IncidenceFileRepository incidenceFileRepository;
 
-    @Autowired
-    private Environment env;
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @Override
     public List<IncidenceFiles> list() {
@@ -76,7 +76,7 @@ public class IncidenceFileServiceImpl implements IncidenceFileService {
 
             try{
                 byte[] bytes = file.getBytes();
-                Path completePath = Paths.get(env.getProperty("upload.path") + fileName);
+                Path completePath = Paths.get(uploadPath + fileName);
                 Files.write(completePath, bytes);
             }catch (IOException e){
                 e.printStackTrace();
