@@ -1,5 +1,6 @@
 package com.quicksolve.proyecto.controller;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.quicksolve.proyecto.dto.*;
 import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.*;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.AccessDeniedException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -93,6 +96,7 @@ public class IncidenceController {
 
     @GetMapping("/incidencias")
     public String showIncidences(Model model) {
+
         List<FullIncidenceDTO> incidenceDTOS = incidenceService.list((FullUserDTO) model.getAttribute("userlogin"));
 
         incidenceDTOS.forEach(incidence -> {
@@ -108,6 +112,51 @@ public class IncidenceController {
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
         model.addAttribute("status", incidenceStateService.list());
+        model.addAttribute("isFilter", false);
+
+        return "view/incidences";
+    }
+
+    @PostMapping("/incidencias")
+    public String showFilterIncidences(@RequestParam String department, @RequestParam String space, @RequestParam String dateStart, Model model) {
+
+        Long departmentId = null;
+        Long spaceId = null;
+
+        System.out.println(dateStart);
+        try {
+            departmentId = Long.parseLong(department);
+            spaceId = Long.parseLong(space);
+        }catch (NumberFormatException error){
+            System.out.println("Error");
+            return "redirect:/incidencias";
+        }
+
+        if (!dateStart.isEmpty()){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            dateFormat.setLenient(false);
+            try {
+                dateFormat.parse(dateStart.trim());
+            }catch (ParseException e){
+                System.out.println("error 2");
+                return "redirect:/incidencias";
+            }
+        }
+
+        List<FullIncidenceDTO> incidences = incidenceService.list(departmentId, spaceId, dateStart,(FullUserDTO) model.getAttribute("userlogin"));
+        incidences.forEach(incidence -> {
+            incidence.setDepartment(departmentService.findById(incidence.getDepartmentId()));
+            incidence.setSpace(spaceService.findById(incidence.getSpaceId()));
+            incidence.setIncidenceState(incidenceStateService.findById(incidence.getIncidenceStateId()));
+            incidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidence.getId()));
+        });
+        System.out.println(incidences);
+        model.addAttribute("departments", departmentService.list());
+        model.addAttribute("spaces", spaceService.list());
+        model.addAttribute("incidences", incidences);
+        model.addAttribute("status", incidenceStateService.list());
+        model.addAttribute("isFilter", true);
+
         return "view/incidences";
     }
 

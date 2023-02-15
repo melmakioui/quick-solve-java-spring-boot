@@ -9,6 +9,7 @@ import java.util.List;
 public interface IncidenceService {
 
     List<FullIncidenceDTO> list(FullUserDTO userDTO);
+    List<FullIncidenceDTO> list(Long departmentId, Long spaceId, String startDate, FullUserDTO userDTO);
     FullIncidenceDTO findById(long id);
     void save(FullIncidenceDTO incidenceDepartmentDTO);
     void save(FullIncidenceDTO incidenceDepartmentDTO, FullUserDTO userDTO);

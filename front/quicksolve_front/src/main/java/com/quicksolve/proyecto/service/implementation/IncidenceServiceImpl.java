@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
+    private final Long INCIDENCE_SOLVED_STATE = 3L;
     private final Long INCIDENCE_CANCELLED_STATE = 4L;
     private FullIncidenceDTO lastIncidence = null;
     private FullIncidenceDTO lastUpdatedIncidence = null;
@@ -47,9 +49,41 @@ public class IncidenceServiceImpl implements IncidenceService {
                 .stream()
                 .map(UserIncidence::getIncidence)
                 .toList();
+
         return incidences.stream().map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<FullIncidenceDTO> list(Long departmentId, Long spaceId, String startDate, FullUserDTO userDTO) {
+
+        List<Incidence> incidences = userIncidenceRepo.findAllByUser(UserMapper.INSTANCE.DTOtoUser(userDTO))
+                .stream()
+                .map(UserIncidence::getIncidence)
+                .toList();
+
+        List<Incidence> result = incidences.stream().filter( incidence -> {
+            if (startDate == null || startDate.isEmpty()) return true;
+            LocalDateTime dateStart = incidence.getDateStart();
+            LocalDate localDate = dateStart.toLocalDate();
+            LocalDate parse = LocalDate.parse(startDate);
+            return localDate.isEqual(parse);
+        })
+                .filter(i -> {
+                    if (departmentId == 0) return true;
+                    return i.getDepartment() != null && i.getDepartment().getId() == departmentId;
+                })
+
+                .filter(i -> {
+                    if (spaceId == 0) return true;
+                    return i.getSpace() != null && i.getSpace().getId() == spaceId;
+                }).toList();
+
+
+        return result.stream().map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public FullIncidenceDTO findById(long id) {
@@ -175,6 +209,10 @@ public class IncidenceServiceImpl implements IncidenceService {
 
         if (stateId < state.getId())
             throw new RuntimeException("No se puede cambiar a un estado anterior");
+
+        if (stateId == INCIDENCE_SOLVED_STATE || stateId == INCIDENCE_CANCELLED_STATE) {
+            incidence.setDateEnd(LocalDateTime.now());
+        }
 
         incidence.setIncidenceState(state);
         incidenceRepository.save(incidence);
