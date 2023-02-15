@@ -9,6 +9,7 @@ $(document).ready(function (){
     $( "#datepickerResponsive" ).datepicker(options);
 
     const btnCanvas = $('#offcanvasBtn')
+    const btnCanvasContainer= $("#offCanvasBtnCont")
     const formNoResponsive = $('#filter')
 
     window.onload = toggleForms;
@@ -18,10 +19,14 @@ $(document).ready(function (){
     function toggleForms(){
         if ($(window).width() < 720){
             $(btnCanvas).removeClass("d-none")
+            $(btnCanvas).addClass("w-100")
             $(formNoResponsive).addClass("d-none")
+            $(btnCanvasContainer).addClass("w-100")
         }else {
             $(btnCanvas).addClass("d-none")
+            $(btnCanvas).removeClass("w-100")
             $(formNoResponsive).removeClass("d-none")
+            $(btnCanvasContainer).removeClass("w-100")
         }
     }
 
