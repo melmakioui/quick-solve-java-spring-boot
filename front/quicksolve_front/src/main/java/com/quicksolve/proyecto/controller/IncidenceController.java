@@ -97,6 +97,10 @@ public class IncidenceController {
     @GetMapping("/incidencias")
     public String showIncidences(Model model) {
 
+        if (true){
+            throw new RuntimeException("No se puede modificar una incidencia que no esté en estado pendiente");
+        }
+
         List<FullIncidenceDTO> incidenceDTOS = incidenceService.list((FullUserDTO) model.getAttribute("userlogin"));
 
         incidenceDTOS.forEach(incidence -> {

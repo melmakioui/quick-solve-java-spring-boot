@@ -47,7 +47,7 @@
     <div class="w-100 mt-5 d-flex flex-nowrap flex-column justify-content-center align-items-center"
          th:if="${#lists.isEmpty(incidences)} and ${isFilter}">
         <h1 class="text-center" th:text="#{incidencias.sin.resultado} + '...'"></h1>
-        <h1 class="mt-2">IMAGE</h1>
+        <img th:src="@{/img/person-dealing-error.svg}" width="800">
     </div>
     <div class="accordion mb-5" id="accordion"
          th:if="!${#lists.isEmpty(incidences)} and !${isFilter} or !${#lists.isEmpty(incidences)} and ${isFilter} ">
