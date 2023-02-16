@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 public class IncidenceServiceImpl implements IncidenceService {
 
     private final Long INCIDENCE_WAITING_STATE = 1L;
+    private final Long INCIDENCE_SOLVED_STATE = 3L;
     private final Long INCIDENCE_CANCELLED_STATE = 4L;
     private int rrCount = 0;
     private FullIncidenceDTO lastIncidence = null;
@@ -56,6 +58,7 @@ public class IncidenceServiceImpl implements IncidenceService {
                 .stream()
                 .map(UserIncidence::getIncidence)
                 .toList();
+
         return incidences.stream().map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -74,6 +77,37 @@ public class IncidenceServiceImpl implements IncidenceService {
     private long getPriority(FullUserDTO userDTO){
         return userDTO.getService() == null ? 0L : userDTO.getService().getId();
     }
+
+    @Override
+    public List<FullIncidenceDTO> list(Long departmentId, Long spaceId, String startDate, FullUserDTO userDTO) {
+
+        List<Incidence> incidences = userIncidenceRepo.findAllByUser(UserMapper.INSTANCE.DTOtoUser(userDTO))
+                .stream()
+                .map(UserIncidence::getIncidence)
+                .toList();
+
+        List<Incidence> result = incidences.stream().filter( incidence -> {
+            if (startDate == null || startDate.isEmpty()) return true;
+            LocalDateTime dateStart = incidence.getDateStart();
+            LocalDate localDate = dateStart.toLocalDate();
+            LocalDate parse = LocalDate.parse(startDate);
+            return localDate.isEqual(parse);
+        })
+                .filter(i -> {
+                    if (departmentId == 0) return true;
+                    return i.getDepartment() != null && i.getDepartment().getId() == departmentId;
+                })
+
+                .filter(i -> {
+                    if (spaceId == 0) return true;
+                    return i.getSpace() != null && i.getSpace().getId() == spaceId;
+                }).toList();
+
+
+        return result.stream().map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public FullIncidenceDTO findById(long id) {
@@ -184,9 +218,7 @@ public class IncidenceServiceImpl implements IncidenceService {
             throw new RuntimeException("No se puede eliminar una incidencia que no esta en estado de espera");
         }
 
-        //UserIncidence tiene una relacion de tipo cascade.ALL, por lo que al eliminar la incidencia
         userIncidenceRepo.deleteByIncidenceId(incidence.getId());
-        //Si se elimina una incidencia la ruta de archivos asociados tambien se eliminan
         incidenceFileRepository.deleteAllByIncidenceId(incidence.getId());
     }
 
@@ -247,27 +279,38 @@ public class IncidenceServiceImpl implements IncidenceService {
         return convertToDTO(userIncidence.getIncidence());
     }
 
+    @Override
+    public void changeState(long incidenceId, long stateId) {
+
+        Incidence incidence = incidenceRepository.findById(incidenceId)
+                .orElseThrow(() -> new RuntimeException("No se encontro la incidencia"));
+
+        IncidenceState state = incidenceStateRepository.findById(stateId)
+                        .orElseThrow(() -> new RuntimeException("No se encontro el estado"));
+
+        if (stateId < state.getId())
+            throw new RuntimeException("No se puede cambiar a un estado anterior");
+
+        if (stateId == INCIDENCE_SOLVED_STATE || stateId == INCIDENCE_CANCELLED_STATE) {
+            incidence.setDateEnd(LocalDateTime.now());
+        }
+
+        incidence.setIncidenceState(state);
+        incidenceRepository.save(incidence);
+    }
 
 
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {
         long departmentId = fullIncidenceDTO.getDepartment().getId();
         long spaceId = fullIncidenceDTO.getSpace().getId();
 
-        if (departmentId == -1) {
-            fullIncidenceDTO.setDepartment(null);
-        }
-
-        if (spaceId == -1) {
-            fullIncidenceDTO.setSpace(null);
-        }
+        if (departmentId == -1) fullIncidenceDTO.setDepartment(null);
+        if (spaceId == -1) fullIncidenceDTO.setSpace(null);
     }
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {
 
-        String days = getTotalDays(incidence.getDateStart());
         FullIncidenceDTO fullIncidenceDTO = IncidenceMapper.INSTANCE.incidenceToDTO(incidence);
-        fullIncidenceDTO.setDaysAgo(days);
-
         UserIncidence ui = userIncidenceRepo.findByIncidenceId(incidence.getId());
 
         if (ui == null){
@@ -277,15 +320,5 @@ public class IncidenceServiceImpl implements IncidenceService {
         }
 
         return fullIncidenceDTO;
-    }
-
-    private String getTotalDays(LocalDateTime dateStart) {
-        Locale locale = LocaleContextHolder.getLocale();
-        Period between = Period.between(dateStart.toLocalDate(), LocalDateTime.now().toLocalDate());
-        if (between.isZero()) {
-            return (locale.getLanguage().equals("es")) ? "Hoy" : "Today";
-        } else {
-            return (locale.getLanguage().equals("es") ? "Hace " + between.getDays() + " día/s" : between.getDays() + " day/s ago");
-        }
     }
 }

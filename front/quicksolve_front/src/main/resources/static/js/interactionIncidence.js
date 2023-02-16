@@ -24,28 +24,4 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
-
-
-    //Modal imagenes
-    var modal = document.getElementById("modal-img");
-
-    modal.onclick = function() {
-        modal.style.display = "none";
-    }
-    var modalImg = document.getElementById("img-target");
-
-
-    var img = document.getElementsByClassName("image-modal");
-    for (var i = 0; i < img.length; i++) {
-        img[i].onclick = function(){
-            modal.style.display = "block";
-            modalImg.src = this.src;
-        }
-    }
-
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
 });

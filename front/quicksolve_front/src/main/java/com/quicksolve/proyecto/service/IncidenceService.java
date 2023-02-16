@@ -9,6 +9,7 @@ import java.util.List;
 public interface IncidenceService {
 
     List<FullIncidenceDTO> list(FullUserDTO userDTO);
+    List<FullIncidenceDTO> list(Long departmentId, Long spaceId, String startDate, FullUserDTO userDTO);
     List<FullIncidenceDTO> listByAssignedTech(FullUserDTO userDTO);
     FullIncidenceDTO findById(long id);
     void save(FullIncidenceDTO incidenceDepartmentDTO);
@@ -21,5 +22,5 @@ public interface IncidenceService {
     FullIncidenceDTO getLastIncidence();
     FullIncidenceDTO getLastUpdatedIncidence();
     FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, FullUserDTO userDTO);
-
+    void changeState(long incidenceId, long stateId);
 }

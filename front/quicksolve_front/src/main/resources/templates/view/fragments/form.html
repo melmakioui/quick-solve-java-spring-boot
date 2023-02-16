@@ -1,90 +1,92 @@
-  <div class="row justify-content-center">
+<div class="row justify-content-center">
 
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
-      <label for="title" class="form-label" th:text="#{formupt.campo1}"><span class="text-delete">*</span> </label>
-      <input type="text" class="form-control" th:field="*{title}" name="title" id="title" minlength="3" maxlength="50" required>
-      <div class="invalid-feedback" th:text="#{formupt.campo1.error}"></div>
-      <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" ></span>
+        <label for="title" class="form-label" th:text="#{formupt.campo1}"><span class="text-delete">*</span> </label>
+        <input type="text" class="form-control" th:field="*{title}" name="title" id="title" minlength="3" maxlength="50"
+               required>
+        <div class="invalid-feedback" th:text="#{formupt.campo1.error}"></div>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
     </div>
-  </div>
+</div>
 
-  <div class="row justify-content-center">
+<div class="row justify-content-center">
     <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-      <label for="department" th:text="#{formupt.campo3}"></label>
-      <select class="form-select" th:field="*{department.id}" name="department" id="department">
-        <option th:value="-1" th:text="#{formupt.campo3.value0}"></option>
-        <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
-      </select>
+        <label for="department" th:text="#{formupt.campo3}"></label>
+        <select class="form-select" th:field="*{department.id}" name="department" id="department">
+            <option th:value="-1" th:text="#{formupt.campo3.value0}"></option>
+            <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
+        </select>
     </div>
 
     <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-      <label for="space" th:text="#{formupt.campo4}"></label>
-      <select class="form-select"  th:field="*{space.id}" name="space" id="space">
-        <option th:value="-1" th:text="#{formupt.campo4.error}"></option>
-        <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
-      </select>
+        <label for="space" th:text="#{formupt.campo4}"></label>
+        <select class="form-select" th:field="*{space.id}" name="space" id="space">
+            <option th:value="-1" th:text="#{formupt.campo4.error}"></option>
+            <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
+        </select>
     </div>
-  </div>
+</div>
 
-  <div class="row justify-content-center mb-3">
+<div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
-      <label for="description" th:text="#{formupt.campo5}"><span class="text-delete">*</span></label>
-      <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3" minlength="10" maxlength="512" required></textarea>
-      <div class="invalid-feedback" th:text="#{formupt.campo5.error}"></div>
-      <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        <label for="description" th:text="#{formupt.campo5}"><span class="text-delete">*</span></label>
+        <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3"
+                  minlength="10" maxlength="512" required></textarea>
+        <div class="invalid-feedback" th:text="#{formupt.campo5.error}"></div>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
     </div>
-  </div>
+</div>
 
-  <!--Validar extensiones en el lado del cliente-->
-  <div class="row justify-content-center mb-3">
+<!--Validar extensiones en el lado del cliente-->
+<div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10">
 
-      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-        </symbol>
-      </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </symbol>
+        </svg>
 
-      <div id="alert-quantity" class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center d-none" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-        Solo se pueden subir como maximo 5 imagenes.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+        <div id="alert-quantity"
+             class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center d-none"
+             role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                 aria-label="Warning:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+            </svg>
+            <span th:text="#{formnew.alert.cantidad.imagenes}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
 
-      <div id="alert-content-type" class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center d-none" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-        Solo se pueden subir imagenes.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+        <div id="alert-content-type"
+             class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center d-none"
+             role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                 aria-label="Warning:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+            </svg>
+            <span th:text="#{formnew.alert.extension.imagenes}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
 
-      <label for="formFileMultiple" class="form-label" th:text="#{formupt.campo6}"></label>
-      <input class="form-control" type="file" id="formFileMultiple" name="files" multiple>
+
     </div>
-  </div>
+</div>
 
-  <div th:if="${isNewIncidence}" class="row justify-content-center flex-wrap">
-    <div th:id="images-container" class="col-12 col-xl-9 col-lg-10 col-md-10 d-flex justify-content-center align-items-center flex-wrap">
-    </div>
-  </div>
+<div class="row justify-content-center flex-wrap mb-3">
+    <div class="input-images col-12 col-xl-6 col-lg-8 col-md-10"></div>
+</div>
 
-  <div th:if="${!isNewIncidence}" class="row justify-content-center flex-wrap">
-      <div id="card-img" class="card m-2" th:each="file : ${incidence.incidenceFiles}">
-        <img th:src="@{${file.filePath}}" class="card-img" alt="s" width="200px" height="200px">
-        <a th:href="@{/img/} + ${incidence.id} + '/' + ${file.id}" id="del-img" class="btn d-flex justify-content-center align-items-center"><span class="material-symbols-outlined">close</span></a>
-      </div>
-  </div>
-
-
-
-
-  <div class="fst-italic text-center mb-3">
+<div class="fst-italic text-center mb-3">
     <span th:text="#{formnew.advise1}"></span>
     <strong th:text="#{formnew.advise2}"></strong>
     <span th:text="#{formnew.advise3}"></span>
-  </div>
+</div>
 
-  <div class="row justify-content-center">
+<div class="row justify-content-center">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10">
-      <button type="submit" class="btn btn-secondary w-100">Enviar</button>
+        <button type="submit" class="btn btn-secondary w-100">Enviar</button>
     </div>
-  </div>
+</div>

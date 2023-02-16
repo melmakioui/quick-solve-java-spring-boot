@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
-    <title>Title</title>
+    <title th:text="${incidence.title}"></title>
 </head>
 
 <body>
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 
 <body>
-
 
 <div class="container mt-5">
     <div class="row mb-4">
@@ -22,7 +25,8 @@
                  role="alert">
                 <span class="material-symbols-outlined mx-2">
                     lock
-                </span> Esta Incidencia esta &ensp; <strong>cancelada</strong>, no se pueden enviar mensajes.
+                </span>
+                <span class="mx-2" th:text="#{incidencia.alert.cancelada}"></span>
             </div>
         </div>
 
@@ -31,7 +35,9 @@
                  role="alert">
                 <span class="material-symbols-outlined mx-2">
                     lock
-                </span> Esta Incidencia esta &ensp;<strong>resuelta</strong> , no se pueden enviar mensajes.
+                </span>
+                <span class="mx-2" th:text="#{incidencia.alert.resuelta}"></span>
+
             </div>
         </div>
     </div>
@@ -39,16 +45,35 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
             <h2 th:text="${incidence.title}"></h2>
-            <div id="actions" class="d-flex align-items-center ">
-                <!-- <button class="btn btn-primary mx-2">Finalizar</button> -->
-                <span th:if="${incidence.incidenceState.id == 1}"
-                      class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5">En Espera</span>
-                <span th:if="${incidence.incidenceState.id == 2}"
-                      class="badge text-texto-contraste text-bg-primary text-nowrap fs-5">En Progreso</span>
-                <span th:if="${incidence.incidenceState.id == 3}"
-                      class="badge text-texto-contraste text-bg-successful text-nowrap fs-5">Solucionada</span>
-                <span th:if="${incidence.incidenceState.id == 4}"
-                      class="badge text-texto-contraste text-bg-delete text-nowrap fs-5">Cancelada</span>
+            <div class="d-flex align-items-center justify-content-center">
+                <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} and ${incidence.incidenceState.id == 1 or incidence.incidenceState.id == 2}"
+                     class="dropdown mx-3">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false" th:text="#{incidencia.cambiar.estado}"></a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'"
+                               th:text="#{incidencia.estado.enprogreso}"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'"
+                               th:text="#{incidencia.estado.solucionada}"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/4'"
+                               th:text="#{incidencia.estado.cancelada}"></a></li>
+                    </ul>
+                </div>
+                <div id="actions" class="d-flex align-items-center ">
+                    <span th:if="${incidence.incidenceState.id == 1}"
+                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5"
+                          th:text="#{incidencia.estado.enespera}"></span>
+                    <span th:if="${incidence.incidenceState.id == 2}"
+                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5"
+                          th:text="#{incidencia.estado.enprogreso}"></span>
+                    <span th:if="${incidence.incidenceState.id == 3}"
+                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5"
+                          th:text="#{incidencia.estado.solucionada}"></span>
+                    <span th:if="${incidence.incidenceState.id == 4}"
+                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5"
+                          th:text="#{incidencia.estado.cancelada}"></span>
+                </div>
             </div>
         </div>
     </div>
@@ -56,165 +81,44 @@
     <div class="col-12">
         <!--TODO poner el usuario propietario de la incidencia  -->
         <p th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}"
-           th:text="${incidence.user} ?  'Enviado por: ' + ${incidence.user.username} : 'Enviado por: ' + ${incidence.email}"></p>
+           th:text="${incidence.user} ?  #{incidencia.enviada.por} + ' ' + ${incidence.user.username} : #{incidencia.enviada.por} + ' ' + ${incidence.email}"></p>
 
     </div>
 
     <hr>
 
 
-    <div id="modal-img" class="modal-image">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="img-target">
-    </div>
-
     <div class="row align-items-center mb-4">
         <div class="col-12 col-lg-6 p-4">
-            <p th:class="fs-5" th:text="${incidence.description}"></p>
+            <p class="fs-5 text-break" th:text="${incidence.description}"></p>
         </div>
 
 
         <div class="col-12 col-lg-6 d-flex justify-content-center" th:if="not ${incidence.incidenceFiles.isEmpty()}">
 
             <div class="images-container d-flex flex-wrap justify-content-center align-items-center">
-                <img th:each="image : ${incidence.incidenceFiles}"  th:src="@{${image.filePath}}" class="img-thumbnail mx-2 image-modal" width="300" style="cursor: pointer">
+                <a th:each="image : ${incidence.incidenceFiles}" th:href="@{${image.filePath}}" class="image-link">
+                    <img th:src="@{${image.filePath}}" class="img-thumbnail mx-2 image-modal" width="300"
+                         style="cursor: pointer">
+                </a>
             </div>
         </div>
         <div th:unless="not ${incidence.incidenceFiles.isEmpty()}"
              class="col-12 col-lg-6 d-flex justify-content-center">
-            <h3>Esta incidencia no dispone de imagenes.</h3>
+            <h3 th:text="#{incidencia.sin.imagenes}"></h3>
         </div>
     </div>
 
     <hr>
 
-    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null}" class="w-100 text-center">De momento
-        no hay ningun mensaje...</h5>
+    <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null} and ${incidence.incidenceState.id < 3}"
+        class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
 
     <div class="row justify-content-center mb-5">
-        <div class="col-12 mt-3 mb-5 comment-section" id="comments">
-
-            <div class="card-comment p-3 mb-4" th:each="message : ${incidence.messages}"
-                 th:class="${message.action} ? 'card-comment p-3 mb-4 bg-secondary' : 'card-comment p-3 mb-4'">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="user d-flex flex-row align-items-center">
-                        <img th:src="@{/img/user.png}" width="30" alt="" class="user-img rounded-circle mx-3">
-                        <span>
-                            <small th:if="${message.user.id == userlogin.id}" th:text="'(Tú)'"
-                                   class="font-weight-bold fs-5"></small>
-                            <small th:unless="${message.user.id == userlogin.id}" th:text="${message.user.username}"
-                                   class="font-weight-bold fs-5"></small>
-                                                   <br>
-                                <p th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker fs-5' : 'font-weight-bold fs-5'"
-                                   th:text="${message.body}"></p>
-                        </span>
-                    </div>
-                    <small th:text="${#temporals.format(message.dateHour,'dd-MM-yyyy HH:mm')}"></small>
-                </div>
-
-
-                <div class="action d-flex justify-content-between mt-2 align-items-center">
-                    <div class="reply px-4">
-                        <a
-                                th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
-                                th:if="${message.user.id == userlogin.id and incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
-                                th:href="@{/editar/mensaje/} + ${incidence.id} +'/'+ ${message.id}">Modificar
-                        </a>
-                        <a
-                                th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
-                                th:if="${message.user.id == userlogin.id and  incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
-                                th:href="@{/borrar/mensaje/} + ${incidence.id} +'/'+ ${message.id}">Eliminar
-                        </a>
-                    </div>
-
-                    <div th:if="${message.modified == true}">
-                        <small class="text-muted">(Modificado)</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 mt- mb-5" th:if="${incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}">
-            <div id="message" class="card-comment p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="user d-flex flex-row align-items-center w-100">
-                        <form th:if="!${isUpdateMessage}"
-                              th:action="@{/guardar/mensaje/{incidenceId}(incidenceId=${incidence.id})}" method="POST"
-                              th:object="${newMessage}" class="w-100">
-
-                            <div class="d-flex justify-content-between">
-                                <p class="fs-6 w-50">Nuevo Mensaje</p>
-
-                                <div class="w-50 d-flex justify-content-end align-items-center"
-                                     th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
-                                    <label for="action" class="mx-2">
-                                        Es una acción?
-                                    </label>
-                                    <input type="checkbox" name="isAction" th:field="*{action}" th:value="*{action}"
-                                           id="action">
-                                </div>
-                            </div>
-
-
-                            <div class="form-floating">
-                                    <textarea th:field="*{body}" th:value="*{body}" class="form-control"
-                                              placeholder="Envia tu mensaje..."
-                                              id="messageUser"></textarea>
-                                <label for="messageUser">Mensaje</label>
-                            </div>
-
-                            <div class="d-flex justify-content-end w-100">
-                                <button class="btn btn-secondary mt-2">ENVIAR</button>
-                            </div>
-                        </form>
-
-
-                        <form th:if="${isUpdateMessage}" th:id="update"
-                              th:action="@{/editar/mensaje/{incidenceId}(incidenceId=${incidence.id})} + '/' + ${message.id}"
-                              method="POST" th:object="${message}" class="w-100">
-
-                            <div class="col-12 d-flex justify-content-center"
-                                 th:if="${incidence.incidenceState.id == 3}">
-                                <div class="alert alert-warning d-flex flex-nowrap align-items-center justify-content-center w-100"
-                                     role="alert">
-                <span class="material-symbols-outlined mx-2">
-                    lock
-                </span> Estas editando un mensaje!
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <p class="fs-6 w-50">Nuevo Mensaje</p>
-
-                                <div class="w-50 d-flex justify-content-end"
-                                     th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
-                                    <label for="actionUpdate" class="mx-2">
-                                        Es una acción?
-                                    </label>
-                                    <input type="checkbox" id="actionUpdate"
-                                           th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}"
-                                           name="isAction" th:field="*{action}" th:value="*{action}">
-                                </div>
-                            </div>
-
-
-                            <div class="form-floating">
-                                    <textarea th:field="*{body}" th:value="*{body}" class="form-control"
-                                              placeholder="Envia tu mensaje..."
-                                              id="messageUserUpdate"></textarea>
-                                <label for="messageUser">Mensaje</label>
-                            </div>
-
-
-                            <div class="d-flex justify-content-end w-100">
-                                <a th:href="@{/incidencia/} + ${incidence.id}" class="btn btn-primary mt-2 mx-2">CANCELAR</a>
-                                <button class="btn btn-secondary mt-2 mx-2">ENVIAR</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <th:block th:include="/view/fragments/messages"></th:block>
     </div>
+
+    <th:block th:include="/view/fragments/formMessage"></th:block>
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -225,8 +129,9 @@
             crossorigin="anonymous"></script>
     <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
     <script th:src="@{/js/activeLinks.js}"></script>
-
-    <script th:src="@{/js/incidenceInteraction.js}"></script>
+    <script th:src="@{/js/interactionIncidence.js}"></script>
+    <script th:src="@{/js/jquery.viewbox.min.js}"></script>
+    <script th:src="@{/js/viewbox.js}"></script>
 
 </body>
 </html>

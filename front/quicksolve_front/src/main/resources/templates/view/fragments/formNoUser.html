@@ -1,87 +1,128 @@
 <div th:fragment="formNoUser" class="container-fluid mb-5">
-  <div class="row align-items-center" style="height: calc(100vh - 96px)">
-    <div class="col-lg-6 offset-lg-3 mt-5">
-      <h2 class="text-center text-texto-contraste mb-4">NUEVA INCIDENCIA</h2>
-      <div class="card rounded-4 bg-primary">
+    <div class="row align-items-center" style="height: calc(100vh - 96px)">
+        <div class="col-lg-6 offset-lg-3 mt-5">
+            <h2 class="text-center text-texto-contraste mb-4" th:text="#{newincidencia.titulo1.upper}"></h2>
+            <div class="card rounded-4 bg-primary">
 
-        <form th:fragment="form" th:action="@{/public/nueva/incidencia}" th:object="${incidence}" method="POST"
-              class=" needs-validation container mb-4 mt-4"  enctype="multipart/form-data" novalidate>
-          <div class="row justify-content-center">
+                <form th:fragment="form" th:action="@{/public/nueva/incidencia}" th:object="${incidence}" method="POST"
+                      class=" needs-validation container mb-4 mt-4" enctype="multipart/form-data" novalidate>
+                    <div class="row justify-content-center">
 
-            <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12 mb-3">
-              <label for="title" class="form-label"><span class="text-texto-contraste" th:text="#{formupt.campo1}"></span>
-                <span class="text-delete">*</span> </label>
-              <input type="text" class="form-control" th:field="*{title}" name="title" id="title"
-                     minlength="3" maxlength="50" required>
-              <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo1.error}">
-                Escribe un titulo valido.
-              </div>
-              <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                        <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12 mb-3">
+                            <label for="title" class="form-label"><span class="text-texto-contraste"
+                                                                        th:text="#{formupt.campo1}"></span>
+                                <span class="text-delete">*</span> </label>
+                            <input type="text" class="form-control" th:field="*{title}" name="title" id="title"
+                                   minlength="3" maxlength="50" required>
+                            <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo1.error}">
+                            </div>
+                            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
+                            <label for="email" class="form-label"><span class="text-texto-contraste"
+                                                                        th:text="#{formupt.campo2}"></span> <span
+                                    class="text-delete">*</span></label>
+                            <input type="email" class="form-control" th:field="*{email}" name="email" id="email"
+                                   required>
+                            <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo1.error}">
+                            </div>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-xl-4 col-lg-5 col-md-10 col-sm-12 mb-3">
+                            <label for="department" class="form-label"> <span class="text-texto-contraste"
+                                                                              th:text="#{formupt.campo3}"></span></label>
+                            <select class="form-select" th:field="*{department.id}" name="department" id="department">
+                                <option th:value="-1" th:text="#{formupt.campo3.value0}"></option>
+                                <option th:each="dep : ${departments}" th:value="${dep.id}"
+                                        th:text="${dep.name}"></option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-12 col-xl-4 col-lg-5 col-md-10 col-sm-12 mb-3">
+                            <label for="space" class="form-label"><span class="text-texto-contraste"
+                                                                        th:text="#{formupt.campo4}"></span></label>
+                            <select class="form-select" th:field="*{space.id}" name="space" id="space">
+                                <option th:value="-1" th:text="#{formupt.campo4.error}"></option>
+                                <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
+                            <label for="description" class="form-label"><span class="text-texto-contraste"
+                                                                              th:text="#{formupt.campo5}"></span><span
+                                    class="text-delete">*</span></label>
+                            <textarea class="form-control" th:field="*{description}" name="description" id="description"
+                                      rows="3" minlength="10" maxlength="512" required></textarea>
+                            <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo5.error}"></div>
+                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-12 col-xl-8 col-md-10">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                </symbol>
+                            </svg>
+
+                            <div id="alert-quantity"
+                                 class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center d-none"
+                                 role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                     aria-label="Warning:">
+                                    <use xlink:href="#exclamation-triangle-fill"/>
+                                </svg>
+                                <span th:text="#{formnew.alert.cantidad.imagenes}"></span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+
+                            <div id="alert-content-type"
+                                 class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center d-none"
+                                 role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                     aria-label="Warning:">
+                                    <use xlink:href="#exclamation-triangle-fill"/>
+                                </svg>
+                                <span th:text="#{formnew.alert.extension.imagenes}"></span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center flex-wrap mb-3">
+                        <div class="input-images col-12 col-xl-8 col-md-10"></div>
+                    </div>
+
+                    <div class="fst-italic text-center mb-3 text-texto-contraste">
+                        <span th:text="#{formnew.advise1}"></span>
+                        <strong th:text="#{formnew.advise2}"></strong>
+                        <span th:text="#{formnew.advise3}"></span>
+                    </div>
+
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-12 col-xl-6 col-lg-10 col-md-10">
+                            <button type="submit" class="btn btn-secondary w-100" th:text="#{formupt.enviar}"></button>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </div>
-
-          <div class="row justify-content-center mb-3">
-            <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
-              <label for="email" class="form-label"><span class="text-texto-contraste" th:text="#{formupt.campo2}"></span> <span
-                      class="text-delete">*</span></label>
-              <input type="email" class="form-control" th:field="*{email}" name="email" id="email"
-                     required>
-              <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo1.error}">
-                No es un email valido.
-              </div>
-              <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-            </div>
-          </div>
-
-            <div class="row justify-content-center">
-              <div class="col-12 col-xl-4 col-lg-5 col-md-10 col-sm-12 mb-3">
-                <label for="department" class="form-label"> <span class="text-texto-contraste"  th:text="#{formupt.campo3}"></span></label>
-                <select class="form-select" th:field="*{department.id}" name="department" id="department">
-                  <option th:value="-1" th:text="#{formupt.campo3.value0}"></option>
-                  <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
-                </select>
-              </div>
-
-
-          <div class="col-12 col-xl-4 col-lg-5 col-md-10 col-sm-12 mb-3">
-            <label for="space" class="form-label"><span class="text-texto-contraste"  th:text="#{formupt.campo4}"></span></label>
-            <select class="form-select"  th:field="*{space.id}" name="space" id="space">
-              <option th:value="-1" th:text="#{formupt.campo4.error}"></option>
-              <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
-            </select>
-          </div>
-      </div>
-
-
-          <div class="row justify-content-center mb-3">
-            <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
-              <label for="description" class="form-label"><span class="text-texto-contraste"  th:text="#{formupt.campo5}"></span><span class="text-delete">*</span></label>
-              <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3" minlength="10" maxlength="512" required></textarea>
-              <div class="invalid-feedback text-texto-contraste" th:text="#{formupt.campo5.error}"></div>
-              <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
-            </div>
-          </div>
-
-          <div class="row justify-content-center mb-3">
-            <div class="col-12 col-xl-8 col-lg-10 col-md-10">
-              <label for="formFileMultiple" class="form-label"><span class="text-texto-contraste"  th:text="#{formupt.campo6}"></span></label>
-              <input class="form-control" type="file" id="formFileMultiple" multiple name="files">
-            </div>
-          </div>
-
-          <div class="fst-italic text-center mb-3 text-texto-contraste">
-            <span th:text="#{formnew.advise1}"></span>
-            <strong th:text="#{formnew.advise2}"></strong>
-            <span th:text="#{formnew.advise3}"></span>
-          </div>
-
-          <div class="row justify-content-center mb-4">
-            <div class="col-12 col-xl-6 col-lg-10 col-md-10">
-              <button type="submit" class="btn btn-secondary w-100">Enviar</button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
