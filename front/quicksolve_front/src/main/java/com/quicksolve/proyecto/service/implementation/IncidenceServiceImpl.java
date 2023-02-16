@@ -229,10 +229,7 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     private FullIncidenceDTO convertToDTO(Incidence incidence) {
 
-        String days = getTotalDays(incidence.getDateStart());
         FullIncidenceDTO fullIncidenceDTO = IncidenceMapper.INSTANCE.incidenceToDTO(incidence);
-        fullIncidenceDTO.setDaysAgo(days);
-
         UserIncidence ui = userIncidenceRepo.findByIncidenceId(incidence.getId());
 
         if (ui == null){
@@ -242,15 +239,5 @@ public class IncidenceServiceImpl implements IncidenceService {
         }
 
         return fullIncidenceDTO;
-    }
-
-    private String getTotalDays(LocalDateTime dateStart) {
-        Locale locale = LocaleContextHolder.getLocale();
-        Period between = Period.between(dateStart.toLocalDate(), LocalDateTime.now().toLocalDate());
-        if (between.isZero()) {
-            return (locale.getLanguage().equals("es")) ? "Hoy" : "Today";
-        } else {
-            return (locale.getLanguage().equals("es") ? "Hace " + between.getDays() + " día/s" : between.getDays() + " day/s ago");
-        }
     }
 }
