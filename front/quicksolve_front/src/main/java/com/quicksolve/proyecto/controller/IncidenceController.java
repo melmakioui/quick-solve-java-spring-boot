@@ -112,6 +112,7 @@ public class IncidenceController {
         model.addAttribute("spaces", spaceService.list());
         model.addAttribute("incidences", incidenceDTOS);
         model.addAttribute("status", incidenceStateService.list());
+        System.out.println(incidenceStateService.list());
         model.addAttribute("isFilter", false);
 
         return "view/incidences";

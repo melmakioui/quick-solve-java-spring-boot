@@ -8,8 +8,10 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface IncidenceStateMapper {
+
     IncidenceStateMapper INSTANCE = Mappers.getMapper(IncidenceStateMapper.class);
 
+    @Mapping(source = "status.id", target = "id")
     @Mapping(source = "statusName", target = "name")
     IncidenceStateDTO toIncidenceStateDTO(IncidenceStateLanguage incidenceStateLanguage);
 
