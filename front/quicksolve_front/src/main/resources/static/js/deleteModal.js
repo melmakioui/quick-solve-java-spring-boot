@@ -6,5 +6,13 @@ $(document).ready(function() {
             let link = $(this).attr("data-link");
             $("#delBtnModal").attr("href", link);
         });
+        $(value).on('keyup', function (e) {
+            if (e.key === "Enter"){
+                e.stopPropagation();
+                let link = $(this).attr("data-link");
+                $("#delBtnModal").attr("href", link);
+                $("#deleteIncidence").modal("show");
+            }
+        });
     });
 });
