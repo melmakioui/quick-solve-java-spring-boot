@@ -20,7 +20,7 @@
                         <a class="nav-link p-3 rounded-pill" th:href="@{/login}" th:unless="${userlogin}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" style="cursor: pointer;" th:if="${userlogin}" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="#{nav.li2}"></a>
+                        <a class="nav-link p-3 rounded-pill" style="cursor: pointer;" href th:if="${userlogin}" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="#{nav.li2}"></a>
                         <a class="nav-link p-3 rounded-pill" th:href="@{/registro}" th:unless="${userlogin}" th:text="#{nav.li3}"></a>
                     </li>
                <!--     <li class="nav-item px-2" th:if="!${userlogin}">
