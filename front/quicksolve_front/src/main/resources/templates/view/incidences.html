@@ -91,7 +91,12 @@
                          th:each="incidence : ${incidences}"
                          th:if="${incidence.incidenceState.id == state.id}"
                          style="width: 18rem;"
-                         th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''">
+                         th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
+                         th:onkeyup="'comprobarTecla(\'' + @{/incidencia/} + ${incidence.id} + '\', event)'"
+                         th:tabindex="0"
+                         th:role="button"
+                         th:aria-label="#{incidencias.label1}"
+                    >
                         <div class="card-body">
                             <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                             <p class="card-text text-truncate mb-1"
@@ -154,6 +159,7 @@
 <script th:src="@{/js/pagination.js}"></script>
 <script th:src="@{/js/deleteModal.js}"></script>
 <script th:src="@{/js/filterIncidences.js}"></script>
+<script th:src="@{/js/accesibilityKeyUp.js}"></script>
 
 </body>
 
