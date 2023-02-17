@@ -92,13 +92,14 @@
                          th:if="${incidence.incidenceState.id == state.id}"
                          style="width: 18rem;"
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
-                         th:onkeyup="'comprobarTecla(\'' + @{/incidencia/} + ${incidence.id} + '\', event)'"
-                         th:tabindex="0"
-                         th:role="button"
-                         th:aria-label="#{incidencias.label1}"
                     >
                         <div class="card-body">
-                            <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
+                            <h5 class="card-title text-truncate"
+                                th:text="${incidence.title}"
+                                th:onkeyup="'comprobarTecla(\'' + @{/incidencia/} + ${incidence.id} + '\', event)'"
+                                th:tabindex="0"
+                                th:role="button"
+                                th:aria-label="#{incidencias.label1}"></h5>
                             <p class="card-text text-truncate mb-1"
                                th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
@@ -109,9 +110,12 @@
                                         <span disabled="disabled" class="material-symbols-outlined">edit</span></a>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
                                        th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}"
-                                       class="icons-crud text-danger mx-1 text-delete btnDelModal"><span
-                                            disabled="disabled"
-                                            class="material-symbols-outlined">close</span></a>
+                                       class="icons-crud text-danger mx-1 text-delete btnDelModal"
+                                       th:tabindex="0"
+                                       th:role="button"
+                                    >
+                                        <span disabled="disabled" class="material-symbols-outlined">close</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

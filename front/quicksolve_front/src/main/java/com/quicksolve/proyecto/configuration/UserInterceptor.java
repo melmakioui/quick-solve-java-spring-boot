@@ -28,7 +28,7 @@ public class UserInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        String auth = request.getHeader("Authorization");
+        /*String auth = request.getHeader("Authorization");
         if (auth != null && !auth.isEmpty()){
             String token = auth.replace("Bearer ", "");
 
@@ -50,7 +50,7 @@ public class UserInterceptor implements HandlerInterceptor {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is missing");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
-        }
+        }*/return true;
     }
 
     private String[] getRolsFromURL(String URI){
