@@ -1,18 +1,16 @@
-async function login(email, password) {
-    console.log(JSON.stringify({
-        "email": email,
-        "password": password
-    }))
+function login(email, password) {
     $.ajax("http://localhost:8080/loginTokenGenerate", {
         method: 'POST',
-        body: "pepito",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "email":email,
+            "password":password
+        }),
         success: function(token){
             localStorage.setItem('token', "Bearer " + token);
-            return true;
         },
         error: function(err){
-            console.log(err)
-            return false;
+            console.log(err);
         }
     });
 }
