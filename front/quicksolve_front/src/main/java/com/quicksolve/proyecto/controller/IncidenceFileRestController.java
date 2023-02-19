@@ -15,7 +15,7 @@ public class IncidenceFileRestController {
     @Autowired
     private IncidenceFileService incidenceFileService;
 
-    @PostMapping("/imagenes/{incidenceId}")
+    @PostMapping("/rest/imagenes/{incidenceId}")
     public ResponseEntity<Set<FileDTO>> getFilesByIncidenceId(@PathVariable Long incidenceId){
         if (incidenceId == null){
             return ResponseEntity.badRequest().build();
@@ -28,7 +28,7 @@ public class IncidenceFileRestController {
         return ResponseEntity.ok(files);
     }
 
-    @DeleteMapping("/imagenes/eliminar")
+    @DeleteMapping("/rest/imagenes/eliminar")
     public ResponseEntity<HttpResponse> deleteFileByIncidenceId(@RequestParam String src, @RequestParam Long incidenceId){
         incidenceFileService.deleteBySrc(src, incidenceId);
         return ResponseEntity.ok().build();

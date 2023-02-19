@@ -13,7 +13,7 @@ public class IncidencesSearchController {
     @Autowired
     private IncidenceService incidenceService;
 
-    @PostMapping(value = "/incidencias/buscar", produces = "application/json")
+    @PostMapping(value = "/rest/incidencias/buscar", produces = "application/json")
     public @ResponseBody List<FullIncidenceDTO> showAllResolvedIncidences(@RequestBody String search){
         return incidenceService.listIncidencesByStateAndSearch(4, search);
     }

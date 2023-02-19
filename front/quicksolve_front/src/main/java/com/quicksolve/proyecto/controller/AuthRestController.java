@@ -23,8 +23,15 @@ public class AuthRestController {
 
     @PostMapping(value = "/loginTokenGenerate")
     public @ResponseBody ResponseEntity<?> validacioLogin(@RequestBody String jsonData) throws JSONException {
-
-        JSONObject json = new JSONObject(jsonData);
+        System.out.println(jsonData);
+        System.out.println(jsonData);
+        System.out.println(jsonData);
+        System.out.println(jsonData);
+        System.out.println(jsonData);
+        System.out.println(jsonData);
+        System.out.println(jsonData);
+        return new ResponseEntity<>(HttpStatus.OK);
+/*        JSONObject json = new JSONObject(jsonData);
         String email = json.getString("email");
         String password = json.getString("password");
 
@@ -43,7 +50,7 @@ public class AuthRestController {
             }
         } else {
             return new ResponseEntity<>("User not authorized", HttpStatus.UNAUTHORIZED);
-        }
+        }*/
     }
 
 }
