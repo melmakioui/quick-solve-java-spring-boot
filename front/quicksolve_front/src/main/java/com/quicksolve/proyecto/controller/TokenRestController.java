@@ -19,8 +19,8 @@ public class TokenRestController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/loginTokenGenerate")
-    public @ResponseBody String validacioLogin(@RequestBody String jsonData) throws JSONException {
+    @PostMapping(value = "/token/crear")
+    public @ResponseBody String crearToken(@RequestBody String jsonData) throws JSONException {
         JSONObject json = new JSONObject(jsonData);
         String email = json.getString("email");
 
