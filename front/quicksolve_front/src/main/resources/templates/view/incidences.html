@@ -24,7 +24,7 @@
 
     <div class="d-flex justify-content-end align-items-end mb-3">
 
-        <th:block th:include="view/fragments/formfilter"></th:block>
+        <th:block th:include="~{view/fragments/formFilter :: formFilter}"></th:block>
         <div id="offCanvasBtnCont">
             <button id="offcanvasBtn" class="btn btn-secondary d-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter" th:text="#{incidencias.filtrar}">
@@ -47,10 +47,10 @@
     <div class="w-100 mt-5 d-flex flex-nowrap flex-column justify-content-center align-items-center"
          th:if="${#lists.isEmpty(incidences)} and ${isFilter}">
         <h1 class="text-center" th:text="#{incidencias.sin.resultado} + '...'"></h1>
-        <img th:src="@{/img/person-dealing-error.svg}" width="800">
+        <img th:src="@{/img/person-dealing-error.svg}" width="350">
     </div>
     <div class="accordion mb-5" id="accordion"
-         th:if="!${#lists.isEmpty(incidences)} and !${isFilter} or !${#lists.isEmpty(incidences)} and ${isFilter} ">
+         th:if="!${isFilter} or !${#lists.isEmpty(incidences)} and ${isFilter} ">
         <div class="accordion-item" th:each="state : ${status}">
             <h2 class="accordion-header" th:id="${#strings.replace(state.id,' ','')}">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

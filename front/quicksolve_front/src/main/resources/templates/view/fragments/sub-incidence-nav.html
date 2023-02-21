@@ -1,5 +1,5 @@
-<header class="sticky-top">
-  <nav th:fragment="nav-incidence" class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark"  data-bs-theme="dark">
+<header  th:fragment="nav-incidence" class="sticky-top">
+  <nav class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark"  data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" th:href="@{/}">
         <img th:src="@{/img/logo-tr.png}" alt="logo" width="70" height="70">
@@ -23,9 +23,7 @@
             <a class="nav-link p-3 rounded-pill" style="cursor: pointer;" th:if="${userlogin}" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="#{nav.li2}"></a>
             <a class="nav-link p-3 rounded-pill" th:href="@{/registro}" th:unless="${userlogin}" th:text="#{nav.li3}"></a>
           </li>
-          <!--     <li class="nav-item px-2" th:if="!${userlogin}">
-                   <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/incidencias}" th:text="#{nav.li4}"></a>
-               </li>-->
+
           <li class="nav-item px-2" th:if="not ${userlogin}">
             <a class="nav-link p-3 rounded-pill" th:if="not ${userlogin}" th:href="@{/public/nueva}" th:text="#{nav.li5}"></a>
           </li>

@@ -111,14 +111,17 @@
 
     <hr>
 
+
+    <!--Responsive-->
+
     <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null} and ${incidence.incidenceState.id < 3}"
         class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
 
-    <div class="row justify-content-center mb-5">
-        <th:block th:include="/view/fragments/messages"></th:block>
+        <div class="row justify-content-center mb-5 mx-5">
+            <th:block th:include="/view/fragments/messages"></th:block>
+            <th:block th:include="/view/fragments/formMessage"></th:block>
+        </div>
     </div>
-
-    <th:block th:include="/view/fragments/formMessage"></th:block>
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
