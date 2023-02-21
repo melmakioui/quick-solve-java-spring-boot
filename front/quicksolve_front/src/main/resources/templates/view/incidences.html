@@ -7,7 +7,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title th:text="#{incidencias.titulo1}"></title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/style.css}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
     <link rel="stylesheet"
@@ -15,6 +15,7 @@
 </head>
 
 <body>
+hola joan
 
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 
@@ -47,12 +48,12 @@
     <div class="w-100 mt-5 d-flex flex-nowrap flex-column justify-content-center align-items-center"
          th:if="${#lists.isEmpty(incidences)} and ${isFilter}">
         <h1 class="text-center" th:text="#{incidencias.sin.resultado} + '...'"></h1>
-        <h1 class="mt-2">IMAGE</h1>
+        <img th:src="@{/img/person-dealing-error.svg}" width="350">
     </div>
     <div class="accordion mb-5" id="accordion"
-         th:if="!${#lists.isEmpty(incidences)} and !${isFilter} or !${#lists.isEmpty(incidences)} and ${isFilter} ">
+         th:if="!${isFilter} or !${#lists.isEmpty(incidences)} and ${isFilter} ">
         <div class="accordion-item" th:each="state : ${status}">
-            <h2 class="accordion-header" id="headingOne">
+            <h2 class="accordion-header" th:id="${#strings.replace(state.id,' ','')}">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         aria-expanded="false" th:text="${state.name}"
                         th:attr="data-bs-target='#' + ${#strings.replace(state.name,' ','')}, aria-controls=${state.name}">
@@ -61,10 +62,10 @@
             </h2>
             <div th:id="${#strings.replace(state.name,' ','')}"
                  th:class="${state.id == 1} ? 'accordion-collapse collapse show' : 'accordion-collapse collapse'"
-                 aria-labelledby="headingOne"
+                 th:attr="aria-labelledby=${#strings.replace(state.id,' ','')}"
                  data-bs-parent="#accordion">
 
-                <div class="accordion-body d-flex flex-wrap justify-content-center justify-content-md-start incidences">
+                <div class="accordion-body d-flex flex-wrap justify-content-center justify-content-md-start align-items-center incidences">
 
                     <div th:if="${state.id == 1}"
                          id="new-incidence"
@@ -91,15 +92,9 @@
                          th:each="incidence : ${incidences}"
                          th:if="${incidence.incidenceState.id == state.id}"
                          style="width: 18rem;"
-                         th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
-                    >
+                         th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''">
                         <div class="card-body">
-                            <h5 class="card-title text-truncate"
-                                th:text="${incidence.title}"
-                                th:onkeyup="'comprobarTecla(\'' + @{/incidencia/} + ${incidence.id} + '\', event)'"
-                                th:tabindex="0"
-                                th:role="button"
-                                th:aria-label="#{incidencias.label1}"></h5>
+                            <p class="card-title text-truncate fs-5" th:text="${incidence.title}"></p>
                             <p class="card-text text-truncate mb-1"
                                th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
@@ -110,12 +105,9 @@
                                         <span disabled="disabled" class="material-symbols-outlined">edit</span></a>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
                                        th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}"
-                                       class="icons-crud text-danger mx-1 text-delete btnDelModal"
-                                       th:tabindex="0"
-                                       th:role="button"
-                                    >
-                                        <span disabled="disabled" class="material-symbols-outlined">close</span>
-                                    </a>
+                                       class="icons-crud text-danger mx-1 text-delete btnDelModal"><span
+                                            disabled="disabled"
+                                            class="material-symbols-outlined">close</span></a>
                                 </div>
                             </div>
                         </div>
@@ -131,11 +123,11 @@
     </div>
 </main>
 
-<div class="modal fade" id="deleteIncidence" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteIncidence" tabindex="-1" aria-labelledby="deleteIncidence" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-primary text-texto-contraste">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel" th:text="#{incidencia.eliminar.titulo}"></h1>
+                <h1 class="modal-title fs-5" id="deltext" th:text="#{incidencia.eliminar.titulo}"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" th:text="#{incidencia.eliminar.mensaje}"></div>
@@ -163,7 +155,6 @@
 <script th:src="@{/js/pagination.js}"></script>
 <script th:src="@{/js/deleteModal.js}"></script>
 <script th:src="@{/js/filterIncidences.js}"></script>
-<script th:src="@{/js/accesibilityKeyUp.js}"></script>
 
 </body>
 
