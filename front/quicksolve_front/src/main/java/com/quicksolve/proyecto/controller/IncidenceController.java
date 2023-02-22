@@ -289,6 +289,7 @@ public class IncidenceController {
             incidence.setSpaceName(spaceService.findById(incidence.getSpaceId()) != null ?
                     spaceService.findById(incidence.getSpaceId()).getName() : "N/A");
             incidence.setTechName(userService.getUserBy(incidence.getTechId()).getUsername());
+            incidence.setDateEnd(incidence.getDateEnd() != null ? incidence.getDateEnd() : null);
             return incidence;
         }).toList();
 
