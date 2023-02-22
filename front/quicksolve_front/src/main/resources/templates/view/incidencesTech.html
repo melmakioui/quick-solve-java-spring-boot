@@ -30,7 +30,7 @@
                                     <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                                     <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                                     <div class="d-flex justify-content-between">
-                                        <small th:text="${incidence.dateStart}"></small>
+                                        <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                         <div>
                                             <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                                 <span disabled="disabled" class="material-symbols-outlined">close</span>
@@ -58,7 +58,7 @@
                                     <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                                     <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                                     <div class="d-flex justify-content-between">
-                                        <small th:text="${incidence.dateStart}"></small>
+                                        <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                         <div>
                                             <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                                 <span disabled="disabled" class="material-symbols-outlined">close</span>
@@ -86,7 +86,7 @@
                                     <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                                     <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                                     <div class="d-flex justify-content-between">
-                                        <small th:text="${incidence.dateStart}"></small>
+                                        <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                         <div>
                                             <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                                 <span disabled="disabled" class="material-symbols-outlined">close</span>
@@ -125,5 +125,6 @@
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
 <script th:src="@{/js/busquedaIncidencias.js}"></script>
 <script th:src="@{/js/activeLinks.js}"></script>
+<script th:src="@{/js/deleteModal.js}"></script>
 </body>
 </html>
