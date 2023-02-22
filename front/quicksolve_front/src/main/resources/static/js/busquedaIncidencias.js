@@ -5,6 +5,9 @@ $(document).ready(function (){
             $.ajax('http://localhost:8080/rest/incidencias/buscar', {
                 method: 'POST',
                 contentType: 'application/json',
+                headers: {
+                    "Authorization": localStorage.getItem("token")
+                },
                 data: evt.currentTarget.value,
                 success: function (data) {
                     $("#resultados-incidencias").html("")

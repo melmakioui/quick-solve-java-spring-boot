@@ -29,6 +29,9 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:8080/rest/imagenes/" + incidenceId,
             type: "POST",
+            headers: {
+                "Authorization": localStorage.getItem("token")
+            },
             success: function (data) {
 
                 $.each(data, function (index, value) {
