@@ -30,9 +30,9 @@
                                     <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                                     <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                                     <div class="d-flex justify-content-between">
-                                        <small th:text="${incidence.dateStart}"></small>
+                                        <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                         <div>
-                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
+                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/tech/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                                 <span disabled="disabled" class="material-symbols-outlined">close</span>
                                             </a>
                                         </div>
@@ -58,9 +58,9 @@
                                     <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                                     <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                                     <div class="d-flex justify-content-between">
-                                        <small th:text="${incidence.dateStart}"></small>
+                                        <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                         <div>
-                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
+                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/tech/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                                 <span disabled="disabled" class="material-symbols-outlined">close</span>
                                             </a>
                                         </div>
@@ -86,9 +86,9 @@
                                     <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                                     <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                                     <div class="d-flex justify-content-between">
-                                        <small th:text="${incidence.dateStart}"></small>
+                                        <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                         <div>
-                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
+                                            <a data-bs-toggle="modal" data-bs-target="#deleteIncidence" th:attr="data-link='/incidencia/tech/cancelar/' + ${incidence.id}" class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                                 <span disabled="disabled" class="material-symbols-outlined">close</span>
                                             </a>
                                         </div>
@@ -119,11 +119,33 @@
     </div>
 </div>
 </main>
+
+
+<div class="modal fade" id="deleteIncidence" tabindex="-1" aria-labelledby="deleteIncidence" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-primary text-texto-contraste">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deltext" th:text="#{incidencia.eliminar.titulo}"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" th:text="#{incidencia.eliminar.mensaje}"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal"
+                        th:text="#{incidencia.eliminar.cancelar}"></button>
+                <a id="delBtnModal">
+                    <button type="button" class="btn btn-secondary" th:text="#{incidencia.eliminar.boton}"></button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
 <script th:src="@{/js/busquedaIncidencias.js}"></script>
 <script th:src="@{/js/activeLinks.js}"></script>
+<script th:src="@{/js/deleteModal.js}"></script>
 </body>
 </html>

@@ -113,6 +113,8 @@ public class IncidenceController {
         model.addAttribute("status", incidenceStateService.list());
         model.addAttribute("isFilter", false);
 
+        System.out.println(historyService.getHistoryByIncidenceId(4L));
+
         return "view/incidences";
     }
 
@@ -267,6 +269,34 @@ public class IncidenceController {
         historyService.saveHistory(incidenceId);
         return "redirect:/incidencia/" + incidenceId;
     }
+
+    @GetMapping("/incidencia/historial/{incidenceId}")
+    public String showHistory(@PathVariable long incidenceId, Model model) throws AccessDeniedException {
+
+        FullUserDTO userDTO = (FullUserDTO) model.getAttribute("userlogin");
+
+        if (userDTO.getType() == UserType.USER){
+            throw new AccessDeniedException("No tienes permisos para realizar esta acción");
+        }
+
+        List<HistoryDTO> history = historyService.getHistoryByIncidenceId(incidenceId);
+
+        List<HistoryDTO> fullHistory = history.stream().map(incidence -> {
+            incidence.setStateName(incidenceStateService.findById(incidence.getStateId()).getName());
+            incidence.setDepartmentName(departmentService.findById(incidence.getDepartmentId()) != null ?
+                    departmentService.findById(incidence.getDepartmentId()).getName() : "N/A" );
+            incidence.setSpaceName(spaceService.findById(incidence.getSpaceId()) != null ?
+                    spaceService.findById(incidence.getSpaceId()).getName() : "N/A");
+            incidence.setTechName(userService.getUserBy(incidence.getTechId()).getUsername());
+            incidence.setDateEnd(incidence.getDateEnd() != null ? incidence.getDateEnd() : null);
+            return incidence;
+        }).toList();
+
+        model.addAttribute("incidenceHistory",fullHistory);
+        model.addAttribute("incidenceId", incidenceId);
+        return "view/history";
+    }
+
 
     private BindingResult excludeEmailFormValidationForUsers(BindingResult bindingResult, FullIncidenceDTO fullIncidenceDTO, Model model) {
         if (model.getAttribute("userlogin") instanceof FullUserDTO) {

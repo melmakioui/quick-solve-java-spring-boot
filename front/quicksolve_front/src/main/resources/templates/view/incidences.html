@@ -25,7 +25,7 @@ hola joan
 
     <div class="d-flex justify-content-end align-items-end mb-3">
 
-        <th:block th:include="view/fragments/formfilter"></th:block>
+        <th:block th:include="~{view/fragments/formFilter :: formFilter}"></th:block>
         <div id="offCanvasBtnCont">
             <button id="offcanvasBtn" class="btn btn-secondary d-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter" th:text="#{incidencias.filtrar}">

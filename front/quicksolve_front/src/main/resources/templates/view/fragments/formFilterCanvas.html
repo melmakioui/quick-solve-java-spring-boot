@@ -1,31 +1,33 @@
-<form th:fragment="formfilterResponsive" id="filter" th:action="@{/incidencias}" method="post" class="d-flex flex-column align-items-center justify-content-center">
+<div  th:fragment="formfilterResponsive" class="d-flex flex-column align-items-center justify-content-center">
+<form id="filter" th:action="@{/incidencias}" method="post" class="d-flex flex-column align-items-center justify-content-center w-100">
 
   <div class="d-flex flex-column align-items-start w-100 mb-3">
-    <label for="datepicker">Fecha</label>
+    <label for="datepickerResponsive">Fecha</label>
     <input type="text" class="form-control" id="datepickerResponsive" name="dateStart" placeholder="AAAA-MM-DD" style="cursor: pointer" autocomplete="off">
   </div>
 
   <div class="d-flex flex-column align-items-start w-100 mb-3">
-    <label for="dep" th:text="#{formupt.campo3}"></label>
-    <select class="form-select" name="department" id="dep">
+    <label for="depResp" th:text="#{formupt.campo3}"></label>
+    <select class="form-select" name="department" id="depResp">
       <option th:text="#{filter.todos}" th:value="0" selected></option>
       <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
     </select>
   </div>
 
   <div class=" mx-2  d-flex flex-column align-items-start w-100 mb-3">
-    <label for="spa" class="mx-2" th:text="#{formupt.campo4}"></label>
-    <select class="form-select" name="space" id="spa">
+    <label for="spaResp" class="mx-2" th:text="#{formupt.campo4}"></label>
+    <select class="form-select" name="space" id="spaResp">
       <option th:text="#{filter.todos}" th:value="0" selected></option>
       <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
     </select>
   </div>
 
   <div class="w-100 mb-3">
-    <a th:href="@{/incidencias}" id="reset-filter" class="btn btn-secondary w-100" type="button">RESET</a>
+    <a th:href="@{/incidencias}" id="reset-filter-resp" class="btn btn-secondary w-100" type="button">RESET</a>
   </div>
 
   <div class="w-100">
-    <button type="submit" class="btn btn-secondary w-100"  th:text="#{incidencias.filtrar}"></button>
+    <button id="filter-resp" type="submit" class="btn btn-secondary w-100"  th:text="#{incidencias.filtrar}"></button>
   </div>
 </form>
+</div>

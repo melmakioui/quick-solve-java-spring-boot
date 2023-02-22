@@ -1,8 +1,10 @@
 package com.quicksolve.proyecto.service.implementation;
 
+import com.quicksolve.proyecto.dto.HistoryDTO;
 import com.quicksolve.proyecto.entity.History;
 import com.quicksolve.proyecto.entity.Incidence;
 import com.quicksolve.proyecto.entity.UserIncidence;
+import com.quicksolve.proyecto.mapper.HistoryMapper;
 import com.quicksolve.proyecto.repository.HistoryRepository;
 import com.quicksolve.proyecto.repository.UserIncidenceRepository;
 import com.quicksolve.proyecto.service.HistoryService;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {
@@ -53,6 +57,13 @@ public class HistoryServiceImpl implements HistoryService {
 
         historyRepository.save(history);
     }
+
+    @Override
+    public List<HistoryDTO> getHistoryByIncidenceId(long incidenceId) {
+        List<History> historyDTOS = historyRepository.findByIncidenceIdOrderByChangeDateDesc(incidenceId);
+        return historyDTOS.stream().map(HistoryMapper.INSTANCE::historyToDTO).toList();
+    }
+
 
 }
 

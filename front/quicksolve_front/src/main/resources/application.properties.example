@@ -11,3 +11,7 @@ API_KEY=
 mailgun.from=
 mailgun.domain=
 
+#For insert data in the database at the start of the application
+#spring.jpa.defer-datasource-initialization=true
+#spring.sql.init.mode=always
+#spring.sql.init.data-locations=classpath:data.sql -> this file has to be in the resources folder
