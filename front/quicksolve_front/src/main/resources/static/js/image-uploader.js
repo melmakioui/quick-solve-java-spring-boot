@@ -27,7 +27,7 @@ $(document).ready(function () {
         const preloaded = [];
 
         $.ajax({
-            url: "http://localhost:8080/imagenes/" + incidenceId,
+            url: "http://localhost:8080/rest/imagenes/" + incidenceId,
             type: "POST",
             success: function (data) {
 
@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     function deleteImage(src,incidenceId){
         $.ajax({
-            url: "http://localhost:8080/imagenes/eliminar",
+            url: "http://localhost:8080/rest/imagenes/eliminar",
             type: "DELETE",
             data: {
                 src: src,

@@ -1,6 +1,5 @@
 package com.quicksolve.proyecto.controller;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.quicksolve.proyecto.dto.*;
 import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.*;
