@@ -44,7 +44,6 @@ public class UserInterceptor implements HandlerInterceptor {
                 }
 
                 FullUserDTO usr = (FullUserDTO) session.getAttribute("userlogin");
-                System.out.println(usr);
                 String URI = request.getRequestURI();
                 String[] rolsURL = getRolsFromURL(URI);
 
