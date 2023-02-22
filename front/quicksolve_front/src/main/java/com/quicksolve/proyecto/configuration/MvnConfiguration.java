@@ -20,7 +20,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(UserInterceptor)
-                .addPathPatterns("/incidencias/**", "/incidencia/**", "/nueva/**", "/modificar/**", "/planes/**", "/cuenta/**","/editar/**","guardar/**","/borrar/**", "/invoices");
+                .addPathPatterns("/incidencias/**", "/incidencia/**", "/nueva/**", "/modificar/**", "/planes/**", "/cuenta/**","/editar/**","guardar/**","/borrar/**", "/invoices/**","/historial/**");
     }
 
     @Override
@@ -35,7 +35,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
         registry.addViewController("/errorno.html").setViewName("errorno");
     }
 
-    // CORS para pruebas
+   // CORS para pruebas
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
