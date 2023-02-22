@@ -32,7 +32,7 @@ public class AuthRestController {
             FullUserDTO userDTO = userService.getUserBy(email);
             return crearTokenPasswordValid(email, password, userDTO);
         }
-        return new ResponseEntity<>("User not authorized", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>("Este usuario no está autorizado.", HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping(value = "/loginTokenGeneratePrivate")
@@ -44,10 +44,15 @@ public class AuthRestController {
         if(userService.existsWithEmail(email)) {
             FullUserDTO userDTO = userService.getUserBy(email);
             if (userDTO.getType() == UserType.ADMIN) return crearTokenPasswordValid(email, password, userDTO);
-            return new ResponseEntity<>("User is not administrator", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("El usuario no es un administrador.", HttpStatus.UNAUTHORIZED);
         } else {
-            return new ResponseEntity<>("User not authorized", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Este usuario no está autorizado.", HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @PostMapping(value = "/token/validar")
+    public @ResponseBody ResponseEntity<?> validacionToken(@RequestBody String token){
+        return tokenService.validateToken(token) == 0 ? new ResponseEntity<>("Se ha validado el token", HttpStatus.OK) : new ResponseEntity<>("No se ha podido validar el token", HttpStatus.UNAUTHORIZED);
     }
 
     private ResponseEntity<?> crearTokenPasswordValid(String email, String password, FullUserDTO userDTO) {
@@ -56,7 +61,7 @@ public class AuthRestController {
             if (userDTO.getType() != null) rol = userDTO.getType().name();
             return new ResponseEntity<>(tokenService.createToken(email, rol), HttpStatus.OK);
         }
-        return new ResponseEntity<>("User not authorized", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>("Este usuario no está autorizado.", HttpStatus.UNAUTHORIZED);
     }
 
 }
