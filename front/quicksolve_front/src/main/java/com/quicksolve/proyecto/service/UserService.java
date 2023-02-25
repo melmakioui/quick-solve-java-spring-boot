@@ -27,4 +27,6 @@ public interface UserService {
     boolean existsWithEmail(String email);
 
     FullUserDTO getFullUser(Long id);
+
+    void activateUser(String email);
 }

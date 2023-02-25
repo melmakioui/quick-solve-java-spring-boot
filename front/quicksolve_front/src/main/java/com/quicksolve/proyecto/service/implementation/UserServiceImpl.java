@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FullUserDTO createUser(FullUserDTO usr){
-        usr.setActive(true);
+        usr.setActive(false);
         usr.setType(UserType.USER);
         usr.setPassword(passwordEncoder.encoder().encode(usr.getPassword()));
 
@@ -96,5 +96,12 @@ public class UserServiceImpl implements UserService {
 
         usr.setData(data);
         return usr;
+    }
+
+    @Override
+    public void activateUser(String email) {
+        User usr = userRepo.findByEmail(email);
+        usr.setActive(true);
+        userRepo.save(usr);
     }
 }

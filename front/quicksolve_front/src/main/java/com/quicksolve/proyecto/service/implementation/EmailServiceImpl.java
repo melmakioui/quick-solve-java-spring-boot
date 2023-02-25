@@ -38,4 +38,22 @@ public class EmailServiceImpl implements EmailService {
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public void sendEmailVerificationAccount(String to, String token) {
+        try {
+            MailgunMessagesApi mailgunMessagesApi = MailgunClient.config(URL, API_KEY)
+                    .createApi(MailgunMessagesApi.class);
+
+            Message message = Message.builder()
+                    .from(FROM)
+                    .to(to)
+                    .subject("No Reply")
+                    .html("<html><body><p>Para verificar tu cuenta haz click en el siguiente enlace : <a href='http://localhost:8080/verify?code=" + token + "'>Verificar</a></p></body></html>")
+                    .build();
+            mailgunMessagesApi.sendMessage(DOMAIN, message);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

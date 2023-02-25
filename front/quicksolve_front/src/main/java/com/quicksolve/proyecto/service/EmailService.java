@@ -4,4 +4,6 @@ public interface EmailService {
 
 
      void sendEmail(String to, String incidenceTitle);
+
+     void sendEmailVerificationAccount(String to, String token);
 }

@@ -3,13 +3,12 @@ package com.quicksolve.proyecto.controller;
 import com.quicksolve.proyecto.dto.FullUserDTO;
 import com.quicksolve.proyecto.dto.UserDataDTO;
 import com.quicksolve.proyecto.entity.User;
-import com.quicksolve.proyecto.entity.UserData;
+import com.quicksolve.proyecto.service.EmailService;
+import com.quicksolve.proyecto.service.TokenService;
 import com.quicksolve.proyecto.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +21,12 @@ public class RegisterController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/registro")
     public String renderRegister(Model model){
@@ -56,8 +61,10 @@ public class RegisterController {
 
         user.setData(new UserDataDTO(name, firstSurname, secondSurname, LocalDateTime.now()));
 
+        //Verificacion de email
         FullUserDTO totalUser = userService.createUser(user);
-        model.addAttribute("userlogin", totalUser);
-        return "redirect:/incidencias";
+        String tokenUser = tokenService.createToken(totalUser.getEmail(),totalUser.getType().name());
+        emailService.sendEmailVerificationAccount(totalUser.getEmail(), tokenUser);
+        return "view/emailVerification";
     }
 }
