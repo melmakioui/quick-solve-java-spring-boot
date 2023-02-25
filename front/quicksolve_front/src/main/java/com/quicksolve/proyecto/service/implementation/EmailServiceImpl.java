@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmailVerificationAccount(String to, String token) {
+    public void sendEmailVerificationAccount(String to,String html) {
         try {
             MailgunMessagesApi mailgunMessagesApi = MailgunClient.config(URL, API_KEY)
                     .createApi(MailgunMessagesApi.class);
@@ -49,7 +49,7 @@ public class EmailServiceImpl implements EmailService {
                     .from(FROM)
                     .to(to)
                     .subject("No Reply")
-                    .html("<html><body><p>Para verificar tu cuenta haz click en el siguiente enlace : <a href='http://localhost:8080/verify?code=" + token + "'>Verificar</a></p></body></html>")
+                    .html(html)
                     .build();
             mailgunMessagesApi.sendMessage(DOMAIN, message);
         } catch (Exception e) {

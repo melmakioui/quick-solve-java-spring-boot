@@ -7,6 +7,7 @@ import com.quicksolve.proyecto.service.EmailService;
 import com.quicksolve.proyecto.service.TokenService;
 import com.quicksolve.proyecto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +28,9 @@ public class RegisterController {
 
     @Autowired
     private EmailService emailService;
+
+    @Value("${url}")
+    private String URL;
 
     @GetMapping("/registro")
     public String renderRegister(Model model){
@@ -64,7 +68,8 @@ public class RegisterController {
         //Verificacion de email
         FullUserDTO totalUser = userService.createUser(user);
         String tokenUser = tokenService.createToken(totalUser.getEmail(),totalUser.getType().name());
-        emailService.sendEmailVerificationAccount(totalUser.getEmail(), tokenUser);
-        return "view/emailVerification";
+        String html = "<html><body><h1>Verifica tu cuenta</h1><p>Para verificar tu cuenta, haz click en el siguiente enlace: <a href='" + URL +"/verificar?code=" + tokenUser + "'>Verificar</a></p></body></html>";
+        emailService.sendEmailVerificationAccount(totalUser.getEmail(), html);
+        return "view/notifier";
     }
 }

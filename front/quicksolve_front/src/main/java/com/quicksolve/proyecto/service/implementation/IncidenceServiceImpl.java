@@ -54,6 +54,9 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
+
+        System.out.println(UserMapper.INSTANCE.DTOtoUser(userDTO));
+
         List<Incidence> incidences = userIncidenceRepo.findAllByUser(UserMapper.INSTANCE.DTOtoUser(userDTO))
                 .stream()
                 .map(UserIncidence::getIncidence)

@@ -28,9 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FullUserDTO createUser(FullUserDTO usr){
-        usr.setActive(false);
         usr.setType(UserType.USER);
-        usr.setPassword(passwordEncoder.encoder().encode(usr.getPassword()));
+
+        if (!usr.isOauth()){
+            usr.setActive(false);
+            usr.setPassword(passwordEncoder.encoder().encode(usr.getPassword()));
+        }
 
         User userToSave = UserMapper.INSTANCE.DTOtoUser(usr);
         UserData dataToSave = UserDataMapper.INSTANCE.DTOtoUserData(usr.getData());
@@ -102,6 +105,13 @@ public class UserServiceImpl implements UserService {
     public void activateUser(String email) {
         User usr = userRepo.findByEmail(email);
         usr.setActive(true);
+        userRepo.save(usr);
+    }
+
+    @Override
+    public void changePassword(String email, String password) {
+        User usr = userRepo.findByEmail(email);
+        usr.setPassword(passwordEncoder.encoder().encode(password));
         userRepo.save(usr);
     }
 }
