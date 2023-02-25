@@ -29,4 +29,6 @@ public interface UserService {
     FullUserDTO getFullUser(Long id);
 
     void activateUser(String email);
+
+    void changePassword(String email, String password);
 }
