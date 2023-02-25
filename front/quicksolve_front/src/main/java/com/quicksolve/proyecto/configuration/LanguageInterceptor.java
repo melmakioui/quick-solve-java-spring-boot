@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,23 +25,14 @@ public class LanguageInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        //TODO segun el parametro traer el idioma del servicio
+        LocaleResolver localeResolver = new CookieLocaleResolver();
+        Locale userLocale = localeResolver.resolveLocale(request);
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
 
-        String language = request.getParameter("lang");
-        String finalLanguage = "";
+        lci.setParamName("lang");
+        lci.preHandle(request, response, handler);
 
-        if (language == null) {
-            finalLanguage = request.getHeader("Accept-Language");
-            if (finalLanguage == null) {
-                finalLanguage = Locale.getDefault().getLanguage();
-            }else {
-                finalLanguage = finalLanguage.substring(0, 2);
-            }
-        }else {
-            finalLanguage = language.substring(0, 2);
-        }
-
-            List<LanguageDTO> languageDTO = languageService.getLanguage(finalLanguage); //TODO segun el parametro traer el idioma del servicio
+            List<LanguageDTO> languageDTO = languageService.getLanguage(userLocale.getLanguage());
             LanguageDTO languageDTO1 = new LanguageDTO();
 
             for (LanguageDTO lang : languageDTO) {
@@ -49,5 +43,4 @@ public class LanguageInterceptor implements HandlerInterceptor {
                 session.setAttribute("language", languageDTO1);
         return true;
     }
-
 }
