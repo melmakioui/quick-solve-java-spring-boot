@@ -9,6 +9,17 @@
 </head>
 <body class="custom-bg-1">
 
+
+<style>
+
+    .btn-google {
+        color: #545454;
+        background-color: #ffffff;
+        box-shadow: 0 1px 2px 1px #ddd;
+    }
+
+</style>
+
 <div class="container-fluid mb-5">
     <div class="row align-items-center normal-height">
         <div class="col-lg-6 offset-lg-3 mt-5">
@@ -33,6 +44,15 @@
                     </div>
                     <div class="text-center my-4">
                         <button type="submit" class="btn btn-secondary px-5 w-75" th:text="${session.language.getKeyValue().get('login.botonentrar')}"></button>
+                    </div>
+
+                    <div class="text-center mb-4">
+                        <button id="google-btn" class="btn btn-lg btn-google btn-outline-texto-contraste" href="#"><img src="https://img.icons8.com/color/16/000000/google-logo.png"></button>
+                    </div>
+
+                    <div class="form-text text-center mb-3 mt-0 text-texto-contraste">
+                        <span th:text="${session.language.getKeyValue().get('loginaction.contraolvidada')}"></span>
+                        <a th:href="@{/recuperar-cuenta}" class="text-texto-contraste fw-bold text-decoration-none" th:text="${session.language.getKeyValue().get('loginaction.recuperar')}"></a>
                     </div>
                     <div class="form-text text-center mb-4 mt-0 text-texto-contraste">
                         <span th:text="${session.language.getKeyValue().get('login.cambioregistro1')}"></span>
@@ -60,5 +80,8 @@
         $(this).submit();
     })
 </script>
+
+<script async defer src="https://accounts.google.com/gsi/client"></script>
+<script th:src="@{/js/loginGoogle.js}"></script>
 </body>
 </html>
