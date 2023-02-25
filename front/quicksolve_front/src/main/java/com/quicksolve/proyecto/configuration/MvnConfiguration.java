@@ -3,11 +3,9 @@ package com.quicksolve.proyecto.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.handler.MappedInterceptor;
 
 @Configuration
 public class MvnConfiguration implements WebMvcConfigurer {
@@ -15,12 +13,18 @@ public class MvnConfiguration implements WebMvcConfigurer {
     @Qualifier("Interceptor")
     private HandlerInterceptor UserInterceptor;
 
+    @Autowired
+    @Qualifier("LanguageInterceptor")
+    private HandlerInterceptor LanguageInterceptor;
+
     @Value("${upload}")
     private String upload;
 
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(LanguageInterceptor)
+                .addPathPatterns("/**");
         registry.addInterceptor(UserInterceptor)
                 .addPathPatterns("/incidencias/**", "/incidencia/**", "/nueva/**", "/modificar/**", "/planes/**", "/cuenta/**","/editar/**","guardar/**","/borrar/**", "/invoices/**","/historial/**", "/rest/**");
     }
