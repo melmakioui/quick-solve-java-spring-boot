@@ -5,68 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
-    <title th:text="#{registro.titulo1}"></title>
+    <title th:text="${session.language.getKeyValue().get('registro.titulo1')}"></title>
 </head>
 <body class="custom-bg-1">
 
 <div class="container-fluid mb-5">
     <div class="row align-items-center normal-height">
         <div class="col-lg-6 offset-lg-3 mt-5">
-            <h2 class="text-center text-texto-contraste mb-4" th:text="#{registro.titulo1}">Registro</h2>
+            <h2 class="text-center text-texto-contraste mb-4" th:text="${session.language.getKeyValue().get('registro.titulo1')}">Registro</h2>
             <div class="card rounded-4 bg-primary mx-auto" style="max-width: 850px;">
                 <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4 needs-validation" th:action="@{registro}" method="POST" th:object="${user}" id="validatedForm" novalidate>
                     <div class="p-lg-2">
-                        <h3 class="h3 text-texto-contraste p-lg-2 mt-2" th:text="#{registro.titulo2}"></h3>
+                        <h3 class="h3 text-texto-contraste p-lg-2 mt-2" th:text="${session.language.getKeyValue().get('registro.titulo2')}"></h3>
                         <div>
-                            <label for="name" th:text="#{registro.campo1}" class="text-texto-contraste"></label>
+                            <label for="name" th:text="${session.language.getKeyValue().get('registro.campo1')}" class="text-texto-contraste"></label>
                             <input type="text" class="form-control" id="name" name="name" required>
-                            <span class="invalid-feedback text-texto-contraste" th:text="#{registro.nombrevalido}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.nombrevalido')}"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-lg-2 mt-3">
-                                <label for="firstsurname" th:text="#{registro.campo2}" class="text-texto-contraste"></label>
+                                <label for="firstsurname" th:text="${session.language.getKeyValue().get('registro.campo2')}" class="text-texto-contraste"></label>
                                 <input type="text" class="form-control" id="firstsurname" name="firstSurname" required>
-                                <span class="invalid-feedback text-texto-contraste" th:text="#{registro.apellidovalido}"></span>
+                                <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.apellidovalido')}"></span>
                             </div>
                             <div class="col-lg-6 mt-lg-2 mt-3">
-                                <label for="secondsurname" th:text="#{registro.campo3}" class="text-texto-contraste"></label>
+                                <label for="secondsurname" th:text="${session.language.getKeyValue().get('registro.campo3')}" class="text-texto-contraste"></label>
                                 <input type="text" class="form-control" id="secondsurname" name="secondSurname">
                             </div>
                         </div>
                     </div>
                     <div class="p-lg-2">
-                        <h3 class="h3 text-texto-contraste p-lg-2 mt-2" th:text="#{registro.titulo3}"></h3>
+                        <h3 class="h3 text-texto-contraste p-lg-2 mt-2" th:text="${session.language.getKeyValue().get('registro.titulo3')}"></h3>
                         <div>
-                            <label for="username" th:text="#{registro.campo4}" class="text-texto-contraste"></label>
+                            <label for="username" th:text="${session.language.getKeyValue().get('registro.campo4')}" class="text-texto-contraste"></label>
                             <input type="text" class="form-control" th:classappend="${alreadyExistsUsername == 'true' ? 'is-invalid' : ''}" id="username" th:field="*{username}" required>
-                            <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsUsername == 'true'}" th:text="#{registro.usernameDuplicado}"></span>
-                            <span class="invalid-feedback text-texto-contraste" th:text="#{registro.usernamevalido}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsUsername == 'true'}" th:text="${session.language.getKeyValue().get('registro.usernameDuplicado')}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.usernamevalido')}"></span>
                         </div>
                         <div class="mt-lg-2 mt-3">
-                            <label for="email" th:text="#{registro.campo5}" class="text-texto-contraste"></label>
+                            <label for="email" th:text="${session.language.getKeyValue().get('registro.campo5')}" class="text-texto-contraste"></label>
                             <input type="email" class="form-control" th:classappend="${alreadyExistsEmail == 'true' ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" required>
-                            <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsEmail == 'true'}" th:text="#{registro.emailDuplicado}"></span>
-                            <span class="invalid-feedback text-texto-contraste" th:text="#{registro.emailvalido}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsEmail == 'true'}" th:text="${session.language.getKeyValue().get('registro.emailDuplicado')}"></span>
+                            <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.emailvalido')}"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-lg-2 mt-3">
-                                <label for="password" th:text="#{registro.campo6}" class="text-texto-contraste"></label>
+                                <label for="password" th:text="${session.language.getKeyValue().get('registro.campo6')}" class="text-texto-contraste"></label>
                                 <input type="password" class="form-control" id="password" name="password" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d).*$" th:field="*{password}" required>
-                                <span class="invalid-feedback text-texto-contraste" th:text="#{registro.contravalida}"></span>
+                                <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.contravalida')}"></span>
                             </div>
                             <div class="col-lg-6 mt-lg-2 mt-3">
-                                <label for="confirmpassword" th:text="#{registro.campo7}" class="text-texto-contraste"></label>
+                                <label for="confirmpassword" th:text="${session.language.getKeyValue().get('registro.campo7')}" class="text-texto-contraste"></label>
                                 <input type="password" class="form-control" id="confirmpassword" pattern="^$" name="confirmpassword" required>
-                                <span id="passwordMatchError" class="invalid-feedback text-texto-contraste" th:text="#{registro.contracoincide}"></span>
+                                <span id="passwordMatchError" class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.contracoincide')}"></span>
                             </div>
                         </div>
                     </div>
                     <div class="text-center mt-lg-3 mt-4">
-                        <button type="submit" class="btn btn-secondary px-5 mb-3 w-75" id="submit" th:text="#{registro.botoncrear}"></button>
+                        <button type="submit" class="btn btn-secondary px-5 mb-3 w-75" id="submit" th:text="${session.language.getKeyValue().get('registro.botoncrear')}"></button>
                     </div>
                     <div class="form-text text-center mb-4 text-texto-contraste">
-                        <span th:text="#{registro.cambiologin1}"></span>
-                        <a th:href="@{/login}" class="text-texto-contraste fw-bold text-decoration-none" th:text="#{registro.cambiologin2}"></a>
+                        <span th:text="${session.language.getKeyValue().get('registro.cambiologin1')}"></span>
+                        <a th:href="@{/login}" class="text-texto-contraste fw-bold text-decoration-none" th:text="${session.language.getKeyValue().get('registro.cambiologin2')}"></a>
                     </div>
                 </form>
             </div>

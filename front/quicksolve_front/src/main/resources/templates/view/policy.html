@@ -17,69 +17,69 @@
         <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
              class="scrollspy-example-2 px-2 pt-1 mx-2 col-12 col-lg-8" tabindex="0">
 
-            <h1 th:text="#{politica.titulo}"></h1>
-            <p th:text="#{politica.modificado}"></p>
-            <p th:text="#{politica.parrafo.inicial}"></p>
+            <h1 th:text="${session.language.getKeyValue().get('politica.titulo')}"></h1>
+            <p th:text="${session.language.getKeyValue().get('politica.modificado')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.inicial')}"></p>
 
-            <h3 th:text="#{politica.titulo.interpretacion}"></h3>
-            <p th:text="#{politica.parrafo.interpretacion}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.interpretacion')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.interpretacion')}"></p>
 
-            <p th:text="#{politica.titulo.datospersonales}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.titulo.datospersonales')}"></p>
             <ul>
                 <li>
-                    <p th:text="#{politica.datospersonales.email}"></p>
+                    <p th:text="${session.language.getKeyValue().get('politica.datospersonales.email')}"></p>
                 </li>
                 <li>
-                    <p th:text="#{politica.datospersonales.nombre}"></p>
+                    <p th:text="${session.language.getKeyValue().get('politica.datospersonales.nombre')}"></p>
                 </li>
                 <li>
-                    <p th:text="#{politica.datospersonales.datos}"></p>
+                    <p th:text="${session.language.getKeyValue().get('politica.datospersonales.datos')}"></p>
                 </li>
-            <h3 th:text="#{politica.titulo.usodedatos}"></h3>
-            <p th:text="#{politica.subtitulo.usodedatos}"></p>
-            <p th:text="#{politica.parrafo.usodedatos}"></p>
-            <p th:text="#{politica.parrafo.usodedatos2}"></p>
-            <p th:text="#{politica.parrafo.usodedatos3}"></p>
-            <p th:text="#{politica.parrafo.usodedatos4}"></p>
-            <p th:text="#{politica.parrafo.detalles.usodedatos}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.usodedatos')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.subtitulo.usodedatos')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.usodedatos')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.usodedatos2')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.usodedatos3')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.usodedatos4')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.detalles.usodedatos')}"></p>
 
-            <h3 th:text="#{politica.detalles.usodedatos.personales}"></h3>
-            <p th:text="#{politica.detalles.usodedatos.compania}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.detalles.usodedatos.personales')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.detalles.usodedatos.compania')}"></p>
             <ul>
                 <li>
-                    <p><strong th:text="#{politica.usodedatos.propositos}"></strong></p>
+                    <p><strong th:text="${session.language.getKeyValue().get('politica.usodedatos.propositos')}"></strong></p>
                 </li>
                 <li>
-                    <p><strong th:text="#{politica.usodedatos.propositos2}"></strong> </p>
+                    <p><strong th:text="${session.language.getKeyValue().get('politica.usodedatos.propositos2')}"></strong> </p>
                 </li>
                 <li>
-                    <p><strong th:text="#{politica.usodedatos.propositos3}"></strong></p>
+                    <p><strong th:text="${session.language.getKeyValue().get('politica.usodedatos.propositos3')}"></strong></p>
                 </li>
             </ul>
 
-            <h3 th:text="#{politica.titulo.retenciodatos}"></h3>
-            <p th:text="#{politica.parrafo.retenciondatos}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.retenciodatos')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.retenciondatos')}"></p>
 
-            <h3 th:text="#{politica.titulo.eliminaciondatos}"></h3>
-            <p th:text="#{politica.parrafo.eliminaciondatos}"></p>
-            <p th:text="#{politica.parrafo.eliminaciondatos2}"></p>
-            <p th:text="#{politica.parrafo.eliminaciondatos3}"></p>
-            <p th:text="#{politica.parrafo.eliminaciondatos4}"></p>
-            <h3 th:text="#{politica.titulo.negocios}"></h3>
-            <p th:text="#{politica.parrafo.negocios}"></p>
-            <h3 th:text="#{politica.titulo.cumplimiento}"></h3>
-            <p th:text="#{politica.parrafo.cumplimiento}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.eliminaciondatos')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.eliminaciondatos')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.eliminaciondatos2')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.eliminaciondatos3')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.eliminaciondatos4')}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.negocios')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.negocios')}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.cumplimiento')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.cumplimiento')}"></p>
 
-            <h3 th:text="#{politica.titulo.seguridad}"></h3>
-            <p th:text="#{politica.parrafo.seguridad}"></p>
-            <h3 th:text="#{politica.titulo.cambios.privacidad}"></h3>
-            <p th:text="#{politica.parrafo.cambios.privacidad}"></p>
-            <p th:text="#{politica.parrafo.cambios.privacidad2}"></p>
-            <p th:text="#{politica.parrafo.cambios.privacidad3}"></p>
-            <h3 th:text="#{politica.titulo.contacto}"></h3>
-            <p th:text="#{politica.parrafo.contacto}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.seguridad')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.seguridad')}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.cambios.privacidad')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.cambios.privacidad')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.cambios.privacidad2')}"></p>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.cambios.privacidad3')}"></p>
+            <h3 th:text="${session.language.getKeyValue().get('politica.titulo.contacto')}"></h3>
+            <p th:text="${session.language.getKeyValue().get('politica.parrafo.contacto')}"></p>
             <ul>
-                <li th:text="#{politica.contacto.email} + ' quicksolve@info.com'"></li>
+                <li th:text="${session.language.getKeyValue().get('politica.contacto.email')} + ' quicksolve@info.com'"></li>
             </ul>
         </div>
     </div>
@@ -91,21 +91,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
             integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
             crossorigin="anonymous"></script>
-    <script>
-        if (window.innerWidth < 820) {
-            document.getElementById("sidebar").style.display = "none";
-        }else {
-            document.getElementById("sidebar").style = "position: fixed";
-        }
-
-        window.addEventListener("resize", function () {
-            if (window.innerWidth < 820) {
-                document.getElementById("sidebar").style.display = "none";
-            }else {
-                document.getElementById("sidebar").style = "position: fixed";
-            }
-        });
-
-    </script>
 </body>
 </html>

@@ -6,7 +6,7 @@
             <div class="user d-flex flex-row align-items-center">
                 <img th:src="@{/img/user.png}" width="30" alt="" class="user-img rounded-circle mx-3">
                 <span>
-                            <small th:if="${message.user.id == userlogin.id}" th:text="#{incidencia.mensaje.propio}"
+                            <small th:if="${message.user.id == userlogin.id}" th:text="${session.language.getKeyValue().get('incidencia.mensaje.propio')}"
                                    class="font-weight-bold fs-5"></small>
                             <small th:unless="${message.user.id == userlogin.id}" th:text="${message.user.username}"
                                    class="font-weight-bold fs-5"></small>
@@ -25,18 +25,18 @@
                         th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
                         th:if="${message.user.id == userlogin.id and incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
                         th:href="@{/editar/mensaje/} + ${incidence.id} +'/'+ ${message.id}"
-                        th:text="#{incidencia.mensaje.modificar}">
+                        th:text="${session.language.getKeyValue().get('incidencia.mensaje.modificar')}">
                 </a>
                 <a
                         th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
                         th:if="${message.user.id == userlogin.id and  incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
                         th:href="@{/borrar/mensaje/} + ${incidence.id} +'/'+ ${message.id}"
-                        th:text="#{incidencia.mensaje.borrar}">
+                        th:text="${session.language.getKeyValue().get('incidencia.mensaje.borrar')}">
                 </a>
             </div>
 
             <div th:if="${message.modified == true}">
-                <small class="text-muted" th:text="'(' + #{incidencia.mensaje.modificada} + ')'"></small>
+                <small class="text-muted" th:text="'(' + ${session.language.getKeyValue().get('incidencia.mensaje.modificada')} + ')'"></small>
             </div>
         </div>
     </div>

@@ -7,19 +7,17 @@
   <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <title th:text="#{account.titulo1}"></title>
+  <title th:text="${session.language.getKeyValue().get('account.titulo1')}"></title>
 </head>
 <body>
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 
-
 <main class="d-flex flex-nowrap">
-
   <div id="page-content-wrapper" class="m-4 mx-4 mt-4 mb-0 w-100">
     <div class="container-fluid">
       <div class="row align-items-center normal-height">
           <div class="col-xl-10 col-lg-12 mx-auto">
-            <h2 class="text-center mb-4" th:text="#{account.titulo2}"></h2>
+            <h2 class="text-center mb-4" th:text="${session.language.getKeyValue().get('account.titulo2')}"></h2>
             <form class="p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{cuenta}" th:object="${userdto}" method="POST">
               <div class="row mb-4 mt-4 col-lg-8 mx-auto">
                 <div class="text-center col-lg-3 my-auto mb-4">
@@ -31,7 +29,7 @@
                     <input type="text" class="form-control" readonly placeholder="email" id="email" name="email" aria-label="email" aria-describedby="emailasociado" th:value="${userlogin.email}">
                   </div>
                   <div class="input-group mb-3">
-                    <span class="input-group-text" id="creadaen" th:text="#{account.created}"></span>
+                    <span class="input-group-text" id="creadaen" th:text="${session.language.getKeyValue().get('account.created')}"></span>
                     <input type="text" class="form-control" readonly aria-label="creadaen" aria-describedby="creadaen" th:value="${#temporals.format(userlogin.data.created, 'dd/MM/yyyy HH:mm')}">
                   </div>
                 </div>
@@ -41,29 +39,29 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="mb-3">
-                        <label for="username" th:text="#{account.campo1}"></label>
+                        <label for="username" th:text="${session.language.getKeyValue().get('account.campo1')}"></label>
                         <input type="text" class="form-control" id="username" name="username" th:value="${userlogin.username}" placeholder="nombre de usuario">
                       </div>
                       <div class="mb-3">
-                        <label for="name" th:text="#{account.campo2}"></label>
+                        <label for="name" th:text="${session.language.getKeyValue().get('account.campo2')}"></label>
                         <input type="text" class="form-control" id="name" th:value="${userlogin.data.name}" name="name" placeholder="nombre">
                         <span class="invalid-feedback" id="nameBlankError"></span>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="mb-3">
-                        <label for="firstsurname" th:text="#{account.campo3}"></label>
+                        <label for="firstsurname" th:text="${session.language.getKeyValue().get('account.campo3')}"></label>
                         <input type="text" class="form-control" id="firstsurname" th:value="${userlogin.data.firstSurname}" name="firstSurname" placeholder="apellido1">
                         <span class="invalid-feedback" id="firstSurnameBlankError"></span>
                       </div>
                       <div class="mb-3">
-                        <label for="secondsurname" th:text="#{account.campo4}"></label>
+                        <label for="secondsurname" th:text="${session.language.getKeyValue().get('account.campo4')}"></label>
                         <input type="text" class="form-control" id="secondsurname" name="secondSurname" th:value="${userlogin.data.secondSurname}" placeholder="Segundo apellido">
                       </div>
                     </div>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-secondary px-5 w-75" style="margin-bottom: 200px;" th:text="#{account.boton1}"></button>
+                    <button type="submit" class="btn btn-secondary px-5 w-75" style="margin-bottom: 200px;" th:text="${session.language.getKeyValue().get('account.boton1')}"></button>
                   </div>
                 </div>
               </div>

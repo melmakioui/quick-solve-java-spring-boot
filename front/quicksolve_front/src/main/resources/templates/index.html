@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
-    <title th:text="#{inicio.titulo1}"></title>
+    <title th:text="${session.language.getKeyValue().get('inicio.titulo1')}"></title>
 </head>
 <body class="custom-bg-1">
     <th:block th:include="view/fragments/nav"></th:block>
     <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="d-flex justify-content-center align-items-center flex-column text-center normal-height">
             <div class="mx-lg-2 mx-1 bg-texto-contraste bg-opacity-75 p-md-5 p-3 rounded-5" style="max-width: 1000px; max-height: 1000px; backdrop-filter: blur(4px);">
-                <h2 class="display-2 w-75 mx-auto" th:text="#{inicio.lema1}"></h2>
-                <p class="lead" th:text="#{inicio.lema2}"></p>
-                <a th:href="@{/public/nueva}" class="btn btn-secondary btn-lg rounded-pill m-lg-5 m-3 p-lg-4 p-3" th:text="#{inicio.botonincidencia1}"></a>
+                <h2 class="display-2 w-75 mx-auto" th:text="${session.language.getKeyValue().get('inicio.lema1')}"></h2>
+                <p class="lead" th:text="${session.language.getKeyValue().get('inicio.lema2')}"></p>
+                <a th:href="@{/public/nueva}" class="btn btn-secondary btn-lg rounded-pill m-lg-5 m-3 p-lg-4 p-3" th:text="${session.language.getKeyValue().get('inicio.botonincidencia1')}"></a>
                 <br>
-                <span th:text="#{inicio.lema3}"></span>
-                <a th:href="@{/registro}" th:text="#{inicio.lema3.submensaje1}"></a> <span th:text="#{inicio.lema3.submensaje2}"></span>
+                <span th:text="${session.language.getKeyValue().get('inicio.lema3')}"></span>
+                <a th:href="@{/registro}" th:text="${session.language.getKeyValue().get('inicio.lema3.submensaje1')}"></a> <span th:text="${session.language.getKeyValue().get('inicio.lema3.submensaje2')}"></span>
             </div>
         </div>
         <section class="bg-white w-100">
@@ -28,8 +28,8 @@
                     </div>
                     <div class="col-lg-6 order-lg-1 border border-secondary rounded-4">
                         <div class="p-lg-5 p-1">
-                            <h2 class="display-5  pt-2" th:text="#{inicio.subtexto1.titulo}"></h2>
-                            <p th:text="#{inicio.subtexto1.cuerpo}"></p>
+                            <h2 class="display-5  pt-2" th:text="${session.language.getKeyValue().get('inicio.subtexto1.titulo')}"></h2>
+                            <p th:text="${session.language.getKeyValue().get('inicio.subtexto1.cuerpo')}"></p>
                         </div>
                     </div>
                 </div>
@@ -43,8 +43,8 @@
                     </div>
                     <div class="col-lg-6 border border-secondary rounded-4">
                         <div class="p-lg-5 p-1">
-                            <h2 class="display-5 pb-2 pt-2" th:text="#{inicio.subtexto2.titulo}"></h2>
-                            <p th:text="#{inicio.subtexto2.cuerpo}"></p>
+                            <h2 class="display-5 pb-2 pt-2" th:text="${session.language.getKeyValue().get('inicio.subtexto2.titulo')}"></h2>
+                            <p th:text="${session.language.getKeyValue().get('inicio.subtexto2.cuerpo')}"></p>
                         </div>
                     </div>
                 </div>

@@ -28,29 +28,28 @@
     <div id="content" class="col-10 d-flex flex-nowrap justify-content-between align-items-start  bg-texto-contraste bg-opacity-75 rounded-3 p-4">
         <form action="" class="w-100 needs-validation" novalidate>
 
-            <h1>Contact Us</h1>
+            <h1 th:text="${session.language.getKeyValue().get('contacto.contactanos')}"></h1>
 
-            <p>Contáctanos y haremos todo lo posible para ayudarte. Completa el formulario a continuación. ¡Gracias!</p>
+            <p th:text="${session.language.getKeyValue().get('contacto.titulo')}"></p>
 
             <div class="mb-3">
-                <label for="name" class="form-label">Your Name</label>
+                <label for="name" class="form-label" th:text="${session.language.getKeyValue().get('contacto.formulario.nombre')}"></label>
                 <input type="text" class="form-control" id="name" required>
-                <div class="valid-feedback">
-                    Looks good!
+                <div th:text="${session.language.getKeyValue().get('contacto.formulario.validacion.nombre')}" class="valid-feedback">
+
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
+                <label for="email" class="form-label" th:text="${session.language.getKeyValue().get('contacto.formulario.email')}"></label>
                 <input type="email" class="form-control" id="email" required>
-                <div class="valid-feedback">
-                    Looks good!
+                <div th:text="${session.language.getKeyValue().get('contacto.formulario.validacion.nombre')}" class="valid-feedback">
                 </div>
             </div>
 
 
             <div class="mb-3">
-                <label for="text" class="form-label">Subject</label>
+                <label for="text" class="form-label"  th:text="${session.language.getKeyValue().get('contacto.formulario.mensaje')}"></label>
                 <textarea class="form-control" id="text" rows="7" maxlength="300" required></textarea>
                 <div class="valid-feedback">
                     Looks good!
@@ -58,7 +57,7 @@
             </div>
 
             <div class="col-auto">
-                <button type="submit" class="btn btn-secondary mb-3">Send</button>
+                <button type="submit" class="btn btn-secondary mb-3" th:text="${session.language.getKeyValue().get('contacto.formulario.boton')}"></button>
             </div>
         </form>
 
@@ -66,7 +65,7 @@
 
         <div class="w-100">
             <div>
-                <h1>Our Location</h1>
+                <h1 th:text="${session.language.getKeyValue().get('contacto.localizacion')}"></h1>
                 <p class="mb-1">Ses Tapereres, 32, 07500 Manacor, Balearic Islands</p>
                 <p class="mb-4">Phone: 971 551 489</p>
             </div>

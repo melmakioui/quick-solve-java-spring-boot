@@ -3,22 +3,22 @@
   <span class="fs-1 text-secondary material-symbols-outlined mx-2" style="user-select: none">filter_list</span>
 
   <div class="d-flex flex-column align-items-start">
-    <label for="datepicker">Fecha</label>
+    <label for="datepicker" th:text="${session.language.getKeyValue().get('fecha')}"></label>
     <input type="text" class="form-control" id="datepicker" name="dateStart" placeholder="AAAA-MM-DD" style="cursor: pointer" autocomplete="off">
   </div>
 
   <div class=" mx-2 d-flex flex-column align-items-start">
-    <label for="dep" class="mx-2" th:text="#{formupt.campo3}"></label>
+    <label for="dep" class="mx-2" th:text="${session.language.getKeyValue().get('formupt.campo3')}"></label>
     <select class="form-select mx-2" name="department" id="dep">
-      <option th:text="#{filter.todos}" th:value="0" selected></option>
+      <option th:text="${session.language.getKeyValue().get('filter.todos')}" th:value="0" selected></option>
       <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
     </select>
   </div>
 
   <div class=" mx-2  d-flex flex-column align-items-start">
-    <label for="spa" class="mx-2" th:text="#{formupt.campo4}"></label>
+    <label for="spa" class="mx-2" th:text="${session.language.getKeyValue().get('formupt.campo4')}"></label>
     <select class="form-select" name="space" id="spa">
-      <option th:text="#{filter.todos}" th:value="0" selected></option>
+      <option th:text="${session.language.getKeyValue().get('filter.todos')}" th:value="0" selected></option>
       <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
     </select>
   </div>

@@ -1,27 +1,27 @@
 <div class="row justify-content-center">
 
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
-        <label for="title" class="form-label" th:text="#{formupt.campo1}"><span class="text-delete">*</span> </label>
+        <label for="title" class="form-label" th:text="${session.language.getKeyValue().get('formupt.campo1')}"><span class="text-delete">*</span> </label>
         <input type="text" class="form-control" th:field="*{title}" name="title" id="title" minlength="3" maxlength="50"
                required>
-        <div class="invalid-feedback" th:text="#{formupt.campo1.error}"></div>
+        <div class="invalid-feedback" th:text="${session.language.getKeyValue().get('formupt.campo1.error')}"></div>
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
     </div>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-        <label for="department" th:text="#{formupt.campo3}"></label>
+        <label for="department" th:text="${session.language.getKeyValue().get('formupt.campo3')}"></label>
         <select class="form-select" th:field="*{department.id}" name="department" id="department">
-            <option th:value="-1" th:text="#{formupt.campo3.value0}"></option>
+            <option th:value="-1" th:text="${session.language.getKeyValue().get('formupt.campo3.value0')}"></option>
             <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
         </select>
     </div>
 
     <div class="col-12 col-xl-3 col-lg-4 col-md-10 col-sm-12 mb-3">
-        <label for="space" th:text="#{formupt.campo4}"></label>
+        <label for="space" th:text="${session.language.getKeyValue().get('formupt.campo4')}"></label>
         <select class="form-select" th:field="*{space.id}" name="space" id="space">
-            <option th:value="-1" th:text="#{formupt.campo4.error}"></option>
+            <option th:value="-1" th:text="${session.language.getKeyValue().get('formupt.campo4.error')}"></option>
             <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
         </select>
     </div>
@@ -29,10 +29,10 @@
 
 <div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
-        <label for="description" th:text="#{formupt.campo5}"><span class="text-delete">*</span></label>
+        <label for="description" th:text="${session.language.getKeyValue().get('formupt.campo5')}"><span class="text-delete">*</span></label>
         <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3"
                   minlength="10" maxlength="512" required></textarea>
-        <div class="invalid-feedback" th:text="#{formupt.campo5.error}"></div>
+        <div class="invalid-feedback" th:text="${session.language.getKeyValue().get('formupt.campo5.error')}"></div>
         <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
     </div>
 </div>
@@ -54,7 +54,7 @@
                  aria-label="Warning:">
                 <use xlink:href="#exclamation-triangle-fill"/>
             </svg>
-            <span th:text="#{formnew.alert.cantidad.imagenes}"></span>
+            <span th:text="${session.language.getKeyValue().get('formnew.alert.cantidad.imagenes')}"></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"
                     aria-label="Close"></button>
         </div>
@@ -66,7 +66,7 @@
                  aria-label="Warning:">
                 <use xlink:href="#exclamation-triangle-fill"/>
             </svg>
-            <span th:text="#{formnew.alert.extension.imagenes}"></span>
+            <span th:text="${session.language.getKeyValue().get('formnew.alert.extension.imagenes')}"></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"
                     aria-label="Close"></button>
         </div>
@@ -80,13 +80,13 @@
 </div>
 
 <div class="fst-italic text-center mb-3">
-    <span th:text="#{formnew.advise1}"></span>
-    <strong th:text="#{formnew.advise2}"></strong>
-    <span th:text="#{formnew.advise3}"></span>
+    <span th:text="${session.language.getKeyValue().get('formnew.advise1')}"></span>
+    <strong th:text="${session.language.getKeyValue().get('formnew.advise2')}"></strong>
+    <span th:text="${session.language.getKeyValue().get('formnew.advise3')}"></span>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10">
-        <button type="submit" class="btn btn-secondary w-100">Enviar</button>
+        <button type="submit" class="btn btn-secondary w-100" th:text="${session.language.getKeyValue().get('formupt.enviar')}"></button>
     </div>
 </div>

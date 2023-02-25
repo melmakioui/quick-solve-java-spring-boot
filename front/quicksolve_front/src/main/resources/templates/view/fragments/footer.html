@@ -5,24 +5,24 @@
             <small class="d-block mb-4 text-muted">&copy; 2022-2023</small>
         </div>
         <div class="col-6 col-lg text-texto-contraste">
-            <h5 th:text="#{footer.titulo1}"></h5>
+            <h5 th:text="${session.language.getKeyValue().get('footer.titulo1')}"></h5>
             <ul class="list-unstyled text-small p-2">
                 <li>
-                    <a href="#" class="text-muted link-texto-contraste text-decoration-none" th:text="#{footer.sub11}"></a>
+                    <a href="#" class="text-muted link-texto-contraste text-decoration-none" th:text="${session.language.getKeyValue().get('footer.sub11')}"></a>
                 </li>
                 <li>
-                    <a href="/public/nueva" class="text-muted link-texto-contraste text-decoration-none" th:text="#{footer.sub12}"></a>
+                    <a href="/public/nueva" class="text-muted link-texto-contraste text-decoration-none" th:text="${session.language.getKeyValue().get('footer.sub12')}"></a>
                 </li>
                 <li>
-                    <a href="#" class="text-muted link-texto-contraste text-decoration-none" th:text="#{footer.sub13}"></a>
+                    <a href="#" class="text-muted link-texto-contraste text-decoration-none" th:text="${session.language.getKeyValue().get('footer.sub13')}"></a>
                 </li>
             </ul>
         </div>
         <div class="col-6 col-lg text-texto-contraste">
-            <h5 th:text="#{footer.titulo2}"></h5>
+            <h5 th:text="${session.language.getKeyValue().get('footer.titulo2')}"></h5>
             <ul class="list-unstyled text-small p-2">
                 <li>
-                    <a href="/contacto" class="text-muted link-texto-contraste text-decoration-none">Contacto</a>
+                    <a href="/contacto" class="text-muted link-texto-contraste text-decoration-none" th:text="${session.language.getKeyValue().get('contacto')}"></a>
                 </li>
                 <li>
                     <a href="#" class="text-muted link-texto-contraste text-decoration-none">Twitter</a>
@@ -33,13 +33,13 @@
             </ul>
         </div>
         <div class="col-6 col-lg text-texto-contraste">
-            <h5 th:text="#{footer.titulo3}"></h5>
+            <h5 th:text="${session.language.getKeyValue().get('footer.titulo3')}"></h5>
             <ul class="list-unstyled text-small p-2">
                 <li>
-                    <a href="/politica-privacidad" class="text-muted link-texto-contraste text-decoration-none" th:text="#{footer.sub31}"></a>
+                    <a href="/politica-privacidad" class="text-muted link-texto-contraste text-decoration-none" th:text="${session.language.getKeyValue().get('footer.sub31')}"></a>
                 </li>
                 <li>
-                    <a href="/sobre-nosotros" class="text-muted link-texto-contraste text-decoration-none" th:text="#{footer.sub32}"></a>
+                    <a href="/sobre-nosotros" class="text-muted link-texto-contraste text-decoration-none" th:text="${session.language.getKeyValue().get('footer.sub32')}"></a>
                 </li>
             </ul>
         </div>

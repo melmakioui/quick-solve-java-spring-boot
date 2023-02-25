@@ -11,15 +11,15 @@
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
 
 
-    <title th:text="#{nav.li5}"></title>
+    <title th:text="${session.language.getKeyValue().get('nav.li5')}"></title>
 </head>
 
 <body>
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 
 <main class="d-flex flex-nowrap flex-column">
-        <h1 th:if="${isNewIncidence}" class="text-center" th:text="#{newincidencia.titulo1.upper}"></h1>
-        <h1 th:if="${!isNewIncidence}" class="text-center" th:text="#{updateincidencia.titulo2.upper}"></h1>
+        <h1 th:if="${isNewIncidence}" class="text-center" th:text="${session.language.getKeyValue().get('newincidencia.titulo1.upper')}"></h1>
+        <h1 th:if="${!isNewIncidence}" class="text-center" th:text="${session.language.getKeyValue().get('updateincidencia.titulo2.upper')}"></h1>
 
         <form th:if="${isNewIncidence}" th:action="@{/incidencia/nueva}" th:object="${incidence}"
               method="post" class="needs-validation container my-3" enctype="multipart/form-data" novalidate>
@@ -31,7 +31,7 @@
               method="post" class="needs-validation container my-3" enctype="multipart/form-data" novalidate>
             <th:block th:include="view/fragments/form"></th:block>
         </form>
-    <span id="drag-drop-label" class="d-none" th:text="#{formupt.campo7}"></span>
+    <span id="drag-drop-label" class="d-none" th:text="${session.language.getKeyValue().get('formupt.campo7')}"></span>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

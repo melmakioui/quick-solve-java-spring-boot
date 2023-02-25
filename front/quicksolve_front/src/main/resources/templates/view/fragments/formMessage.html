@@ -8,11 +8,11 @@
                 id="new">
 
           <div class="d-flex justify-content-between">
-            <p class="fs-6 w-50" th:text="#{incidencia.mensaje.nuevo}"></p>
+            <p class="fs-6 w-50" th:text="${session.language.getKeyValue().get('incidencia.mensaje.nuevo')}"></p>
 
             <div class="w-50 d-flex justify-content-end align-items-center"
                  th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
-              <label for="action" class="mx-2" th:text="#{incidencia.mensaje.accion}"></label>
+              <label for="action" class="mx-2" th:text="${session.language.getKeyValue().get('incidencia.mensaje.accion')}"></label>
               <input type="checkbox" name="isAction" th:field="*{action}" th:value="*{action}"
                      id="action">
             </div>
@@ -21,13 +21,13 @@
 
           <div class="form-floating">
                                     <textarea th:field="*{body}" th:value="*{body}" class="form-control"
-                                              th:placeholder="#{incidencia.mensaje.enviar.placeholder}"
+                                              th:placeholder="${session.language.getKeyValue().get('incidencia.mensaje.enviar.placeholder')}"
                                               id="messageUser"></textarea>
-            <label for="messageUser" th:text="#{incidencia.mensaje}"></label>
+            <label for="messageUser" th:text="${session.language.getKeyValue().get('incidencia.mensaje')}"></label>
           </div>
 
           <div class="d-flex justify-content-end w-100">
-            <button class="btn btn-secondary mt-2" th:text="#{formupt.enviar}"></button>
+            <button class="btn btn-secondary mt-2" th:text="${session.language.getKeyValue().get('formupt.enviar')}"></button>
           </div>
         </form>
 
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-between">
-            <p class="fs-6 w-50" th:text="#{incidencia.mensaje.nuevo}"></p>
+            <p class="fs-6 w-50" th:text="${session.language.getKeyValue().get('incidencia.mensaje.nuevo')}"></p>
 
             <div class="w-50 d-flex justify-content-end"
                  th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
@@ -71,8 +71,8 @@
 
           <div class="d-flex justify-content-end w-100">
             <a th:href="@{/incidencia/} + ${incidence.id}" class="btn btn-primary mt-2 mx-2"
-               th:text="#{incidencia.eliminar.cancelar}"></a>
-            <button class="btn btn-secondary mt-2 mx-2" th:text="#{formupt.enviar}"></button>
+               th:text="${session.language.getKeyValue().get('incidencia.eliminar.cancelar')}"></a>
+            <button class="btn btn-secondary mt-2 mx-2" th:text="${session.language.getKeyValue().get('formupt.enviar')}"></button>
           </div>
         </form>
       </div>

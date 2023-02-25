@@ -26,7 +26,7 @@
                 <span class="material-symbols-outlined mx-2">
                     lock
                 </span>
-                <span class="mx-2" th:text="#{incidencia.alert.cancelada}"></span>
+                <span class="mx-2" th:text="${session.language.getKeyValue().get('incidencia.alert.cancelada')}"></span>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
                 <span class="material-symbols-outlined mx-2">
                     lock
                 </span>
-                <span class="mx-2" th:text="#{incidencia.alert.resuelta}"></span>
+                <span class="mx-2" th:text="${session.language.getKeyValue().get('incidencia.alert.resuelta')}"></span>
 
             </div>
         </div>
@@ -54,30 +54,30 @@
                 <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} and ${incidence.incidenceState.id == 1 or incidence.incidenceState.id == 2}"
                      class="dropdown mx-3">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false" th:text="#{incidencia.cambiar.estado}"></a>
+                       aria-expanded="false" th:text="${session.language.getKeyValue().get('incidencia.cambiar.estado')}"></a>
 
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'"
-                               th:text="#{incidencia.estado.enprogreso}"></a></li>
+                               th:text="${session.language.getKeyValue().get('incidencia.estado.enprogreso')}"></a></li>
                         <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'"
-                               th:text="#{incidencia.estado.solucionada}"></a></li>
+                               th:text="${session.language.getKeyValue().get('incidencia.estado.solucionada')}"></a></li>
                         <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/4'"
-                               th:text="#{incidencia.estado.cancelada}"></a></li>
+                               th:text="${session.language.getKeyValue().get('incidencia.estado.cancelada')}"></a></li>
                     </ul>
                 </div>
                 <div id="actions" class="d-flex align-items-center ">
                     <span th:if="${incidence.incidenceState.id == 1}"
                           class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5"
-                          th:text="#{incidencia.estado.enespera}"></span>
+                          th:text="${session.language.getKeyValue().get('incidencia.estado.enespera')}"></span>
                     <span th:if="${incidence.incidenceState.id == 2}"
                           class="badge text-texto-contraste text-bg-primary text-nowrap fs-5"
-                          th:text="#{incidencia.estado.enprogreso}"></span>
+                          th:text="${session.language.getKeyValue().get('incidencia.estado.enprogreso')}"></span>
                     <span th:if="${incidence.incidenceState.id == 3}"
                           class="badge text-texto-contraste text-bg-successful text-nowrap fs-5"
-                          th:text="#{incidencia.estado.solucionada}"></span>
+                          th:text="${session.language.getKeyValue().get('incidencia.estado.solucionada')}"></span>
                     <span th:if="${incidence.incidenceState.id == 4}"
                           class="badge text-texto-contraste text-bg-delete text-nowrap fs-5"
-                          th:text="#{incidencia.estado.cancelada}"></span>
+                          th:text="${session.language.getKeyValue().get('incidencia.estado.cancelada')}"></span>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
 
     <div class="col-12 d-none">
         <p th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}"
-           th:text="${incidence.user} ?  #{incidencia.enviada.por} + ' ' + ${incidence.user.username} : #{incidencia.enviada.por} + ' ' + ${incidence.email}"></p>
+           th:text="${incidence.user} ?  ${session.language.getKeyValue().get('incidencia.enviada.por')} + ' ' + ${incidence.user.username} : ${session.language.getKeyValue().get('incidencia.enviada.por')} + ' ' + ${incidence.email}"></p>
     </div>
 
     <hr>
@@ -108,7 +108,7 @@
         </div>
         <div th:unless="not ${incidence.incidenceFiles.isEmpty()}"
              class="col-12 col-lg-6 d-flex justify-content-center">
-            <h3 th:text="#{incidencia.sin.imagenes}"></h3>
+            <h3 th:text="${session.language.getKeyValue().get('incidencia.sin.imagenes')}"></h3>
         </div>
     </div>
 
@@ -118,7 +118,7 @@
     <!--Responsive-->
 
     <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null} and ${incidence.incidenceState.id < 3}"
-        class="w-100 text-center mt-3" th:text="#{incidencia.sin.mensajes}"></h5>
+        class="w-100 text-center mt-3" th:text="${session.language.getKeyValue().get('incidencia.sin.mensajes')}"></h5>
 
     <div class="row justify-content-center mb-5 mx-5">
         <th:block th:include="/view/fragments/messages"></th:block>
