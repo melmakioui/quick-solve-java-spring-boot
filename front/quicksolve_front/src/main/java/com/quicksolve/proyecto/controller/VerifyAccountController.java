@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -66,7 +65,7 @@ public class VerifyAccountController {
         String token = tokenService.createToken(user.getEmail(),user.getType().name());
         String html = "<html><body><p>Para verificar tu cuenta haz click en el siguiente enlace : <a href='"+ URL +"/cambiar-contrasena?code=" + token + "'>Verificar</a></p></body></html>";
 
-        emailService.sendEmailVerificationAccount(user.getEmail(), html);
+        emailService.sendGenericEmail(user.getEmail(), html);
 
         return "view/notifier";
     }
@@ -107,6 +106,7 @@ public class VerifyAccountController {
             model.addAttribute("isPasswordChanged", true);
             return "view/success";
         }
+
         return "errorno";
     }
 

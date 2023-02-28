@@ -37,7 +37,7 @@ public class OAuthController {
         GoogleIdTokenVerifier tokenVerifier = new GoogleIdTokenVerifier.Builder(
                 HTTP_TRANSPORT,
                 GsonFactory.getDefaultInstance())
-                .setAudience(Collections.singletonList("327064841381-lloi1on6ses7vmjr72h2lptajd3g14fn.apps.googleusercontent.com"))
+                .setAudience(Collections.singletonList("327064841381-lloi1on6ses7vmjr72h2lptajd3g14fn.apps.googleusercontent.com")) //Variable de entorno
                 .build();
         GoogleIdToken tokenId = tokenVerifier.verify(token);
         GoogleIdToken.Payload payload = tokenId.getPayload();
@@ -54,10 +54,10 @@ public class OAuthController {
             userData.setCreated(LocalDateTime.now());
             user.setData(userData);
             user.setOauth(true);
+            user.setActive(true);
             userService.createUser(user);
         }
 
-        //Mejorar rendimiento
         FullUserDTO userlogin = userService.getUserBy(payload.getEmail());
         FullUserDTO fullUserDTO = userService.getFullUser(userlogin.getId());
         model.addAttribute("userlogin", fullUserDTO );
