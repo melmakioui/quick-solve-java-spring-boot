@@ -1,13 +1,9 @@
 package com.quicksolve.proyecto.service;
 
 import com.quicksolve.proyecto.dto.FullUserDTO;
-import com.quicksolve.proyecto.dto.UserDataDTO;
-import com.quicksolve.proyecto.entity.User;
-import com.quicksolve.proyecto.entity.UserData;
-import com.quicksolve.proyecto.entity.type.UserType;
-import com.quicksolve.proyecto.mapper.UserDataMapper;
-import com.quicksolve.proyecto.mapper.UserMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface UserService {
@@ -31,4 +27,6 @@ public interface UserService {
     void activateUser(String email);
 
     void changePassword(String email, String password);
+
+    List<FullUserDTO> listTechs();
 }

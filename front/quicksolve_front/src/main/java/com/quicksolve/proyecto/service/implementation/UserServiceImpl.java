@@ -15,6 +15,9 @@ import com.quicksolve.proyecto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -113,5 +116,11 @@ public class UserServiceImpl implements UserService {
         User usr = userRepo.findByEmail(email);
         usr.setPassword(passwordEncoder.encoder().encode(password));
         userRepo.save(usr);
+    }
+
+    @Override
+    public List<FullUserDTO> listTechs() {
+        List <User> techs = userRepo.findAllByType(UserType.TECH);
+        return techs.stream().map(UserMapper.INSTANCE::userToDTO).collect(Collectors.toList());
     }
 }

@@ -35,6 +35,7 @@ public class FullIncidenceDTO {
     private long incidenceStateId;
     private long departmentId;
     private long spaceId;
+    private long techId;
 
     private DepartmentDTO department;
     private SpaceDTO space;
