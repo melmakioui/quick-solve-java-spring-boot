@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmailVerificationAccount(String to,String html) {
+    public void sendGenericEmail(String to, String html) {
         try {
             MailgunMessagesApi mailgunMessagesApi = MailgunClient.config(URL, API_KEY)
                     .createApi(MailgunMessagesApi.class);

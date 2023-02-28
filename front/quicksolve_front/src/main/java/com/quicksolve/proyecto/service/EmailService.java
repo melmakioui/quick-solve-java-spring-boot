@@ -5,5 +5,5 @@ public interface EmailService {
 
      void sendEmail(String to, String incidenceTitle);
 
-     void sendEmailVerificationAccount(String to,String html);
+     void sendGenericEmail(String to, String html);
 }
