@@ -1,5 +1,5 @@
 package com.quicksolve.proyecto.entity.type;
 
 public enum UserType {
-    USER, TECH, ADMIN
+    USER, TECH, ADMIN, DEP_HEAD
 }
