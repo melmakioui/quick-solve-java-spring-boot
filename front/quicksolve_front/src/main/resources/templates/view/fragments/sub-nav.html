@@ -11,13 +11,19 @@
     </a>
   </div>
 
+  <div class=" d-flex justify-content-center mx-2" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).DEP_HEAD}">
+    <a th:href="@{/incidencias/head}" type="button" class="btn btn-secondary qs-button d-flex flex-nowrap  align-items-center justify-content-center">
+      <span class="material-symbols-outlined mx-1">how_to_reg</span><span class="d-none d-sm-none d-lg-block" th:text="'Assign Incidences'"></span>
+    </a>
+  </div>
+
   <div class=" d-flex justify-content-center mx-2">
     <a th:href="@{/incidencias}" type="button" class="btn btn-secondary  qs-button d-flex flex-nowrap align-items-center justify-content-center">
       <span class="material-symbols-outlined mx-1">list</span> <span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('sidebar.misincidencias')}"></span>
     </a>
   </div>
 
-  <div class=" d-flex justify-content-center mx-2">
+  <div class=" d-flex justify-content-center mx-2" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).USER}">
     <a th:href="@{/planes}" type="button" class="btn btn-secondary  qs-button d-flex align-items-center justify-content-center">
       <span class="material-symbols-outlined mx-1">rocket_launch</span> <span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('sidebar.mejorar.plan')}"></span>
     </a>

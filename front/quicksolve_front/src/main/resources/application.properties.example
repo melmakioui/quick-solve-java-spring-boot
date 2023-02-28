@@ -10,6 +10,8 @@ spring.messages.basename=lang/res
 API_KEY=
 mailgun.from=
 mailgun.domain=
+#Url
+url=http://localhost:8080
 
 #For insert data in the database at the start of the application
 #spring.jpa.defer-datasource-initialization=true
