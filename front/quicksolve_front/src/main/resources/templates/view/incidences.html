@@ -28,7 +28,6 @@
         <div id="offCanvasBtnCont">
             <button id="offcanvasBtn" class="btn btn-secondary d-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter" th:text="#{incidencias.filtrar}">
-
             </button>
         </div>
     </div>
@@ -93,7 +92,11 @@
                          style="width: 18rem;"
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''">
                         <div class="card-body">
-                            <p class="card-title text-truncate fs-5" th:text="${incidence.title}"></p>
+                            <p class="card-title text-truncate fs-5"
+                               th:onkeyup="'comprobarTecla(\'' + @{/incidencia/} + ${incidence.id} + '\', event)'"
+                               th:tabindex="0"
+                               th:role="button"
+                               th:aria-label="#{incidencias.label1}" th:text="${incidence.title}"></p>
                             <p class="card-text text-truncate mb-1"
                                th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
@@ -104,9 +107,13 @@
                                         <span disabled="disabled" class="material-symbols-outlined">edit</span></a>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
                                        th:attr="data-link='/incidencia/cancelar/' + ${incidence.id}"
-                                       class="icons-crud text-danger mx-1 text-delete btnDelModal"><span
-                                            disabled="disabled"
-                                            class="material-symbols-outlined">close</span></a>
+                                       th:tabindex="0"
+                                       th:role="button"
+                                       class="icons-crud text-danger mx-1 text-delete btnDelModal">
+                                        <span disabled="disabled" class="material-symbols-outlined">
+                                            close
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +161,7 @@
 <script th:src="@{/js/pagination.js}"></script>
 <script th:src="@{/js/deleteModal.js}"></script>
 <script th:src="@{/js/filterIncidences.js}"></script>
-
+<script th:src="@{/js/accesibilityKeyUp.js}"></script>
 </body>
 
 </html>
