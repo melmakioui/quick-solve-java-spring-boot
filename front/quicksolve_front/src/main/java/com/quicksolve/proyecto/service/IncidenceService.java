@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IncidenceService {
 
+    List<FullIncidenceDTO> list();
     List<FullIncidenceDTO> list(FullUserDTO userDTO);
     List<FullIncidenceDTO> list(Long departmentId, Long spaceId, String startDate, FullUserDTO userDTO);
     List<FullIncidenceDTO> listByAssignedTech(FullUserDTO userDTO);

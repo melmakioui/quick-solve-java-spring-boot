@@ -3,6 +3,7 @@ package com.quicksolve.proyecto.repository;
 
 import com.quicksolve.proyecto.entity.Department;
 import com.quicksolve.proyecto.entity.User;
+import com.quicksolve.proyecto.entity.type.UserType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u from User u where u.department.id IS NOT NULL")
     List<User> getUsersByAnyDepartment();
+
+    List<User> findAllByType(UserType type);
 }

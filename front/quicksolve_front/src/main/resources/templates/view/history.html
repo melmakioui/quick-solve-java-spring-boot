@@ -14,7 +14,7 @@
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 
 <main class="d-flex flex-nowrap flex-column justify-content-center mx-6">
-    <h1 class="mt-4" th:text="#{historial.titulo}">Historial</h1>
+    <h1 class="mt-4" th:text="${session.language.getKeyValue().get('historial.titulo')}">Historial</h1>
 
     <div class="row justify-content-center mt-4">
         <div class="col-12">
@@ -22,14 +22,14 @@
                 <thead class="bg-dark text-texto-contraste">
                 <tr>
                     <th>#</th>
-                    <th th:text="#{historial.tabla.titulo}"></th>
-                    <th th:text="#{historial.tabla.descripcion}"></th>
-                    <th th:text="#{historial.tabla.departamento}"></th>
-                    <th th:text="#{historial.tabla.espacio}"></th>
-                    <th th:text="#{historial.tabla.estado}"></th>
-                    <th th:text="#{historial.tabla.tecnico}"></th>
-                    <th th:text="#{historial.tabla.modificacion}"></th>
-                    <th th:text="#{historial.tabla.finalizacion}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.titulo')}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.descripcion')}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.departamento')}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.espacio')}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.estado')}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.tecnico')}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.modificacion')}"></th>
+                    <th th:text="${session.language.getKeyValue().get('historial.tabla.finalizacion')}"></th>
                 </tr>
                 </thead>
                 <tbody>

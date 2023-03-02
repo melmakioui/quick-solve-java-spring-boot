@@ -1,25 +1,31 @@
 <div th:fragment="sub-nav" class="d-flex flex-nowrap justify-content-center mx-2 mb-4" style="top:96px">
   <div class="d-flex justify-content-center mx-2">
     <a th:href="@{/incidencia/nueva}" class="btn btn-secondary  qs-button d-flex align-items-center justify-content-center">
-      <span class="material-symbols-outlined mx-1">note_add</span><span class="d-none d-sm-none d-lg-block" th:text="#{sidebar.newincidencia}"></span>
+      <span class="material-symbols-outlined mx-1">note_add</span><span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('sidebar.newincidencia')}"></span>
     </a>
   </div>
 
   <div class=" d-flex justify-content-center mx-2" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
     <a th:href="@{/incidencias/tech}" type="button" class="btn btn-secondary qs-button d-flex flex-nowrap  align-items-center justify-content-center">
-      <span class="material-symbols-outlined mx-1">construction</span><span class="d-none d-sm-none d-lg-block" th:text="#{sidebar.incidenciastech}"></span>
+      <span class="material-symbols-outlined mx-1">construction</span><span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('sidebar.incidenciastech')}"></span>
+    </a>
+  </div>
+
+  <div class=" d-flex justify-content-center mx-2" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).DEP_HEAD}">
+    <a th:href="@{/incidencias/head}" type="button" class="btn btn-secondary qs-button d-flex flex-nowrap  align-items-center justify-content-center">
+      <span class="material-symbols-outlined mx-1">how_to_reg</span><span class="d-none d-sm-none d-lg-block" th:text="'Assign Incidences'"></span>
     </a>
   </div>
 
   <div class=" d-flex justify-content-center mx-2">
     <a th:href="@{/incidencias}" type="button" class="btn btn-secondary  qs-button d-flex flex-nowrap align-items-center justify-content-center">
-      <span class="material-symbols-outlined mx-1">list</span> <span class="d-none d-sm-none d-lg-block" th:text="#{sidebar.misincidencias}"></span>
+      <span class="material-symbols-outlined mx-1">list</span> <span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('sidebar.misincidencias')}"></span>
     </a>
   </div>
 
-  <div class=" d-flex justify-content-center mx-2">
+  <div class=" d-flex justify-content-center mx-2" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).USER}">
     <a th:href="@{/planes}" type="button" class="btn btn-secondary  qs-button d-flex align-items-center justify-content-center">
-      <span class="material-symbols-outlined mx-1">rocket_launch</span> <span class="d-none d-sm-none d-lg-block" th:text="#{sidebar.mejorar.plan}"></span>
+      <span class="material-symbols-outlined mx-1">rocket_launch</span> <span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('sidebar.mejorar.plan')}"></span>
     </a>
   </div>
 </div>

@@ -13,7 +13,8 @@ public class WebPageLanguage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true)
+
+    @Column(columnDefinition = "TEXT", unique = false)
     private String content;
 
     @ManyToOne

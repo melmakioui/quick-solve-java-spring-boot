@@ -297,6 +297,24 @@ public class IncidenceController {
         return "view/history";
     }
 
+    @GetMapping("/incidencias/head")
+    public String showAllIncidences(Model model){
+
+        List<FullIncidenceDTO> incidences = incidenceService.list();
+        incidences.forEach( incidence -> {
+            long techId = userIncidenceService.findByIncidenceId(incidence.getId()).getTech().getId();
+            incidence.setTechId(techId);
+        });
+
+        List<FullUserDTO> techs = userService.listTechs();
+        System.out.println(techs);
+        techs.forEach(tech -> tech.setDepartment(departmentService.findById(tech.getDepartment().getId())));
+
+        model.addAttribute("incidences", incidences);
+        model.addAttribute("techs", techs);
+        return "view/incidencesHead";
+    }
+
 
     private BindingResult excludeEmailFormValidationForUsers(BindingResult bindingResult, FullIncidenceDTO fullIncidenceDTO, Model model) {
         if (model.getAttribute("userlogin") instanceof FullUserDTO) {

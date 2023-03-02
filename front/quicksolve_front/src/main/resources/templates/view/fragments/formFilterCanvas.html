@@ -7,17 +7,17 @@
   </div>
 
   <div class="d-flex flex-column align-items-start w-100 mb-3">
-    <label for="depResp" th:text="#{formupt.campo3}"></label>
+    <label for="depResp" th:text="${session.language.getKeyValue().get('formupt.campo3')}"></label>
     <select class="form-select" name="department" id="depResp">
-      <option th:text="#{filter.todos}" th:value="0" selected></option>
+      <option th:text="${session.language.getKeyValue().get('filter.todos')}" th:value="0" selected></option>
       <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
     </select>
   </div>
 
   <div class=" mx-2  d-flex flex-column align-items-start w-100 mb-3">
-    <label for="spaResp" class="mx-2" th:text="#{formupt.campo4}"></label>
+    <label for="spaResp" class="mx-2" th:text="${session.language.getKeyValue().get('formupt.campo4')}"></label>
     <select class="form-select" name="space" id="spaResp">
-      <option th:text="#{filter.todos}" th:value="0" selected></option>
+      <option th:text="${session.language.getKeyValue().get('filter.todos')}" th:value="0" selected></option>
       <option th:each="spa : ${spaces}" th:value="${spa.id}" th:text="${spa.name}"></option>
     </select>
   </div>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="w-100">
-    <button id="filter-resp" type="submit" class="btn btn-secondary w-100"  th:text="#{incidencias.filtrar}"></button>
+    <button id="filter-resp" type="submit" class="btn btn-secondary w-100"  th:text="${session.language.getKeyValue().get('incidencias.filtrar')}"></button>
   </div>
 </form>
 </div>

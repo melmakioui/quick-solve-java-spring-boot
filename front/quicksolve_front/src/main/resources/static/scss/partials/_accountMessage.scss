@@ -1,0 +1,40 @@
+@import "variables";
+
+.container-message {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.tick {
+  font-size: 100px;
+  color: $secondary;
+  margin-bottom: 20px;
+}
+
+h1.title-verification {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+p.text-verification {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.btn-cta {
+  background-color: $secondary;
+  border: none;
+  border-radius: 25px;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px 30px;
+  color: #fff;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+  background-color: $secondary-low;
+  cursor: pointer;
+}

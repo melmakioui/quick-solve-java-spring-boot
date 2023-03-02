@@ -28,7 +28,7 @@ public class User {
     @Size(message = "El email debe tener entre 3 y 50 caracteres", min = 3, max = 50)
     private String email;
 
-    @NotBlank
+//    @NotBlank
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -42,6 +42,9 @@ public class User {
     private Service service;
 
     private LocalDateTime serviceExpiration;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean oauth;
 
     @OneToMany(mappedBy = "user")
     private Set<Invoice> invoices;

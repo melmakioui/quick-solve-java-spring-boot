@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
-    <title th:text="#{planes.titulo1}"></title>
+    <title th:text="${session.language.getKeyValue().get('planes.titulo1')}"></title>
 </head>
 <body class="custom-bg-1">
 <th:block th:include="view/fragments/nav"></th:block>
@@ -15,21 +15,21 @@
     <div class="col">
         <div class="card card-animation mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
-                <h4 class="my-0 fw-normal" th:text="#{planes.plan1.titulo}"></h4>
+                <h4 class="my-0 fw-normal" th:text="${session.language.getKeyValue().get('planes.plan1.titulo')}"></h4>
             </div>
             <div class="card-body d-flex flex-column">
                 <div class="d-flex justify-content-center flex-column card-plans-height">
                     <h1 class="card-title pricing-card-title mb-3">
-                        <span th:text="#{planes.plan1.precio}"></span>
-                        <small class="text-muted fw-light" th:text="#{planes.mensualidad}"></small>
+                        <span th:text="${session.language.getKeyValue().get('planes.plan1.precio')}"></span>
+                        <small class="text-muted fw-light" th:text="${session.language.getKeyValue().get('planes.mensualidad')}"></small>
                     </h1>
                     <ul class="list-group mt-3 mb-4 text-start px-lg-5 px-4">
-                        <li th:text="#{planes.plan1.ventaja1}"></li>
-                        <li th:text="#{planes.plan1.ventaja2}"></li>
+                        <li th:text="${session.language.getKeyValue().get('planes.plan1.ventaja1')}"></li>
+                        <li th:text="${session.language.getKeyValue().get('planes.plan1.ventaja2')}"></li>
                     </ul>
                 </div>
-                <button class="btn btn-outline-dark disabled" th:if="${userlogin.service == null}" th:text="#{planes.planactual}"></button>
-                <button type="button" th:if="${userlogin.service != null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModalFree" th:text="#{planes.cambiar}"></button>
+                <button class="btn btn-outline-dark disabled" th:if="${userlogin.service == null}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
+                <button type="button" th:if="${userlogin.service != null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModalFree" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
             </div>
         </div>
     </div>
@@ -42,17 +42,17 @@
                 <div class="d-flex justify-content-center flex-column card-plans-height">
                     <h1 class="card-title pricing-card-title mb-3">
                         <span th:text="${plan.price} + '€'"></span>
-                        <small class="text-muted fw-light" th:text="#{planes.mensualidad}"></small>
+                        <small class="text-muted fw-light" th:text="${session.language.getKeyValue().get('planes.mensualidad')}"></small>
                     </h1>
                     <ul class="list-group mt-3 mb-4 text-start px-lg-5 px-4">
                         <li th:each="advantage : ${plan.advantages}" th:text="${advantage.name}"></li>
                     </ul>
                 </div>
                 <input type="number" th:value="${plan.id}" name="plan" hidden>
-                <button type="button" name="submit" th:if="${userlogin.service == null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="#{planes.cambiar}"></button>
+                <button type="button" name="submit" th:if="${userlogin.service == null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
                 <th:block th:if="${userlogin.service != null}">
-                    <button class="btn btn-outline-dark disabled" th:if="${userlogin.service.name == plan.name}" th:text="#{planes.planactual}"></button>
-                    <button type="button" name="submit" th:if="${userlogin.service.name != plan.name}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="#{planes.cambiar}"></button>
+                    <button class="btn btn-outline-dark disabled" th:if="${userlogin.service.name == plan.name}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
+                    <button type="button" name="submit" th:if="${userlogin.service.name != plan.name}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
                 </th:block>
             </div>
         </div>

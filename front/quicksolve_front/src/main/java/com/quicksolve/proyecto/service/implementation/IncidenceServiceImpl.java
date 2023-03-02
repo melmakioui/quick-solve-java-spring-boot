@@ -52,8 +52,16 @@ public class IncidenceServiceImpl implements IncidenceService {
     @Autowired
     private DepartmentRepository departmentRepo;
 
+    public List<FullIncidenceDTO> list() {
+        return incidenceRepository.findAll().stream().map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<FullIncidenceDTO> list(FullUserDTO userDTO) {
+
+        System.out.println(UserMapper.INSTANCE.DTOtoUser(userDTO));
+
         List<Incidence> incidences = userIncidenceRepo.findAllByUser(UserMapper.INSTANCE.DTOtoUser(userDTO))
                 .stream()
                 .map(UserIncidence::getIncidence)
@@ -75,6 +83,7 @@ public class IncidenceServiceImpl implements IncidenceService {
     }
 
     private long getPriority(FullUserDTO userDTO){
+        if (userDTO == null) return -1;
         return userDTO.getService() == null ? 0L : userDTO.getService().getId();
     }
 
@@ -264,6 +273,11 @@ public class IncidenceServiceImpl implements IncidenceService {
     public FullIncidenceDTO findIncidenceByIdAndUserId(long incidenceId, FullUserDTO userDTO) {
         UserIncidence userIncidence = userIncidenceRepo.findByIncidenceIdAndUserId(incidenceId,userDTO.getId());
 
+        if (userDTO.getType() == UserType.DEP_HEAD){
+            UserIncidence incidence = userIncidenceRepo.findByIncidenceId(incidenceId);
+            return convertToDTO(incidence.getIncidence());
+        }
+
         if(userDTO.getType() == UserType.TECH && userIncidence == null){
             UserIncidence techIncidence = userIncidenceRepo.findByIncidenceIdAndTechId(incidenceId,userDTO.getId());
             if(techIncidence == null){
@@ -298,7 +312,6 @@ public class IncidenceServiceImpl implements IncidenceService {
         incidence.setIncidenceState(state);
         incidenceRepository.save(incidence);
     }
-
 
     private void checkDepartmentAndSpace(FullIncidenceDTO fullIncidenceDTO) {
         long departmentId = fullIncidenceDTO.getDepartment().getId();

@@ -38,4 +38,22 @@ public class EmailServiceImpl implements EmailService {
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public void sendGenericEmail(String to, String html) {
+        try {
+            MailgunMessagesApi mailgunMessagesApi = MailgunClient.config(URL, API_KEY)
+                    .createApi(MailgunMessagesApi.class);
+
+            Message message = Message.builder()
+                    .from(FROM)
+                    .to(to)
+                    .subject("No Reply")
+                    .html(html)
+                    .build();
+            mailgunMessagesApi.sendMessage(DOMAIN, message);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

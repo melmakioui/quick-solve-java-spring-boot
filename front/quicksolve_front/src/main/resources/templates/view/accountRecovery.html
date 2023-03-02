@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
+    <title th:text="${session.language.getKeyValue().get('title.recuperar')}"></title>
+</head>
+<body class="custom-bg-1">
+
+<div class="container-fluid mb-5">
+    <div class="row align-items-center normal-height">
+        <div class="col-lg-6 offset-lg-3 mt-5">
+            <h2 class="text-center text-texto-contraste mb-4" th:text="${session.language.getKeyValue().get('recuperar.titulo')}"></h2>
+            <div class="card rounded-4 bg-primary mx-auto" style="max-width: 850px;">
+                <form class="card-body bg-primary p-lg-4 pt-5 rounded-4 mx-xl-4" th:action="@{recuperar-cuenta}" id="formAccountRecovery" method="POST">
+                    <div class="p-lg-2">
+                        <div class="w-75 mx-auto mt-3">
+                            <div>
+                                <p class="fs-5 text-texto-contraste" th:text="${session.language.getKeyValue().get('recuperar.mensaje')}"></p>
+                            </div>
+                            <div>
+                                <label for="email" th:text="${session.language.getKeyValue.get('login.campo1')}" class="text-texto-contraste"></label>
+                                <input type="text" class="form-control" id="email" th:classappend="${loginError == 'true' ? 'is-invalid' : ''}" name="email">
+                                <div th:if="${found == 'false'}" class="text-texto-contraste" th:text="${session.language.getKeyValue().get('recuperar.no.email')}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center my-4">
+                        <button type="submit" class="btn btn-secondary px-5 w-75"  th:text="${session.language.getKeyValue().get('recuperar.btnEnviar')}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+<script th:src="@{/js/jquery-3.6.3-min.js}"> </script>
+</body>
+</html>
