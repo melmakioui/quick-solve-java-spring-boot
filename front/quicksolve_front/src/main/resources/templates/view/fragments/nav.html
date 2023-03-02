@@ -12,29 +12,22 @@
             <div class="navbar-collapse collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-5">
                     <li class="nav-item px-2" th:if="not ${userLogin}">
-                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:if="not ${userLogin}"  th:href="@{/}"  th:text="${session.language.getKeyValue().get('nav.li1')}"></a>
+                        <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" aria-current="page" th:if="not ${userLogin}"  th:href="@{/}"  th:text="${session.language.getKeyValue().get('nav.li1')}"></a>
                     </li>
                     <li class="nav-item px-2">
-                        <!-- el link de abajo tendrá que llevar al apartado de cuenta del usuario -->
-                        <a class="nav-link p-3 rounded-pill" th:href="@{/cuenta}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
-                        <a class="nav-link p-3 rounded-pill" th:href="@{/login}" th:unless="${userlogin}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
+                        <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/cuenta}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
+                        <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/login}" th:unless="${userlogin}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link p-3 rounded-pill" style="cursor: pointer;" th:if="${userlogin}" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="${session.language.getKeyValue().get('nav.li2')}"></a>
-                        <a class="nav-link p-3 rounded-pill" th:href="@{/registro}" th:unless="${userlogin}" th:text="${session.language.getKeyValue().get('nav.li3')}"></a>
-                    </li>
-               <!--     <li class="nav-item px-2" th:if="!${userlogin}">
-                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/incidencias}" th:text="${session.language.getKeyValue().get('nav.li4}"></a>
-                    </li>-->
-                    <li class="nav-item px-2" th:if="not ${userlogin}">
-                        <a class="nav-link p-3 rounded-pill" th:if="not ${userlogin}" th:href="@{/public/nueva}" th:text="${session.language.getKeyValue().get('nav.li5')}"></a>
+                        <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" style="cursor: pointer;" th:if="${userlogin}" href data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="${session.language.getKeyValue().get('nav.li2')}"></a>
+                        <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/registro}" th:unless="${userlogin}" th:text="${session.language.getKeyValue().get('nav.li3')}"></a>
                     </li>
                     <li class="nav-item px-2" th:if="not ${userlogin}">
-                        <a class="nav-link p-3 rounded-pill" aria-current="page" th:href="@{/planes}" th:text="${session.language.getKeyValue().get('nav.li6')}"></a>
+                        <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:if="not ${userlogin}" th:href="@{/public/nueva}" th:text="${session.language.getKeyValue().get('nav.li5')}"></a>
                     </li>
                     <li class="nav-item dropdown px-2">
-                        <a th:text="${session.language.getKeyValue().get('idioma')}" class="nav-link dropdown-toggle p-3 rounded-pill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                        <ul class="dropdown-menu bg-dark">
+                        <a th:text="${session.language.getKeyValue().get('idioma')}" class="nav-link dropdown-toggle p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                        <ul class="dropdown-menu bg-dark mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center">
                             <li><a class="dropdown-item nav-item-personalized" th:href="@{''(lang=es)}">Español</a></li>
                             <li><a class="dropdown-item nav-item-personalized" th:href="@{''(lang=en)}">English</a></li>
                         </ul>

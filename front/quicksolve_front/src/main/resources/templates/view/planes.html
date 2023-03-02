@@ -6,14 +6,16 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
     <title th:text="${session.language.getKeyValue().get('planes.titulo1')}"></title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
-<body class="custom-bg-1">
-<th:block th:include="view/fragments/nav"></th:block>
+<body>
+<th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 <th:block th:include="view/fragments/modalButtonPlan"></th:block>
 <div class="container py-3 variable-full-height">
 <div class="row row-cols-1 row-cols-lg-3 text-center h-100 align-items-center justify-content-center my-4 g-1 my-3">
     <div class="col">
-        <div class="card card-animation mb-4 rounded-3 shadow-sm">
+        <div class="card text-bg-primary card-animation mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
                 <h4 class="my-0 fw-normal" th:text="${session.language.getKeyValue().get('planes.plan1.titulo')}"></h4>
             </div>
@@ -28,13 +30,13 @@
                         <li th:text="${session.language.getKeyValue().get('planes.plan1.ventaja2')}"></li>
                     </ul>
                 </div>
-                <button class="btn btn-outline-dark disabled" th:if="${userlogin.service == null}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
-                <button type="button" th:if="${userlogin.service != null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModalFree" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
+                <button class="btn btn-outline-white-low-opacity disabled" th:if="${userlogin.service == null}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
+                <button type="button" th:if="${userlogin.service != null}" class="w-100 btn btn-secondary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModalFree" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
             </div>
         </div>
     </div>
     <div class="col" th:each="plan : ${planes}">
-        <div class="card card-animation mb-4 rounded-3 shadow-sm">
+        <div class="card text-bg-primary card-animation mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
                 <h4 class="my-0 fw-normal" th:text="${plan.name}"></h4>
             </div>
@@ -51,8 +53,8 @@
                 <input type="number" th:value="${plan.id}" name="plan" hidden>
                 <button type="button" name="submit" th:if="${userlogin.service == null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
                 <th:block th:if="${userlogin.service != null}">
-                    <button class="btn btn-outline-dark disabled" th:if="${userlogin.service.name == plan.name}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
-                    <button type="button" name="submit" th:if="${userlogin.service.name != plan.name}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
+                    <button class="btn btn-outline-white-low-opacity disabled" th:if="${userlogin.service.name == plan.name}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
+                    <button type="button" name="submit" th:if="${userlogin.service.name != plan.name}" class="w-100 btn btn-secondary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
                 </th:block>
             </div>
         </div>
