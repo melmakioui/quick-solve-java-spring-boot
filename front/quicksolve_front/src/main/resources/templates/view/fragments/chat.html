@@ -1,17 +1,17 @@
 <div class="position-fixed" style="bottom: 14px; right: 14px;">
-    <button class="btn btn-secondary rounded-circle p-2">
+    <button class="btn btn-secondary rounded-circle p-2" id="abrirVentanaChat">
         <img th:src="@{/img/live-chat.svg}" width="32px">
     </button>
 </div>
-<div th:fragment="chat" class="chat-live position-fixed" id="chatLive">
+<div th:fragment="chat" class="chat-live position-fixed d-none" id="chatLive">
     <div class="card text-center">
         <div class="card-header d-none" id="titleChat">Chat de soporte</div>
-        <div class="card-body">
+        <div class="card-body chat-body" id="messagesChat">
             <h5 class="card-title">Iniciar chat en vivo</h5>
             <button class="btn btn-primary" id="abrirChat">Abrir chat</button>
         </div>
         <div class="card-footer text-muted d-none" id="messageFooterChat">
-            <form class="row">
+            <form class="row" id="sendMessage">
                 <div class="col-auto col-lg-9">
                     <label for="inputMessage" class="visually-hidden">Mensaje</label>
                     <input type="text" class="form-control" id="inputMessage" placeholder="Mensaje...">

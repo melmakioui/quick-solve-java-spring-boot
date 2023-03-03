@@ -1,12 +1,19 @@
 .chat-live {
   width: 100%;
   max-width: 500px;
-  bottom: 70px;
+  bottom: 85px;
   right: 45px;
+  transition: all 1s;
+}
+
+.chat-body {
+  max-height: 425px;
+  overflow: auto;
 }
 
 @media (max-width: 868px) {
   .chat-live {
     right: 0;
+    bottom: 100px;
   }
 }
