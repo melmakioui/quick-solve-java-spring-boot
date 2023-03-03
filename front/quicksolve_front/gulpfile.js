@@ -29,3 +29,4 @@ function concatCss(){
 }
 
 exports.default = gulp.parallel(gulp.series(compileSass,minifyCss));
+exports.build = gulp.parallel(gulp.series(compileSass,minifyCss));

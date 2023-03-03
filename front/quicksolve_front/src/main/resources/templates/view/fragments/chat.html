@@ -1,0 +1,25 @@
+<div class="position-fixed" style="bottom: 14px; right: 14px;">
+    <button class="btn btn-secondary rounded-circle p-2">
+        <img th:src="@{/img/live-chat.svg}" width="32px">
+    </button>
+</div>
+<div th:fragment="chat" class="chat-live position-fixed" id="chatLive">
+    <div class="card text-center">
+        <div class="card-header d-none" id="titleChat">Chat de soporte</div>
+        <div class="card-body">
+            <h5 class="card-title">Iniciar chat en vivo</h5>
+            <button class="btn btn-primary" id="abrirChat">Abrir chat</button>
+        </div>
+        <div class="card-footer text-muted d-none" id="messageFooterChat">
+            <form class="row">
+                <div class="col-auto col-lg-9">
+                    <label for="inputMessage" class="visually-hidden">Mensaje</label>
+                    <input type="text" class="form-control" id="inputMessage" placeholder="Mensaje...">
+                </div>
+                <div class="col-auto col-lg-3">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

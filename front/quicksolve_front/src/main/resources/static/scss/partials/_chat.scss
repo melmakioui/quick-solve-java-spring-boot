@@ -1,0 +1,12 @@
+.chat-live {
+  width: 100%;
+  max-width: 500px;
+  bottom: 70px;
+  right: 45px;
+}
+
+@media (max-width: 868px) {
+  .chat-live {
+    right: 0;
+  }
+}
