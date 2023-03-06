@@ -28,7 +28,7 @@
                     <div class="card card mb-4 mx-2 incidence" style="width: 18rem;"
                          th:each="incidence : ${incidences}"
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''">
-                        <div class="card-body">
+                        <div class="card-body" style="cursor:pointer;">
                             <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                             <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
@@ -44,9 +44,9 @@
 
                             <div class="d-flex justify-content-end">
                                 <label for="urgent"></label>
-                                <select class="form-select form-select-sm w-50" id="urgent"
+                                <select class="form-select form-select-sm w-75" id="urgent"
                                         th:attr="data-incidence= ${incidence.id}">
-                                    <option selected th:each="tech: ${techs}" th:text="${tech.username}" th:value="${tech.id}"
+                                    <option selected th:each="tech: ${techs}" th:text="${tech.username} + ' (' +  (${tech.department.name} ? ${tech.department.name} : 'N/A' ) + ')'" th:value="${tech.id}"
                                             th:selected="${incidence.techId == tech.id}"></option>
                                 </select>
                             </div>
@@ -70,7 +70,7 @@
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
                          th:if="${incidence.priority < 1 && incidence.incidenceState.id == 1}"
                     >
-                        <div class="card-body">
+                        <div class="card-body" style="cursor:pointer;">
                             <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                             <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
@@ -86,7 +86,7 @@
 
                             <div class="d-flex justify-content-end">
                                 <label for="resolved"></label>
-                                <select class="form-select form-select-sm w-50" id="resolved" th:attr="data-incidence= ${incidence.id}">
+                                <select class="form-select form-select-sm w-75" id="resolved" th:attr="data-incidence= ${incidence.id}">
                                     <option selected th:each="tech: ${techs}" th:text="${tech.username}" th:value="${tech.id}"
                                             th:selected="${incidence.techId == tech.id}"></option>
                                 </select>
@@ -111,7 +111,7 @@
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
                          th:if="${incidence.incidenceState.id == 2}"
                     >
-                        <div class="card-body">
+                        <div class="card-body" style="cursor:pointer;">
                             <h5 class="card-title text-truncate" th:text="${incidence.title}"></h5>
                             <p class="card-text text-truncate mb-1" th:text="${incidence.description}"></p>
                             <div class="d-flex justify-content-between">
@@ -128,7 +128,7 @@
                             <div class="d-flex justify-content-end">
                                 <label for="progress"></label>
 
-                                <select class="form-select form-select-sm w-50" id="progress" th:attr="data-incidence= ${incidence.id}">
+                                <select class="form-select form-select-sm w-75" id="progress" th:attr="data-incidence= ${incidence.id}">
                                     <option hidden="hidden" th:value="${incidence.id}"></option>
                                     <option selected th:each="tech: ${techs}" th:text="${tech.username}"
                                             th:selected="${incidence.techId == tech.id}" th:value="${tech.id}"></option>

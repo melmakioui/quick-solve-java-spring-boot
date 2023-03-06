@@ -148,8 +148,8 @@
     </div>
 </div>
 
-<p th:if="${incidenceUploaded}" th:text="${session.language.getKeyValue().get('notify.incidencia.subida')}" hidden="hidden" id="feedBack"></p>
-<p th:if="${incidenceUpdated}" th:text="${session.language.getKeyValue().get('notify.incidencia.modificada')}" hidden="hidden" id="feedBack"></p>
+<p th:if="${incidenceUploaded}" th:text="${session.language.getKeyValue().get('notify.incidencia.subida')}" hidden="hidden" id="feedBack" data-class="success"></p>
+<p th:if="${incidenceUpdated}" th:text="${session.language.getKeyValue().get('notify.incidencia.modificada')}" hidden="hidden" id="feedBack" data-class="success"></p>
 
 <h3 id="emptyMessage" class="d-none m-auto" th:text="${session.language.getKeyValue().get('incidencias.sin.resultados')}"></h3>
 

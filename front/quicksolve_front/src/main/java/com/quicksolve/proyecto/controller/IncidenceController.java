@@ -165,9 +165,13 @@ public class IncidenceController {
     @GetMapping("/incidencia/{incidenceId}")
     public String showIncidence(@PathVariable long incidenceId, Model model) {
 
-        FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
-
         FullIncidenceDTO cancelledIncidence = incidenceService.findById(incidenceId);
+        FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
+        FullUserDTO owner = null;
+
+        if (userIncidenceService.findByIncidenceId(incidenceId).getUser() != null) {
+            owner = userService.getUserBy(userIncidenceService.findByIncidenceId(incidenceId).getUser().getId());
+        } else owner = null;
 
         if (cancelledIncidence.getIncidenceStateId() == INCIDENCE_SOLVE_STATE ||
                 cancelledIncidence.getIncidenceStateId() == INCIDENCE_CANCELLED_STATE
@@ -184,6 +188,7 @@ public class IncidenceController {
 
         model.addAttribute("incidence", incidenceDTO);
         model.addAttribute("newMessage", new IncidenceMessageDTO());
+        model.addAttribute("userOwner", owner);
         return "view/incidence";
     }
 
@@ -210,6 +215,7 @@ public class IncidenceController {
         FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
 
+        historyService.saveHistory(fullIncidenceDTO.getId());
         redirectAttributes.addFlashAttribute("incidenceUploaded", true);
         return "redirect:/";
     }
@@ -268,9 +274,18 @@ public class IncidenceController {
 
         incidenceService.changeState(incidenceId, stateId);
 
-        FullUserDTO owner = userService.getUserBy(userIncidenceService.findByIncidenceId(incidenceId).getUser().getId());
+        Long userId = userIncidenceService.findByIncidenceId(incidenceId).getUser() != null ?
+                userIncidenceService.findByIncidenceId(incidenceId).getUser().getId() : null;
+
+        FullUserDTO owner = null;
         FullIncidenceDTO incidence = incidenceService.findById(incidenceId);
-        emailService.sendEmail(owner.getEmail(), incidence.getTitle());
+
+        if(userId != null) owner = userService.getUserBy(userId);
+        else owner = null;
+
+        if (owner == null) emailService.sendEmail(incidence.getEmail(), incidence.getTitle());
+        else emailService.sendEmail(owner.getEmail(), incidence.getTitle());
+
         historyService.saveHistory(incidenceId);
         return "redirect:/incidencia/" + incidenceId;
     }
@@ -312,16 +327,19 @@ public class IncidenceController {
 
         List<FullIncidenceDTO> incidences = incidenceService.list();
         incidences.forEach(incidence -> {
-            long techId = userIncidenceService.findByIncidenceId(incidence.getId()).getTech().getId();
+            Long techId = userIncidenceService.findByIncidenceId(incidence.getId()).getTech() != null ?
+                    userIncidenceService.findByIncidenceId(incidence.getId()).getTech().getId() : -1;
             incidence.setTechId(techId);
         });
 
-        incidences = incidences.stream().filter(incidence -> incidence.getIncidenceState().getId() != 3 &&
-                incidence.getIncidenceState().getId() != 4).toList();
+        incidences = incidences.stream().filter(incidence -> incidence.getIncidenceState().getId() < 3).toList();
 
         List<FullUserDTO> techs = userService.listTechs();
         System.out.println(techs);
         techs.forEach(tech -> tech.setDepartment(departmentService.findById(tech.getDepartment().getId())));
+
+
+        System.out.println(techs);
 
         model.addAttribute("incidences", incidences);
         model.addAttribute("techs", techs);

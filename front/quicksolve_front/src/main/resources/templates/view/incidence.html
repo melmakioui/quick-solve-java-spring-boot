@@ -18,7 +18,7 @@
 <body>
 
 <div class="container mt-5">
-    <div class="row mb-4">
+    <div class="row mb-4" th:if="${incidence.incidenceState.id > 2}">
 
         <div class="col-12 d-flex justify-content-center" th:if="${incidence.incidenceState.id == 4}">
             <div class="alert alert-delete d-flex flex-nowrap align-items-center justify-content-center w-100"
@@ -43,20 +43,24 @@
     </div>
 
     <div class="col-12">
-        <div class="d-flex flex-wrap justify-content-center justify-content-xl-between align-items-center">
-            <h2 class="mx-2" th:text="${incidence.title}"></h2>
-            <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex flex-wrap justify-content-center justify-content-lg-between align-items-center">
 
-                <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
-                    <a class="btn btn-secondary" th:href="@{/incidencia/historial/} + ${incidence.id}">Historial</a>
+            <div class="col-11 col-lg-8 d-flex justify-content-start mx-2 mb-3">
+                <h2  th:text="${incidence.title}"></h2>
+            </div>
+
+            <div class="col-12 col-lg-4 row d-flex align-items-center justify-content-center">
+                <div th:class="${incidence.incidenceState.id > 2} ? 'col-12 col-lg-7 d-flex justify-content-lg-center mb-3' :
+                 'col-12 col-lg-5 d-flex justify-content-lg-center mb-3'" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH}">
+                    <a class="btn btn-secondary w-100" th:href="@{/incidencia/historial/} + ${incidence.id}">Historial</a>
                 </div>
 
-                <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} and ${incidence.incidenceState.id == 1 or incidence.incidenceState.id == 2}"
-                     class="dropdown mx-3">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} and ${incidence.incidenceState.id < 3}"
+                     class="col-12 col-lg-5 mb-3 dropdown">
+                    <a class="btn btn-secondary dropdown-toggle w-100" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false" th:text="${session.language.getKeyValue().get('incidencia.cambiar.estado')}"></a>
 
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu mx-1">
                         <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/2'"
                                th:text="${session.language.getKeyValue().get('incidencia.estado.enprogreso')}"></a></li>
                         <li><a class="dropdown-item" th:href="@{/incidencia/estado/} + ${incidence.id} + '/3'"
@@ -65,18 +69,19 @@
                                th:text="${session.language.getKeyValue().get('incidencia.estado.cancelada')}"></a></li>
                     </ul>
                 </div>
-                <div id="actions" class="d-flex align-items-center ">
+                <div id="actions" th:class="${incidence.incidenceState.id > 2} ? 'd-flex col-12 col-lg-7 justify-content-lg-center' :
+                'd-flex col-12 col-lg-10 justify-content-lg-center'">
                     <span th:if="${incidence.incidenceState.id == 1}"
-                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5"
+                          class="badge text-texto-contraste text-bg-white-low-opacity text-nowrap fs-5 w-100"
                           th:text="${session.language.getKeyValue().get('incidencia.estado.enespera')}"></span>
                     <span th:if="${incidence.incidenceState.id == 2}"
-                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5"
+                          class="badge text-texto-contraste text-bg-primary text-nowrap fs-5 w-100"
                           th:text="${session.language.getKeyValue().get('incidencia.estado.enprogreso')}"></span>
                     <span th:if="${incidence.incidenceState.id == 3}"
-                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5"
+                          class="badge text-texto-contraste text-bg-successful text-nowrap fs-5 w-100"
                           th:text="${session.language.getKeyValue().get('incidencia.estado.solucionada')}"></span>
                     <span th:if="${incidence.incidenceState.id == 4}"
-                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5"
+                          class="badge text-texto-contraste text-bg-delete text-nowrap fs-5 w-100"
                           th:text="${session.language.getKeyValue().get('incidencia.estado.cancelada')}"></span>
                 </div>
             </div>
@@ -102,13 +107,13 @@
             <div class="images-container d-flex flex-wrap justify-content-center align-items-center">
                 <a th:each="image : ${incidence.incidenceFiles}" th:href="@{${image.filePath}}" class="image-link">
                     <img th:src="@{${image.filePath}}" class="img-thumbnail mx-2 image-modal" width="300"
-                         style="cursor: pointer">
+                         style="cursor: pointer; max-width: 200px">
                 </a>
             </div>
         </div>
         <div th:unless="not ${incidence.incidenceFiles.isEmpty()}"
              class="col-12 col-lg-6 d-flex justify-content-center">
-            <h3 th:text="${session.language.getKeyValue().get('incidencia.sin.imagenes')}"></h3>
+            <h3 class="text-center" th:text="${session.language.getKeyValue().get('incidencia.sin.imagenes')}"></h3>
         </div>
     </div>
 
@@ -120,9 +125,12 @@
     <h5 th:if="${#lists.isEmpty(incidence.messages)} and ${incidence.user != null} and ${incidence.incidenceState.id < 3}"
         class="w-100 text-center mt-3" th:text="${session.language.getKeyValue().get('incidencia.sin.mensajes')}"></h5>
 
-    <div class="row justify-content-center mb-5 mx-5">
+    <div th:if="${userOwner != null}" class="row justify-content-center mb-5 mx-1">
         <th:block th:include="/view/fragments/messages"></th:block>
         <th:block th:include="/view/fragments/formMessage"></th:block>
+    </div>
+    <div th:unless="${userOwner != null}" class="row justify-content-center mb-5 mx-5">
+        <h6 class="text-center mt-5" th:text="'Es un usuario anónimo, no puede enviar mensajes.'"></h6>
     </div>
 </div>
 

@@ -60,8 +60,12 @@ $(document).ready(function () {
         $table.bootstrapTable('refreshOptions', {
             locale: languages.find(x => x.value.includes(cookieLanguage)).value
         })
+    }else {
+        var acceptLanguage = navigator.language
+        $table.bootstrapTable('refreshOptions', {
+            locale: languages.find(x => x.value.includes(acceptLanguage)).value
+        })
     }
-
 
 //Responsive table
     window.onresize = toogleTable

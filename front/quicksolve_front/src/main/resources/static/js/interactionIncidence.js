@@ -3,10 +3,13 @@ $(document).ready(function () {
 
     //Si el div de los mensajes ocupa mas de 500px de alto, se muestra el boton de scroll
     var comments = document.getElementById('comments');
-    comments.scrollTo(0, comments.scrollHeight);
 
-    if (comments.style.height  > 500) {
-        comments.css('overflow', 'scroll');
+    if (comments) {
+        comments.scrollTo(0, comments.scrollHeight);
+        if (comments.style.height  > 500 ) {
+            comments.css('overflow', 'scroll');
+        }
+
     }
 
     //Sroll hacia el comentario donde quiere editar

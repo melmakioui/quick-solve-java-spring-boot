@@ -52,7 +52,7 @@
         </section>
     </div>
 
-    <p th:if="${incidenceUploaded}" th:text="'Mensaje a traducir'" hidden="hidden" id="feedBack"></p>
+    <p th:if="${incidenceUploaded}" th:text="'Mensaje a traducir'" hidden="hidden" id="feedBack" data-class="success"></p>
 
     <th:block th:include="view/fragments/chat"></th:block>
     <th:block th:include="view/fragments/footer"></th:block>
@@ -61,6 +61,7 @@
     <script th:src="@{/js/feedBack.js}"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
     <script th:src="@{/js/chatLiveControl.js}"></script>
     <script th:src="@{/js/activeLinks.js}"> </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

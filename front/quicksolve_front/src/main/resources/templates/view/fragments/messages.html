@@ -4,7 +4,7 @@
          th:class="${message.action} ? 'card-comment p-3 mb-4 bg-secondary' : 'card-comment p-3 mb-4'">
         <div class="d-flex justify-content-between align-items-center">
             <div class="user d-flex flex-row align-items-center">
-                <img th:src="@{/img/user.png}" width="30" alt="" class="user-img rounded-circle mx-3">
+                <img th:src="@{/img/user.png}" width="30" alt="" class="d-none d-lg-block user-img rounded-circle mx-3">
                 <span>
                             <small th:if="${message.user.id == userlogin.id}" th:text="${session.language.getKeyValue().get('incidencia.mensaje.propio')}"
                                    class="font-weight-bold fs-5"></small>
@@ -15,12 +15,11 @@
                                    th:text="${message.body}"></p>
                         </span>
             </div>
-            <small th:text="${#temporals.format(message.dateHour,'dd-MM-yyyy HH:mm')}"></small>
         </div>
 
 
         <div class="action d-flex justify-content-between mt-2 align-items-center">
-            <div class="reply px-4">
+            <div class="reply d-flex justify-content-start">
                 <a
                         th:class="${message.action} ? 'font-weight-bold bg-secondary text-darker mx-2 text-decoration-none' : 'font-weight-bold mx-2 text-decoration-none'"
                         th:if="${message.user.id == userlogin.id and incidence.incidenceState.id != 3 and incidence.incidenceState.id != 4}"
@@ -35,9 +34,7 @@
                 </a>
             </div>
 
-            <div th:if="${message.modified == true}">
-                <small class="text-muted" th:text="'(' + ${session.language.getKeyValue().get('incidencia.mensaje.modificada')} + ')'"></small>
-            </div>
+            <small th:text="${#temporals.format(message.dateHour,'dd-MM-yyyy HH:mm')}"></small>
         </div>
     </div>
 </div>

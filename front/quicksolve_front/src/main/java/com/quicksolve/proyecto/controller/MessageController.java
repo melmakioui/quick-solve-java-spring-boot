@@ -72,6 +72,12 @@ public class MessageController {
 
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
 
+        FullUserDTO owner = null;
+
+        if (userIncidenceService.findByIncidenceId(incidenceId).getUser() != null) {
+            owner = userService.getUserBy(userIncidenceService.findByIncidenceId(incidenceId).getUser().getId());
+        } else owner = null;
+
         IncidenceMessageDTO messageToUpdate = messageService.findByIdAndIncidenceIdAndUserId(messageId, incidenceId, user.getId());
         if (messageToUpdate == null) {
             throw new RuntimeException("No se ha encontrado el mensaje");
@@ -86,6 +92,7 @@ public class MessageController {
         model.addAttribute("message", messageService.findById(messageId));
         model.addAttribute("isUpdateMessage", true);
         model.addAttribute("incidence", incidenceDTO);
+        model.addAttribute("userOwner", owner);
         return "view/incidence";
     }
 
@@ -103,6 +110,4 @@ public class MessageController {
         messageService.update(incidenceMessageDTO, incidenceId, messageId, user.getId());
         return "redirect:/incidencia/" + incidenceId;
     }
-
-
 }
