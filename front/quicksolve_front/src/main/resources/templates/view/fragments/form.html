@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
 
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
-        <label for="title" class="form-label" th:text="${session.language.getKeyValue().get('formupt.campo1')}"><span class="text-delete">*</span> </label>
+        <label for="title" class="form-label" th:text="${session.language.getKeyValue().get('formupt.campo1')} + ' '"> </label><span class="text-delete"> *</span>
         <input type="text" class="form-control" th:field="*{title}" name="title" id="title" minlength="3" maxlength="50"
                required>
         <div class="invalid-feedback" th:text="${session.language.getKeyValue().get('formupt.campo1.error')}"></div>
@@ -29,7 +29,7 @@
 
 <div class="row justify-content-center mb-3">
     <div class="col-12 col-xl-6 col-lg-8 col-md-10 col-sm-12">
-        <label for="description" th:text="${session.language.getKeyValue().get('formupt.campo5')}"><span class="text-delete">*</span></label>
+        <label for="description" th:text="${session.language.getKeyValue().get('formupt.campo5')}  + ' '"></label><span class="text-delete"> *</span>
         <textarea class="form-control" th:field="*{description}" name="description" id="description" rows="3"
                   minlength="10" maxlength="512" required></textarea>
         <div class="invalid-feedback" th:text="${session.language.getKeyValue().get('formupt.campo5.error')}"></div>

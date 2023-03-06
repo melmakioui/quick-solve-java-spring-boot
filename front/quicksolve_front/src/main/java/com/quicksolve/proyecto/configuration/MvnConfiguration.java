@@ -47,6 +47,6 @@ public class MvnConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedOrigins("http://localhost:5500");
+                .allowedOrigins("http://localhost:1234");
     }
 }

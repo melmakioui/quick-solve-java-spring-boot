@@ -14,4 +14,6 @@ public class Language {
     private long id;
     @Column(unique = true)
     private String name;
+    @Column(unique = true)
+    private String language;
 }

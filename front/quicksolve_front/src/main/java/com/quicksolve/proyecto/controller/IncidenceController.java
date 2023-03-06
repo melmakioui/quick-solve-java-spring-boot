@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.AccessDeniedException;
 import java.text.ParseException;
@@ -194,7 +195,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/public/nueva/incidencia")
-    public String saveNoUserIncidence(@Valid FullIncidenceDTO newIncidence, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
+    public String saveNoUserIncidence(@Valid FullIncidenceDTO newIncidence, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("departments", departmentService.list());
@@ -209,11 +210,12 @@ public class IncidenceController {
         FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
 
+        redirectAttributes.addFlashAttribute("incidenceUploaded", true);
         return "redirect:/";
     }
 
     @PostMapping("/incidencia/nueva")
-    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
+    public String saveIncidence(@Valid FullIncidenceDTO incidenceDepartmentDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files, RedirectAttributes redirectAttributes) {
 
         bindingResult = excludeEmailFormValidationForUsers(bindingResult, incidenceDepartmentDTO, model);
 
@@ -230,11 +232,12 @@ public class IncidenceController {
         FullIncidenceDTO fullIncidenceDTO = incidenceService.getLastIncidence();
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
         historyService.saveHistory(fullIncidenceDTO.getId());
+        redirectAttributes.addFlashAttribute("incidenceUploaded", true);
         return "redirect:/incidencias";
     }
 
     @PostMapping("/incidencia/modificar/{id}")
-    public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files) {
+    public String updateIncidence(@Valid FullIncidenceDTO fullIncidenceDTO, BindingResult bindingResult, Model model, @RequestParam("images[]") MultipartFile[] files, RedirectAttributes redirectAttributes) {
 
         bindingResult = excludeEmailFormValidationForUsers(bindingResult, fullIncidenceDTO, model);
 
@@ -250,6 +253,8 @@ public class IncidenceController {
         incidenceService.update(fullIncidenceDTO);
         incidenceFileService.saveIncidenceFiles(files, fullIncidenceDTO);
         historyService.saveHistory(fullIncidenceDTO.getId());
+
+        redirectAttributes.addFlashAttribute("incidenceUpdated", true);
         return "redirect:/incidencias";
     }
 

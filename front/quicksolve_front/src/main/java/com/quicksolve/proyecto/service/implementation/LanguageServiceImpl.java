@@ -38,4 +38,16 @@ public class LanguageServiceImpl implements LanguageService {
                     return languageDTO;
                 }).toList();
     }
+
+    @Override
+    public List<LanguageDTO> listLanguages() {
+
+        return languageRepository.findAll()
+                .stream().map(language -> {
+                    LanguageDTO languageDTO = new LanguageDTO();
+                    languageDTO.setLanguage(language.getLanguage());
+                    languageDTO.setName(language.getName());
+                    return languageDTO;
+                }).toList();
+    }
 }

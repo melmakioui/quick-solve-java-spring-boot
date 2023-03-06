@@ -61,4 +61,16 @@ public class TokenServiceImpl implements TokenService {
         }
         return claims;
     }
+
+
+    @Override
+    public String createTokenForValidation(String email, String rol) {
+        return Jwts.builder()
+                .claim("email", email)
+                .claim("rol", rol)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000 * 24))
+                .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(this.jwtSecret.getBytes()))
+                .compact();
+    }
 }

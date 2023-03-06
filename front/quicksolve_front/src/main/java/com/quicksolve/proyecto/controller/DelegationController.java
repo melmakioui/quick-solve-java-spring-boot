@@ -26,7 +26,7 @@ public class DelegationController {
     @Autowired
     private IncidenceService incidenceService;
 
-    @PutMapping( "/x/tech/assign")
+    @PutMapping( "/tech/assign")
     public ResponseEntity assignTechToIncidence(@RequestParam long incidenceId, @RequestParam long techId, @RequestHeader(value = "Authorization", required = true) String token) {
 
         String tokenWithoutBearer = token.substring(7);

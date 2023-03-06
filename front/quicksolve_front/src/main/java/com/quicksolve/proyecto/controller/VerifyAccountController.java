@@ -1,6 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.FullUserDTO;
+import com.quicksolve.proyecto.entity.User;
 import com.quicksolve.proyecto.service.EmailService;
 import com.quicksolve.proyecto.service.TokenService;
 import com.quicksolve.proyecto.service.UserService;
@@ -33,6 +34,13 @@ public class VerifyAccountController {
 
         int verify = tokenService.validateToken(token);
 
+        Claims userClaims = tokenService.getClaims(token);
+        FullUserDTO user = userService.getUserBy(userClaims.get("email", String.class));
+
+        if (user.isActive())
+            return "redirect:/login";
+
+
         if(verify == 0) {
             model.addAttribute("loginError", "false");
             model.addAttribute("isVerified", "true");
@@ -42,9 +50,9 @@ public class VerifyAccountController {
             userService.activateUser(email);
             model.addAttribute("isAccountVerified", true);
             return "view/success";
+        } else {
+            return "errorno";
         }
-
-        return "errorno";
     }
 
     @GetMapping("/recuperar-cuenta")
@@ -62,7 +70,7 @@ public class VerifyAccountController {
             return "view/accountRecovery";
         }
 
-        String token = tokenService.createToken(user.getEmail(),user.getType().name());
+        String token = tokenService.createTokenForValidation(user.getEmail(),user.getType().name());
         String html = "<html><body><p>Para verificar tu cuenta haz click en el siguiente enlace : <a href='"+ URL +"/cambiar-contrasena?code=" + token + "'>Verificar</a></p></body></html>";
 
         emailService.sendGenericEmail(user.getEmail(), html);
