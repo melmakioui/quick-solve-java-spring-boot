@@ -1,3 +1,5 @@
+@import "variables";
+
 .chat-live {
   width: 100%;
   max-width: 500px;
@@ -9,6 +11,16 @@
 .chat-body {
   max-height: 425px;
   overflow: auto;
+}
+
+.chat-bubble1 {
+  background: $chat-bubble;
+  border-radius: 20px 20px 3px 20px;
+}
+
+.chat-bubble2 {
+  background: $chat-bubble;
+  border-radius: 20px 20px 20px 3px;
 }
 
 @media (max-width: 868px) {

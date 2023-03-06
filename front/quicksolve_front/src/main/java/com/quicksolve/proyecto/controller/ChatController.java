@@ -1,43 +1,30 @@
 package com.quicksolve.proyecto.controller;
 
-import org.json.JSONObject;
-import org.springframework.stereotype.Component;
+import com.quicksolve.proyecto.dto.ChatDTO;
+import com.quicksolve.proyecto.dto.ChatMessageDTO;
+import com.quicksolve.proyecto.service.ChatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
+@Controller
+@SessionAttributes({"userlogin"})
+public class ChatController {
+    @Autowired
+    private ChatService chatService;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-@Component
-public class ChatController extends TextWebSocketHandler {
-
-    List<WebSocketSession> webSocketSessions = Collections.synchronizedList(new ArrayList<>());
-
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        super.afterConnectionEstablished(session);
-        System.out.println(session);
-        webSocketSessions.add(session);
-        System.out.println(webSocketSessions);
+    @GetMapping("/chats/tech")
+    public String showAllChatsTech(Model model){
+        model.addAttribute("chats", chatService.showAllChats());
+        return "view/chats";
     }
 
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        super.afterConnectionClosed(session, status);
-        webSocketSessions.remove(session);
-    }
-
-    @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        System.out.println(session);
-        System.out.println(message.getPayload());
-        String payload = message.getPayload();
-        JSONObject jsonObject = new JSONObject(payload);
-        session.sendMessage(new TextMessage(jsonObject.get("message").toString()));
+    @MessageMapping("/chat/group/{to}")
+    public void sendMessageToGroup(@DestinationVariable String to, ChatMessageDTO message) {
+        if (!chatService.showChatBy(to).isClosed()) chatService.sendMessageToGroup(to, message);
     }
 }

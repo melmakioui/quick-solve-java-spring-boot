@@ -18,7 +18,7 @@ import java.util.Map;
 public class UserInterceptor implements HandlerInterceptor {
     @Autowired
     private TokenService tokenService;
-    private final String[] REST_URLs = {"/rest/imagenes", "/rest/incidencias/tech", "/rest/incidencias/buscar"};
+    private final String[] REST_URLs = {"/rest/imagenes", "/rest/incidencias/tech", "/rest/incidencias/buscar", "/rest/chats"};
 
 
     @Override
@@ -74,6 +74,7 @@ public class UserInterceptor implements HandlerInterceptor {
         // RESTRICTED URLS GO HERE
         securedURLs.put(REST_URLs[1], new String[]{UserType.TECH.name(), UserType.ADMIN.name()});
         securedURLs.put(REST_URLs[2], new String[]{UserType.TECH.name(), UserType.ADMIN.name()});
+        securedURLs.put(REST_URLs[3], new String[]{UserType.TECH.name(), UserType.ADMIN.name()});
 
         Map.Entry<String, String[]> securedURL = securedURLs.entries().stream()
                 .filter(urlsecured -> URI.contains(urlsecured.getKey()))

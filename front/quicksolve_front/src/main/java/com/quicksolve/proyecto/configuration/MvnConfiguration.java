@@ -26,7 +26,7 @@ public class MvnConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(LanguageInterceptor)
                 .addPathPatterns("/**");
         registry.addInterceptor(UserInterceptor)
-                .addPathPatterns("/incidencias/**", "/incidencia/**", "/nueva/**", "/modificar/**", "/planes/**", "/cuenta/**","/editar/**","guardar/**","/borrar/**", "/invoices/**","/historial/**", "/rest/**");
+                .addPathPatterns("/incidencias/**", "/incidencia/**", "/nueva/**", "/modificar/**", "/planes/**", "/cuenta/**","/editar/**","guardar/**","/borrar/**", "/invoices/**","/historial/**", "/rest/**", "/chats/**");
     }
 
     @Override
@@ -47,6 +47,6 @@ public class MvnConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedOrigins("http://localhost:5500");
+                .allowedOrigins("http://localhost:5500", "http://localhost:8080");
     }
 }
