@@ -23,8 +23,7 @@
                     <div class="row justify-content-center mb-3">
                         <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
                             <label for="email" class="form-label"><span class="text-texto-contraste"
-                                                                        th:text="${session.language.getKeyValue().get('formupt.campo2')}"></span> <span
-                                    class="text-delete">*</span></label>
+                                                                        th:text="${session.language.getKeyValue().get('formupt.campo2')}"></span> <span class="text-delete">*</span></label>
                             <input type="email" class="form-control" th:field="*{email}" name="email" id="email"
                                    required>
                             <div class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('formupt.campo1.error')}">
@@ -59,7 +58,7 @@
                     <div class="row justify-content-center mb-3">
                         <div class="col-12 col-xl-8 col-lg-10 col-md-10 col-sm-12">
                             <label for="description" class="form-label"><span class="text-texto-contraste"
-                                                                              th:text="${session.language.getKeyValue().get('formupt.campo5')}"></span><span
+                                                                              th:text="${session.language.getKeyValue().get('formupt.campo5')} + ' '"></span><span
                                     class="text-delete">*</span></label>
                             <textarea class="form-control" th:field="*{description}" name="description" id="description"
                                       rows="3" minlength="10" maxlength="512" required></textarea>

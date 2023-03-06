@@ -41,6 +41,7 @@ public class LanguageInterceptor implements HandlerInterceptor {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("language", languageDTO1);
+                session.setAttribute("languages", languageService.listLanguages());
         return true;
     }
 }

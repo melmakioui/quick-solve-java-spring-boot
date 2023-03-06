@@ -34,4 +34,10 @@
       <span class="material-symbols-outlined mx-1">rocket_launch</span> <span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('sidebar.mejorar.plan')}"></span>
     </a>
   </div>
+
+  <div class=" d-flex justify-content-center mx-2" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).ADMIN}">
+    <a href="https://admin.quicksolve.me" type="button" class="btn btn-primary  qs-button d-flex align-items-center justify-content-center">
+      <span class="material-symbols-outlined mx-1">dashboard</span> <span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('nav.admin')}"></span>
+    </a>
+  </div>
 </div>

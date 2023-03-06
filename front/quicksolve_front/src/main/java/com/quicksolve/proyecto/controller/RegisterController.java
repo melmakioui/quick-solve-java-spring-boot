@@ -67,7 +67,7 @@ public class RegisterController {
 
         //Verificacion de email
         FullUserDTO totalUser = userService.createUser(user);
-        String tokenUser = tokenService.createToken(totalUser.getEmail(),totalUser.getType().name());
+        String tokenUser = tokenService.createTokenForValidation(totalUser.getEmail(),totalUser.getType().name());
         String html = "<html><body><h1>Verifica tu cuenta</h1><p>Para verificar tu cuenta, haz click en el siguiente enlace: <a href='" + URL +"/verificar?code=" + tokenUser + "'>Verificar</a></p></body></html>";
         emailService.sendGenericEmail(totalUser.getEmail(), html);
         return "view/notifier";

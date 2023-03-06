@@ -18,13 +18,13 @@
                     <div class="p-lg-2">
                         <h3 class="h3 text-texto-contraste p-lg-2 mt-2" th:text="${session.language.getKeyValue().get('registro.titulo2')}"></h3>
                         <div>
-                            <label for="name" th:text="${session.language.getKeyValue().get('registro.campo1')}" class="text-texto-contraste"></label>
+                            <label for="name" th:text="${session.language.getKeyValue().get('registro.campo1')} + ' '" class="text-texto-contraste"></label> <span class="text-delete"> *</span>
                             <input type="text" class="form-control" id="name" name="name" required>
                             <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.nombrevalido')}"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-lg-2 mt-3">
-                                <label for="firstsurname" th:text="${session.language.getKeyValue().get('registro.campo2')}" class="text-texto-contraste"></label>
+                                <label for="firstsurname" th:text="${session.language.getKeyValue().get('registro.campo2')} + ' '" class="text-texto-contraste"></label><span class="text-delete"> *</span>
                                 <input type="text" class="form-control" id="firstsurname" name="firstSurname" required>
                                 <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.apellidovalido')}"></span>
                             </div>
@@ -37,25 +37,25 @@
                     <div class="p-lg-2">
                         <h3 class="h3 text-texto-contraste p-lg-2 mt-2" th:text="${session.language.getKeyValue().get('registro.titulo3')}"></h3>
                         <div>
-                            <label for="username" th:text="${session.language.getKeyValue().get('registro.campo4')}" class="text-texto-contraste"></label>
+                            <label for="username" th:text="${session.language.getKeyValue().get('registro.campo4')} + ' '" class="text-texto-contraste"></label><span class="text-delete"> *</span>
                             <input type="text" class="form-control" th:classappend="${alreadyExistsUsername == 'true' ? 'is-invalid' : ''}" id="username" th:field="*{username}" required>
                             <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsUsername == 'true'}" th:text="${session.language.getKeyValue().get('registro.usernameDuplicado')}"></span>
                             <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.usernamevalido')}"></span>
                         </div>
                         <div class="mt-lg-2 mt-3">
-                            <label for="email" th:text="${session.language.getKeyValue().get('registro.campo5')}" class="text-texto-contraste"></label>
+                            <label for="email" th:text="${session.language.getKeyValue().get('registro.campo5')} + ' '" class="text-texto-contraste"></label><span class="text-delete"> *</span>
                             <input type="email" class="form-control" th:classappend="${alreadyExistsEmail == 'true' ? 'is-invalid' : ''}" id="email" th:field="*{email}" name="email" required>
                             <span class="invalid-feedback text-texto-contraste" th:if="${alreadyExistsEmail == 'true'}" th:text="${session.language.getKeyValue().get('registro.emailDuplicado')}"></span>
                             <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.emailvalido')}"></span>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-lg-2 mt-3">
-                                <label for="password" th:text="${session.language.getKeyValue().get('registro.campo6')}" class="text-texto-contraste"></label>
+                                <label for="password" th:text="${session.language.getKeyValue().get('registro.campo6')} + ' '" class="text-texto-contraste"></label><span class="text-delete"> *</span>
                                 <input type="password" class="form-control" id="password" name="password" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d).*$" th:field="*{password}" required>
                                 <span class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.contravalida')}"></span>
                             </div>
                             <div class="col-lg-6 mt-lg-2 mt-3">
-                                <label for="confirmpassword" th:text="${session.language.getKeyValue().get('registro.campo7')}" class="text-texto-contraste"></label>
+                                <label for="confirmpassword" th:text="${session.language.getKeyValue().get('registro.campo7')} + ' '" class="text-texto-contraste"></label><span class="text-delete"> *</span>
                                 <input type="password" class="form-control" id="confirmpassword" pattern="^$" name="confirmpassword" required>
                                 <span id="passwordMatchError" class="invalid-feedback text-texto-contraste" th:text="${session.language.getKeyValue().get('registro.contracoincide')}"></span>
                             </div>

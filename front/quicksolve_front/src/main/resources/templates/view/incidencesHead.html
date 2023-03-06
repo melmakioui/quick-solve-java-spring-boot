@@ -13,7 +13,7 @@
 
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 
-<main class="d-flex flex-nowrap flex-column justify-content-center mx-6">
+<main class="d-flex flex-nowrap flex-column justify-content-center col-11 col-md-8 mx-auto">
     <h1 class="mt-4 mb-5">Assign Incidences</h1>
     <div class="accordion mb-3" id="accordion">
         <div class="accordion-item">
@@ -24,7 +24,7 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                  data-bs-parent="#accordion">
-                <div class="accordion-body d-flex flex-wrap justify-content-center">
+                <div class="accordion-body d-flex flex-wrap justify-content-center incidences">
                     <div class="card card mb-4 mx-2 incidence" style="width: 18rem;"
                          th:each="incidence : ${incidences}"
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''">
@@ -64,7 +64,7 @@
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingOne"
                  data-bs-parent="#accordion">
-                <div class="accordion-body d-flex flex-wrap justify-content-center">
+                <div class="accordion-body d-flex flex-wrap justify-content-center incidences">
                     <div class="card  card mb-4 mx-2 incidence" style="width: 18rem;"
                          th:each="incidence : ${incidences}"
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
@@ -105,7 +105,7 @@
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingOne"
                  data-bs-parent="#accordion">
-                <div class="accordion-body d-flex flex-wrap justify-content-center">
+                <div class="accordion-body d-flex flex-wrap justify-content-center incidences">
                     <div class="card  card mb-4 mx-2 incidence" style="width: 18rem;"
                          th:each="incidence : ${incidences}"
                          th:onclick="'window.location.href=\'' + @{/incidencia/} + ${incidence.id} + '\''"
@@ -147,7 +147,14 @@
         </div>
     </div>
 </main>
+
+<p  th:text="${session.language.getKeyValue().get('notify.incidencia.asignada')}" hidden="hidden" id="feedBack"></p>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
+<script th:src="@{/js/jquery.notifyBar.min.js}"></script>
+<script th:src="@{/js/deleteModal.js}"></script>
+
 <script>
 
     document.querySelectorAll(".form-select").forEach(function (element) {
@@ -165,8 +172,10 @@
 
             const incidence = e.currentTarget.getAttribute("data-incidence");
             const tech = e.currentTarget.value;
+            const message = document.getElementById("feedBack").innerText;
+            const techName = e.currentTarget.options[e.currentTarget.selectedIndex].text;
 
-            $.ajax('http://localhost:8080/x/tech/assign', {
+            $.ajax('http://localhost:8080/tech/assign', {
                  method: 'PUT',
                  headers: {
                      'Authorization': localStorage.getItem('token')
@@ -176,8 +185,13 @@
                      techId: tech
                  },
                  success: function (data) {
-                     console.log(data);
-                     //mostrar mensaje de que se ha asignado correctamente
+                     $.notifyBar({
+                         html: message + " " + techName,
+                         cssClass: "success",
+                         delay: 5000,
+                         position: "bottom",
+                         animationSpeed: "normal"
+                     });
                  },
                  error: function (data) {
                      console.log(data);

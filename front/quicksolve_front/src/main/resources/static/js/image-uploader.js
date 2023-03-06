@@ -1,6 +1,5 @@
 
 $(document).ready(function () {
-    console.log("ready!");
     const message = document.getElementById("drag-drop-label");
 
     if (window.location.href.includes("modificar")){
