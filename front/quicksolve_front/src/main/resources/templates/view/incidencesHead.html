@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${session.language.getKeyValue().get('incidenciastech.titulo1')}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-
+    <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
 </head>
@@ -35,7 +35,7 @@
                                 <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                 <div>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
-                                       th:attr="data-link='/incidencia/tech/cancelar/' + ${incidence.id}"
+                                       th:attr="data-link='/incidencia/head/cancelar/' + ${incidence.id}"
                                        class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                         <span disabled="disabled" class="material-symbols-outlined">close</span>
                                     </a>
@@ -77,7 +77,7 @@
                                 <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                 <div>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
-                                       th:attr="data-link='/incidencia/tech/cancelar/' + ${incidence.id}"
+                                       th:attr="data-link='/incidencia/head/cancelar/' + ${incidence.id}"
                                        class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                         <span disabled="disabled" class="material-symbols-outlined">close</span>
                                     </a>
@@ -118,7 +118,7 @@
                                 <small th:text="${#temporals.format(incidence.dateStart, 'dd-MM-yyyy HH:mm')}"></small>
                                 <div>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteIncidence"
-                                       th:attr="data-link='/incidencia/tech/cancelar/' + ${incidence.id}"
+                                       th:attr="data-link='/incidencia/head/cancelar/' + ${incidence.id}"
                                        class="icons-crud text-danger mx-1 text-delete btnDelModal">
                                         <span disabled="disabled" class="material-symbols-outlined">close</span>
                                     </a>
@@ -147,6 +147,25 @@
         </div>
     </div>
 </main>
+
+<div class="modal fade" id="deleteIncidence" tabindex="-1" aria-labelledby="deleteIncidence" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-primary text-texto-contraste">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deltext" th:text="${session.language.getKeyValue().get('incidencia.eliminar.titulo')}"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" th:text="${session.language.getKeyValue().get('incidencia.eliminar.mensaje')}"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal"
+                        th:text="${session.language.getKeyValue().get('incidencia.eliminar.cancelar')}"></button>
+                <a id="delBtnModal">
+                    <button type="button" class="btn btn-secondary" th:text="${session.language.getKeyValue().get('incidencia.eliminar.boton')}"></button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <p  th:text="${session.language.getKeyValue().get('notify.incidencia.asignada')}" hidden="hidden" id="feedBack"></p>
 

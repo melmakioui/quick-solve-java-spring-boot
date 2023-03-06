@@ -35,8 +35,7 @@
           <li class="nav-item dropdown px-2">
             <a th:text="${session.language.getKeyValue().get('idioma')}" class="nav-link dropdown-toggle p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
             <ul class="dropdown-menu bg-dark mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center">
-              <li><a class="dropdown-item nav-item-personalized" th:href="@{''(lang=es)}">Español</a></li>
-              <li><a class="dropdown-item nav-item-personalized" th:href="@{''(lang=en)}">English</a></li>
+              <li th:each="lan : ${session.languages}"><a class="dropdown-item nav-item-personalized" th:href="@{'?lang=' + ${lan.name}}" th:text="${lan.language}"></a></li>
             </ul>
           </li>
         </ul>

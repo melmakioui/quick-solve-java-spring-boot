@@ -129,23 +129,23 @@ public class IncidenceController {
         try {
             departmentId = Long.parseLong(department);
             spaceId = Long.parseLong(space);
-        }catch (NumberFormatException error){
+        } catch (NumberFormatException error) {
             System.out.println("Error");
             return "redirect:/incidencias";
         }
 
-        if (!dateStart.isEmpty()){
+        if (!dateStart.isEmpty()) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat.setLenient(false);
             try {
                 dateFormat.parse(dateStart.trim());
-            }catch (ParseException e){
+            } catch (ParseException e) {
                 System.out.println("error 2");
                 return "redirect:/incidencias";
             }
         }
 
-        List<FullIncidenceDTO> incidences = incidenceService.list(departmentId, spaceId, dateStart,(FullUserDTO) model.getAttribute("userlogin"));
+        List<FullIncidenceDTO> incidences = incidenceService.list(departmentId, spaceId, dateStart, (FullUserDTO) model.getAttribute("userlogin"));
         incidences.forEach(incidence -> {
             incidence.setDepartment(departmentService.findById(incidence.getDepartmentId()));
             incidence.setSpace(spaceService.findById(incidence.getSpaceId()));
@@ -171,7 +171,7 @@ public class IncidenceController {
 
         if (cancelledIncidence.getIncidenceStateId() == INCIDENCE_SOLVE_STATE ||
                 cancelledIncidence.getIncidenceStateId() == INCIDENCE_CANCELLED_STATE
-                && user.getType() == UserType.USER) {
+                        && user.getType() == UserType.USER) {
             cancelledIncidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
             cancelledIncidence.setMessages(messageService.findAllByIncidenceId(incidenceId));
             model.addAttribute("incidence", cancelledIncidence);
@@ -280,7 +280,7 @@ public class IncidenceController {
 
         FullUserDTO userDTO = (FullUserDTO) model.getAttribute("userlogin");
 
-        if (userDTO.getType() == UserType.USER){
+        if (userDTO.getType() == UserType.USER) {
             throw new AccessDeniedException("No tienes permisos para realizar esta acción");
         }
 
@@ -289,7 +289,7 @@ public class IncidenceController {
         List<HistoryDTO> fullHistory = history.stream().map(incidence -> {
             incidence.setStateName(incidenceStateService.findById(incidence.getStateId()).getName());
             incidence.setDepartmentName(departmentService.findById(incidence.getDepartmentId()) != null ?
-                    departmentService.findById(incidence.getDepartmentId()).getName() : "N/A" );
+                    departmentService.findById(incidence.getDepartmentId()).getName() : "N/A");
             incidence.setSpaceName(spaceService.findById(incidence.getSpaceId()) != null ?
                     spaceService.findById(incidence.getSpaceId()).getName() : "N/A");
             incidence.setTechName(userService.getUserBy(incidence.getTechId()).getUsername());
@@ -297,19 +297,27 @@ public class IncidenceController {
             return incidence;
         }).toList();
 
-        model.addAttribute("incidenceHistory",fullHistory);
+        model.addAttribute("incidenceHistory", fullHistory);
         model.addAttribute("incidenceId", incidenceId);
         return "view/history";
     }
 
     @GetMapping("/incidencias/head")
-    public String showAllIncidences(Model model){
+    public String showAllIncidences(Model model) {
+
+        FullUserDTO userDTO = (FullUserDTO) model.getAttribute("userlogin");
+
+        if (userDTO.getType() != UserType.DEP_HEAD)
+            throw new RuntimeException("No tienes permisos para realizar esta acción");
 
         List<FullIncidenceDTO> incidences = incidenceService.list();
-        incidences.forEach( incidence -> {
+        incidences.forEach(incidence -> {
             long techId = userIncidenceService.findByIncidenceId(incidence.getId()).getTech().getId();
             incidence.setTechId(techId);
         });
+
+        incidences = incidences.stream().filter(incidence -> incidence.getIncidenceState().getId() != 3 &&
+                incidence.getIncidenceState().getId() != 4).toList();
 
         List<FullUserDTO> techs = userService.listTechs();
         System.out.println(techs);

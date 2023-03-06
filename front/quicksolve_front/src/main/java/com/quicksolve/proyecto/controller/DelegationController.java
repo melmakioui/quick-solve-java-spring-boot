@@ -2,10 +2,12 @@ package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.FullIncidenceDTO;
 import com.quicksolve.proyecto.dto.FullUserDTO;
+import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.*;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,6 +27,9 @@ public class DelegationController {
 
     @Autowired
     private IncidenceService incidenceService;
+
+    @Autowired
+    private HistoryService historyService;
 
     @PutMapping( "/tech/assign")
     public ResponseEntity assignTechToIncidence(@RequestParam long incidenceId, @RequestParam long techId, @RequestHeader(value = "Authorization", required = true) String token) {
