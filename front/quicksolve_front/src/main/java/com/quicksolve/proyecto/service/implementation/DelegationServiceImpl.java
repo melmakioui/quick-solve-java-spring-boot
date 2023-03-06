@@ -22,6 +22,7 @@ public class DelegationServiceImpl implements DelegationService {
     public void assignTechToIncidence(long incidenceId, long techId) {
         UserIncidence userIncidence = userIncidenceRepository.findByIncidenceId(incidenceId);
         User tech = userRepository.findById(techId).orElseThrow( () -> new RuntimeException("No existe el tecnico"));
+        userIncidence.getIncidence().setDepartment(tech.getDepartment());
         userIncidence.setTech(tech);
         userIncidenceRepository.save(userIncidence);
     }

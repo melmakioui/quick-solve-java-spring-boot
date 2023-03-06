@@ -330,16 +330,13 @@ public class IncidenceController {
             Long techId = userIncidenceService.findByIncidenceId(incidence.getId()).getTech() != null ?
                     userIncidenceService.findByIncidenceId(incidence.getId()).getTech().getId() : -1;
             incidence.setTechId(techId);
+            incidence.setDepartment(departmentService.findById(incidence.getDepartmentId()));
         });
 
         incidences = incidences.stream().filter(incidence -> incidence.getIncidenceState().getId() < 3).toList();
 
         List<FullUserDTO> techs = userService.listTechs();
-        System.out.println(techs);
         techs.forEach(tech -> tech.setDepartment(departmentService.findById(tech.getDepartment().getId())));
-
-
-        System.out.println(techs);
 
         model.addAttribute("incidences", incidences);
         model.addAttribute("techs", techs);
