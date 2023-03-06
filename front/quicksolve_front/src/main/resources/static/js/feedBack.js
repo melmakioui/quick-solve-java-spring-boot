@@ -4,7 +4,7 @@ $(document).ready(function() {
     if (notify) {
         $.notifyBar({
             html: $('#feedBack').text(),
-            cssClass: "success",
+            cssClass: $(notify).data('class'),
             delay: 5000,
             position: "bottom",
             animationSpeed: "normal"

@@ -29,4 +29,6 @@ public interface UserService {
     void changePassword(String email, String password);
 
     List<FullUserDTO> listTechs();
+
+    FullUserDTO getUserByEmailOrUsername(String emailOrUsername);
 }

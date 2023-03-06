@@ -24,4 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> getUsersByAnyDepartment();
 
     List<User> findAllByType(UserType type);
+
+    @Query("SELECT u from User u where u.username = ?1 or u.email = ?1")
+    User getUserByEmailOrUsername(String emailOrUsername);
 }

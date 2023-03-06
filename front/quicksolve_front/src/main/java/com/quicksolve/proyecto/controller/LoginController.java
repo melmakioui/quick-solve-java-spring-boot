@@ -24,11 +24,11 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String tryLogin(Model model, @RequestParam("email") String email, @RequestParam("pwd") String password){
-        FullUserDTO usr = userService.getUserBy(email);
+    public String tryLogin(Model model, @RequestParam("email") String emailUserName, @RequestParam("pwd") String password){
+        FullUserDTO usr = userService.getUserByEmailOrUsername(emailUserName);
 
         if (!usr.isActive()){
-            model.addAttribute("noActive", "true"); // en el html se comprueba si es true y se muestra el mensaje
+            model.addAttribute("noActive", true);
             return "view/login";
         }
 

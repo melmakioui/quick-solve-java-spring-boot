@@ -123,4 +123,10 @@ public class UserServiceImpl implements UserService {
         List <User> techs = userRepo.findAllByType(UserType.TECH);
         return techs.stream().map(UserMapper.INSTANCE::userToDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public FullUserDTO getUserByEmailOrUsername(String emailOrUsername) {
+        User usr = userRepo.getUserByEmailOrUsername(emailOrUsername);
+        return UserMapper.INSTANCE.userToDTO(usr);
+    }
 }
