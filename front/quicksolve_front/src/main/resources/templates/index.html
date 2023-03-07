@@ -52,7 +52,7 @@
         </section>
     </div>
 
-    <p th:if="${incidenceUploaded}" th:text="'Mensaje a traducir'" hidden="hidden" id="feedBack" data-class="success"></p>
+    <p th:if="${incidenceUploaded}" th:text="${session.language.getKeyValue().get('notify.incidencia.subida')}" hidden="hidden" id="feedBack" data-class="success"></p>
 
     <th:block th:include="view/fragments/chat"></th:block>
     <th:block th:include="view/fragments/footer"></th:block>

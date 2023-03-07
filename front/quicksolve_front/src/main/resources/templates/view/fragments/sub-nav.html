@@ -13,7 +13,7 @@
 
   <div class=" d-flex justify-content-center mx-2">
     <a th:href="@{/chats/tech}" type="button" class="btn btn-secondary  qs-button d-flex flex-nowrap align-items-center justify-content-center">
-      <span class="material-symbols-outlined mx-1">chat</span> <span class="d-none d-sm-none d-lg-block" th:text="'Contestar chats'"></span>
+      <span class="material-symbols-outlined mx-1">chat</span> <span class="d-none d-sm-none d-lg-block" th:text="${session.language.getKeyValue().get('chat.titulo')}"></span>
     </a>
   </div>
 

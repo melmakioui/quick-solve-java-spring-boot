@@ -16,22 +16,22 @@
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
 <div class="d-flex justify-content-start align-items-center flex-column mx-auto" th:if="${not #lists.isEmpty(chats)}" style="height: 100%;">
   <div class="container mx-auto">
-    <h1 class="h1 my-lg-5 my-3 ms-4 ms-lg-2 align-self-start">Chats abiertos</h1>
+    <h1 class="h1 my-lg-5 my-3 ms-4 ms-lg-2 align-self-start" th:text="${session.language.getKeyValue().get('chat.titulo')}"></h1>
     <div class="d-flex justify-content-lg-start justify-content-center align-items-center flex-wrap">
       <div th:each="chat : ${chats}" class="card m-lg-2 m-1" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title" th:text="${'Chat #' + chat.id}"></h5>
           <h6 class="card-subtitle mb-2 text-muted" th:text="${'Usuario: ' + chat.nameUser}"></h6>
           <input type="text" hidden disabled name="sessionId" th:value="${chat.sessionId}">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" name="openChat" th:data-bs-target="'#buttonModalChat' + ${chat.sessionId}">Responder chat</button>
-          <button type="button" class="btn btn-outline-dark">Cerrar chat</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" name="openChat" th:data-bs-target="'#buttonModalChat' + ${chat.sessionId}" th:text="${session.language.getKeyValue().get('chat.responder')}"></button>
+          <button type="button" class="btn btn-outline-dark" th:text="${session.language.getKeyValue().get('chat.cerrar')}"></button>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap text-center m-2 normal-height" th:if="${#lists.isEmpty(chats)}">
-  <h1 class="h1 mb-2" th:text="'No hay usuarios que hayan iniciado un chat en este momento...'"></h1>
+  <h1 class="h1 mb-2" th:text="${session.language.getKeyValue().get('chat.sin.conversaciones')}"></h1>
   <img th:src="@{/img/doc-icon.svg}" class="img-fluid mb-5" style="max-width: 200px;">
 </div>
 
@@ -54,11 +54,11 @@
             <form class="row" name="sendMessage">
               <input hidden name="sessionIdChat" th:value="${chat.sessionId}">
               <div class="col-auto col-lg-9">
-                <label th:for="'inputMessage' + ${chat.sessionId}" class="visually-hidden">Mensaje</label>
-                <input type="text" class="form-control" name="inputMessage" th:id="'inputMessage' + ${chat.sessionId}" placeholder="Mensaje...">
+                <label th:for="'inputMessage' + ${chat.sessionId}" class="visually-hidden" th:text="${session.language.getKeyValue().get('chat.mensaje')}"></label>
+                <input type="text" class="form-control" name="inputMessage" th:id="'inputMessage' + ${chat.sessionId}" th:placeholder="${session.language.getKeyValue().get('chat.mensaje.enviar')}">
               </div>
               <div class="col-auto col-lg-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary" th:text="${session.language.getKeyValue().get('chat.mensaje')}"></button>
               </div>
             </form>
           </div>

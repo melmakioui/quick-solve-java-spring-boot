@@ -27,7 +27,8 @@
         <th:block th:include="~{view/fragments/formFilter :: formFilter}"></th:block>
         <div id="offCanvasBtnCont">
             <button id="offcanvasBtn" class="btn btn-secondary d-none" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter" th:text="${session.language.getKeyValue().get('filtrar')}">
+                    data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"
+                    th:text="${session.language.getKeyValue().get('filtrar')}">
             </button>
         </div>
     </div>
@@ -35,7 +36,8 @@
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel" th:text="${session.language.getKeyValue().get('incidencias.filtrar')}"></h5>
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel"
+                th:text="${session.language.getKeyValue().get('incidencias.filtrar')}"></h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -45,7 +47,8 @@
 
     <div class="w-100 mt-5 d-flex flex-nowrap flex-column justify-content-center align-items-center"
          th:if="${#lists.isEmpty(incidences)} and ${isFilter}">
-        <h1 class="text-center" th:text="${session.language.getKeyValue().get('incidencias.sin.resultado')} + '...'"></h1>
+        <h1 class="text-center"
+            th:text="${session.language.getKeyValue().get('incidencias.sin.resultado')} + '...'"></h1>
         <img th:src="@{/img/person-dealing-error.svg}" width="350">
     </div>
     <div class="accordion mb-5" id="accordion"
@@ -133,25 +136,31 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-primary text-texto-contraste">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deltext" th:text="${session.language.getKeyValue().get('incidencia.eliminar.titulo')}"></h1>
+                <h1 class="modal-title fs-5" id="deltext"
+                    th:text="${session.language.getKeyValue().get('incidencia.eliminar.titulo')}"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" th:text="${session.language.getKeyValue().get('incidencia.eliminar.mensaje')}"></div>
+            <div class="modal-body"
+                 th:text="${session.language.getKeyValue().get('incidencia.eliminar.mensaje')}"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary text-texto-contraste" data-bs-dismiss="modal"
                         th:text="${session.language.getKeyValue().get('incidencia.eliminar.cancelar')}"></button>
                 <a id="delBtnModal">
-                    <button type="button" class="btn btn-secondary" th:text="${session.language.getKeyValue().get('incidencia.eliminar.boton')}"></button>
+                    <button type="button" class="btn btn-secondary"
+                            th:text="${session.language.getKeyValue().get('incidencia.eliminar.boton')}"></button>
                 </a>
             </div>
         </div>
     </div>
 </div>
 
-<p th:if="${incidenceUploaded}" th:text="${session.language.getKeyValue().get('notify.incidencia.subida')}" hidden="hidden" id="feedBack" data-class="success"></p>
-<p th:if="${incidenceUpdated}" th:text="${session.language.getKeyValue().get('notify.incidencia.modificada')}" hidden="hidden" id="feedBack" data-class="success"></p>
+<p th:if="${incidenceUploaded}" th:text="${session.language.getKeyValue().get('notify.incidencia.subida')}"
+   hidden="hidden" id="feedBack" data-class="success"></p>
+<p th:if="${incidenceUpdated}" th:text="${session.language.getKeyValue().get('notify.incidencia.modificada')}"
+   hidden="hidden" id="feedBack" data-class="success"></p>
 
-<h3 id="emptyMessage" class="d-none m-auto" th:text="${session.language.getKeyValue().get('incidencias.sin.resultados')}"></h3>
+<h3 id="emptyMessage" class="d-none m-auto"
+    th:text="${session.language.getKeyValue().get('incidencias.sin.resultados')}"></h3>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
