@@ -269,7 +269,7 @@ public class IncidenceController {
 
         FullUserDTO user = (FullUserDTO) model.getAttribute("userlogin");
 
-        if (user.getType() != UserType.TECH)
+        if (user.getType() != UserType.TECH && user.getType() != UserType.DEP_HEAD)
             throw new AccessDeniedException("No tienes permisos para realizar esta acción");
 
         incidenceService.changeState(incidenceId, stateId);
