@@ -9,17 +9,9 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
 
-    <title>Contacto</title>
+    <title th:text="${session.language.getKeyValue().get('contacto')}"></title>
 </head>
 <body class="custom-bg-1">
-
-<style>
-    /* Set the size of the div element that contains the map */
-    #map {
-        height: 345px;
-        width: 80%;
-    }
-</style>
 
 <th:block th:include="view/fragments/nav"></th:block>
 
@@ -54,7 +46,7 @@
             <div class="mb-3">
                 <label for="text" class="form-label"
                        th:text="${session.language.getKeyValue().get('contacto.formulario.mensaje')}"></label>
-                <textarea class="form-control" id="text" rows="7" maxlength="300" name="message" required></textarea>
+                <textarea class="form-control" id="text" rows="6" maxlength="300" name="message" required></textarea>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -74,7 +66,7 @@
                 <p class="mb-1">Ses Tapereres, 32, 07500 Manacor, Balearic Islands</p>
                 <p class="mb-4">Phone: 971 551 489</p>
             </div>
-            <div id="map" class="w-100"></div>
+            <div id="map" class="w-100" style="height: 345px; width: 80%;"></div>
         </div>
     </div>
 </div>

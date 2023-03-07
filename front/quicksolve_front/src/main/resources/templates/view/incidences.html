@@ -58,7 +58,6 @@
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         aria-expanded="false" th:text="${state.name}"
                         th:attr="data-bs-target='#' + ${#strings.replace(state.name,' ','')}, aria-controls=${state.name}">
-
                 </button>
             </h2>
             <div th:id="${#strings.replace(state.name,' ','')}"
