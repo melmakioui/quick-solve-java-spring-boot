@@ -2,7 +2,7 @@
 <form id="filter" th:action="@{/incidencias}" method="post" class="d-flex flex-column align-items-center justify-content-center w-100">
 
   <div class="d-flex flex-column align-items-start w-100 mb-3">
-    <label for="datepickerResponsive">Fecha</label>
+    <label for="datepickerResponsive" th:text="${session.language.getKeyValue().get('fecha')}"></label>
     <input type="text" class="form-control" id="datepickerResponsive" name="dateStart" placeholder="AAAA-MM-DD" style="cursor: pointer" autocomplete="off">
   </div>
 
@@ -27,7 +27,7 @@
   </div>
 
   <div class="w-100">
-    <button id="filter-resp" type="submit" class="btn btn-secondary w-100"  th:text="${session.language.getKeyValue().get('incidencias.filtrar')}"></button>
+    <button id="filter-resp" type="submit" class="btn btn-secondary w-100"  th:text="${session.language.getKeyValue().get('filtrar')}"></button>
   </div>
 </form>
 </div>

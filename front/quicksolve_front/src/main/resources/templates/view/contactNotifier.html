@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<div class="container-message">
+    <div class="tick">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <h1 class="title-verification" th:text="'¡Gracias por tu mensaje!'"></h1>
+    <p class="text-verification" th:text="'Hemos recibido tu formulario de contacto y lo revisaremos lo antes posible. Nos pondremos en contacto contigo en breve si es necesario.'"></p>
+    <a th:href="@{/}" class="btn btn-cta" th:text="${session.language.getKeyValue().get('correo.btn.inicio')}"></a>
+</div>
+
+</body>
+</html>
+</body>
+</html>

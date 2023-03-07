@@ -34,31 +34,12 @@ $(document).ready(function (){
     }
 
 
+    //Accordion
     var firstAccordionShow = $('.accordion-collapse')[0]
     $(firstAccordionShow).addClass('show')
     var firstAccordion = $('.accordion-button')[0]
     $(firstAccordion).removeClass('collapsed')
 
-    //Idiomas para el datepicker
-    $.datepicker.regional[ "es" ] = {
-        closeText: "Cerrar",
-        prevText: "Ant",
-        nextText: "Sig",
-        currentText: "Hoy",
-        monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" ],
-        monthNamesShort: [ "ene", "feb", "mar", "abr", "may", "jun",
-            "jul", "ago", "sep", "oct", "nov", "dic" ],
-        dayNames: [ "domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado" ],
-        dayNamesShort: [ "dom", "lun", "mar", "mié", "jue", "vie", "sáb" ],
-        dayNamesMin: [ "D", "L", "M", "X", "J", "V", "S" ],
-        weekHeader: "Sm",
-        dateFormat: "dd/mm/yy",
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ""
-    };
 
     $.datepicker.regional["en-GB"] = {
         closeText: "Done",
@@ -79,6 +60,7 @@ $(document).ready(function (){
         showMonthAfterYear: false,
         yearSuffix: ""
     }
+
     $.datepicker.setDefaults($.datepicker.regional["es"])
 
     var language = document.cookie.split("=")
