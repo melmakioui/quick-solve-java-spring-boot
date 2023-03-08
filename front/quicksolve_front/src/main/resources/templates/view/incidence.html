@@ -52,7 +52,7 @@
             <div class="col-12 col-lg-4 row d-flex align-items-center justify-content-center">
                 <div th:class="${incidence.incidenceState.id > 2} ? 'col-12 col-lg-7 d-flex justify-content-lg-center mb-3' :
                  'col-12 col-lg-5 d-flex justify-content-lg-center mb-3'" th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} or ${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).DEP_HEAD}">
-                    <a class="btn btn-secondary w-100" th:href="@{/incidencia/historial/} + ${incidence.id}">Historial</a>
+                    <a class="btn btn-secondary w-100" th:href="@{/incidencia/historial/} + ${incidence.id}" th:text="${session.language.getKeyValue().get('historial.titulo')}"></a>
                 </div>
 
                 <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} or
@@ -132,7 +132,7 @@
         <th:block th:include="/view/fragments/formMessage"></th:block>
     </div>
     <div th:unless="${userOwner != null}" class="row justify-content-center mb-5 mx-5">
-        <h6 class="text-center mt-5" th:text="'Es un usuario anónimo, no puede enviar mensajes.'"></h6>
+        <h6 class="text-center mt-5" th:text="${session.language.getKeyValue().get('mensaje.anonimo')}"></h6>
     </div>
 </div>
 
