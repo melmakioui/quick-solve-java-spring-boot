@@ -58,7 +58,6 @@
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         aria-expanded="false" th:text="${state.name}"
                         th:attr="data-bs-target='#' + ${#strings.replace(state.name,' ','')}, aria-controls=${state.name}">
-
                 </button>
             </h2>
             <div th:id="${#strings.replace(state.name,' ','')}"
@@ -173,6 +172,7 @@
 <script th:src="@{/js/activeLinks.js}"></script>
 <script th:src="@{/js/pagination.js}"></script>
 <script th:src="@{/js/deleteModal.js}"></script>
+<script th:src="@{/js/datepickerLocalitzation.min.js}"></script>
 <script th:src="@{/js/filterIncidences.js}"></script>
 <script th:src="@{/js/accesibilityKeyUp.js}"></script>
 </body>

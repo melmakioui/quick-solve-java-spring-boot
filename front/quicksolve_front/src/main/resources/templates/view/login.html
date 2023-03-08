@@ -46,10 +46,6 @@
                         <button type="submit" class="btn btn-secondary px-5 w-75" th:text="${session.language.getKeyValue().get('login.botonentrar')}"></button>
                     </div>
 
-                    <div class="text-center mb-4">
-                        <button id="google-btn" class="btn btn-lg btn-google btn-outline-texto-contraste" href="#"><img src="https://img.icons8.com/color/16/000000/google-logo.png"></button>
-                    </div>
-
                     <div class="form-text text-center mb-3 mt-0 text-texto-contraste">
                         <span th:text="${session.language.getKeyValue().get('loginaction.contraolvidada')}"></span>
                         <a th:href="@{/recuperar-cuenta}" class="text-texto-contraste fw-bold text-decoration-none" th:text="${session.language.getKeyValue().get('loginaction.recuperar')}"></a>

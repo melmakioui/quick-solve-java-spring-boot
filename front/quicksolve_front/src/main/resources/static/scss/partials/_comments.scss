@@ -62,8 +62,8 @@
   margin: 0 auto;
   min-height: 10px;
   max-height: 600px;
-  overflow-x: hidden;
   direction: ltr;
+  overflow: auto;
 }
 
 .comment-section::-webkit-scrollbar {
@@ -80,4 +80,12 @@
 
 .comment-section::-webkit-scrollbar-thumb:hover {
   background: $scroll-thumb-hover;
+}
+
+/*si es menor a 768px overflow no*/
+@media (max-width: 768px) {
+  .comment-section {
+    overflow: hidden;
+    max-height: none;
+  }
 }
