@@ -26,7 +26,7 @@ $(document).ready(function () {
         const preloaded = [];
 
         $.ajax({
-            url: "http://localhost:8080/rest/imagenes/" + incidenceId,
+            url: "/rest/imagenes/" + incidenceId,
             type: "POST",
             headers: {
                 "Authorization": localStorage.getItem("token")
@@ -56,7 +56,7 @@ $(document).ready(function () {
 
     function deleteImage(src,incidenceId){
         $.ajax({
-            url: "http://localhost:8080/rest/imagenes/eliminar",
+            url: "/rest/imagenes/eliminar",
             type: "DELETE",
             data: {
                 src: src,

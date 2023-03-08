@@ -1,5 +1,5 @@
 function login(email, password) {
-    $.ajax("http://localhost:8080/loginTokenGenerate", {
+    $.ajax("/loginTokenGenerate", {
         method: 'POST',
         contentType: "application/json",
         data: JSON.stringify({

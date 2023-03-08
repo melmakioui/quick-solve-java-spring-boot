@@ -5,7 +5,7 @@ $("button[name='submit']").click(function (){
 })
 
 function initPayPalButton(id) {
-    $.ajax('http://localhost:8080/planes/precio', {
+    $.ajax('/planes/precio', {
         method: 'POST',
         contentType: 'application/json',
         data: id,
@@ -26,7 +26,7 @@ function initPayPalButton(id) {
 
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(orderData) {
-                        $.ajax("http://localhost:8080/modificar/plan", {
+                        $.ajax("/modificar/plan", {
                             method: 'POST',
                             contentType: 'application/json',
                             data: id,

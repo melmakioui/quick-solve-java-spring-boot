@@ -41,12 +41,11 @@ public class MvnConfiguration implements WebMvcConfigurer {
         registry.addViewController("/errorno.html").setViewName("errorno");
     }
 
-   // CORS para pruebas
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowCredentials(true)
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedOrigins("http://localhost:1234", "http://localhost:8080");
+                .allowedHeaders("*")
+                .allowedMethods("*")
+                .allowedOrigins("*");
     }
 }

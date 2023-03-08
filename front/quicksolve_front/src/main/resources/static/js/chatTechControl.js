@@ -18,19 +18,35 @@ $(document).ready(function(){
         });
     });
 
-    $("#cerrarChat").each(function (){
+    $("button[data-name='cerrarChat']").each(function (){
         $(this).on('click', function (){
-            $.ajax("http://localhost:8080/close/chat", {
+            console.log($(this).closest("div.card-body"))
+            console.log($(this).closest("div.card-body").find("button[data-name='confirmCloseDiv']"))
+            $(this).closest("div.card-body").find("div.d-none").toggleClass("d-none");
+        });
+    });
+
+    $("button[ name='closeChatConfirm']").each(function(){
+        $(this).on('click', async function (){
+            let sessId = $(this).closest("div.card-body").find("input").val();
+            await connectAndEndMsg(sessId);
+            $.ajax("/close/chat", {
                 method: 'POST',
                 contentType: "application/json",
-                data: $(this).closest("div.card-body").find("input").val(),
+                data: sessId,
                 success: function(){
-                    stompClient.send("/chat/group/" + $(this).closest("div.card-body").find("input").val(), {}, JSON.stringify({ 'sentBy': fullName, 'message': "Ha cerrado el chat." }));
                     stompClient.disconnect();
+                    $("#chatSesId" + sessId).remove();
                 }
             });
         });
-    })
+    });
+
+    $("button[ name='cancelChatConfirm']").each(function(){
+        $(this).on('click', function (){
+            $(this).closest("div[data-name='confirmCloseDiv']").toggleClass("d-none");
+        });
+    });
 });
 
 function scrollDown(){
@@ -49,6 +65,18 @@ function connect(sessionId) {
     });
 }
 
+function connectAndEndMsg(sessId){
+    let socket = new SockJS('/chat');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function () {
+        stompClient.subscribe('/topic/group/' + sessId, function (message) {
+            let json = JSON.parse(message.body);
+            showMessage(json.sentBy, json.message, sessId)
+        });
+        stompClient.send("/chat/group/" + sessId, {}, JSON.stringify({ 'sentBy': fullName, 'message': sessId + sessId }));
+    });
+}
+
 function sendMessage(sessionId, message) {
     stompClient.send("/chat/group/" + sessionId, {}, JSON.stringify({
         'sentBy': fullName,
@@ -57,6 +85,10 @@ function sendMessage(sessionId, message) {
 }
 
 function showMessage(sentBy, message, sessionId) {
+    if (message === sessionId + sessionId) {
+        message = "El usuario ha cerrado el chat. Puede cerrar esta ventana.";
+        $("#chatSesId" + sessionId).remove();
+    }
     let chatBubble = sentBy !== fullName ? 'chat-bubble2 align-items-start' : 'chat-bubble1 align-items-end';
     $("#messagesChat" + sessionId).append(`
         <div class="d-flex flex-column m-1 m-lg-2 p-3 ${chatBubble}">

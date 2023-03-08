@@ -30,18 +30,13 @@ $(document).ready(function(){
     });
 
     $("#cerrarChat").on('click', function (){
-        $.ajax("http://localhost:8080/close/chat", {
+        sendMessage(sessionId + sessionId);
+        $.ajax("/close/chat", {
             method: 'POST',
             contentType: "application/json",
             data: sessionId,
             success: function(){
-                stompClient.send("/chat/group/" + sessionId, {}, JSON.stringify({ 'sentBy': name, 'message': "Ha cerrado el chat." }));
-                stompClient.disconnect();
-                $("#chatCardLive").html("<div class='card-body'>Se ha desconectado del chat.</div>");
-                setTimeout(function (){
-                    $("#chatLive").fadeOut();
-                    $("#abrirVentanaChatDiv").fadeOut();
-                }, 2000);
+                cerrarChat("Te has desconectado del chat.");
             },
             error: function(err){
                 console.log(err);
@@ -60,7 +55,7 @@ function connect() {
     for(let i = 0; i < 20; i++) {
         sessionId += String.fromCharCode(97 + Math.floor(Math.random() * 26));
     }
-    $.ajax("http://localhost:8080/create/chat", {
+    $.ajax("/create/chat", {
         method: 'POST',
         contentType: "application/json",
         data: JSON.stringify({
@@ -91,6 +86,8 @@ function sendMessage(message) {
 }
 
 function showMessage(sentBy, message) {
+    console.log(message, sessionId + sessionId)
+    if (message === sessionId + sessionId) cerrarChat("Un técnico ha cerrado el chat.");
     let chatBubble = sentBy !== name ? 'chat-bubble2 align-items-start' : 'chat-bubble1 align-items-end';
     $("#messagesChat").append(`
         <div class="d-flex flex-column m-1 m-lg-2 p-3 ${chatBubble}">
@@ -99,4 +96,13 @@ function showMessage(sentBy, message) {
         </div>
     `);
     scrollDown();
+}
+
+function cerrarChat(msg){
+    stompClient.disconnect();
+    $("#chatCardLive").html("<div class='card-body'>" + msg + "</div>");
+    setTimeout(function (){
+        $("#chatLive").fadeOut();
+        $("#abrirVentanaChatDiv").fadeOut();
+    }, 4000);
 }

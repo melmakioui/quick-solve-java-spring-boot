@@ -2,7 +2,7 @@
 $(document).ready(function (){
     $("#search-input-incidences").on('input', function (evt){
         if (evt.currentTarget.value){
-            $.ajax('http://localhost:8080/rest/incidencias/buscar', {
+            $.ajax('/rest/incidencias/buscar', {
                 method: 'POST',
                 contentType: 'application/json',
                 headers: {

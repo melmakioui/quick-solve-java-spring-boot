@@ -17,14 +17,27 @@
 <div class="d-flex justify-content-start align-items-center flex-column mx-auto" th:if="${not #lists.isEmpty(chats)}" style="height: 100%;">
   <div class="container mx-auto">
     <h1 class="h1 my-lg-5 my-3 ms-4 ms-lg-2 align-self-start" th:text="${session.language.getKeyValue().get('chat.titulo')}"></h1>
-    <div class="d-flex justify-content-lg-start justify-content-center align-items-center flex-wrap">
-      <div th:each="chat : ${chats}" class="card m-lg-2 m-1" style="width: 18rem;">
+    <div class="d-flex justify-content-lg-start justify-content-center align-items-center flex-wrap" data-div="chat-div">
+      <div th:each="chat : ${chats}" class="card m-lg-2 m-1" style="width: 18rem;" th:id="'chatSesId' + ${chat.sessionId}">
         <div class="card-body">
           <h5 class="card-title" th:text="${'Chat #' + chat.id}"></h5>
           <h6 class="card-subtitle mb-2 text-muted" th:text="${'Usuario: ' + chat.nameUser}"></h6>
           <input type="text" hidden disabled name="sessionId" th:value="${chat.sessionId}">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" name="openChat" th:data-bs-target="'#buttonModalChat' + ${chat.sessionId}" th:text="${session.language.getKeyValue().get('chat.responder')}"></button>
-          <button type="button" class="btn btn-outline-dark" th:text="${session.language.getKeyValue().get('chat.cerrar')}"></button>
+          <button type="button" class="btn btn-outline-dark" data-name="cerrarChat" th:text="${session.language.getKeyValue().get('chat.cerrar')}"></button>
+          <div class="d-none" data-name="confirmCloseDiv">
+            <div class="row">
+              <div class="col-12 p-lg-3 p-1 text-center">
+                <small>Estas seguro que quieres desconectar este chat?</small>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-primary w-100" name="closeChatConfirm">Si</button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-outline-dark w-100" name="cancelChatConfirm">No</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
