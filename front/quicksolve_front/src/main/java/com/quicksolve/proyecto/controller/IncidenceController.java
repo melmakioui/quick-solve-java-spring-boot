@@ -174,21 +174,20 @@ public class IncidenceController {
         } else owner = null;
 
         if (cancelledIncidence.getIncidenceStateId() == INCIDENCE_SOLVE_STATE ||
-                cancelledIncidence.getIncidenceStateId() == INCIDENCE_CANCELLED_STATE
-                        && user.getType() == UserType.USER) {
+                cancelledIncidence.getIncidenceStateId() == INCIDENCE_CANCELLED_STATE) {
             cancelledIncidence.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
             cancelledIncidence.setMessages(messageService.findAllByIncidenceId(incidenceId));
             model.addAttribute("incidence", cancelledIncidence);
+            model.addAttribute("userOwner", owner);
             return "view/incidence";
         }
 
         FullIncidenceDTO incidenceDTO = incidenceService.findIncidenceByIdAndUserId(incidenceId, user);
         incidenceDTO.setIncidenceFiles(incidenceFileService.findAllByIncidenceId(incidenceId));
         incidenceDTO.setMessages(messageService.findAllByIncidenceId(incidenceId));
-
+        model.addAttribute("userOwner", owner);
         model.addAttribute("incidence", incidenceDTO);
         model.addAttribute("newMessage", new IncidenceMessageDTO());
-        model.addAttribute("userOwner", owner);
         return "view/incidence";
     }
 

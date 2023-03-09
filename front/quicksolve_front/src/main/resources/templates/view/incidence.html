@@ -55,8 +55,7 @@
                     <a class="btn btn-secondary w-100" th:href="@{/incidencia/historial/} + ${incidence.id}" th:text="${session.language.getKeyValue().get('historial.titulo')}"></a>
                 </div>
 
-                <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH} or
-                            ${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).DEP_HEAD} and
+                <div th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).TECH or userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).DEP_HEAD} and
                             ${incidence.incidenceState.id < 3}"
                      class="col-12 col-lg-5 mb-3 dropdown">
                     <a class="btn btn-secondary dropdown-toggle w-100" href="#" role="button" data-bs-toggle="dropdown"
@@ -131,7 +130,7 @@
         <th:block th:include="/view/fragments/messages"></th:block>
         <th:block th:include="/view/fragments/formMessage"></th:block>
     </div>
-    <div th:unless="${userOwner != null}" class="row justify-content-center mb-5 mx-5">
+    <div th:if="${userOwner != null and incidence.incidenceState.id < 3}" class="row justify-content-center mb-5 mx-5">
         <h6 class="text-center mt-5" th:text="${session.language.getKeyValue().get('mensaje.anonimo')}"></h6>
     </div>
 </div>

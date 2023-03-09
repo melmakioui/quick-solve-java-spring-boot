@@ -25,8 +25,8 @@
     <div class="d-flex justify-content-end align-items-end mb-3">
 
         <th:block th:include="~{view/fragments/formFilter :: formFilter}"></th:block>
-        <div id="offCanvasBtnCont">
-            <button id="offcanvasBtn" class="btn btn-secondary d-none" type="button" data-bs-toggle="offcanvas"
+        <div id="offCanvasBtnCont" class="w-100 d-block d-md-none">
+            <button id="offcanvasBtn" class="btn btn-secondary d-block d-md-none w-100" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"
                     th:text="${session.language.getKeyValue().get('filtrar')}">
             </button>
