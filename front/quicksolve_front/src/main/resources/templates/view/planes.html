@@ -23,14 +23,14 @@
                 <div class="d-flex justify-content-center flex-column card-plans-height">
                     <h1 class="card-title pricing-card-title mb-3">
                         <span th:text="${session.language.getKeyValue().get('planes.plan1.precio')}"></span>
-                        <small class="text-muted fw-light" th:text="${session.language.getKeyValue().get('planes.mensualidad')}"></small>
+                        <small class="fw-light" th:text="${session.language.getKeyValue().get('planes.mensualidad')}"></small>
                     </h1>
                     <ul class="list-group mt-3 mb-4 text-start px-lg-5 px-4">
                         <li th:text="${session.language.getKeyValue().get('planes.plan1.ventaja1')}"></li>
                         <li th:text="${session.language.getKeyValue().get('planes.plan1.ventaja2')}"></li>
                     </ul>
                 </div>
-                <button class="btn btn-outline-white-low-opacity disabled" th:if="${userlogin.service == null}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
+                <button type="button" class="btn btn-light" disabled th:if="${userlogin.service == null}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
                 <button type="button" th:if="${userlogin.service != null}" class="w-100 btn btn-secondary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModalFree" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
             </div>
         </div>
@@ -44,16 +44,16 @@
                 <div class="d-flex justify-content-center flex-column card-plans-height">
                     <h1 class="card-title pricing-card-title mb-3">
                         <span th:text="${plan.price} + '€'"></span>
-                        <small class="text-muted fw-light" th:text="${session.language.getKeyValue().get('planes.mensualidad')}"></small>
+                        <small class="fw-light" th:text="${session.language.getKeyValue().get('planes.mensualidad')}"></small>
                     </h1>
                     <ul class="list-group mt-3 mb-4 text-start px-lg-5 px-4">
                         <li th:each="advantage : ${plan.advantages}" th:text="${advantage.name}"></li>
                     </ul>
                 </div>
                 <input type="number" th:value="${plan.id}" name="plan" hidden>
-                <button type="button" name="submit" th:if="${userlogin.service == null}" class="w-100 btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
+                <button type="button" name="submit" th:if="${userlogin.service == null}" class="w-100 btn btn-secondary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
                 <th:block th:if="${userlogin.service != null}">
-                    <button class="btn btn-outline-white-low-opacity disabled" th:if="${userlogin.service.name == plan.name}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
+                    <button type="button" class="btn btn-light" disabled th:if="${userlogin.service.name == plan.name}" th:text="${session.language.getKeyValue().get('planes.planactual')}"></button>
                     <button type="button" name="submit" th:if="${userlogin.service.name != plan.name}" class="w-100 btn btn-secondary align-self-end" data-bs-toggle="modal" data-bs-target="#buttonModal" th:text="${session.language.getKeyValue().get('planes.cambiar')}"></button>
                 </th:block>
             </div>
@@ -61,8 +61,6 @@
     </div>
 </div>
 </div>
-
-<th:block th:include="view/fragments/footer"></th:block>
 <script th:src="@{/js/jquery-3.6.3-min.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
