@@ -127,6 +127,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public FullUserDTO getUserByEmailOrUsername(String emailOrUsername) {
         User usr = userRepo.getUserByEmailOrUsername(emailOrUsername);
+        if (usr == null) return null;
         return UserMapper.INSTANCE.userToDTO(usr);
     }
 }

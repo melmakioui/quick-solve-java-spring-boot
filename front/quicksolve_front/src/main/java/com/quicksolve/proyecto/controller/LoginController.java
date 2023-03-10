@@ -27,6 +27,11 @@ public class LoginController {
     public String tryLogin(Model model, @RequestParam("email") String emailUserName, @RequestParam("pwd") String password){
         FullUserDTO usr = userService.getUserByEmailOrUsername(emailUserName);
 
+         if (usr == null) {
+             model.addAttribute("loginError", "true");
+             return "view/login";
+         }
+
         if (!usr.isActive()){
             model.addAttribute("noActive", true);
             return "view/login";
