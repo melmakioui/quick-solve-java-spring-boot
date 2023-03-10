@@ -24,13 +24,14 @@ public class FullUserDTO {
     private LocalDateTime serviceExpiration;
     private DepartmentDTO department;
     private UserDataDTO data;
+    private boolean isRecovering;
     private boolean oauth;
 
     public void addInvoice(InvoiceDTO invoice){
         this.invoices.add(invoice);
     }
 
-    public FullUserDTO(String username, String password, String email, UserType type, boolean active, ServiceDTO service, DepartmentDTO department, UserDataDTO data, boolean oauth) {
+    public FullUserDTO(String username, String password, String email, UserType type, boolean active, ServiceDTO service, DepartmentDTO department, UserDataDTO data, boolean oauth, boolean isRecovering) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -40,6 +41,7 @@ public class FullUserDTO {
         this.department = department;
         this.data = data;
         this.oauth = oauth;
+        this.isRecovering = isRecovering;
     }
 
     public FullUserDTO(String email, String username, UserDataDTO data) {

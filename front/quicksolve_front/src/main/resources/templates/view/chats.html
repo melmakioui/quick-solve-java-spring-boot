@@ -28,13 +28,13 @@
           <div class="d-none" data-name="confirmCloseDiv">
             <div class="row">
               <div class="col-12 p-lg-3 p-1 text-center">
-                <small>Estas seguro que quieres desconectar este chat?</small>
+                <small th:text="${session.language.getKeyValue().get('chat.desconectar')}"></small>
               </div>
               <div class="col-6">
-                <button type="button" class="btn btn-primary w-100" name="closeChatConfirm">Si</button>
+                <button type="button" class="btn btn-primary w-100" name="closeChatConfirm" th:text="${session.language.getKeyValue().get('chat.si')}"></button>
               </div>
               <div class="col-6">
-                <button type="button" class="btn btn-outline-dark w-100" name="cancelChatConfirm">No</button>
+                <button type="button" class="btn btn-outline-dark w-100" name="cancelChatConfirm" th:text="${session.language.getKeyValue().get('chat.no')}"></button>
               </div>
             </div>
           </div>
@@ -81,6 +81,11 @@
   </th:block>
 </th:block>
 
+<p id="disconnectMessage" hidden="hidden" th:text="${session.language.getKeyValue().get('chat.desconectar.mensaje')}"></p>
+<p id="autoMessageTitle" hidden="hidden" th:text="${session.language.getKeyValue().get('chat.respuesta.automatica')}"></p>
+<p id="autoMessage" hidden="hidden" th:text="${session.language.getKeyValue().get('chat.desconectar.mensaje')}"></p>
+<p id="techCloseChat" hidden="hidden" th:text="${session.language.getKeyValue().get('chat.tecnico.cerrado')}"></p>
+<p id="youDissconnected" hidden="hidden" th:text="${session.language.getKeyValue().get('chat.tehas.desconectado')}"></p>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 <script th:src="@{/dist/jquery-3.6.3-min.js}"></script>

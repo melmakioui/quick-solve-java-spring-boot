@@ -130,4 +130,11 @@ public class UserServiceImpl implements UserService {
         if (usr == null) return null;
         return UserMapper.INSTANCE.userToDTO(usr);
     }
+
+    @Override
+    public void isRecovering(String email, boolean isRecovering) {
+        User usr = userRepo.findByEmail(email);
+        usr.setRecovering(isRecovering);
+        userRepo.save(usr);
+    }
 }

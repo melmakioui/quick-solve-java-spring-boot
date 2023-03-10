@@ -1,7 +1,9 @@
 let sessionId = '';
 let stompClient = null;
 let name = '';
-
+let title = $('#autoMessageTitle').text()
+let autoMessage = $('#autoMessage').text()
+let disconnected = $('#youDissconnected').text()
 $(document).ready(function(){
     $("#initChatForm").on('submit', function (e){
         name = $("#nameChat").val();
@@ -11,8 +13,8 @@ $(document).ready(function(){
         $("#cerrarChat").removeClass('d-none');
         $("#messagesChat").html(`
             <div class="d-flex flex-column m-1 m-lg-2 p-3 chat-bubble2 align-items-start">
-                <div class="fw-bold"> Respuesta automática </div> 
-                <div class="text-break">Bienvenido al chat! Porfavor, escriba su problema y en unos instantes un técnico le responderá</div>
+                <div class="fw-bold">` + title + `</div> 
+                <div class="text-break">` + autoMessage + `</div>
             </div>
         `);
         connect();
@@ -36,7 +38,7 @@ $(document).ready(function(){
             contentType: "application/json",
             data: sessionId,
             success: function(){
-                cerrarChat("Te has desconectado del chat.");
+                cerrarChat(disconnected);
             },
             error: function(err){
                 console.log(err);
@@ -87,7 +89,7 @@ function sendMessage(message) {
 
 function showMessage(sentBy, message) {
     console.log(message, sessionId + sessionId)
-    if (message === sessionId + sessionId) cerrarChat("Un técnico ha cerrado el chat.");
+    if (message === sessionId + sessionId) cerrarChat($('#techCloseChat').text());
     let chatBubble = sentBy !== name ? 'chat-bubble2 align-items-start' : 'chat-bubble1 align-items-end';
     $("#messagesChat").append(`
         <div class="d-flex flex-column m-1 m-lg-2 p-3 ${chatBubble}">

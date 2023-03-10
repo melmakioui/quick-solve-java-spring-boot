@@ -37,6 +37,7 @@ public class User {
     @Column(columnDefinition = "boolean default false")
     private boolean isActive;
 
+    private boolean isRecovering;
     @ManyToOne
     @JoinColumn(name = "service_id")
     private Service service;

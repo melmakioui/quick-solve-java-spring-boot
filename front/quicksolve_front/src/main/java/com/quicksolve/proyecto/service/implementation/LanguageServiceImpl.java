@@ -29,11 +29,18 @@ public class LanguageServiceImpl implements LanguageService {
             languageId = languageRepository.findByName(DEFAULT_LANGUAGE).getId();
         }
 
+        System.out.println(languageId);
+
         return webPageLanguageRepository.findAllByLanguageId(languageId)
                 .stream().map(webPageLanguage -> {
                     WebPage webPage = webPageLanguage.getWebPage();
                     LanguageDTO languageDTO = new LanguageDTO();
-                    languageDTO.setKey(webPage.getKeyy());
+
+                    if (webPage != null) {
+                        languageDTO.setKey(webPage.getKeyy());
+                    }else {
+                        languageDTO.setKey("null");
+                    }
                     languageDTO.setValue(webPageLanguage.getContent());
                     return languageDTO;
                 }).toList();

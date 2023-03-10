@@ -5,29 +5,29 @@
 </div>
 <div th:fragment="chat" class="chat-live position-fixed d-none" id="chatLive">
     <div class="card text-center" id="chatCardLive">
-        <div class="card-header d-none" id="titleChat">
-            Chat de soporte
-            <button class="btn btn-primary d-none mx-1 mx-lg-2" id="cerrarChat">Desconectar</button>
+        <div class="card-header d-none d-flex align-items-baseline justify-content-center" id="titleChat">
+            <p th:text="${session.language.getKeyValue().get('chat.soporte')}"></p>
+            '<button class="btn btn-primary d-none mx-1 mx-lg-2" id="cerrarChat" th:text="${session.language.getKeyValue().get('chat.desconetctar')}"></button>'
         </div>
         <div class="card-body chat-body" id="messagesChat">
-            <h5 class="card-title">Iniciar chat en vivo</h5>
+            <h5 class="card-title" th:text="${session.language.getKeyValue().get('chat.iniciar')}"></h5>
             <form id="initChatForm" class="d-flex flex-row justify-content-center p-1">
                 <div class="m-lg-2 m-1">
-                    <input type="text" class="form-control" name="nameChat" id="nameChat" placeholder="Nombre...">
+                    <input type="text" class="form-control" name="nameChat" id="nameChat" th:placeholder="${session.language.getKeyValue().get('chat.nombre.placeholder')}">
                 </div>
                 <div class="m-lg-2 m-1">
-                    <button type="submit" class="btn btn-primary" id="abrirChat">Abrir chat</button>
+                    <button type="submit" class="btn btn-primary" id="abrirChat" th:text="${session.language.getKeyValue().get('chat.abrir')}"></button>
                 </div>
             </form>
         </div>
         <div class="card-footer text-muted d-none" id="messageFooterChat">
             <form class="row" id="sendMessage">
                 <div class="col-auto col-lg-9">
-                    <label for="inputMessage" class="visually-hidden">Mensaje</label>
-                    <input type="text" class="form-control" id="inputMessage" placeholder="Mensaje...">
+                    <label for="inputMessage" class="visually-hidden" th:text="${session.language.getKeyValue().get('chat.mensaje')}"></label>
+                    <input type="text" class="form-control" id="inputMessage" th:placeholder="${session.language.getKeyValue().get('chat.mensaje.placeholder')}">
                 </div>
                 <div class="col-auto col-lg-3">
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button type="submit" class="btn btn-primary" th:text="${session.language.getKeyValue().get('chat.mensaje.enviar')}"></button>
                 </div>
             </form>
         </div>

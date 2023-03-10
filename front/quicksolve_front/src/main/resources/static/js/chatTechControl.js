@@ -86,7 +86,7 @@ function sendMessage(sessionId, message) {
 
 function showMessage(sentBy, message, sessionId) {
     if (message === sessionId + sessionId) {
-        message = "El usuario ha cerrado el chat. Puede cerrar esta ventana.";
+        message = $('#disconnectMessage').html();
         $("#chatSesId" + sessionId).remove();
     }
     let chatBubble = sentBy !== fullName ? 'chat-bubble2 align-items-start' : 'chat-bubble1 align-items-end';

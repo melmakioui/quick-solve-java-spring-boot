@@ -31,4 +31,6 @@ public interface UserService {
     List<FullUserDTO> listTechs();
 
     FullUserDTO getUserByEmailOrUsername(String emailOrUsername);
+
+    void isRecovering(String email, boolean isRecovering);
 }

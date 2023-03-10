@@ -68,6 +68,8 @@ public class VerifyAccountController {
         if (user == null) {
             model.addAttribute("found", "false");
             return "view/accountRecovery";
+        }else {
+            userService.isRecovering(user.getEmail(), true);
         }
 
         String token = tokenService.createTokenForValidation(user.getEmail(),user.getType().name());
@@ -88,6 +90,11 @@ public class VerifyAccountController {
         if(verify == 0) {
             Claims claims = tokenService.getClaims(token);
             String email = claims.get("email", String.class);
+
+            if (!userService.getUserBy(email).isRecovering()) {
+                return "redirect:/login";
+            }
+
             return "view/changePassword";
         }
 
@@ -111,6 +118,7 @@ public class VerifyAccountController {
             Claims claims = tokenService.getClaims(token);
             String email = claims.get("email", String.class);
             userService.changePassword(email, password);
+            userService.isRecovering(email, false);
             model.addAttribute("isPasswordChanged", true);
             return "view/success";
         }

@@ -15,7 +15,7 @@ $(document).ready(function () {
             extensions: [".jpg", ".jpeg", ".png"],
             mimes: ["image/jpeg", "image/png"],
             preloaded: preloadedImages ? preloadedImages : [],
-            maxFiles: 5,
+            maxFiles: 4,
         });
     }
 

@@ -57,7 +57,12 @@
         </section>
     </div>
 
-    <p th:if="${incidenceUploaded}" th:text="${session.language.getKeyValue().get('notify.incidencia.subida')}" hidden="hidden" id="feedBack" data-class="success"></p>
+    <p th:if="${incidenceUploaded}" hidden="hidden" th:text="${session.language.getKeyValue().get('notify.incidencia.subida')}" id="feedBack" data-class="success"></p>
+    <p id="disconnectMessage"  hidden="hidden" th:text="${session.language.getKeyValue().get('chat.desconetctar')}"></p>
+    <p id="autoMessageTitle"  hidden="hidden" th:text="${session.language.getKeyValue().get('chat.respuesta.automatica')}"></p>
+    <p id="autoMessage"  hidden="hidden" th:text="${session.language.getKeyValue().get('chat.mensaje.automatico')}"></p>
+    <p id="techCloseChat"  hidden="hidden" th:text="${session.language.getKeyValue().get('chat.tecnico.cerrado')}"></p>
+    <p id="youDissconnected" hidden="hidden" th:text="${session.language.getKeyValue().get('chat.tehas.desconectado')}"></p>
 
     <th:block th:include="view/fragments/chat"></th:block>
     <th:block th:include="view/fragments/footer"></th:block>
