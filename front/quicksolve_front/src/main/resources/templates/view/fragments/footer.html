@@ -8,13 +8,11 @@
             <h5 th:text="${session.language.getKeyValue().get('footer.titulo1')}"></h5>
             <ul class="list-unstyled text-small p-2">
                 <li>
-                    <a href="#" class="text-decoration-underline text-texto-contraste" th:text="${session.language.getKeyValue().get('footer.sub11')}"></a>
+                    <a href="/" class="text-decoration-underline text-texto-contraste" th:text="${session.language.getKeyValue().get('footer.sub11')}"></a>
                 </li>
                 <li>
-                    <a href="/public/nueva" class="text-decoration-underline text-texto-contraste" th:text="${session.language.getKeyValue().get('footer.sub12')}"></a>
-                </li>
-                <li>
-                    <a href="#" class="text-decoration-underline text-texto-contraste" th:text="${session.language.getKeyValue().get('footer.sub13')}"></a>
+                    <a href="/incidencia/nueva" th:if="${userlogin}" class="text-decoration-underline text-texto-contraste" th:text="${session.language.getKeyValue().get('footer.sub12')}"></a>
+                    <a href="/public/nueva" th:unless="${userlogin}" class="text-decoration-underline text-texto-contraste" th:text="${session.language.getKeyValue().get('footer.sub12')}"></a>
                 </li>
             </ul>
         </div>
@@ -25,10 +23,10 @@
                     <a href="/contacto" class="text-decoration-underline text-texto-contraste" th:text="${session.language.getKeyValue().get('contacto')}"></a>
                 </li>
                 <li>
-                    <a href="twitter.com" class="text-decoration-underline text-texto-contraste">Twitter</a>
+                    <a href="https://www.twitter.com" class="text-decoration-underline text-texto-contraste">Twitter</a>
                 </li>
                 <li>
-                    <a href="facebook.com" class="text-decoration-underline text-texto-contraste">Facebook</a>
+                    <a href="https://www.facebook.com" class="text-decoration-underline text-texto-contraste">Facebook</a>
                 </li>
             </ul>
         </div>

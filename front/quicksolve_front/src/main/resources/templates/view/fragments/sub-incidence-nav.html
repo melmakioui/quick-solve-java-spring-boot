@@ -18,18 +18,15 @@
             <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/incidencias}" th:text="${session.language.getKeyValue().get('sidebar.misincidencias')}"></a>
           </li>
           <li class="nav-item px-2">
-            <!-- el link de abajo tendrá que llevar al apartado de cuenta del usuario -->
             <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/cuenta}" th:if="${userlogin}" th:text="${userlogin.username}"> <img th:src="@{img/account-sign.svg}" alt="user icon" width="24" height="24"></a>
-            <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/login}" th:unless="${userlogin}">Login <img th:src="@{/img/account-sign.svg}" alt="user icon" width="24" height="24" id="user-icon"></a>
           </li>
           <li class="nav-item px-2">
             <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" style="cursor: pointer;" th:if="${userlogin}" href data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="${session.language.getKeyValue().get('nav.li2')}"></a>
-            <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/registro}" th:unless="${userlogin}" th:text="${session.language.getKeyValue().get('nav.li3')}"></a>
-          </li>
-          <li class="nav-item px-2" th:if="not ${userlogin}">
-            <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:if="not ${userlogin}" th:href="@{/public/nueva}" th:text="${session.language.getKeyValue().get('nav.li5')}"></a>
           </li>
           <li class="nav-item px-2">
+            <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" th:href="@{/incidencia/nueva}" th:text="${session.language.getKeyValue().get('nav.li5')}"></a>
+          </li>
+          <li class="nav-item px-2"  th:if="${userlogin.type == T(com.quicksolve.proyecto.entity.type.UserType).USER}">
             <a class="nav-link p-3 rounded-pill nav-item-personalized mx-lg-0 mx-auto col-lg-12 col-md-5 col-8 mt-lg-0 mt-2 text-center" aria-current="page" th:href="@{/planes}" th:text="${session.language.getKeyValue().get('nav.li6')}"></a>
           </li>
           <li class="nav-item dropdown px-2">

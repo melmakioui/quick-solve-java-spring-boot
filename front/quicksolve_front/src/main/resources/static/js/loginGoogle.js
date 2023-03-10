@@ -11,7 +11,7 @@ window.onload = function () {
                         body: credential,
                     }
                 );
-                if (responseFetch.ok) window.location.href = "/";
+                if (responseFetch.ok) window.location.href = "/incidencias";
                 else window.location.href = "/error";
             },
         });

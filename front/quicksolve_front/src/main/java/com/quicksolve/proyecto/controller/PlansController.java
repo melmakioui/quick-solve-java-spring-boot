@@ -1,6 +1,7 @@
 package com.quicksolve.proyecto.controller;
 
 import com.quicksolve.proyecto.dto.FullUserDTO;
+import com.quicksolve.proyecto.entity.type.UserType;
 import com.quicksolve.proyecto.service.InvoiceService;
 import com.quicksolve.proyecto.service.ServiceService;
 import com.quicksolve.proyecto.service.UserService;
@@ -27,6 +28,7 @@ public class PlansController {
 
     @GetMapping("/planes")
     public String renderPlans(Model model){
+        if(((FullUserDTO) model.getAttribute("userlogin")).getType() != UserType.USER) return "redirect:/error";
         model.addAttribute("planes", serviceServ.showAll());
         return "view/planes";
     }

@@ -1,6 +1,6 @@
-<div class="position-fixed" style="bottom: 14px; right: 14px;" id="abrirVentanaChatDiv">
+<div class="position-fixed" style="bottom: 14px; right: 14px;" id="abrirVentanaChatDiv" aria-label="chat">
     <button class="btn btn-secondary rounded-circle p-2" id="abrirVentanaChat">
-        <img th:src="@{/img/live-chat.svg}" width="32px">
+        <img th:src="@{/img/live-chat.svg}" width="800" height="800" style="width: 32px; height: 32px;" alt="chat">
     </button>
 </div>
 <div th:fragment="chat" class="chat-live position-fixed d-none" id="chatLive">

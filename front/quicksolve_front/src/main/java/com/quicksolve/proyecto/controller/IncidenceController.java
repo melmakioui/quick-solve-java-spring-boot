@@ -84,6 +84,10 @@ public class IncidenceController {
 
     @GetMapping("/public/nueva")
     public String showNoUserForm(Model model) {
+
+        if (model.getAttribute("userlogin") != null) return "redirect:/incidencia/nueva";
+
+
         FullIncidenceDTO fullIncidenceDTO = new FullIncidenceDTO();
         fullIncidenceDTO.setDepartment(new DepartmentDTO());
         fullIncidenceDTO.setSpace(new SpaceDTO());

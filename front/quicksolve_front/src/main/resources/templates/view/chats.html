@@ -14,7 +14,7 @@
 <body>
 <span hidden id="fullNameTech" th:text="${userlogin.data.name + ' ' + userlogin.data.firstSurname + ' ' + userlogin.data.secondSurname}"></span>
 <th:block th:include="view/fragments/sub-incidence-nav"></th:block>
-<div class="d-flex justify-content-start align-items-center flex-column mx-auto" th:if="${not #lists.isEmpty(chats)}" style="height: 100%;">
+<div class="d-flex justify-content-start align-items-start flex-column mx-auto" th:if="${not #lists.isEmpty(chats)}" style="height: 100%;">
   <div class="container mx-auto">
     <h1 class="h1 my-lg-5 my-3 ms-4 ms-lg-2 align-self-start" th:text="${session.language.getKeyValue().get('chat.titulo')}"></h1>
     <div class="d-flex justify-content-lg-start justify-content-center align-items-center flex-wrap" data-div="chat-div">
