@@ -30,6 +30,11 @@ public class InfoController {
         return "view/contact";
     }
 
+    @GetMapping("/sobre-nosotros")
+    public String aboutUs(){
+        return "view/sobre-nosotros";
+    }
+
     @PostMapping("/contacto")
     public String contactPost(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("message") String message, Model model){
 
