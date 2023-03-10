@@ -19,9 +19,10 @@
     "gulp-image-resize": "^0.13.1",
     "gulp-sass": "^5.1.0",
     "gulp-w3cjs": "^1.3.2",
-    "gulp-minify": "3.1.0",
+    "gulp-uglify": "3.0.2",
     "gulp-imagemin": "^8.0.0",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "gulp-purgecss": "4.0.0"
   },
   "dependencies": {
     "express": "^4.18.1"

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Email</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-
 </head>
 <body>
 
@@ -16,6 +15,5 @@
     <p class="text-verification" th:text="${session.language.getKeyValue().get('correo.mensaje')}"></p>
     <a th:href="@{/}" class="btn btn-cta" th:text="${session.language.getKeyValue().get('correo.btn.inicio')}"></a>
 </div>
-
 </body>
 </html>

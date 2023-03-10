@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/dist/style.css}">
     <link rel="icon" type="text/x-icon" th:href="@{/img/favicon.ico}">
     <title th:text="'Politica de privacidad'"></title>
 </head>
 <body>
 <th:block th:include="view/fragments/nav"></th:block>
-
-<body>
 <div class="row w-100">
 
     <div id="main" class="row col-md-7 my-lg-5 my-3 justify-content-center w-100 px-5">
@@ -35,6 +33,7 @@
                 <li>
                     <p th:text="${session.language.getKeyValue().get('politica.datospersonales.datos')}"></p>
                 </li>
+            </ul>
             <h3 th:text="${session.language.getKeyValue().get('politica.titulo.usodedatos')}"></h3>
             <p th:text="${session.language.getKeyValue().get('politica.subtitulo.usodedatos')}"></p>
             <p th:text="${session.language.getKeyValue().get('politica.parrafo.usodedatos')}"></p>
@@ -83,6 +82,7 @@
             </ul>
         </div>
     </div>
+</div>
     <th:block th:include="view/fragments/footer"></th:block>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

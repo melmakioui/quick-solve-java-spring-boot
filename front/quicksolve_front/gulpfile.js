@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
-const minify = require('gulp-minify');
+const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 
 function compileSass(){
@@ -18,7 +18,7 @@ function minifyCss() {
 
 function minifyJs() {
     return gulp.src('./src/main/resources/static/js/**/*.js')
-        .pipe(minify())
+        .pipe(uglify())
         .pipe(gulp.dest('./src/main/resources/static/dist'));
 }
 
@@ -28,5 +28,5 @@ function concatCss(){
         .pipe(gulp.dest('./src/main/resources/static/dist'));
 }
 
-exports.default = gulp.parallel(gulp.series(compileSass,minifyCss));
-exports.build = gulp.parallel(gulp.series(compileSass,minifyCss));
+exports.default = gulp.parallel(gulp.series(compileSass, minifyCss, minifyJs));
+exports.build = gulp.parallel(gulp.series(compileSass, minifyCss));
