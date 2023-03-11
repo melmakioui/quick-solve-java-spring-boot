@@ -8,12 +8,21 @@ self.addEventListener("install", function (e) {
     );
 });
 
-self.addEventListener("fetch", function (event) {
-    console.log(event.request.url);
-
-    event.respondWith(
-        caches.match(event.request).then(function (response) {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener('activate', () => {
+    self.clients.matchAll({
+        type: 'window'
+    }).then(windowClients => {
+        windowClients.forEach((windowClient) => {
+            windowClient.navigate(windowClient.url);
+        });
+    });
 });
+
+self.onfetch = function(event) {
+    event.respondWith(
+        caches.match(event.request)
+            .then(function() {
+                return fetch(event.request);
+            })
+    );
+}
